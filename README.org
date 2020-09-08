@@ -5,3 +5,19 @@
 + Working with JS
 + Some new functions added.
 
+* Prerequisites
+ - Git 2.23+
+ - Emacs 26.1+ (27 is recommended) with GNUTLS support
+ - ripgrep 11.0+
+ - GNU find
+ - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
+
+* Installation
+#+BEGIN_SRC shell
+git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
+~/.emacs.d/bin/doom install
+#+END_SRC
+
+* Getting help
+For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
