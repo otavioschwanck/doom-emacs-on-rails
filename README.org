@@ -19,5 +19,8 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 #+END_SRC
 
+* Solargraph
+To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
+
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
