@@ -1,0 +1,7 @@
+* Description
+# Personal configuration for doom emacs
+
++ Function to use with solargraph and rails (with rbenv)
++ Working with JS
++ Some new functions added.
+
