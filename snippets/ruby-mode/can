@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: can(:manage, Class, user: @user)
+# --
+can(:${manage}, ${Class}${, ${field}: ${value}})

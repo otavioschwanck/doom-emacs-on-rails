@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: ife
+# --
+<% if ${condition} %>
+  ${}
+<% else %>
+  ${}
+<% end %>

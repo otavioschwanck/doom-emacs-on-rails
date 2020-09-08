@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: subject { described_class.new(params) }
+# key: subj
+# --
+subject { ${described_class}${.new(${params})} }

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: do |code|
+# key: dol
+# --
+do |${code}|
+  ${}
+end
