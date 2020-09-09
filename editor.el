@@ -91,3 +91,6 @@
 
 ;; Clear terminal
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
+
+;; Open Terminal
+(map! :leader "v" #'projectile-run-shell)
