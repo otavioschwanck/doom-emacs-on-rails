@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2020  John Doe
 
-;; Author: John Doe <john@doe.com>
+;; Author: Otávio Schwanck dos Santos <otavioshwanck@gmail.com>
 ;; Keywords: Editor
 
 ;; Save all
