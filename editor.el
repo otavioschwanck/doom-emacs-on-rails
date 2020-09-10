@@ -94,3 +94,4 @@
 
 ;; Open Terminal
 (map! :leader "v" #'projectile-run-shell)
+(setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
