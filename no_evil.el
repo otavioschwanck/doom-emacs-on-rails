@@ -15,8 +15,6 @@
 (global-set-key (kbd "C-c C-j") 'join-line)
 (global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
 
-(define-key ruby-mode-map (kbd "C-t") #'projectile-rails-find-current-test)
-
 (map! "M-2" #'er/expand-region)
 (map! "C-u" #'undo)
 (map! "C-c s c" #'avy-goto-char-2)
