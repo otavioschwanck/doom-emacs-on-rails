@@ -5,11 +5,6 @@
 ;; Author: Otávio <otavioschwanck@gmail.com>
 ;; Keywords: ruby
 
-;; Better C-j and C-k
-(map! :map ruby-mode-map
-      "C-k" #'ruby-beginning-of-block
-      "C-j" #'ruby-end-of-block)
-
 ;; Rubocop com C-=
 (after! ruby-mode
   (defun msc/revert-buffer-noconfirm ()
@@ -64,8 +59,7 @@
         (message "Copied %s" name))))
 
   ;; binding it to SPC m C
-  (map! :map ruby-mode-map :localleader "C" #'endless/ruby-copy-class-name)
-  )
+  (map! :map ruby-mode-map :localleader "C" #'endless/ruby-copy-class-name))
 
 (remove-hook 'text-mode-hook #'visual-line-mode)
 
@@ -98,8 +92,8 @@
   (interactive)
   (if (string-match-p "/spec/" buffer-file-name) (find-file (file-path-to-test buffer-file-name)))
   (delete-other-windows)
-  (evil-window-vsplit)
-  (evil-window-right 1)
+  (split-window-right)
+  (ace-window 1)
   (if (string-match-p "/app/" buffer-file-name) (find-file (file-path-to-test buffer-file-name))))
 
 (defun goto-test ()
