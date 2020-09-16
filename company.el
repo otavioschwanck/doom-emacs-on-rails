@@ -15,7 +15,7 @@
 
 (after! company
   (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0.08))
+  (setq company-idle-delay 0.1))
 
 (after! company
   (defadvice! +company--abort-previous-a (&rest _)
