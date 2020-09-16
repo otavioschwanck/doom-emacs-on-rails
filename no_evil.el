@@ -23,6 +23,8 @@
 (map! "<C-return>" #'dabbrev-expand)
 (map! "<C-S-return>" #'+company/dabbrev)
 (map! "<C-M-return>" #'company-yasnippet)
+(map! "C-." #'counsel-find-file)
+(map! "C-," #'+ivy/switch-workspace-buffer)
 
 ;; (define-key org-mode-map (kbd "C-c l <return>") #'+org/dwim-at-point)
 
