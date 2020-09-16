@@ -25,6 +25,8 @@
 (map! "<C-M-return>" #'company-yasnippet)
 (map! "C-." #'counsel-find-file)
 (map! "C-," #'+ivy/switch-workspace-buffer)
+(map! "C-=" #'+lookup/definition)
+(map! "C-x k" #'kill-this-buffer)
 
 ;; (define-key org-mode-map (kbd "C-c l <return>") #'+org/dwim-at-point)
 
