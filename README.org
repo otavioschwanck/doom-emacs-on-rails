@@ -1,10 +1,19 @@
-* Description
-# Personal configuration for doom emacs
+* Index :TOC:
+- [[#description][Description]]
+- [[#prerequisites][Prerequisites]]
+- [[#installation][Installation]]
+- [[#solargraph][Solargraph]]
+- [[#new-to-emacs][New to emacs?]]
+  - [[#most-important-plugins-installed-and-how-to-use][Most important plugins installed and how to use]]
+  - [[#some-tips][Some tips]]
+- [[#for-vim-users][For vim users]]
+- [[#getting-help][Getting help]]
 
-+ Ready to use with solargraph and rails (with rbenv)
+* Description
++ Ready to use with solargraph and rails (with rbenv)                                                                                                   
 + Working with JS
 + Some new functions added.
-
+  
 * Prerequisites
  - Git 2.23+
  - Emacs 26.1+ (27 is recommended) with GNUTLS support
@@ -21,6 +30,81 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 
 * Solargraph
 To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
+
+* New to emacs?
+If is your first time using emacs, i strongly recommended you to do the emacs tutorial.  After the emacs start, press Alt+x and type: help-with-tutorial and press enter.
+After the tutorial is done, press Alt+x, and run *projectile-discover-projects-in-directory*, after this, projectile will know where is your projects folder!
+
+** Most important plugins installed and how to use
+*** Projectile
+Manage your projects.  Prefix: *C-c p*
+
+| Command                 | Description                                                                                             |
+|-------------------------+---------------------------------------------------------------------------------------------------------|
+| C-c p p                 | Change project                                                                                          |
+| C-c p s                 | Search text in project (required ripgrep)                                                               |
+| C-c C-o (after C-c p s) | Edit all search candidates once (to edit, run C-x C-q to disable readonly and C-c C-c to commit change) |
+| C-c p w                 | Open terminal on project                                                                                |
+
+*** Projectile Rails
+Navigate in rails project easily. Prefix: *C-c r*
+
+| Command   | Description                |
+|-----------+----------------------------|
+| C-c r m   | Go to Model                |
+| C-c r M   | Go to Related Model        |
+| C-c r c   | Go to Controller           |
+| C-c r C   | Go to Related Controller   |
+| C-c r r   | Rails Console              |
+| C-c r R   | Rails Server               |
+| C-c r ! g | Rails generate             |
+| C-c a     | Switch between file / spec (if test don't exists, it creates for you <3) |
+| C-c A     | Split with file / spec     |
+
+*** Rspec-mode
+Run your specs! Prefix: *C-c ,*
+
+| Command | Description      |
+| C-c , a | Run all specs    |
+| C-c , v | Run current file |
+| C-c , r | Run last failed  |
+
+*** Magit
+Best git manager ever. Prefix: *C-c v*
+
+| Command   | Description         |
+| C-c v g   | Open magit          |
+| ?         | (on magit) See help |
+| C-c v r   | Revert change       |
+| C-c v L l | Git log (q to quit)  |
+| C-c v B   | Git blame (q to quit) |
+
+
+*** Custom commands (important)
+Some modified commands that i changed
+
+| Command | Description                                                                                                 |
+|---------+-------------------------------------------------------------------------------------------------------------|
+| C-c =   | Rubocop on current file                                                                                     |
+| C-S-=   | Indent all file                                                                                             |
+| C-.     | Find-File                                                                                                   |
+| C-,     | Find-Buffer                                                                                                 |
+| C-q     | Search file on project                                                                                      |
+| C-RET   | Fast complete word                                                                                          |
+| C-S-g   | Shortcut to magit                                                                                           |
+| M-2     | (super important) Expand Region <3                                                                          |
+| C-c l   | Language specific commands (see the keys on help) obs: on ruby, you can execute rake tasks, run bundle, etc |
+| C-u     | Undo                                                                                                        |
+| C-p C-u | Redo                                                                                                        |
+| C-ç     | Save all files                                                                                              |
+
+
+** Some tips
+- Don't use arrow keys!
+- To switch the auto completes, use M-j and M-k
+
+* For vim users
+If you want to use the vim keybindings, just switch to *evil-mode* branch.
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
