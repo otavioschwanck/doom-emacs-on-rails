@@ -87,6 +87,7 @@ Some modified commands that i changed
 |------------+-------------------------------------------------------------------------------------------------------------|
 | C-c =      | Rubocop on current file                                                                                     |
 | C-S-=      | Indent all file                                                                                             |
+| C-.        | Go to definition                                                                                            |
 | C-q        | Search file on project                                                                                      |
 | C-tab      | Search all open buffers                                                                                     |
 | C-RET      | Fast complete word                                                                                          |
