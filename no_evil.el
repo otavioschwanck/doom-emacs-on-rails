@@ -25,6 +25,10 @@
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-M-;" #'+neotree/open)
 
+;; Drag stuff rules
+(map! "M-p" #'drag-stuff-up)
+(map! "M-n" #'drag-stuff-down)
+
 ;; (define-key org-mode-map (kbd "C-c l <return>") #'+org/dwim-at-point)
 
 (defun save-all ()
