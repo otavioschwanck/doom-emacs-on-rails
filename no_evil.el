@@ -23,7 +23,7 @@
 (map! "<C-M-return>" #'company-yasnippet)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
-(map! "C-M-;" #'treemacs)
+(map! "C-M-;" #'+neotree/open)
 
 ;; (define-key org-mode-map (kbd "C-c l <return>") #'+org/dwim-at-point)
 
