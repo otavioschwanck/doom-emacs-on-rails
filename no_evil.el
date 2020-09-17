@@ -28,6 +28,9 @@
 ;; Drag stuff rules
 (map! "M-p" #'drag-stuff-up)
 (map! "M-n" #'drag-stuff-down)
+(map! "M-a" #'avy-goto-char-2)
+
+(setq avy-all-windows t)
 
 (defun duplicate-line-or-region (&optional n)
   "Duplicate current line, or region if active.
