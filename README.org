@@ -83,20 +83,19 @@ Best git manager ever. Prefix: *C-c v*
 *** Custom commands (important)
 Some modified commands that i changed
 
-| Command | Description                                                                                                 |
-|---------+-------------------------------------------------------------------------------------------------------------|
-| C-c =   | Rubocop on current file                                                                                     |
-| C-S-=   | Indent all file                                                                                             |
-| C-.     | Find-File                                                                                                   |
-| C-,     | Find-Buffer                                                                                                 |
-| C-q     | Search file on project                                                                                      |
-| C-RET   | Fast complete word                                                                                          |
-| C-S-g   | Shortcut to magit                                                                                           |
-| M-2     | (super important) Expand Region <3                                                                          |
-| C-c l   | Language specific commands (see the keys on help) obs: on ruby, you can execute rake tasks, run bundle, etc |
-| C-u     | Undo                                                                                                        |
-| C-p C-u | Redo                                                                                                        |
-| C-ç     | Save all files                                                                                              |
+| Command    | Description                                                                                                 |
+|------------+-------------------------------------------------------------------------------------------------------------|
+| C-c =      | Rubocop on current file                                                                                     |
+| C-S-=      | Indent all file                                                                                             |
+| C-q        | Search file on project                                                                                      |
+| C-tab      | Search all open buffers                                                                                     |
+| C-RET      | Fast complete word                                                                                          |
+| C-S-g      | Shortcut to magit                                                                                           |
+| M-2 or C-w | (super important) Expand Region <3                                                                          |
+| C-c l      | Language specific commands (see the keys on help) obs: on ruby, you can execute rake tasks, run bundle, etc |
+| C-u        | Undo                                                                                                        |
+| C-p C-u    | Redo                                                                                                        |
+| C-ç        | Save all files                                                                                              |
 
 
 ** Some tips

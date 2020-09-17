@@ -16,13 +16,12 @@
 (global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
 
 (map! "M-2" #'er/expand-region)
+(map! "C-w" #'er/expand-region)
 (map! "C-u" #'undo)
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
 (map! "<C-S-return>" #'+company/dabbrev)
 (map! "<C-M-return>" #'company-yasnippet)
-(map! "C-." #'counsel-find-file)
-(map! "C-," #'+ivy/switch-workspace-buffer)
 (map! "C-=" #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
 
