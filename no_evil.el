@@ -26,9 +26,15 @@
 
 ;; (define-key org-mode-map (kbd "C-c l <return>") #'+org/dwim-at-point)
 
+(defun save-all ()
+  "Save all files"
+  (interactive)
+  (kbd "C-1 C-x s")
+  (delete-trailing-whitespace))
+
 ;; Custom Projectile Keybindings
 (map! "C-c p w" #'projectile-run-shell)
-(global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
+(global-set-key (kbd "C-ç") #'save-all)
 
 (use-package! multiple-cursors
   :init
