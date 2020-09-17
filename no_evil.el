@@ -23,13 +23,14 @@
 (map! "<C-M-return>" #'company-yasnippet)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
+(map! "C-M-;" #'treemacs)
 
 ;; (define-key org-mode-map (kbd "C-c l <return>") #'+org/dwim-at-point)
 
 (defun save-all ()
   "Save all files"
   (interactive)
-  (kbd "C-1 C-x s")
+  (save-all-buffers)
   (delete-trailing-whitespace))
 
 ;; Custom Projectile Keybindings
@@ -86,7 +87,7 @@
   (defun rubocop-on-current-file ()
     "RUBOCOP ON CURRENT_FILE."
     (interactive)
-    (save-buffer)
+    (save-all-buffers)
     (message "%s" (shell-command-to-string
                    (concat "bundle exec rubocop -a "
                            (shell-quote-argument (buffer-file-name)))))
