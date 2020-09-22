@@ -94,3 +94,4 @@
 
 ;; Open Terminal
 (map! :leader "v" #'projectile-run-shell)
+(map! :leader "e" #'+neotree/open)
