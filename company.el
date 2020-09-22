@@ -7,7 +7,11 @@
 ;; C-p when company is active
 (map! :after company
       :map company-active-map
-      "C-p" nil)
+      "C-S-p" #'+company/dabbrev
+      "C-p" #'dabbrev-expand)
+
+(map! :i "C-p" #'dabbrev-expand)
+(map! :i "C-S-p" #'+company/dabbrev)
 
 (map! :after company
       :map company-active-map
