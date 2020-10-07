@@ -15,8 +15,10 @@
 (global-set-key (kbd "C-c C-j") 'join-line)
 (global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
 
+(map! "C-c SPC" #'counsel-mark-ring)
 (map! "M-2" #'er/expand-region)
-(map! "C-u" #'undo)
+(map! "C-;" #'undo-fu-only-undo)
+(map! "M-;" #'undo-fu-only-redo)
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
 (map! "<C-S-return>" #'+company/dabbrev)
@@ -121,3 +123,24 @@ there's a region, all lines that region covers will be duplicated."
                            (shell-quote-argument (buffer-file-name)))))
     (msc/revert-buffer-noconfirm))
   (define-key ruby-mode-map (kbd "C-)") #'rubocop-on-current-file))
+
+;; When popping the mark, continue popping until the cursor
+;; actually moves
+(defadvice pop-to-mark-command
+    (around ensure-new-position activate)
+  (let ((p (point)))
+    (dotimes (i 10)
+      (when (= p (point))
+        ad-do-it))))
+
+(setq set-mark-command-repeat-pop t)
+
+(defun modi/multi-pop-to-mark (orig-fun &rest args)
+  "Call ORIG-FUN until the cursor moves.
+Try the repeated popping up to 10 times."
+  (let ((p (point)))
+    (dotimes (i 10)
+      (when (= p (point))
+        (apply orig-fun args)))))
+(advice-add 'pop-to-mark-command :around
+            #'modi/multi-pop-to-mark)
