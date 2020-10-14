@@ -94,3 +94,5 @@
 
 ;; Open Terminal
 (map! :leader "v" #'projectile-run-shell)
+
+(setq evil-snipe-repeat-keys t)
