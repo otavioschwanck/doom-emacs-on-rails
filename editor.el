@@ -103,3 +103,6 @@
 (map! :mode smerge-mode :leader "gdo" #'smerge-keep-other)
 (map! :mode smerge-mode :leader "gda" #'smerge-keep-all)
 (map! :mode smerge-mode :leader "gdc" #'smerge-keep-current)
+
+;; Treemacs ? I prefer find-file, but if you like ;)
+(map! :leader "e" #'+treemacs/toggle)
