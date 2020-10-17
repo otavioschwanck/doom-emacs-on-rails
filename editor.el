@@ -95,4 +95,11 @@
 ;; Open Terminal
 (map! :leader "v" #'projectile-run-shell)
 
+;; After f and s, just keep pressing f or s to keep searching
 (setq evil-snipe-repeat-keys t)
+
+;; lets resolve some conflicts?
+(map! :mode smerge-mode :leader "gdm" #'smerge-keep-mine)
+(map! :mode smerge-mode :leader "gdo" #'smerge-keep-other)
+(map! :mode smerge-mode :leader "gda" #'smerge-keep-all)
+(map! :mode smerge-mode :leader "gdc" #'smerge-keep-current)
