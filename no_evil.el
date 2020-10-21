@@ -144,3 +144,17 @@ Try the repeated popping up to 10 times."
         (apply orig-fun args)))))
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
+
+(add-hook! 'lsp-completion-mode-hook
+  (defun init-company-tabnine-h ()
+    (when lsp-completion-mode
+      (setq-local company-backends (cons 'company-tabnine company-backends)))))
+
+(defadvice! append-company-tabnine-to-backends-a ()
+  :after #'+company-init-backends-h
+  (setq-local company-backends (cons 'company-tabnine company-backends)))
+
+(after! company
+  (setq company-dabbrev-downcase 0)
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0))

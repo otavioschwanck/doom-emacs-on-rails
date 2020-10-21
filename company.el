@@ -6,4 +6,5 @@
 
 (after! company
   (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0.1))
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0))
