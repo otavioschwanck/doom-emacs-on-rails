@@ -13,14 +13,20 @@
 (map! :i "<C-return>" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
+(map! :i "C-i" #'company-capf)
 
 (map! :after company
       :map company-active-map
+      "<tab>" #'company-complete
+      "RET" nil
+      "<return>" nil
+      "C-i" #'company-capf
       "<C-return>" #'yas-expand)
 
 (after! company
   (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0.1))
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0))
 
 (defun yas-next-and-close-company ()
   (interactive)
