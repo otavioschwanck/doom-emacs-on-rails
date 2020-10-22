@@ -17,7 +17,7 @@
 
 (map! :after company
       :map company-active-map
-      "<tab>" #'company-complete
+      "<tab>" #'company-complete-selection
       "RET" nil
       "<return>" nil
       "C-i" #'company-capf

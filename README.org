@@ -35,8 +35,6 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 | C-enter | Toggle snippet / go foward in snippet                    |
 | C-d     | (while snipped is active) Delete the highlighted snippet |
 
-![](autocomplete.gif)
-
 * Solargraph
 To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
 
