@@ -13,16 +13,15 @@
 (global-set-key (kbd "C-S-o") (kbd "C-p C-e C-m"))
 (global-set-key (kbd "C-S-k") 'sp-kill-hybrid-sexp)
 (global-set-key (kbd "C-c C-j") 'join-line)
-(global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
+        (global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
 
 (map! "C-c SPC" #'counsel-mark-ring)
 (map! "M-2" #'er/expand-region)
 (map! "C-;" #'undo-fu-only-undo)
 (map! "M-;" #'undo-fu-only-redo)
 (map! "C-c s c" #'avy-goto-char-2)
-(map! "<C-return>" #'dabbrev-expand)
-(map! "<C-S-return>" #'+company/dabbrev)
-(map! "<C-M-return>" #'company-yasnippet)
+(map! "<C-dead-acute>" #'dabbrev-expand)
+(map! "<C-return>" #'yas-expand)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-M-;" #'+neotree/open)
@@ -88,7 +87,10 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after company
       :map company-active-map
-      "<tab>" #'yas-expand)
+      "<return>" nil
+      "RET" nil
+      "<tab>" #'company-complete-selection
+      "<C-return>" #'yas-expand)
 
 (setq mark-ring-max 10)
 (setq global-mark-ring-max 10)
@@ -106,6 +108,8 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after yasnippet
       :map yas-keymap
+      "<C-S-return>" 'yas-prev-field
+      "<C-return>" 'yas-next-and-close-company
       "<tab>" 'yas-next-and-close-company)
 
 (after! ruby-mode
