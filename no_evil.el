@@ -111,7 +111,7 @@ there's a region, all lines that region covers will be duplicated."
       :map yas-keymap
       "<C-S-return>" 'yas-prev-field
       "<C-return>" 'yas-next-and-close-company
-      "<tab>" 'yas-next-and-close-company)
+      "<tab>" 'company-complete-selection)
 
 (after! ruby-mode
   (defun msc/revert-buffer-noconfirm ()
