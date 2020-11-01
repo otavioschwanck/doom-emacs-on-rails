@@ -108,7 +108,7 @@
 ;; Toggle truncate lines
 (map! :leader "t t" #'toggle-truncate-lines)
 
-(map! :leader "e" #'+neotree/find-this-file)
+(map! :leader "e" #'+treemacs/toggle)
 
 (map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
 (map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
