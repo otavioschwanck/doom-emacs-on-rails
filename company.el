@@ -35,5 +35,6 @@
 
 (map! :after yasnippet
       :map yas-keymap
+      "<tab>" #'company-complete-selection
       "<C-S-return>" 'yas-prev-field
       "<C-return>" 'yas-next-and-close-company)
