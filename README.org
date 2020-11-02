@@ -90,7 +90,7 @@ To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D
 | C-k                 | All               | Go one sentence up (very useful)   |
 | TAB                 | All (except org)  | Same as / (search)                 |
 | C-TAB               | All (except org)  | Same as ? (search-backwards)       |
-| C-q                 | All (innert mode) | Paste on insert mode               |
+| C-q                 | All (insert mode) | Paste on insert mode               |
 | J and K             | Normal Mode       | Drag stuff down and up             |
 | C-, and C-;         | Normal Mode       | Previous and Next buffer           |
 | ç                   | Normal mode       | Save all files                     |
