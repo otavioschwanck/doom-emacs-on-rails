@@ -1,3 +1,16 @@
+* Index :toc:
+- [[#description][Description]]
+- [[#prerequisites][Prerequisites]]
+- [[#installation][Installation]]
+- [[#performance-hacks][Performance hacks]]
+- [[#using-autocomplete][Using Autocomplete]]
+- [[#tips][Tips]]
+  - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
+  - [[#multiple-cursors][Multiple-cursors]]
+- [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
+- [[#solargraph][Solargraph]]
+- [[#getting-help][Getting help]]
+
 * Description
 # Personal configuration for doom emacs
 
