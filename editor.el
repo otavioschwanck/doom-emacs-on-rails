@@ -114,3 +114,5 @@
 (map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
 (map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
 (map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
+
+(setq display-line-numbers-type nil)
