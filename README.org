@@ -23,7 +23,7 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 * Performance hacks
   - I've disabled the line numbers to increase the performance and screen space.  If you want to temporary toggle, just press =SPC t l=.  If you want to permanently toggle, just comment the line below:
     #+BEGIN_SRC elisp
-                                        ; At ~/.doom.d/editor.el
+; At ~/.doom.d/editor.el
 (setq display-line-numbers-type nil)
     #+END_SRC
   - If tabnine is too slow for your machine, you can disable by commenting this lines:
