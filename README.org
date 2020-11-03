@@ -4,6 +4,7 @@
 - [[#installation][Installation]]
 - [[#performance-hacks][Performance hacks]]
 - [[#using-autocomplete][Using Autocomplete]]
+- [[#method-generator][Method Generator]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
@@ -56,6 +57,8 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
   - I really recommend you to use gccemacs version, it is faster, you can install by compiling it: https://www.emacswiki.org/emacs/GccEmacs
 
 * Using Autocomplete
+#+caption: Autocomplete
+[[file:autocomplete.gif]]
 On my doom config, i had done several tweaks to the default autocomplete.
 
 Instead of using enter to select the item in the popup, I use TAB.  The Tab can't go down and up in the autocomplete popup.  Instead of tab, i use =C-j= and =C-k=.
@@ -70,6 +73,13 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 | C-x C-s | See all the snippets                                     |
 | C-enter | Toggle snippet / go foward in snippet                    |
 | C-d     | (while snipped is active) Delete the highlighted snippet |
+
+* Method Generator
+I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
+
+Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
+#+caption: Generate Methods
+[[file:generate_method.gif]]
 
 * Tips
 ** Search and replace in whole project
