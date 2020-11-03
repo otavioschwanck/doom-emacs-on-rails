@@ -76,6 +76,7 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 
 * Method Generator
 I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
+If the method name is init, it creates a initialize settings the args on instance variables.
 
 Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 #+caption: Generate Methods
