@@ -59,7 +59,7 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 * Using Autocomplete
 #+caption: Autocomplete
 [[file:autocomplete.gif]]
-On my doom config, i had done several tweaks to the default autocomplete.
+On my doom config, i've done several tweaks to the default autocomplete.
 
 Instead of using enter to select the item in the popup, I use TAB.  The Tab can't go down and up in the autocomplete popup.  Instead of tab, i use =C-j= and =C-k=.
 
