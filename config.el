@@ -63,6 +63,7 @@
   (+popup/close-all)
   (run-at-time robe-time-to-start nil #'robe-start))
 
+(setq +workspaces-switch-project-function #'open-rails-project)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (load "~/.doom.d/editor.el")
