@@ -7,28 +7,26 @@
 ;; C-p when company is active
 (map! :after company
       :map company-active-map
-      "<C-S-return>" #'+company/dabbrev
-      "<C-return>" #'dabbrev-expand
       "C-S-p" #'+company/dabbrev
       "C-p" #'dabbrev-expand)
 
+(map! :i "<C-return>" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
-(map! :i "<C-return>" #'dabbrev-expand)
-(map! :i "<C-S-return>" #'+company/dabbrev)
+(map! :i "C-i" #'company-capf)
 
 (map! :after company
       :map company-active-map
-      "<tab>" #'yas-expand)
+      "<tab>" #'company-complete-selection
+      "RET" nil
+      "<return>" nil
+      "C-i" #'company-capf
+      "<C-return>" #'yas-expand)
 
 (after! company
   (setq company-dabbrev-downcase 0)
-  (setq company-idle-delay 0.1))
-
-(after! company
-  (defadvice! +company--abort-previous-a (&rest _)
-    :before #'company-begin-backend
-    (company-abort)))
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0.14))
 
 (defun yas-next-and-close-company ()
   (interactive)
@@ -37,4 +35,6 @@
 
 (map! :after yasnippet
       :map yas-keymap
-      "<tab>" 'yas-next-and-close-company)
+      "<tab>" #'company-complete-selection
+      "<C-S-return>" 'yas-prev-field
+      "<C-return>" 'yas-next-and-close-company)

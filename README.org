@@ -1,9 +1,24 @@
+* Index :toc:
+- [[#description][Description]]
+- [[#prerequisites][Prerequisites]]
+- [[#installation][Installation]]
+- [[#performance-hacks][Performance hacks]]
+- [[#using-autocomplete][Using Autocomplete]]
+- [[#method-generator][Method Generator]]
+- [[#tips][Tips]]
+  - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
+  - [[#multiple-cursors][Multiple-cursors]]
+- [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
+- [[#solargraph][Solargraph]]
+- [[#getting-help][Getting help]]
+
 * Description
 # Personal configuration for doom emacs
 
 + Ready to use with solargraph and rails (with rbenv)
 + Working with JS
 + Some new functions added.
++ Tabnine included
 
 * Prerequisites
  - Git 2.23+
@@ -18,6 +33,80 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 #+END_SRC
+
+* Performance hacks
+  - I've disabled the line numbers to increase the performance and screen space.  If you want to temporary toggle, just press =SPC t l=.  If you want to permanently toggle, just comment the line below:
+    #+BEGIN_SRC elisp
+; At ~/.doom.d/editor.el
+(setq display-line-numbers-type nil)
+    #+END_SRC
+  - If tabnine is too slow for your machine, you can disable by commenting this lines:
+    #+BEGIN_SRC elisp
+;; At ~/.doom.d/editor.el
+;; Tabnine for complations
+(use-package! company-tabnine)
+(defadvice! append-company-tabnine-to-backends-a ()
+  :after #'+company-init-backends-h
+  (setq-local company-backends (cons 'company-tabnine company-backends)))
+(add-hook! 'lsp-completion-mode-hook
+  (defun init-company-tabnine-h ()
+    (when lsp-completion-mode
+      (setq-local company-backends (cons 'company-tabnine company-backends)))))
+
+    #+END_SRC
+  - I really recommend you to use gccemacs version, it is faster, you can install by compiling it: https://www.emacswiki.org/emacs/GccEmacs
+
+* Using Autocomplete
+#+caption: Autocomplete
+[[file:autocomplete.gif]]
+On my doom config, i've done several tweaks to the default autocomplete.
+
+Instead of using enter to select the item in the popup, I use TAB.  The Tab can't go down and up in the autocomplete popup.  Instead of tab, i use =C-j= and =C-k=.
+
+| Key     | Command                                                  |
+| Tab     | Select the complation                                    |
+| C-j     | Go down on the popup                                     |
+| C-k     | Go up on the popup                                       |
+| C-i     | See only solargraph complations                          |
+| C-p     | Select a similar word instantly                          |
+| C-S-p   | See the list of similar words                            |
+| C-x C-s | See all the snippets                                     |
+| C-enter | Toggle snippet / go foward in snippet                    |
+| C-d     | (while snipped is active) Delete the highlighted snippet |
+
+* Method Generator
+I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
+If the method name is init, it creates a initialize settings the args on instance variables.
+
+Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
+#+caption: Generate Methods
+[[file:generate_method.gif]]
+
+* Tips
+** Search and replace in whole project
+You can search and replace by pressing =SPC s p= to search in project, then, =C-c C-e= to open the search on a buffer.  To replace some word, just run =:%s/old_text/new_text/g=. You also can use the multiple cursors
+** Multiple-cursors
+To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D= to go backwards.  Press =C= to edit all.
+
+* Keybindings that i made myself
+| Key                 | Mode              | Description                        |
+| SPC a and SPC A     | Ruby              | Go to / create spec file           |
+| SPC v               | All               | Open terminal on project root      |
+| SPC t t             | All               | Toggle truncate lines              |
+| SPC -               | All               | Indent the file                    |
+| SPC =               | Ruby              | Runs rubocop -a on current file    |
+| ]g and [g           | All               | Navigate on git changes            |
+| SPC l               | Terminals         | Clean terminal                     |
+| C-j                 | All               | Go one sentence down (very useful) |
+| C-k                 | All               | Go one sentence up (very useful)   |
+| TAB                 | All (except org)  | Same as / (search)                 |
+| C-TAB               | All (except org)  | Same as ? (search-backwards)       |
+| C-q                 | All (insert mode) | Paste on insert mode               |
+| J and K             | Normal Mode       | Drag stuff down and up             |
+| C-, and C-;         | Normal Mode       | Previous and Next buffer           |
+| ç                   | Normal mode       | Save all files                     |
+| SPC gdo and SPC gdm | Git conflict      | Keep other or Keep mine (git)      |
+| SPC e               | All               | Toggle treemacs                    |
 
 * Solargraph
 To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails

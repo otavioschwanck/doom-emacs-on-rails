@@ -111,3 +111,58 @@
 
 (with-eval-after-load 'flycheck
   (setq-default flycheck-disabled-checkers '(ruby-reek)))
+
+(defun otavio/chomp (str)
+  "Trim leading and trailing whitespace from STR."
+  (replace-regexp-in-string "\\(\\`[[:space:]\n]*\\|[[:space:]\n]*\\'\\)" "" str))
+
+(defun otavio/delete-current-line ()
+  "Delete (not kill) the current line."
+  (interactive)
+  (save-excursion
+    (delete-region
+     (progn (forward-visible-line 0) (point))
+     (progn (forward-visible-line 1) (point)))))
+
+(defun otavio/grb ()
+  (interactive)
+  (setq line-text (buffer-substring (line-beginning-position) (line-end-position)))
+  (setq splitted-string (s-split ";" line-text))
+  (delete-region (line-beginning-position) (line-end-position))
+  (dolist (item splitted-string)
+    (setq splitted-item (s-split "\\@" (otavio/chomp item)))
+    (setq method-name (nth 0 splitted-item))
+    (if (equal method-name "init")
+        (setq method-name "initialize"))
+    (insert (concat "def " method-name))
+    (if (eq (length splitted-item) 2)
+        (progn
+          (insert "(")
+          (dolist (arg (s-split "," (nth 1 splitted-item)))
+            (insert (concat arg ", ")))
+          (delete-char -2)
+          (insert ")")))
+    (indent-region (line-beginning-position) (line-end-position))
+    (newline)
+    (if (eq (length splitted-item) 2)
+        (if (equal (nth 0 splitted-item) "init")
+            (progn
+              (dolist (arg (s-split "," (nth 1 splitted-item)))
+                (insert (concat "@" arg " = " arg))
+                (indent-region (line-beginning-position) (line-end-position))
+                (newline)
+                )))
+      )
+
+    (insert "end")
+    (indent-region (line-beginning-position) (line-end-position))
+    (newline)
+    (newline))
+  (otavio/delete-current-line)
+  (forward-line -1)
+  (otavio/delete-current-line)
+  (forward-line -2)
+  (end-of-line)
+  (newline-and-indent))
+
+(map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)

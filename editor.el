@@ -45,21 +45,37 @@
 (map! :ieg "C-q" #'evil-paste-after)
 
 ;; Stop beign a noob!
-(defun noob ()
-  (interactive)
-  (message "Stop using arrow keys.  Use h j k l instead."))
+(defun noob-left ()
+  (left-char)
+  (message "Stop using arrow keys.  Use h j k l instead. If you are on insert mode, exit it and navigate with other commands!")
+  (interactive))
+
+(defun noob-right ()
+  (right-char)
+  (message "Tip: Please, please stop using arrow keys.  Use h j k l instead!!!!!!!!!!!!!!!")
+  (interactive))
+
+(defun noob-up ()
+  (previous-line)
+  (message "Tip: Please, please stop using arrow keys.  Use h j k l instead!!!!!!!!!!!!!!!")
+  (interactive))
+
+(defun noob-down ()
+  (next-line)
+  (message "Tip: Please, please stop using arrow keys.  Use h j k l instead!!!!!!!!!!!!!!!")
+  (interactive))
 
 (map! :map (ruby-mode-map rspec-mode-map yaml-mode-map)
-      [left]  #'noob
-      [right] #'noob
-      [up]    #'noob
-      [down]  #'noob)
+      [left]  #'noob-left
+      [right] #'noob-right
+      [up]    #'noob-up
+      [down]  #'noob-down)
 
 (map! :map (ruby-mode-map rspec-mode-map yaml-mode-map)
-      :n [left]  #'noob
-      :n [right] #'noob
-      :n [up]    #'noob
-      :n [down]  #'noob)
+      :n [left]  #'noob-left
+      :n [right] #'noob-right
+      :n [up]    #'noob-up
+      :n [down]  #'noob-down)
 
 ;; Shortcut for the emacs C-M-j and C-M-k
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
@@ -94,4 +110,26 @@
 
 ;; Open Terminal
 (map! :leader "v" #'projectile-run-shell)
-(map! :leader "e" #'+neotree/open)
+
+;; Tabnine for complations
+(use-package! company-tabnine)
+(defadvice! append-company-tabnine-to-backends-a ()
+  :after #'+company-init-backends-h
+  (setq-local company-backends (cons 'company-tabnine company-backends)))
+(add-hook! 'lsp-completion-mode-hook
+  (defun init-company-tabnine-h ()
+    (when lsp-completion-mode
+      (setq-local company-backends (cons 'company-tabnine company-backends)))))
+
+;; Toggle truncate lines
+(map! :leader "t t" #'toggle-truncate-lines)
+
+(map! :leader "e" #'+treemacs/toggle)
+
+(map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
+(map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
+(map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
+(map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
+
+(add-hook! 'ruby-mode-hook (modify-syntax-entry ?_ "w"))
+(add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
