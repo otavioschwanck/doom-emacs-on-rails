@@ -52,7 +52,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(defvar robe-time-to-start 30
+(defvar robe-time-to-start 20
   "Set the time to start robe after starting inf-ruby-console-auto")
 
 (defun open-rails-project (&optional DIRECTORY CACHE)
