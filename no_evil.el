@@ -3,6 +3,11 @@
 ;; Custom Window Keybindings
 (global-set-key (kbd "M-o") 'ace-window)
 
+(defun current-mode-company-mode ()
+  (interactive)
+  (when-let (backend (nth 1 company-backends))
+    (company-begin-backend (nth 1 company-backends))))
+
 ;; Custom file keybindings
 (map! "<C-tab>" #'+ivy/switch-workspace-buffer)
 (map! "C-S-g" #'magit-status)
@@ -21,7 +26,7 @@
 (map! "M-;" #'undo-fu-only-redo)
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "C-j" #'dabbrev-expand)
-(map! "C-S-j" #'company-capf)
+(map! "C-S-j" #'current-mode-company-mode)
 (map! "<C-return>" #'yas-expand)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
@@ -91,6 +96,7 @@ there's a region, all lines that region covers will be duplicated."
       "<return>" nil
       "RET" nil
       "<tab>" #'company-complete-selection
+      "C-S-j" #'current-mode-company-mode
       "<C-return>" #'yas-expand)
 
 (setq mark-ring-max 10)
@@ -149,11 +155,6 @@ Try the repeated popping up to 10 times."
         (apply orig-fun args)))))
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
-
-(add-hook! 'lsp-completion-mode-hook
-  (defun init-company-tabnine-h ()
-    (when lsp-completion-mode
-      (setq-local company-backends (cons 'company-tabnine company-backends)))))
 
 (defadvice! append-company-tabnine-to-backends-a ()
   :after #'+company-init-backends-h
