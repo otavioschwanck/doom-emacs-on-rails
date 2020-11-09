@@ -9,14 +9,13 @@
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
-- [[#solargraph][Solargraph]]
 - [[#getting-help][Getting help]]
 
 * Description
 # Personal configuration for doom emacs
 
-+ Ready to use with solargraph and rails (with rbenv)
 + Working with JS
++ Full functional with Ruby on Rails
 + Some new functions added.
 + Tabnine included
 
@@ -107,9 +106,6 @@ To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D
 | ç                   | Normal mode       | Save all files                     |
 | SPC gdo and SPC gdm | Git conflict      | Keep other or Keep mine (git)      |
 | SPC e               | All               | Toggle treemacs                    |
-
-* Solargraph
-To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs

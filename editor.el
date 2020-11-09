@@ -116,10 +116,6 @@
 (defadvice! append-company-tabnine-to-backends-a ()
   :after #'+company-init-backends-h
   (setq-local company-backends (cons 'company-tabnine company-backends)))
-(add-hook! 'lsp-completion-mode-hook
-  (defun init-company-tabnine-h ()
-    (when lsp-completion-mode
-      (setq-local company-backends (cons 'company-tabnine company-backends)))))
 
 ;; Toggle truncate lines
 (map! :leader "t t" #'toggle-truncate-lines)
