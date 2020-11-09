@@ -53,6 +53,17 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(defvar robe-time-to-start 20
+  "Set the time to start robe after starting inf-ruby-console-auto")
+
+(defun open-rails-project (&optional DIRECTORY CACHE)
+  (interactive)
+  (doom-project-find-file DIRECTORY)
+  (projectile-rails-console nil)
+  (+popup/close-all)
+  (run-at-time robe-time-to-start nil #'robe-start))
+
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (load "~/.doom.d/editor.el")
 (load "~/.doom.d/ruby.el")
