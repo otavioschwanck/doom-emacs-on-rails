@@ -10,17 +10,22 @@
       "C-S-p" #'+company/dabbrev
       "C-p" #'dabbrev-expand)
 
+(defun current-mode-company-mode ()
+  (interactive)
+  (when-let (backend (nth 1 company-backends))
+    (company-begin-backend (nth 1 company-backends))))
+
 (map! :i "<C-return>" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
-(map! :i "C-i" #'company-capf)
+(map! :i :mode ruby-mode-map "C-i" #'current-mode-company-mode)
 
 (map! :after company
       :map company-active-map
       "<tab>" #'company-complete-selection
       "RET" nil
       "<return>" nil
-      "C-i" #'company-capf
+      "C-i" #'current-mode-company-mode
       "<C-return>" #'yas-expand)
 
 (after! company
