@@ -121,7 +121,5 @@
 (map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
 (map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
 
-(setq display-line-numbers-type nil)
-
 (add-hook! 'ruby-mode-hook (modify-syntax-entry ?_ "w"))
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
