@@ -17,7 +17,7 @@
 + Working with JS
 + Full functional with Ruby on Rails
 + Some new functions added.
-+ Tabnine included
++ Robe for autocompletes
 
 * Prerequisites
  - Git 2.23+
@@ -66,7 +66,7 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 | Tab     | Select the complation                                    |
 | C-j     | Go down on the popup                                     |
 | C-k     | Go up on the popup                                       |
-| C-i     | See only solargraph complations                          |
+| C-i     | See the second backends complations                      |
 | C-p     | Select a similar word instantly                          |
 | C-S-p   | See the list of similar words                            |
 | C-x C-s | See all the snippets                                     |
