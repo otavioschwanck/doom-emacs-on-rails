@@ -55,11 +55,6 @@
 (defvar robe-time-to-start 20
   "Set the time to start robe after starting inf-ruby-console-auto")
 
-(defun better-robe-start ()
-  (interactive)
-  (robe-mode t)
-  (robe-start))
-
 (defun open-rails-project (&optional DIRECTORY CACHE)
   (interactive)
   (magit-status DIRECTORY)
@@ -69,8 +64,7 @@
   (when (file-exists-p (concat DIRECTORY "Gemfile"))
     (message "Gemfile found on the project.  Starting rails console in the background.  Nice code to you!")
     (projectile-rails-console nil)
-    (+popup/close-all)
-    (run-at-time robe-time-to-start nil #'better-robe-start)))
+    (+popup/close-all)))
 
 (setq +workspaces-switch-project-function #'open-rails-project)
 
