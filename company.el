@@ -43,3 +43,6 @@
       "<tab>" #'company-complete-selection
       "<C-S-return>" 'yas-prev-field
       "<C-return>" 'yas-next-and-close-company)
+
+(after! robe
+  (set-company-backend! 'ruby-mode 'company-dabbrev-code 'company-robe 'company-capf 'company-yasnippet))
