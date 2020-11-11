@@ -54,4 +54,3 @@
 (package! plural)
 (package! ace-window)
 (package! undo-tree)
-(package! company-tabnine)

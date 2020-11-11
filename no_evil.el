@@ -156,10 +156,6 @@ Try the repeated popping up to 10 times."
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
 
-(defadvice! append-company-tabnine-to-backends-a ()
-  :after #'+company-init-backends-h
-  (setq-local company-backends (cons 'company-tabnine company-backends)))
-
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
