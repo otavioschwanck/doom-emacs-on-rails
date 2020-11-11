@@ -8,3 +8,6 @@
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
   (setq company-idle-delay 0))
+
+(after! robe
+  (set-company-backend! 'ruby-mode 'company-dabbrev-code 'company-robe 'company-capf 'company-yasnippet))
