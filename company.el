@@ -10,4 +10,9 @@
   (setq company-idle-delay 0))
 
 (after! robe
-  (set-company-backend! 'ruby-mode 'company-dabbrev-code 'company-robe 'company-capf 'company-yasnippet))
+  (set-company-backend! 'ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
+
+(add-hook! 'lsp-completion-mode-hook
+  (defun init-company-dabbrev-code-h ()
+    (when lsp-completion-mode
+      (setq-local company-backends (cons 'company-dabbrev-code company-backends)))))
