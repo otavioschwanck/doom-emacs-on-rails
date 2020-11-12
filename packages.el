@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! string-inflection)
+(package! company-tabnine)
