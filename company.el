@@ -15,7 +15,7 @@
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-tabnine 'company-dabbrev-code 'company-capf 'company-yasnippet))
 
-(after! js2-mode
+(after! tide
   (set-company-backend! 'js2-mode 'company-tabnine 'company-tide 'company-dabbrev-code 'company-yasnippet))
 
 (add-hook! 'lsp-completion-mode-hook
