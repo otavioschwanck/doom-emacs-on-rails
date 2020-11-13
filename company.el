@@ -10,8 +10,10 @@
   (setq company-idle-delay 0))
 
 (after! robe
-  (set-company-backend! 'inf-ruby-mode 'company-tabnine 'company-dabbrev-code 'company-capf 'company-yasnippet)
   (set-company-backend! 'ruby-mode 'company-tabnine 'company-capf 'company-dabbrev-code 'company-yasnippet))
+
+(after! inf-ruby
+  (set-company-backend! 'inf-ruby-mode 'company-tabnine 'company-dabbrev-code 'company-capf 'company-yasnippet))
 
 (after! js2-mode
   (set-company-backend! 'js2-mode 'company-tabnine 'company-tide 'company-dabbrev-code 'company-yasnippet))
