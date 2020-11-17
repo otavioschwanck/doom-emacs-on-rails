@@ -45,15 +45,15 @@
       "C-q" 'yas-next-and-close-company)
 
 (after! robe
-  (set-company-backend! 'ruby-mode 'company-capf 'company-dabbrev-code 'company-yasnippet))
+  (set-company-backend! 'ruby-mode 'company-tabnine 'company-dabbrev-code 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-tabnine 'company-capf 'company-yasnippet))
 
 (after! tide
-  (set-company-backend! 'js2-mode  'company-dabbrev-code 'company-tide 'company-capf  'company-yasnippet))
+  (set-company-backend! 'js2-mode  'company-tabnine 'company-tide 'company-capf  'company-yasnippet))
 
 (add-hook! 'lsp-completion-mode-hook
   (defun init-company-dabbrev-code-h ()
     (when lsp-completion-mode
-      (setq-local company-backends (cons 'company-dabbrev-code company-backends)))))
+      (setq-local company-backends (cons 'company-tabnine company-backends)))))
