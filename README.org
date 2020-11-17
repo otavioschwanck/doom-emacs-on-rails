@@ -70,7 +70,7 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 | C-p     | Select a similar word instantly                          |
 | C-S-p   | See the list of similar words                            |
 | C-x C-s | See all the snippets                                     |
-| C-enter | Toggle snippet / go foward in snippet                    |
+| C-q     | Toggle snippet / go foward in snippet                    |
 | C-d     | (while snipped is active) Delete the highlighted snippet |
 
 * Method Generator

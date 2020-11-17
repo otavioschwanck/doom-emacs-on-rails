@@ -41,9 +41,6 @@
 ;; Search with avy
 (map! :nv "C-s" #'evil-avy-goto-char-2)
 
-;; Paste on insert mode
-(map! :ieg "C-q" #'evil-paste-after)
-
 ;; Stop beign a noob!
 (defun noob-left ()
   (left-char)
@@ -123,3 +120,9 @@
 
 (add-hook! 'ruby-mode-hook (modify-syntax-entry ?_ "w"))
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
+
+;; New window command
+(map! :n "C-M-k" #'evil-window-up)
+(map! :n "C-M-j" #'evil-window-down)
+(map! :n "C-M-h" #'evil-window-left)
+(map! :n "C-M-l" #'evil-window-right)

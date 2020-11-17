@@ -15,7 +15,7 @@
   (when-let (backend (nth 1 company-backends))
     (company-begin-backend (nth 1 company-backends))))
 
-(map! :i "<C-return>" #'yas-expand)
+(map! :i "C-q" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
 (map! :i :mode ruby-mode-map "C-i" #'current-mode-company-mode)
@@ -26,7 +26,7 @@
       "RET" nil
       "<return>" nil
       "C-i" #'current-mode-company-mode
-      "<C-return>" #'yas-expand)
+      "C-q" #'yas-expand)
 
 (after! company
   (setq company-dabbrev-downcase 0)
@@ -42,7 +42,7 @@
       :map yas-keymap
       "<tab>" #'company-complete-selection
       "<C-S-return>" 'yas-prev-field
-      "<C-return>" 'yas-next-and-close-company)
+      "C-q" 'yas-next-and-close-company)
 
 (after! robe
   (set-company-backend! 'ruby-mode 'company-capf 'company-dabbrev-code 'company-yasnippet))
