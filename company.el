@@ -22,6 +22,7 @@
 
 (map! :after company
       :map company-active-map
+      "C-d" #'yas-skip-and-clear-field
       "C-i" #'current-mode-company-mode
       "C-q" #'yas-expand)
 
