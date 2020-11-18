@@ -2,7 +2,6 @@
 - [[#description][Description]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
-- [[#performance-hacks][Performance hacks]]
 - [[#method-generator][Method Generator]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
@@ -31,28 +30,6 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 #+END_SRC
-
-* Performance hacks
-  - I've disabled the line numbers to increase the performance and screen space.  If you want to temporary toggle, just press =SPC t l=.  If you want to permanently toggle, just comment the line below:
-    #+BEGIN_SRC elisp
-; At ~/.doom.d/editor.el
-(setq display-line-numbers-type nil)
-    #+END_SRC
-  - If tabnine is too slow for your machine, you can disable by commenting this lines:
-    #+BEGIN_SRC elisp
-;; At ~/.doom.d/editor.el
-;; Tabnine for complations
-(use-package! company-tabnine)
-(defadvice! append-company-tabnine-to-backends-a ()
-  :after #'+company-init-backends-h
-  (setq-local company-backends (cons 'company-tabnine company-backends)))
-(add-hook! 'lsp-completion-mode-hook
-  (defun init-company-tabnine-h ()
-    (when lsp-completion-mode
-      (setq-local company-backends (cons 'company-tabnine company-backends)))))
-
-    #+END_SRC
-  - I really recommend you to use gccemacs version, it is faster, you can install by compiling it: https://www.emacswiki.org/emacs/GccEmacs
 
 * Method Generator
 I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
