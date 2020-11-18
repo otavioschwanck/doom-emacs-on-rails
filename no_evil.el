@@ -108,7 +108,8 @@ there's a region, all lines that region covers will be duplicated."
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (company-complete-selection)
+  (if (company--active-p)
+      (company-complete-selection))
   (yas-next-field))
 
 (map! :after yasnippet
