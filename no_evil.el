@@ -11,7 +11,7 @@
 ;; Custom file keybindings
 (map! "<C-tab>" #'+ivy/switch-workspace-buffer)
 (map! "C-S-g" #'magit-status)
-(map! "C-q" #'+ivy/projectile-find-file)
+(map! "C-j" #'+ivy/projectile-find-file)
 
 ;; Custom Editing Keybindings
 (global-set-key (kbd "C-o") (kbd "C-e C-m"))
@@ -25,9 +25,10 @@
 (map! "C-;" #'undo-fu-only-undo)
 (map! "M-;" #'undo-fu-only-redo)
 (map! "C-c s c" #'avy-goto-char-2)
-(map! "C-j" #'dabbrev-expand)
+(map! "<C-return>" #'dabbrev-expand)
+(map! "<C-S-return>" #'company-dabbrev)
 (map! "C-S-j" #'current-mode-company-mode)
-(map! "<C-return>" #'yas-expand)
+(map! "C-q" #'yas-expand)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-M-;" #'+neotree/open)
@@ -93,11 +94,8 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after company
       :map company-active-map
-      "<return>" nil
-      "RET" nil
-      "<tab>" #'company-complete-selection
-      "C-S-j" #'current-mode-company-mode
-      "<C-return>" #'yas-expand)
+      "<C-S-return>" #'company-dabbrev
+      "C-q" #'yas-expand)
 
 (setq mark-ring-max 10)
 (setq global-mark-ring-max 10)
@@ -110,14 +108,13 @@ there's a region, all lines that region covers will be duplicated."
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (company-abort)
+  (company-complete-selection)
   (yas-next-field))
 
 (map! :after yasnippet
       :map yas-keymap
-      "<C-S-return>" 'yas-prev-field
-      "<C-return>" 'yas-next-and-close-company
-      "<tab>" 'company-complete-selection)
+      "C-S-q" 'yas-prev-field
+      "C-q" 'yas-next-and-close-company)
 
 (after! ruby-mode
   (defun msc/revert-buffer-noconfirm ()
@@ -155,8 +152,3 @@ Try the repeated popping up to 10 times."
         (apply orig-fun args)))))
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
-
-(after! company
-  (setq company-dabbrev-downcase 0)
-  (setq company-show-numbers t)
-  (setq company-idle-delay 0))
