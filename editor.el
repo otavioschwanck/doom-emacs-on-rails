@@ -111,6 +111,9 @@
 ;; Toggle truncate lines
 (map! :leader "t t" #'toggle-truncate-lines)
 
+;; Paste on insert mode
+(map! :ieg "C-r" #'evil-paste-after)
+
 (map! :leader "e" #'+treemacs/toggle)
 
 (map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
@@ -126,3 +129,6 @@
 (map! :ni "M-j" #'evil-window-down)
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
+
+(after! treemacs
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
