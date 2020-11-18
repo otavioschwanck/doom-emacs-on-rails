@@ -8,6 +8,7 @@
   - [[#multiple-cursors][Multiple-cursors]]
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
 - [[#getting-help][Getting help]]
+- [[#solargraph][Solargraph]]
 
 * Description
 # Personal configuration for doom emacs
@@ -15,7 +16,7 @@
 + Working with JS
 + Full functional with Ruby on Rails
 + Some new functions added.
-+ solargraph for autocompletes (C-p and C-S-p to complete with buffers text)
++ Solargraph for autocompletes (C-p and C-S-p to complete with buffers text)
 
 * Prerequisites
  - Git 2.23+
@@ -23,6 +24,7 @@
  - ripgrep 11.0+
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
+ - Solargraph
 
 * Installation
 #+BEGIN_SRC shell
@@ -67,3 +69,6 @@ To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
+
+* Solargraph
+To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
