@@ -15,7 +15,7 @@
 + Working with JS
 + Full functional with Ruby on Rails
 + Some new functions added.
-+ Robe for autocompletes
++ solargraph for autocompletes (C-p and C-S-p to complete with buffers text)
 
 * Prerequisites
  - Git 2.23+

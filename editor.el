@@ -115,6 +115,7 @@
 (map! :ieg "C-r" #'evil-paste-after)
 
 (map! :leader "e" #'+treemacs/toggle)
+(map! :leader "E" #'treemacs-find-file)
 
 (map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
 (map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)

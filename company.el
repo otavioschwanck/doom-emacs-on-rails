@@ -47,4 +47,5 @@
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
 
-(setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
+;; use C-p instead
+;; (setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
