@@ -28,11 +28,11 @@
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
-  (setq company-idle-delay 0.1))
+  (setq company-idle-delay 0.022))
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (company-abort)
+  (company-complete-selection)
   (yas-next-field))
 
 (map! :after yasnippet
@@ -46,3 +46,5 @@
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
+
+(setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))

@@ -122,7 +122,7 @@
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
 
 ;; New window command
-(map! :ni "C-M-k" #'evil-window-up)
-(map! :ni "C-M-j" #'evil-window-down)
-(map! :ni "C-M-h" #'evil-window-left)
-(map! :ni "C-M-l" #'evil-window-right)
+(map! :ni "M-k" #'evil-window-up)
+(map! :ni "M-j" #'evil-window-down)
+(map! :ni "M-h" #'evil-window-left)
+(map! :ni "M-l" #'evil-window-right)
