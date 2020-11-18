@@ -72,3 +72,4 @@
 (load "~/.doom.d/editor.el")
 (load "~/.doom.d/ruby.el")
 (load "~/.doom.d/company.el")
+(load "~/.doom.d/performance.el")

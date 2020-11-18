@@ -22,6 +22,7 @@
 
 (map! :after company
       :map company-active-map
+      "C-d" #'yas-skip-and-clear-field
       "C-i" #'current-mode-company-mode
       "C-q" #'yas-expand)
 
@@ -49,4 +50,4 @@
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
 
 ;; use C-p instead
-;; (setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
+(setq +lsp-company-backends '(company-capf :separate company-dabbrev))
