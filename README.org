@@ -60,7 +60,7 @@ See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.
 * Tips
 ** Search and replace in whole project
 You can search and replace by pressing =SPC s p= to search in project, then, =C-c C-e= to open the search on a buffer.  To replace some word, just run =:%s/old_text/new_text/g=. You also can use the multiple cursors.
-If you want to also, rename multiple files in project, just run =M-x= =find-dired= and type =-name "*your_class.*.extension"=. It will open a dired with all matches in the project.  Just press =C-e C-e= to toggle the edit mode and edit the filenames like a text file!
+If you want to also, rename multiple files in project, just run =M-x= =find-dired= and type =-name "\*your_class.\*.extension"=. It will open a dired with all matches in the project.  Just press =C-e C-e= to toggle the edit mode and edit the filenames like a text file!
 Press C-c C-c to confirm the edit or C-c C-k to cancel.
 
 ** Multiple-cursors
