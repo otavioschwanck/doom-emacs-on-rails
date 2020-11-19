@@ -3,6 +3,9 @@
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#method-generator][Method Generator]]
+- [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
+  - [[#for-github][For github]]
+  - [[#for-other-git-server][For other git server]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
@@ -15,8 +18,9 @@
 
 + Working with JS
 + Full functional with Ruby on Rails
-+ Some new functions added.
++ Some new functions added from vanilla doom emacs.
 + Solargraph for autocompletes (C-p and C-S-p to complete with buffers text)
++ Magit for awesome git usage and pull request creation / review.
 
 * Prerequisites
  - Git 2.23+
@@ -40,6 +44,18 @@ If the method name is init, it creates a initialize settings the args on instanc
 Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 #+caption: Generate Methods
 [[file:generate_method.gif]]
+
+* Configuring Forge for Creating / Reviewing pull requests
+** For github
+1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
+2 - Don't forget to configure your user in github with git config --global github.user youruser
+3 - Create a file called =~/.authinfo=
+4 - add =machine api.github.com login youruser^forge password yourtokenhere= to this file
+5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
+6 - delete the =~/.authinfo=
+
+** For other git server
+See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
 
 * Tips
 ** Search and replace in whole project
