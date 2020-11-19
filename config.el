@@ -69,7 +69,10 @@
 (setq +workspaces-switch-project-function #'open-rails-project)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(load "~/.doom.d/editor.el")
-(load "~/.doom.d/ruby.el")
-(load "~/.doom.d/company.el")
-(load "~/.doom.d/performance.el")
+(load (expand-file-name "editor.el" doom-private-dir))
+(load (expand-file-name "ruby.el" doom-private-dir))
+(load (expand-file-name "company.el" doom-private-dir))
+(load (expand-file-name "performance.el" doom-private-dir))
+
+(when (file-exists-p (expand-file-name "user.el" doom-private-dir))
+  (load (expand-file-name "user.el" doom-private-dir)))

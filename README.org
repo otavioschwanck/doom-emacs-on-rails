@@ -9,6 +9,7 @@
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
+  - [[#want-to-add-your-own-config][Want to add your own config]]
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
 - [[#getting-help][Getting help]]
 - [[#solargraph][Solargraph]]
@@ -68,6 +69,9 @@ Press C-c C-c to confirm the edit or C-c C-k to cancel.
 
 ** Multiple-cursors
 To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D= to go backwards.  Press =C= to edit all.
+
+** Want to add your own config
+Just create and user.el and add your configs there!
 
 * Keybindings that i made myself
 | Key                 | Mode              | Description                        |
