@@ -71,7 +71,7 @@ Press C-c C-c to confirm the edit or C-c C-k to cancel.
 To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D= to go backwards.  Press =C= to edit all.
 
 ** Want to add your own config
-Just create and user.el and add your configs there!
+Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
 
 * Keybindings that i made myself
 | Key                 | Mode              | Description                        |
