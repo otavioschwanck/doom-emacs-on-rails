@@ -10,6 +10,7 @@
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#want-to-add-your-own-config][Want to add your own config]]
+  - [[#for-js-and-ruby][For JS and Ruby]]
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
 - [[#getting-help][Getting help]]
 - [[#solargraph][Solargraph]]
@@ -72,6 +73,9 @@ To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D
 
 ** Want to add your own config
 Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
+
+** For JS and Ruby
+I really recommend you to use ts-ls and Javascript LSP to work with ruby
 
 * Keybindings that i made myself
 | Key                 | Mode              | Description                        |
