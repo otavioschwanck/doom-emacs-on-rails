@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-molokai)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -70,7 +70,10 @@
 (setq +workspaces-switch-project-function #'open-rails-project)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(load "~/.doom.d/editor.el")
-(load "~/.doom.d/ruby.el")
-(load "~/.doom.d/company.el")
-(load "~/.doom.d/no_evil.el")
+(load (expand-file-name "editor.el" doom-private-dir))
+(load (expand-file-name "ruby.el" doom-private-dir))
+(load (expand-file-name "company.el" doom-private-dir))
+(load (expand-file-name "no_evil.el" doom-private-dir))
+
+(when (file-exists-p (expand-file-name "user.el" doom-private-dir))
+  (load (expand-file-name "user.el" doom-private-dir)))
