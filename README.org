@@ -52,7 +52,7 @@ Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
 2 - Don't forget to configure your user in github with git config --global github.user youruser
 3 - Create a file called =~/.authinfo=
-4 - add =machine api.github.com login youruser^forge password yourtokenhere= to this file
+4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
 5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
 6 - delete the =~/.authinfo=
 
