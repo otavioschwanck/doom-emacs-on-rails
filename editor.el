@@ -134,5 +134,3 @@
 
 (after! treemacs
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
-
-(setq display-line-numbers-type 'relative)
