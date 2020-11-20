@@ -31,6 +31,3 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
-
-(add-hook! 'ruby-mode-hook (modify-syntax-entry ?_ "w"))
-(add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
