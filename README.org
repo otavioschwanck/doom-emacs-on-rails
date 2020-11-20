@@ -74,6 +74,25 @@ To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D
 ** Want to add your own config
 Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
 
+Example user.el
+#+begin_src elisp
+;;; user.el -*- lexical-binding: t; -*-
+
+;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
+(setq doom-theme 'doom-one)
+
+;; You can change the splash art // put on your ~/.doom.d/user/your_splash.png
+;; (setq fancy-splash-image (expand-file-name "user/your_splash.png" doom-private-dir))
+
+;; You can change the font here
+(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
+
+;; You can change your notes with SPC n d, its VERY COOL! USE IT PLEASE
+(after! deft
+  (setq deft-directory "~/Documentos"))
+#+end_src
+
 ** For JS and Ruby
 I really recommend you to use ts-ls and Javascript LSP to work with ruby
 
