@@ -2,6 +2,10 @@
 - [[#description][Description]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
+- [[#never-heard-about-emacs-before][Never heard about emacs before?]]
+  - [[#history][History]]
+  - [[#about-doom-emacs][About Doom Emacs]]
+  - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#method-generator][Method Generator]]
 - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#for-github][For github]]
@@ -38,6 +42,30 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 #+END_SRC
+
+* Never heard about emacs before?
+
+** History
+Emacs is a text editor designed for POSIX operating systems and available on Linux, BSD, macOS, Windows, and more.
+Users love Emacs because it features efficient commands for common but complex actions and for the plugins and configuration hacks that have developed around it for nearly 40 years.
+
+** About Doom Emacs
+Doom emacs is a configuration framework built over emacs that brings a package manager and a lot of facilities to build your own emacs configuration.
+It also brings the =Evil Mode= implementation, that set the =vim keybindings= in emacs.
+
+** What i need to know to start using ?
+I really recommend you to learn the basics of vim first, choose one:
+
++ [[https://www.udemy.com/course/vim-commands-cheat-sheet/][Vim Udemy Course]] (non-free) (for vim) (3h course) (very good course, i did this) (Very Complete!)
++ [[https://www.youtube.com/watch?v=ER5JYFKkYDg][Vim Tutorial pt 1]] and [[https://www.youtube.com/watch?v=tExTz7GnpdQ][Vim Tutorial pt 2]] (free) (basic)
++ [[https://www.youtube.com/watch?v=H3o4l4GVLW0&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R][Vim Youtube Course - 6 Videos, ignore the 6]] (free) (basic-intermediary)
+
+After that, you can see the [[https://www.youtube.com/watch?v=rCMh7srOqvw&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj][Doom Casts]] to learn the basics of doom emacs (optional)
+Don't forget to see the =evil cheatsheet pt-BR.png= on the root of this repository!
+
+Don'tt forget the [[https://discord.gg/qvGgnVx][Doom Emacs Discord Server]], is always full of people that always helps!
+You can get help of any command on doom with SPC h p (function) of SPC h k + keybinding = (to see the options, etc.)
+
 
 * Method Generator
 I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
