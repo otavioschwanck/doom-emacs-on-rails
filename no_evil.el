@@ -94,6 +94,10 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after company
       :map company-active-map
+      "RET" #'newline-and-indent
+      "<return>" #'newline-and-indent
+      "<tab>" #'company-complete-selection
+      "<C-return>" #'dabbrev-expand
       "<C-S-return>" #'company-dabbrev
       "C-q" #'yas-expand)
 
@@ -114,7 +118,9 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after yasnippet
       :map yas-keymap
+      "<tab>" #'company-complete-selection
       "C-S-q" 'yas-prev-field
+      "C-d" 'yas-skip-and-clear-field
       "C-q" 'yas-next-and-close-company)
 
 (after! ruby-mode
