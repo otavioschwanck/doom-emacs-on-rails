@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'semi-light)
+(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'regular)
       doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -35,6 +35,9 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+(after! deft
+  (setq deft-extensions '("org" "txt" ""))
+  (setq deft-recursive t))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -69,7 +72,10 @@
 (setq +workspaces-switch-project-function #'open-rails-project)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(load "~/.doom.d/editor.el")
-(load "~/.doom.d/ruby.el")
-(load "~/.doom.d/company.el")
-(load "~/.doom.d/performance.el")
+(load (expand-file-name "editor.el" doom-private-dir))
+(load (expand-file-name "ruby.el" doom-private-dir))
+(load (expand-file-name "company.el" doom-private-dir))
+(load (expand-file-name "performance.el" doom-private-dir))
+
+(when (file-exists-p (expand-file-name "user.el" doom-private-dir))
+  (load (expand-file-name "user.el" doom-private-dir)))

@@ -4,3 +4,6 @@
 tmp/
 
 custom.el
+user.el
+user/
+user/**/*

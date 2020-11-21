@@ -2,10 +2,19 @@
 - [[#description][Description]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
+- [[#never-heard-about-emacs-before][Never heard about emacs before?]]
+  - [[#history][History]]
+  - [[#about-doom-emacs][About Doom Emacs]]
+  - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#method-generator][Method Generator]]
+- [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
+  - [[#for-github][For github]]
+  - [[#for-other-git-server][For other git server]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
+  - [[#want-to-add-your-own-config][Want to add your own config]]
+  - [[#for-js-and-ruby][For JS and Ruby]]
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
 - [[#getting-help][Getting help]]
 - [[#solargraph][Solargraph]]
@@ -15,8 +24,9 @@
 
 + Working with JS
 + Full functional with Ruby on Rails
-+ Some new functions added.
++ Some new functions added from vanilla doom emacs.
 + Solargraph for autocompletes (C-p and C-S-p to complete with buffers text)
++ Magit for awesome git usage and pull request creation / review.
 
 * Prerequisites
  - Git 2.23+
@@ -33,6 +43,30 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 #+END_SRC
 
+* Never heard about emacs before?
+
+** History
+Emacs is a text editor designed for POSIX operating systems and available on Linux, BSD, macOS, Windows, and more.
+Users love Emacs because it features efficient commands for common but complex actions and for the plugins and configuration hacks that have developed around it for nearly 40 years.
+
+** About Doom Emacs
+Doom emacs is a configuration framework built over emacs that brings a package manager and a lot of facilities to build your own emacs configuration.
+It also brings the =Evil Mode= implementation, that set the =vim keybindings= in emacs.
+
+** What i need to know to start using ?
+I really recommend you to learn the basics of vim first, choose one:
+
++ [[https://www.udemy.com/course/vim-commands-cheat-sheet/][Vim Udemy Course]] (non-free) (for vim) (3h course) (very good course, i did this) (Very Complete!)
++ [[https://www.youtube.com/watch?v=ER5JYFKkYDg][Vim Tutorial pt 1]] and [[https://www.youtube.com/watch?v=tExTz7GnpdQ][Vim Tutorial pt 2]] (free) (basic)
++ [[https://www.youtube.com/watch?v=H3o4l4GVLW0&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R][Vim Youtube Course - 6 Videos, ignore the 6]] (free) (basic-intermediary)
+
+After that, you can see the [[https://www.youtube.com/watch?v=rCMh7srOqvw&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj][Doom Casts]] to learn the basics of doom emacs (optional)
+Don't forget to see the =evil cheatsheet pt-BR.png= on the root of this repository!
+
+Don'tt forget the [[https://discord.gg/qvGgnVx][Doom Emacs Discord Server]], is always full of people that always helps!
+You can get help of any command on doom with SPC h p (function) of SPC h k + keybinding = (to see the options, etc.)
+
+
 * Method Generator
 I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
 If the method name is init, it creates a initialize settings the args on instance variables.
@@ -41,11 +75,54 @@ Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 #+caption: Generate Methods
 [[file:generate_method.gif]]
 
+* Configuring Forge for Creating / Reviewing pull requests
+** For github
+1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
+2 - Don't forget to configure your user in github with git config --global github.user youruser
+3 - Create a file called =~/.authinfo=
+4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
+5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
+6 - delete the =~/.authinfo=
+
+** For other git server
+See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
+
 * Tips
 ** Search and replace in whole project
-You can search and replace by pressing =SPC s p= to search in project, then, =C-c C-e= to open the search on a buffer.  To replace some word, just run =:%s/old_text/new_text/g=. You also can use the multiple cursors
+*** Replacing a text
+You can search and replace by pressing =SPC s p= to search in project, then, =C-c C-e= to open the search on a buffer.  To replace some word, just run =:%s/old_text/new_text/g=. You also can use the multiple cursors.
+
+*** Renaming multiple files
+If you want to also, rename multiple files in project, just run =M-x= =find-dired= and type -name "\*your_class\*.extension" (without the \ (vertical bars)). It will open a dired with all matches in the project.  Just press =C-e C-e= to toggle the edit mode and edit the filenames like a text file!
+Press C-c C-c to confirm the edit or C-c C-k to cancel.
+
 ** Multiple-cursors
 To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D= to go backwards.  Press =C= to edit all.
+
+** Want to add your own config
+Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
+
+Example user.el
+#+begin_src elisp
+;;; user.el -*- lexical-binding: t; -*-
+
+;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
+(setq doom-theme 'doom-one)
+
+;; You can change the splash art // put on your ~/.doom.d/user/your_splash.png
+;; (setq fancy-splash-image (expand-file-name "user/your_splash.png" doom-private-dir))
+
+;; You can change the font here
+(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
+
+;; You can change your notes with SPC n d, its VERY COOL! USE IT PLEASE
+(after! deft
+  (setq deft-directory "~/Documentos"))
+#+end_src
+
+** For JS and Ruby
+I really recommend you to use ts-ls and Javascript LSP to work with ruby
 
 * Keybindings that i made myself
 | Key                 | Mode              | Description                        |
