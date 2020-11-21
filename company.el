@@ -22,7 +22,9 @@
 
 (map! :after company
       :map company-active-map
-      "C-d" #'yas-skip-and-clear-field
+      "RET" #'newline-and-indent
+      "<c-return>" #'newline-and-indent
+      "<tab>" #'company-complete-selection
       "C-i" #'current-mode-company-mode
       "C-q" #'yas-expand)
 
@@ -39,8 +41,8 @@
 
 (map! :after yasnippet
       :map yas-keymap
-      "<tab>" #'company-select-next
-      "<S-tab>" #'company-select-previous
+      "C-d" #'yas-skip-and-clear-field
+      "<tab>" #'company-complete-selection
       "C-q" 'yas-next-and-close-company)
 
 (after! robe

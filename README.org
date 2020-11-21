@@ -16,6 +16,7 @@
   - [[#want-to-add-your-own-config][Want to add your own config]]
   - [[#for-js-and-ruby][For JS and Ruby]]
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
+- [[#using-autocomplete][Using Autocomplete]]
 - [[#getting-help][Getting help]]
 - [[#solargraph][Solargraph]]
 
@@ -65,7 +66,6 @@ Don't forget to see the =evil cheatsheet pt-BR.png= on the root of this reposito
 
 Don'tt forget the [[https://discord.gg/qvGgnVx][Doom Emacs Discord Server]], is always full of people that always helps!
 You can get help of any command on doom with SPC h p (function) of SPC h k + keybinding = (to see the options, etc.)
-
 
 * Method Generator
 I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
@@ -143,6 +143,23 @@ I really recommend you to use ts-ls and Javascript LSP to work with ruby
 | ç                   | Normal mode       | Save all files                     |
 | SPC gdo and SPC gdm | Git conflict      | Keep other or Keep mine (git)      |
 | SPC e               | All               | Toggle treemacs                    |
+
+* Using Autocomplete
+#+caption: Autocomplete
+[[file:autocomplete.gif]]
+
+On my doom config, i've done several tweaks to the default autocomplete.
+Instead of using enter to select the item in the popup, I use TAB.  The Tab can't go down and up in the autocomplete popup.  Instead of tab, i use =C-j= and =C-k=.
+
+| Key     | Command                                                  |
+| Tab     | Select the complation                                    |
+| C-j     | Go down on the popup                                     |
+| C-k     | Go up on the popup                                       |
+| C-p     | Select a similar word instantly                          |
+| C-S-p   | See the list of similar words                            |
+| C-x C-s | See all the snippets                                     |
+| C-q     | Toggle snippet / go foward in snippet                    |
+| C-d     | (while snipped is active) Delete the highlighted snippet |
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
