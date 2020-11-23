@@ -134,3 +134,6 @@
 
 (after! treemacs
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+;; C-w C-w evil next > other-window
+(map! :map evil-window-map "C-w" #'evil-window-next)
