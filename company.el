@@ -35,8 +35,7 @@
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (if (company--active-p)
-      (company-complete-selection))
+  (company-abort)
   (yas-next-field))
 
 (map! :after yasnippet
