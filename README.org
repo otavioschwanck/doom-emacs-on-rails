@@ -148,6 +148,7 @@ I really recommend you to use ts-ls and Javascript LSP to work with ruby
 | ç                   | Normal mode       | Save all files                     |
 | SPC gdo and SPC gdm | Git conflict      | Keep other or Keep mine (git)      |
 | SPC e               | All               | Toggle treemacs                    |
+| C-e                 | Insert (web-mode) | emmet-expand (like ul>li*3)        |
 
 * Using Autocomplete
 #+caption: Autocomplete
