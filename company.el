@@ -18,7 +18,9 @@
 (map! :i "C-q" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
-(map! :i :mode ruby-mode-map "C-i" #'current-mode-company-mode)
+
+(after! ruby-mode
+  (map! :i :mode ruby-mode-map "C-i" #'current-mode-company-mode))
 
 (map! :after company
       :map company-active-map
