@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: as_enum :field, [...], prefix: true, map: :string
+# key: enum
+# --
+as_enum :${field}, ${[:${value1}]}${, prefix: true, map: :string}

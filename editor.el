@@ -130,7 +130,11 @@
 (map! :ni "M-j" #'evil-window-down)
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
-(map! :ni "M-w" #'evil-window-next)
+(map! :ni "C-M-w" #'evil-window-next)
 
 (after! treemacs
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+;; C-w C-w evil next > other-window
+(map! :map evil-window-map "C-w" #'evil-window-next)
+(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)

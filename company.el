@@ -35,8 +35,7 @@
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (if (company--active-p)
-      (company-complete-selection))
+  (company-abort)
   (yas-next-field))
 
 (map! :after yasnippet
@@ -49,7 +48,7 @@
   (set-company-backend! 'ruby-mode 'company-capf 'company-dabbrev-code 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-capf 'company-dabbrev-code 'company-dabbrev 'company-yasnippet))
 
 ;; use C-p instead
 (setq +lsp-company-backends '(company-capf :separate company-dabbrev))

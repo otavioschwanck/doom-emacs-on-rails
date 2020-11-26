@@ -78,10 +78,15 @@ Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 * Configuring Forge for Creating / Reviewing pull requests
 ** For github
 1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
+
 2 - Don't forget to configure your user in github with git config --global github.user youruser
+
 3 - Create a file called =~/.authinfo=
+
 4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
+
 5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
+
 6 - delete the =~/.authinfo=
 
 ** For other git server
@@ -97,7 +102,7 @@ If you want to also, rename multiple files in project, just run =M-x= =find-dire
 Press C-c C-c to confirm the edit or C-c C-k to cancel.
 
 ** Multiple-cursors
-To use multiple-cursors, select the word, then, press =M-d= to go foward or =M-D= to go backwards.  Press =C= to edit all.
+To use multiple-cursors, select the word, then, press =M-d= to go forward or =M-D= to go backwards.  Press =C= to edit all.
 
 ** Want to add your own config
 Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
@@ -143,6 +148,7 @@ I really recommend you to use ts-ls and Javascript LSP to work with ruby
 | ç                   | Normal mode       | Save all files                     |
 | SPC gdo and SPC gdm | Git conflict      | Keep other or Keep mine (git)      |
 | SPC e               | All               | Toggle treemacs                    |
+| C-e                 | Insert (web-mode) | emmet-expand (like ul>li*3)        |
 
 * Using Autocomplete
 #+caption: Autocomplete
