@@ -23,6 +23,7 @@
 (map! :after company
       :map company-active-map
       "RET" #'newline-and-indent
+      "<return>" #'newline-and-indent
       "<c-return>" #'newline-and-indent
       "<tab>" #'company-complete-selection
       "C-i" #'current-mode-company-mode
