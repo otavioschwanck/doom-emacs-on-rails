@@ -41,39 +41,6 @@
 ;; Search with avy
 (map! :nv "C-s" #'evil-avy-goto-char-2)
 
-;; Stop beign a noob!
-(defun noob-left ()
-  (left-char)
-  (message "Stop using arrow keys.  Use h j k l instead. If you are on insert mode, exit it and navigate with other commands!")
-  (interactive))
-
-(defun noob-right ()
-  (right-char)
-  (message "Tip: Please, please stop using arrow keys.  Use h j k l instead!!!!!!!!!!!!!!!")
-  (interactive))
-
-(defun noob-up ()
-  (previous-line)
-  (message "Tip: Please, please stop using arrow keys.  Use h j k l instead!!!!!!!!!!!!!!!")
-  (interactive))
-
-(defun noob-down ()
-  (next-line)
-  (message "Tip: Please, please stop using arrow keys.  Use h j k l instead!!!!!!!!!!!!!!!")
-  (interactive))
-
-(map! :map (ruby-mode-map rspec-mode-map yaml-mode-map)
-      [left]  #'noob-left
-      [right] #'noob-right
-      [up]    #'noob-up
-      [down]  #'noob-down)
-
-(map! :map (ruby-mode-map rspec-mode-map yaml-mode-map)
-      :n [left]  #'noob-left
-      :n [right] #'noob-right
-      :n [up]    #'noob-up
-      :n [down]  #'noob-down)
-
 ;; Shortcut for the emacs C-M-j and C-M-k
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
 (global-set-key (kbd "C-k") (kbd "C-M-p"))

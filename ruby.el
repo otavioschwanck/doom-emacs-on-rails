@@ -25,16 +25,6 @@
                    (concat "bundle exec rubocop -a "
                            (shell-quote-argument (buffer-file-name)))))
     (msc/revert-buffer-noconfirm))
-  (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file))
-
-;; Projectile globally with SPC r
-(require 'projectile-rails)
-(map! :leader "r" #'projectile-rails-command-map)
-
-;; Fix projectile texts
-(after! which-key
-  (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
-        which-key-replacement-alist))
 
 (after! ruby-mode
   ;; SPC m C to copy class name, super useful to test things on console.
@@ -165,4 +155,19 @@
   (end-of-line)
   (newline-and-indent))
 
-(map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
+(after! magit
+  ;; Projectile globally with SPC r
+  (require 'projectile-rails)
+  (map! :leader "r" #'projectile-rails-command-map)
+
+  ;; Fix projectile texts
+  (after! which-key
+    (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
+          which-key-replacement-alist))
+
+  (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
+  ;; Better C-j and C-k
+  (map! :map ruby-mode-map
+        "C-k" #'ruby-beginning-of-block
+        "C-j" #'ruby-end-of-block)
+  (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file)))
