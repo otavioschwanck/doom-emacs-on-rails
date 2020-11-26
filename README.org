@@ -18,6 +18,7 @@
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
 - [[#using-autocomplete][Using Autocomplete]]
 - [[#getting-help][Getting help]]
+- [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
 - [[#solargraph][Solargraph]]
 
 * Description
@@ -169,6 +170,25 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
+
+* Using GCCEmacs (recommended)
+
+For better performance, i recommend to use the gccemacs version.  To install it, you need to compile.
+
+For Ubuntu:
+#+begin_src
+sudo apt install libxpm-dev libgif-dev libjpeg-dev libpng-dev libtiff-dev libx11-dev libncurses5-dev automake autoconf texinfo libgtk2.0-dev
+sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
+sudo apt install gcc-10 g++-10 libgccjit0 libgccjit-10-dev libjansson4 libjansson-dev
+git clone git://git.sv.gnu.org/emacs.git
+cd emacs
+git checkout feature/native-comp
+export CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10
+./autogen.sh
+./configure --with-nativecomp --with-json CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
+make -j2 NATIVE_FULL_AOT=1
+sudo make install
+#+end_src
 
 * Solargraph
 To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
