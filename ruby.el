@@ -10,6 +10,35 @@
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
 
+(setq split-ruby-giant-string-default 125)
+
+(defun otavio/split-ruby-giant-string (&optional line-split-real)
+  (interactive)
+  (if (not line-split-real)
+      (setq line-split-real (read-number "split in column:" split-ruby-giant-string-default)))
+  (setq line-split (- line-split-real 3))
+  (move-to-column line-split)
+  (setq char-at-point-is-closing (eq ?\" (char-after)))
+  (if (not char-at-point-is-closing)
+      (if (eq (current-column) line-split)
+          (progn
+            ;; Start refactoring
+            (backward-word)
+            (insert "\"\"")
+            (backward-char)
+            (newline-and-indent)
+            (forward-line -1)
+            (end-of-line)
+            (insert " \\")
+            (forward-line 1)
+            (indent-according-to-mode)
+            (end-of-line)
+            (if (> (current-column) line-split-real)
+                (otavio/split-ruby-giant-string line-split-real)
+                )
+            )
+          )))
+
 ;; Rubocop com C-=
 (after! ruby-mode
   (defun msc/revert-buffer-noconfirm ()
@@ -166,6 +195,7 @@
           which-key-replacement-alist))
 
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
+  (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
   ;; Better C-j and C-k
   (map! :map ruby-mode-map
         "C-k" #'ruby-beginning-of-block
