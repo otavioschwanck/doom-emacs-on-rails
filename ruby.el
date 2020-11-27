@@ -23,7 +23,8 @@
       (if (eq (current-column) line-split)
           (progn
             ;; Start refactoring
-            (backward-word)
+            (if (< (+ (current-indentation) 5 (length (word-at-point))) line-split)
+                (backward-word))
             (insert "\"\"")
             (backward-char)
             (newline-and-indent)
