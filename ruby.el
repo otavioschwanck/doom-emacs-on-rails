@@ -260,6 +260,12 @@
   (end-of-line)
   (newline))
 
+(after! ruby-mode
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (setq-local flycheck-command-wrapper-function
+                          (lambda (command) (append '("bundle" "exec") command))))))
+
 (after! magit
   ;; Projectile globally with SPC r
   (require 'projectile-rails)
