@@ -238,27 +238,27 @@
           (delete-char -2)
           (insert ")")))
     (indent-region (line-beginning-position) (line-end-position))
-    (newline)
+    (newline-and-indent)
     (if (eq (length splitted-item) 2)
         (if (equal (nth 0 splitted-item) "init")
             (progn
               (dolist (arg (s-split "," (nth 1 splitted-item)))
                 (insert (concat "@" arg " = " arg))
                 (indent-region (line-beginning-position) (line-end-position))
-                (newline)
+                (newline-and-indent)
                 )))
       )
 
     (insert "end")
     (indent-region (line-beginning-position) (line-end-position))
-    (newline)
-    (newline))
+    (newline-and-indent)
+    (newline-and-indent))
   (otavio/delete-current-line)
   (forward-line -1)
   (otavio/delete-current-line)
   (forward-line -2)
   (end-of-line)
-  (newline))
+  (newline-and-indent))
 
 (after! ruby-mode
   (add-hook 'ruby-mode-hook
@@ -277,6 +277,7 @@
           which-key-replacement-alist))
 
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
+  (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
