@@ -197,6 +197,7 @@
 
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
+  (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
   ;; Better C-j and C-k
   (map! :map ruby-mode-map
         "C-k" #'ruby-beginning-of-block
