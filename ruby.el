@@ -10,6 +10,77 @@
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
 
+(defun otavio/-current-line-empty-p ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at-p "[[:space:]]*$")))
+
+(defun otavio/-swap-search-forward-swap-to-singleline (SEARCH)
+  (if (search-backward SEARCH (line-beginning-position) t)
+      (progn
+        (kill-visual-line)
+        (forward-line 1)
+        (end-of-line)
+        (insert " ")
+        (yank)
+        (indent-according-to-mode)
+        (forward-line 1)
+        (kill-line)
+        (kill-line)
+        (forward-line -2)
+        (kill-line)
+        (forward-to-indentation 0)
+        t)))
+
+(defun otavio/-swap-search-forward-swap-to-multiline (SEARCH)
+  (if (search-forward SEARCH (line-end-position) t)
+      (progn
+        (backward-word)
+        (backward-char)
+        (kill-visual-line)
+        (forward-line -1)
+        (if (not (otavio/-current-line-empty-p))
+            (progn
+              (end-of-line)))
+        (newline)
+        (yank)
+        (indent-according-to-mode)
+        (forward-line 1)
+        (indent-according-to-mode)
+        (end-of-line)
+        (newline)
+        (insert "end")
+        (indent-according-to-mode)
+        t)))
+
+(defun otavio/swap-if-unless-ruby ()
+  (interactive)
+  (beginning-of-line)
+  (forward-word)
+  (setq CHANGED nil)
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-multiline " if ")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-multiline " unless ")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "if")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless")))
+  (forward-line -1)
+  (beginning-of-line)
+  (forward-word)
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "if")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless")))
+  (forward-line -1)
+  (beginning-of-line)
+  (forward-word)
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "if")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless"))))
+
 (setq split-ruby-giant-string-default 125)
 
 (defun otavio/split-ruby-giant-string (&optional line-split-real)
@@ -27,7 +98,7 @@
                 (backward-word))
             (insert "\"\"")
             (backward-char)
-            (newline-and-indent)
+            (newline)
             (forward-line -1)
             (end-of-line)
             (insert " \\")
@@ -183,7 +254,7 @@
   (otavio/delete-current-line)
   (forward-line -2)
   (end-of-line)
-  (newline-and-indent))
+  (newline))
 
 (after! magit
   ;; Projectile globally with SPC r
@@ -196,6 +267,7 @@
           which-key-replacement-alist))
 
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
+  (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
   ;; Better C-j and C-k
