@@ -53,6 +53,58 @@
         (indent-according-to-mode)
         t)))
 
+;; requires string-inflection package
+(defun otavio/parse-json-to-ruby ()
+  (interactive)
+  (setq NO_UNDERSCORE_KEYS (y-or-n-p "Do you want to not underscore the keys (recommended for spec)"))
+  (setq CREATE_LETS (y-or-n-p "Do you want to create the lets? if not, the object values will be keeped (recommend for spec)"))
+
+  (if (not (eq ?{ (char-after)))
+      (search-backward "{"))
+
+  (condition-case err (json-read-object) (error
+                                          (progn
+                                            (if (cl-search "json-string-format" (format "%S" err))
+                                                (progn
+                                                  (message "CORRIGINDO...")
+                                                  (search-backward ",") (delete-char 1))))))
+
+
+
+  (if (not (eq ?{ (char-after)))
+      (search-backward "{"))
+
+  (setq JSON_NOT_PARSED (let ((l (point)))
+    (save-excursion
+      (setq JSON_OBJECT (json-read-object))
+      (buffer-substring l (point)))))
+  (search-backward JSON_NOT_PARSED (point-min) t)
+  (setq START (point))
+  (search-forward JSON_NOT_PARSED (point-max) t)
+  (setq END (point))
+  (kill-region START END)
+  (insert "let(:) do") (indent-according-to-mode) (newline-and-indent)
+  (insert "{") (newline-and-indent)
+  (mapc (lambda (x) (insert (if NO_UNDERSCORE_KEYS (string-inflection-underscore-function (symbol-name (car x))) (symbol-name (car x))))
+          (insert ": ")
+          (if CREATE_LETS
+              (progn
+                (insert (string-inflection-underscore-function (symbol-name (car x)))))
+            (insert (format "%S" (cdr x))))
+           (insert ",") (newline-and-indent))
+        JSON_OBJECT)
+  (search-backward ",") (delete-char 1) (newline-and-indent)
+  (insert "}") (newline-and-indent) (insert "end") (newline-and-indent)
+  (if CREATE_LETS
+      (progn
+        (newline-and-indent)
+        (mapc (lambda (x) (insert "let(:" (string-inflection-underscore-function (symbol-name (car x))) ") { " (format "%S" (cdr x)) " }") (newline-and-indent)) JSON_OBJECT)
+        ))
+  (search-backward "let(:)") (search-forward ":")
+  (if (featurep 'evil) (evil-insert 1)))
+
+(use-package! string-inflection)
+
 (defun otavio/swap-if-unless-ruby ()
   (interactive)
   (beginning-of-line)
@@ -266,7 +318,7 @@
               (setq-local flycheck-command-wrapper-function
                           (lambda (command) (append '("bundle" "exec") command))))))
 
-(after! magit
+(after! ruby-mode
   ;; Projectile globally with SPC r
   (require 'projectile-rails)
   (map! :leader "r" #'projectile-rails-command-map)
@@ -278,6 +330,7 @@
 
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
   (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
+  (map! :map ruby-mode-map :localleader "l" 'otavio/parse-json-to-ruby)
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
