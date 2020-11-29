@@ -85,7 +85,7 @@
   (kill-region START END)
   (insert "let(:) do") (indent-according-to-mode) (newline-and-indent)
   (insert "{") (newline-and-indent)
-  (mapc (lambda (x) (insert (if NO_UNDERSCORE_KEYS (string-inflection-underscore-function (symbol-name (car x))) (symbol-name (car x))))
+  (mapc (lambda (x) (insert (if (not NO_UNDERSCORE_KEYS) (string-inflection-underscore-function (symbol-name (car x))) (symbol-name (car x))))
           (insert ": ")
           (if CREATE_LETS
               (progn
