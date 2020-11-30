@@ -11,10 +11,10 @@
 - [[#getting-help][Getting help]]
 
 * Description
-+ Ready to use with solargraph and rails (with rbenv)                                                                                                   
++ Ready to use with solargraph and rails (with rbenv)
 + Working with JS
 + Some new functions added.
-  
+
 * Prerequisites
  - Git 2.23+
  - Emacs 26.1+ (27 is recommended) with GNUTLS support
@@ -116,7 +116,6 @@ Some modified commands that i changed
 | C-S-g      | Shortcut to magit                                                                                           |
 | M-2 or C-w | (super important) Expand Region <3                                                                          |
 | C-c l      | Language specific commands (see the keys on help) obs: on ruby, you can execute rake tasks, run bundle, etc |
-| C-u        | Undo                                                                                                        |
 | C-p C-u    | Redo                                                                                                        |
 | C-ç        | Save all files                                                                                              |
 

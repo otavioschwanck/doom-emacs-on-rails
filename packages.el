@@ -53,4 +53,3 @@
 (package! multiple-cursors)
 (package! plural)
 (package! ace-window)
-(package! undo-tree)

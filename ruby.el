@@ -393,5 +393,4 @@
 (map! :map ruby-mode-map :localleader "L" 'otavio/parse-json-to-ruby)
 (map! :map ruby-mode-map :localleader "l" 'otavio/return-let-to-parent)
 
-(after! ruby-mode
-  (setq lsp-enable-file-watchers nil))
+(setq lsp-enable-file-watchers nil)

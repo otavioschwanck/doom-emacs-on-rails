@@ -15,15 +15,15 @@
 
 ;; Custom Editing Keybindings
 (global-set-key (kbd "C-o") (kbd "C-e C-m"))
+(global-set-key (kbd "C-;") (kbd "C-/"))
+(global-set-key (kbd "M-;") #'undo-fu-only-redo)
 (global-set-key (kbd "C-S-o") (kbd "C-p C-e C-m"))
 (global-set-key (kbd "C-S-k") 'sp-kill-hybrid-sexp)
 (global-set-key (kbd "C-c C-j") 'join-line)
-        (global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
+(global-set-key (kbd "C-ç") (kbd "C-1 C-x s"))
 
 (map! "C-c SPC" #'counsel-mark-ring)
 (map! "M-2" #'er/expand-region)
-(map! "C-;" #'undo-fu-only-undo)
-(map! "M-;" #'undo-fu-only-redo)
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
 (map! "<C-S-return>" #'company-dabbrev)
