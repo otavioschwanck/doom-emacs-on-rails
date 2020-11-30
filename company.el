@@ -34,7 +34,7 @@
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
-  (setq company-idle-delay 0.8))
+  (setq company-idle-delay 0.08))
 
 (defun yas-next-and-close-company ()
   (interactive)
@@ -53,6 +53,8 @@
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-capf 'company-dabbrev-code 'company-dabbrev 'company-yasnippet))
+
+(setq company-dabbrev-code-time-limit 0.04)
 
 ;; use C-p instead
 (setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
