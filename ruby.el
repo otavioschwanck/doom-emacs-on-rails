@@ -5,6 +5,127 @@
 ;; Author: Otávio <otavioschwanck@gmail.com>
 ;; Keywords: ruby
 
+(defun otavio/-fix-forward-let-to-parent-replace-value (LET_NAME VALUE)
+  (search-forward ": ")
+  (setq START (point)) (search-forward LET_NAME) (kill-region START (point))
+  (insert VALUE)
+  t)
+
+(defun otavio/-not-safe-backward-let-to-parent (LET_NAME VALUE)
+  (if (search-backward (concat ": " LET_NAME) (point-min) t) (otavio/-fix-forward-let-to-parent-replace-value LET_NAME VALUE)))
+
+(defun otavio/-not-safe-forward-let-to-parent (LET_NAME VALUE)
+  (if (search-forward (concat ": " LET_NAME) (point-max) t) (otavio/-not-safe-backward-let-to-parent LET_NAME VALUE) nil))
+
+(defun otavio/-fix-backward-let-to-parent (KEY_NAME LET_NAME VALUE)
+  (if (search-backward (concat KEY_NAME ": " LET_NAME) (point-min) t)
+      (progn
+        (search-forward ": ")
+        (setq START (point)) (search-forward LET_NAME) (kill-region START (point))
+        (insert VALUE)
+        t
+        )))
+
+(defun otavio/-fix-forward-let-to-parent (KEY_NAME LET_NAME VALUE)
+  (if (search-forward (concat KEY_NAME ": " LET_NAME) (point-max) t) (otavio/-fix-backward-let-to-parent KEY_NAME LET_NAME VALUE) nil))
+
+(defun otavio/return-let-to-parent ()
+  (interactive)
+  (setq INITIAL_LINE_NUM (line-number-at-pos))
+  (beginning-of-line) (search-forward ":")
+  (setq LET_NAME (let ((l (point)))
+    (save-excursion
+      (search-forward ")") (backward-char)
+      (buffer-substring l (point)))))
+  (setq CAMEL_LOWER_CASE (string-inflection-lower-camelcase-function LET_NAME))
+  (setq CAMEL_CASE (string-inflection-camelcase-function LET_NAME))
+  (setq UPPER_CASE (string-inflection-upcase-function LET_NAME))
+  (search-forward "{ ")
+  (setq VARIABLE_VALUE (let ((l (point)))
+    (save-excursion
+      (search-forward "}") (backward-char 2)
+      (buffer-substring l (point)))))
+  (message VARIABLE_VALUE)
+
+  (setq FIXED (otavio/-fix-backward-let-to-parent LET_NAME LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-backward-let-to-parent CAMEL_LOWER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-backward-let-to-parent CAMEL_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-backward-let-to-parent UPPER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent LET_NAME LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent CAMEL_LOWER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent CAMEL_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent UPPER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+
+  (if (not FIXED)
+      (progn
+        (setq CAN_CONTINUE (y-or-n-p "Not found match of key: value in any JS pattern.  Want to search with only the let value ? Emacs will replace the first occurrence. (Recommended)"))
+        (if CAN_CONTINUE (progn
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           ))))
+
+  (if FIXED (progn (kill-line 1) (message "Changed successfully.")) (message "Not found.")))
+
+;; requires string-inflection package
+(defun otavio/parse-json-to-ruby ()
+  (interactive)
+  (setq NO_UNDERSCORE_KEYS (y-or-n-p "Do you want to not underscore the keys (recommended for spec)"))
+  (setq CREATE_LETS (y-or-n-p "Do you want to create the lets? if not, the object values will be keeped (recommend for spec)"))
+
+  (if (not (eq ?{ (char-after)))
+      (search-backward "{"))
+
+  (condition-case err (json-read-object) (error
+                                          (progn
+                                            (if (cl-search "json-string-format" (format "%S" err))
+                                                (progn
+                                                  (message "JSON is invalid, trying to fix it...")
+                                                  (search-backward ",") (delete-char 1))))))
+
+
+
+  (if (not (eq ?{ (char-after)))
+      (search-backward "{"))
+
+  (setq JSON_NOT_PARSED (let ((l (point)))
+    (save-excursion
+      (setq JSON_OBJECT (json-read-object))
+      (buffer-substring l (point)))))
+  (search-backward JSON_NOT_PARSED (point-min) t)
+  (setq START (point))
+  (search-forward JSON_NOT_PARSED (point-max) t)
+  (setq END (point))
+  (kill-region START END)
+  (insert "let(:) do") (indent-according-to-mode) (newline-and-indent)
+  (insert "{") (newline-and-indent)
+  (mapc (lambda (x) (insert (if (not NO_UNDERSCORE_KEYS) (string-inflection-underscore-function (symbol-name (car x))) (symbol-name (car x))))
+          (insert ": ")
+          (if CREATE_LETS
+              (progn
+                (insert (string-inflection-underscore-function (symbol-name (car x)))))
+            (insert (format "%S" (cdr x))))
+           (insert ",") (newline-and-indent))
+        JSON_OBJECT)
+  (search-backward ",") (delete-char 1) (newline-and-indent)
+  (insert "}") (newline-and-indent) (insert "end") (newline-and-indent)
+  (if CREATE_LETS
+      (progn
+        (newline-and-indent)
+        (mapc (lambda (x) (insert "let(:" (string-inflection-underscore-function (symbol-name (car x))) ") { " (format "%S" (cdr x)) " }") (newline-and-indent)) JSON_OBJECT)
+        ))
+  (search-backward "let(:)") (search-forward ":")
+  (if (featurep 'evil) (evil-insert 1)))
+
+(use-package! string-inflection)
+
 (defun otavio/-current-line-empty-p ()
   (save-excursion
     (beginning-of-line)
@@ -269,3 +390,8 @@
 (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
 (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
 (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
+(map! :map ruby-mode-map :localleader "L" 'otavio/parse-json-to-ruby)
+(map! :map ruby-mode-map :localleader "l" 'otavio/return-let-to-parent)
+
+(after! ruby-mode
+  (setq lsp-enable-file-watchers nil))
