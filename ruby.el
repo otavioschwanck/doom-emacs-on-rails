@@ -335,7 +335,7 @@
 (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
 
 (with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(ruby-reek lsp ruby-rubocop ruby-rubylint)))
+  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubocop ruby-rubylint)))
 
 (defun otavio/chomp (str)
   "Trim leading and trailing whitespace from STR."
@@ -391,12 +391,6 @@
   (newline-and-indent))
 
 (after! ruby-mode
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              (setq-local flycheck-command-wrapper-function
-                          (lambda (command) (append '("bundle" "exec") command))))))
-
-(after! ruby-mode
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
   (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
   (map! :map ruby-mode-map :localleader "L" 'otavio/parse-json-to-ruby)
@@ -409,3 +403,10 @@
         "C-k" #'ruby-beginning-of-block
         "C-j" #'ruby-end-of-block)
   (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file)))
+
+(setq lsp-solargraph-diagnostics nil) ;; ruby-rubocop > lsp
+
+(add-hook 'ruby-mode-hook
+  (lambda ()
+    (setq-local flycheck-command-wrapper-function
+                (lambda (command) (append '("bundle" "exec") command)))))

@@ -180,7 +180,7 @@ For getting help, access doom official github page: https://github.com/hlissner/
 In your =~/.doom.d/user.el=, just add:
 #+begin_src elisp
 (with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint))) ;; This will remove the rubocop from disabled checkers
+  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint))) ;; This will remove the rubocop from disabled checkers (and LSP)
 #+end_src
 
 * Using GCCEmacs (recommended)
