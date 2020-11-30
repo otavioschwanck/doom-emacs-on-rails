@@ -397,8 +397,6 @@
                           (lambda (command) (append '("bundle" "exec") command))))))
 
 (after! ruby-mode
-  (setq lsp-enable-file-watchers nil)
-
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
   (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
   (map! :map ruby-mode-map :localleader "L" 'otavio/parse-json-to-ruby)
