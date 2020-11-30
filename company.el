@@ -34,7 +34,7 @@
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
-  (setq company-idle-delay 0.04))
+  (setq company-idle-delay 0.8))
 
 (defun yas-next-and-close-company ()
   (interactive)
@@ -44,6 +44,7 @@
 (map! :after yasnippet
       :map yas-keymap
       "C-d" #'yas-skip-and-clear-field
+      "C-e" #'emmet-expand
       "<tab>" #'company-complete-selection
       "C-q" 'yas-next-and-close-company)
 
