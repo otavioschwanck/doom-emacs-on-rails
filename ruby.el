@@ -66,7 +66,7 @@
                                           (progn
                                             (if (cl-search "json-string-format" (format "%S" err))
                                                 (progn
-                                                  (message "CORRIGINDO...")
+                                                  (message "JSON is invalid, trying to fix it...")
                                                   (search-backward ",") (delete-char 1))))))
 
 
