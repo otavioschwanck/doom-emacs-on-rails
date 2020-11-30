@@ -36,7 +36,8 @@
  - ripgrep 11.0+
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
- - Solargraph
+ - Solargraph =(gem install solargraph)=
+ - typescript-language-server =(npm install -g typescript-language-server)=
 
 * Installation
 #+BEGIN_SRC shell

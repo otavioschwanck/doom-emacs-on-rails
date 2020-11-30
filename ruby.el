@@ -6,6 +6,15 @@
 ;; Keywords: ruby
 
 ;; Better C-j and C-k
+
+;; Projectile globally with SPC r
+(require 'projectile-rails)
+(map! :leader "r" #'projectile-rails-command-map)
+
+(after! which-key
+  (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
+        which-key-replacement-alist))
+
 (map! :map ruby-mode-map
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
@@ -388,15 +397,6 @@
                           (lambda (command) (append '("bundle" "exec") command))))))
 
 (after! ruby-mode
-  ;; Projectile globally with SPC r
-  (require 'projectile-rails)
-  (map! :leader "r" #'projectile-rails-command-map)
-
-  ;; Fix projectile texts
-  (after! which-key
-    (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
-          which-key-replacement-alist))
-
   (setq lsp-enable-file-watchers nil)
 
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
