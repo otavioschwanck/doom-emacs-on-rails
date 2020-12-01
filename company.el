@@ -58,4 +58,3 @@
 
 ;; use C-p instead
 (setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
-company-backends
