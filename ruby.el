@@ -335,7 +335,7 @@
 (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
 
 (with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubocop ruby-rubylint)))
+  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubocop lsp ruby-rubylint)))
 
 (defun otavio/chomp (str)
   "Trim leading and trailing whitespace from STR."
