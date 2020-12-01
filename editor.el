@@ -28,9 +28,6 @@
 (map! :nv "0" #'doom/backward-to-bol-or-indent)
 (map! :nv "-" #'end-of-line)
 
-;; Expand region is nice
-(map! :n "C-<SPC>" #'er/expand-region)
-
 ;; Better way to kill current buffer
 (map! :leader "k" #'kill-current-buffer)
 
@@ -104,6 +101,7 @@
 
 ;; C-w C-w evil next > other-window
 (map! :map evil-window-map "C-w" #'evil-window-next)
+(map! :map evil-window-map "C-<SPC>" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 
 (setq lsp-enable-file-watchers nil)
