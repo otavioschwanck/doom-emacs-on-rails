@@ -32,6 +32,7 @@
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-M-;" #'+neotree/open)
+(map! "C-i" #'current-mode-company-mode)
 
 ;; Drag stuff rules
 (map! "M-p" #'drag-stuff-up)
@@ -96,6 +97,7 @@ there's a region, all lines that region covers will be duplicated."
       :map company-active-map
       "RET" #'newline-and-indent
       "<return>" #'newline-and-indent
+      "C-i" #'current-mode-company-mode
       "<tab>" #'company-complete-selection
       "<C-return>" #'dabbrev-expand
       "<C-S-return>" #'company-dabbrev
