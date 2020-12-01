@@ -18,6 +18,7 @@
 - [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
 - [[#using-autocomplete][Using Autocomplete]]
 - [[#getting-help][Getting help]]
+- [[#enabling-rubocop-integration][Enabling rubocop integration]]
 - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
 - [[#solargraph][Solargraph]]
 
@@ -36,7 +37,8 @@
  - ripgrep 11.0+
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
- - Solargraph
+ - Solargraph =(gem install solargraph)=
+ - typescript-language-server =(npm install -g typescript-language-server)=
 
 * Installation
 #+BEGIN_SRC shell
@@ -131,25 +133,28 @@ Example user.el
 I really recommend you to use ts-ls and Javascript LSP to work with ruby
 
 * Keybindings that i made myself
-| Key                 | Mode              | Description                        |
-| SPC a and SPC A     | Ruby              | Go to / create spec file           |
-| SPC v               | All               | Open terminal on project root      |
-| SPC t t             | All               | Toggle truncate lines              |
-| SPC -               | All               | Indent the file                    |
-| SPC =               | Ruby              | Runs rubocop -a on current file    |
-| ]g and [g           | All               | Navigate on git changes            |
-| SPC l               | Terminals         | Clean terminal                     |
-| C-j                 | All               | Go one sentence down (very useful) |
-| C-k                 | All               | Go one sentence up (very useful)   |
-| TAB                 | All (except org)  | Same as / (search)                 |
-| C-TAB               | All (except org)  | Same as ? (search-backwards)       |
-| C-q                 | All (insert mode) | Paste on insert mode               |
-| J and K             | Normal Mode       | Drag stuff down and up             |
-| C-, and C-;         | Normal Mode       | Previous and Next buffer           |
-| ç                   | Normal mode       | Save all files                     |
-| SPC gdo and SPC gdm | Git conflict      | Keep other or Keep mine (git)      |
-| SPC e               | All               | Toggle treemacs                    |
-| C-e                 | Insert (web-mode) | emmet-expand (like ul>li*3)        |
+| Key                 | Mode               | Description                                                |
+| SPC a and SPC A     | Ruby               | Go to / create spec file                                   |
+| SPC v               | All                | Open terminal on project root                              |
+| SPC t t             | All                | Toggle truncate lines                                      |
+| SPC -               | All                | Indent the file                                            |
+| SPC =               | Ruby               | Runs rubocop -a on current file                            |
+| ]g and [g           | All                | Navigate on git changes                                    |
+| SPC l               | Terminals          | Clean terminal                                             |
+| C-j                 | All                | Go one sentence down (very useful)                         |
+| C-k                 | All                | Go one sentence up (very useful)                           |
+| TAB                 | All (except org)   | Same as / (search)                                         |
+| C-TAB               | All (except org)   | Same as ? (search-backwards)                               |
+| C-q                 | All (insert mode)  | Paste on insert mode                                       |
+| J and K             | Normal Mode        | Drag stuff down and up                                     |
+| C-, and C-;         | Normal Mode        | Previous and Next buffer                                   |
+| ç                   | Normal mode        | Save all files                                             |
+| SPC gdo and SPC gdm | Git conflict       | Keep other or Keep mine (git)                              |
+| SPC e               | All                | Toggle treemacs                                            |
+| C-e                 | Insert (web-mode)  | emmet-expand (like ul>li*3)                                |
+| C-e                 | Insert (ruby-mode) | emmet-expand (Ruby) (Method generator) (Same as C-M-enter) |
+| SPC m i             | normal             | toggle if / unless into single / multi-line                |
+| SPC m S             | normal             | split a giant string into strings with \                   |
 
 * Using Autocomplete
 #+caption: Autocomplete
@@ -170,6 +175,13 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
+
+* Enabling rubocop integration
+In your =~/.doom.d/user.el=, just add:
+#+begin_src elisp
+(with-eval-after-load 'flycheck
+  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint))) ;; This will remove the rubocop from disabled checkers (and LSP)
+#+end_src
 
 * Using GCCEmacs (recommended)
 
