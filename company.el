@@ -11,5 +11,3 @@
 
 ;; use C-p instead
 (setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
-
-(setq company-dabbrev-code-time-limit 0.015)
