@@ -26,13 +26,12 @@
 (map! "M-2" #'er/expand-region)
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
-(map! "<C-S-return>" #'company-dabbrev)
 (map! "C-S-j" #'current-mode-company-mode)
 (map! "C-q" #'yas-expand)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-M-;" #'+neotree/open)
-(map! "C-i" #'current-mode-company-mode)
+(map! "<C-S-return>" #'current-mode-company-mode)
 
 ;; Drag stuff rules
 (map! "M-p" #'drag-stuff-up)
@@ -97,7 +96,7 @@ there's a region, all lines that region covers will be duplicated."
       :map company-active-map
       "RET" #'newline-and-indent
       "<return>" #'newline-and-indent
-      "C-i" #'current-mode-company-mode
+      "<C-S-return>" #'current-mode-company-mode
       "<tab>" #'company-complete-selection
       "<C-return>" #'dabbrev-expand
       "<C-S-return>" #'company-dabbrev
@@ -119,7 +118,6 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after yasnippet
       :map yas-keymap
-      "<tab>" #'company-complete-selection
       "C-S-q" 'yas-prev-field
       "C-d" 'yas-skip-and-clear-field
       "C-q" 'yas-next-and-close-company)
