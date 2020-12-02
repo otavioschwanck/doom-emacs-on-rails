@@ -26,7 +26,8 @@
   (newline-and-indent)
   (forward-line -1)
   (insert REAL_COMMAND)
-  (indent-according-to-mode))
+  (indent-according-to-mode)
+  (save-buffer))
 
 (defun otavio/-fix-forward-let-to-parent-replace-value (LET_NAME VALUE)
   (search-forward ": ")
