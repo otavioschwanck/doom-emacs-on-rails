@@ -34,7 +34,7 @@
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
-  (setq company-idle-delay 0.01))
+  (setq company-idle-delay 0.04))
 
 (defun yas-next-and-close-company ()
   (interactive)
@@ -49,12 +49,15 @@
       "C-q" 'yas-next-and-close-company)
 
 (after! robe
-  (set-company-backend! 'ruby-mode 'company-capf 'company-dabbrev-code 'company-yasnippet))
+  (set-company-backend! 'ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-capf 'company-dabbrev-code 'company-dabbrev 'company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
 
-(setq company-dabbrev-code-time-limit 0.015)
+(defun init-company-dabbrev-code-h ()
+    (when lsp-completion-mode
+      (progn
+        (setq BACKEND (if (eq major-mode 'ruby-mode) 'company-dabbrev-code 'company-capf))
+        (setq-local company-backends (cons BACKEND company-backends)))))
 
-;; use C-p instead
-(setq +lsp-company-backends '(company-capf :separate company-dabbrev-code))
+(add-hook! 'lsp-completion-mode-hook 'init-company-dabbrev-code-h)

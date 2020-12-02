@@ -19,6 +19,32 @@
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
 
+(setq debugger-command "byebug")
+(setq pry-show-helper t)
+
+(defun otavio/remove-all-debuggers ()
+  (interactive)
+  (setq CURRENT_LINE (line-number-at-pos))
+  (setq DELETATIONS 0)
+  (goto-char (point-min))
+  (while (search-forward debugger-command (point-max) t)
+    (beginning-of-line)
+    (kill-line 1)
+    (setq DELETATIONS (1+ DELETATIONS)))
+  (goto-char (point-min))
+  (forward-line (- (1- CURRENT_LINE) DELETATIONS)))
+
+(defun otavio/insert-debugger ()
+  (interactive)
+  (setq HELPER (if pry-show-helper " # next; step; break; break 14;break FooBar#func;break --help;" ""))
+  (setq REAL_COMMAND (if (eq major-mode 'ruby-mode) (concat debugger-command HELPER) (concat "<% " debugger-command HELPER " %>")))
+  (back-to-indentation)
+  (newline-and-indent)
+  (forward-line -1)
+  (insert REAL_COMMAND)
+  (indent-according-to-mode)
+  (save-buffer))
+
 (defun otavio/-current-line-empty-p ()
   (save-excursion
     (beginning-of-line)
@@ -335,7 +361,7 @@
 (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
 
 (with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubocop ruby-rubylint)))
+  (setq-default flycheck-disabled-checkers '(ruby-reek lsp ruby-rubylint)))
 
 (defun otavio/chomp (str)
   "Trim leading and trailing whitespace from STR."
@@ -390,6 +416,9 @@
   (end-of-line)
   (newline-and-indent))
 
+(map! :after web-mode :map web-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :after web-mode :map web-mode-map :leader "D" 'otavio/remove-all-debuggers)
+
 (after! ruby-mode
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
   (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
@@ -398,6 +427,8 @@
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
+  (map! :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
+  (map! :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
   ;; Better C-j and C-k
   (map! :map ruby-mode-map
         "C-k" #'ruby-beginning-of-block
