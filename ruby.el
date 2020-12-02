@@ -419,7 +419,11 @@
 (map! :map ruby-mode-map :localleader "L" 'otavio/parse-json-to-ruby)
 (map! :map ruby-mode-map :localleader "l" 'otavio/return-let-to-parent)
 
-(setq lsp-enable-file-watchers nil)
+;; Don't want file watchers for JS
+(defun set-file-watchers-h ()
+  (setq-local lsp-enable-file-watchers (if (eq major-mode 'js2-mode) nil t)))
+
+(add-hook! 'lsp-after-open-hook :append 'set-file-watchers-h)
 
 (add-hook 'ruby-mode-hook
   (lambda ()
