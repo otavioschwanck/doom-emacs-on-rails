@@ -40,7 +40,8 @@
   (newline-and-indent)
   (forward-line -1)
   (insert REAL_COMMAND)
-  (indent-according-to-mode))
+  (indent-according-to-mode)
+  (save-all-buffers))
 
 (defun otavio/-current-line-empty-p ()
   (save-excursion
