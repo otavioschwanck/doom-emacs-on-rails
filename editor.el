@@ -105,3 +105,10 @@
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 
 (setq lsp-enable-file-watchers nil)
+
+;; Don't want file watchers for JS
+(defun set-file-watchers-h ()
+  (setq-local lsp-enable-file-watchers (if (eq major-mode 'js2-mode) nil t)))
+
+(add-hook! 'lsp-after-open-hook :append 'set-file-watchers-h)
+(add-hook! 'lsp-completion-mode-hook 'init-company-dabbrev-code-h)
