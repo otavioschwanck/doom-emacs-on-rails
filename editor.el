@@ -111,4 +111,3 @@
   (setq-local lsp-enable-file-watchers (if (eq major-mode 'js2-mode) nil t)))
 
 (add-hook! 'lsp-after-open-hook :append 'set-file-watchers-h)
-(add-hook! 'lsp-completion-mode-hook 'init-company-dabbrev-code-h)
