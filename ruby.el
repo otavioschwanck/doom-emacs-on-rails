@@ -5,6 +5,29 @@
 ;; Author: Otávio <otavioschwanck@gmail.com>
 ;; Keywords: ruby
 
+(setq debugger-command "byebug")
+(setq pry-show-helper t)
+
+(defun otavio/remove-all-debuggers ()
+  (interactive)
+  (setq CURRENT_LINE (line-number-at-pos))
+  (goto-char (point-min))
+  (while (search-forward debugger-command (point-max) t)
+    (beginning-of-line)
+    (kill-line 1))
+  (goto-char (point-min))
+  (forward-line (1- CURRENT_LINE)))
+
+(defun otavio/insert-debugger ()
+  (interactive)
+  (setq HELPER (if pry-show-helper " # next; step; break; break 14;break FooBar#func;break --help;" ""))
+  (setq REAL_COMMAND (if (eq major-mode 'ruby-mode) (concat debugger-command HELPER) (concat "<% " debugger-command HELPER " %>")))
+  (back-to-indentation)
+  (newline-and-indent)
+  (forward-line -1)
+  (insert REAL_COMMAND)
+  (indent-according-to-mode))
+
 (defun otavio/-fix-forward-let-to-parent-replace-value (LET_NAME VALUE)
   (search-forward ": ")
   (setq START (point)) (search-forward LET_NAME) (kill-region START (point))
@@ -399,3 +422,8 @@
   (lambda ()
     (setq-local flycheck-command-wrapper-function
                 (lambda (command) (append '("bundle" "exec") command)))))
+
+(map! :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
+(map! :after web-mode :map web-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :after web-mode :map web-mode-map :leader "D" 'otavio/remove-all-debuggers)
