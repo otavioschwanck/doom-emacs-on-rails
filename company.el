@@ -54,7 +54,10 @@
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
 
-(add-hook! 'lsp-completion-mode-hook
-  (defun init-company-dabbrev-code-h ()
+(defun init-company-dabbrev-code-h ()
     (when lsp-completion-mode
-      (setq-local company-backends (cons 'company-dabbrev-code company-backends)))))
+      (progn
+        (setq BACKEND (if (eq major-mode 'ruby-mode) 'company-dabbrev-code 'company-capf))
+        (setq-local company-backends (cons BACKEND company-backends)))))
+
+(add-hook! 'lsp-completion-mode-hook 'init-company-dabbrev-code-h)
