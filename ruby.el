@@ -416,8 +416,8 @@
   (end-of-line)
   (newline-and-indent))
 
-(map! :after web-mode :map web-mode-map :leader "d" 'otavio/insert-debugger)
-(map! :after web-mode :map web-mode-map :leader "D" 'otavio/remove-all-debuggers)
+(map! :after web-mode :map web-mode-map :leader "d b" 'otavio/insert-debugger)
+(map! :after web-mode :map web-mode-map :leader "d B" 'otavio/remove-all-debuggers)
 
 (after! ruby-mode
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
@@ -427,8 +427,8 @@
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
-  (map! :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
-  (map! :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
+  (map! :map ruby-mode-map :leader "d b" 'otavio/insert-debugger)
+  (map! :map ruby-mode-map :leader "d B" 'otavio/remove-all-debuggers)
   ;; Better C-j and C-k
   (map! :map ruby-mode-map
         "C-k" #'ruby-beginning-of-block

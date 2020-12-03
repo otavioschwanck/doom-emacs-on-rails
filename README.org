@@ -7,6 +7,7 @@
   - [[#about-doom-emacs][About Doom Emacs]]
   - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#method-generator][Method Generator]]
+- [[#debugging-like-a-pro][Debugging like a pro]]
 - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#for-github][For github]]
   - [[#for-other-git-server][For other git server]]
@@ -77,6 +78,37 @@ If the method name is init, it creates a initialize settings the args on instanc
 Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 #+caption: Generate Methods
 [[file:generate_method.gif]]
+
+* Debugging like a pro
+
+To use debbuger, first, add this to your gemfile (:development):
+#+begin_src ruby
+gem 'debase'
+gem 'ruby-debug-ide'
+#+end_src
+
+Then, on in a ruby of your project, type =Alt + x= and press =dab-debug-setup=.
+
+Now, to start the debugger, add a breakpoint with =SPC d d= and run debugger with =SPC d D=
+
+Shortcuts:
+
+| KEY       | Function                  |
+| SPC d d   | dap-breakpoint-toggle     |
+| SPC d r   | dap-repl (console)        |
+| SPC d D   | dap-debug                 |
+| SPC d n   | dap-step-in               |
+| SPC d N   | dap-next                  |
+| SPC d p   | dap-step-out              |
+| SPC d k   | dap-disconnect            |
+| SPC d w s | dap-ui-sessions           |
+| SPC d w l | dap-ui-locals             |
+| SPC d w e | dap-ui-expressions        |
+| SPC d w b | dap-ui-breakpoints        |
+| SPC d w r | dap-ui-repl (console)     |
+| SPC d c   | dap-continue              |
+| SPC d e   | dap-eval                  |
+| SPC d E   | dap-eval-thing-at-point   |
 
 * Configuring Forge for Creating / Reviewing pull requests
 ** For github
