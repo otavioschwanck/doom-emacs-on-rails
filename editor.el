@@ -42,7 +42,7 @@
          :cwd (projectile-project-root)
          :request "launch"
          :program (concat (projectile-project-root) "bin/rails")
-         :args ["server" "-p" "3005" "--pid" "tmp/pids/debugger.pid"]
+         :args ["server" "-p" "3000" "--pid" "tmp/pids/debugger.pid"]
          :name "Run Rails Debugger (port 3000)"))
 
   (dap-register-debug-template
