@@ -30,7 +30,8 @@
 (map! "C-q" #'yas-expand)
 (map! "C-." #'+lookup/definition)
 (map! "C-x k" #'kill-this-buffer)
-(map! "C-M-;" #'+neotree/open)
+(map! "C-c e" #'+treemacs/toggle)
+(map! "C-c E" #'treemacs-find-file)
 (map! "<C-S-return>" #'current-mode-company-mode)
 
 ;; Drag stuff rules
