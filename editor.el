@@ -156,5 +156,6 @@
 (map! :leader "d c" 'dap-continue)
 (map! :leader "d e" 'dap-eval-region)
 (map! :leader "d E" 'dap-eval-thing-at-point)
+(map! :leader "d K" 'dap-breakpoint-delete-all)
 
 (setq dap-output-window-max-height 10)

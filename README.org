@@ -109,6 +109,7 @@ Shortcuts:
 | SPC d c   | dap-continue              |
 | SPC d e   | dap-eval                  |
 | SPC d E   | dap-eval-thing-at-point   |
+| SPC d K   | dap-breakpoint-delete-all |
 
 * Configuring Forge for Creating / Reviewing pull requests
 ** For github
