@@ -35,11 +35,12 @@
 * Prerequisites
  - Git 2.23+
  - Emacs 26.1+ (27 is recommended) with GNUTLS support
- - ripgrep 11.0+
+ - ripgrep 11.0+ =(sudo apt install ripgrep)=
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
  - Solargraph =(gem install solargraph)=
  - typescript-language-server =(npm install -g typescript-language-server)=
+ - fira code (fonts) =(sudo apt install fonts-firacode)=
 
 * Installation
 #+BEGIN_SRC shell
