@@ -7,3 +7,5 @@ custom.el
 user.el
 user/
 user/**/*
+themes/
+themes/**/*
