@@ -170,3 +170,6 @@ Try the repeated popping up to 10 times."
   (set-lookup-handlers! 'ruby-mode
     :definition #'xref-find-definitions
     :documentation #'robe-doc))
+
+(after! lookup
+  (map! "M-." #'+lookup/type-definition))
