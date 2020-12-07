@@ -12,8 +12,9 @@
 
 (defun current-mode-company-mode ()
   (interactive)
-  (when-let (backend (nth 1 company-backends))
-    (company-begin-backend (nth 1 company-backends))))
+  (if (eq major-mode 'ruby-mode) (progn (robe-start) (call-interactively 'company-robe))
+    (when-let (backend (nth 1 company-backends))
+      (company-begin-backend (nth 1 company-backends)))))
 
 (map! :i "C-q" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
@@ -49,15 +50,7 @@
       "C-q" 'yas-next-and-close-company)
 
 (after! robe
-  (set-company-backend! 'ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
+  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-capf 'company-yasnippet))
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
-
-(defun init-company-dabbrev-code-h ()
-    (when lsp-completion-mode
-      (progn
-        (setq BACKEND (if (eq major-mode 'ruby-mode) 'company-dabbrev-code 'company-capf))
-        (setq-local company-backends (cons BACKEND company-backends)))))
-
-(add-hook! 'lsp-completion-mode-hook 'init-company-dabbrev-code-h)

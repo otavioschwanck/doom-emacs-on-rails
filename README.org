@@ -7,7 +7,6 @@
   - [[#about-doom-emacs][About Doom Emacs]]
   - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#method-generator][Method Generator]]
-- [[#debugging-like-a-pro][Debugging like a pro]]
 - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#for-github][For github]]
   - [[#for-other-git-server][For other git server]]
@@ -22,6 +21,8 @@
 - [[#enabling-rubocop-integration][Enabling rubocop integration]]
 - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
 - [[#solargraph][Solargraph]]
+- [[#troubleshoot][Troubleshoot]]
+  - [[#disable-robe-start-when-use-go-to-definition-definition][Disable robe start when use go to definition definition]]
 
 * Description
 # Personal configuration for doom emacs
@@ -29,7 +30,7 @@
 + Working with JS
 + Full functional with Ruby on Rails
 + Some new functions added from vanilla doom emacs.
-+ Solargraph for autocompletes (C-p and C-S-p to complete with buffers text)
++ Robe for autocompletes (C-p and C-S-p to complete with buffers text)
 + Magit for awesome git usage and pull request creation / review.
 
 * Prerequisites
@@ -38,7 +39,6 @@
  - ripgrep 11.0+ =(sudo apt install ripgrep)=
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
- - Solargraph =(gem install solargraph)=
  - typescript-language-server =(npm install -g typescript-language-server)=
  - fira code (fonts) =(sudo apt install fonts-firacode)=
 
@@ -79,38 +79,6 @@ If the method name is init, it creates a initialize settings the args on instanc
 Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
 #+caption: Generate Methods
 [[file:generate_method.gif]]
-
-* Debugging like a pro
-
-To use debbuger, first, add this to your gemfile (:development):
-#+begin_src ruby
-gem 'debase'
-gem 'ruby-debug-ide'
-#+end_src
-
-Then, on in a ruby of your project, type =Alt + x= and press =dab-debug-setup=.
-
-Now, to start the debugger, add a breakpoint with =SPC d d= and run debugger with =SPC d D=
-
-Shortcuts:
-
-| KEY       | Function                  |
-| SPC d d   | dap-breakpoint-toggle     |
-| SPC d r   | dap-repl (console)        |
-| SPC d D   | dap-debug                 |
-| SPC d n   | dap-step-in               |
-| SPC d N   | dap-next                  |
-| SPC d p   | dap-step-out              |
-| SPC d k   | dap-disconnect            |
-| SPC d w s | dap-ui-sessions           |
-| SPC d w l | dap-ui-locals             |
-| SPC d w e | dap-ui-expressions        |
-| SPC d w b | dap-ui-breakpoints        |
-| SPC d w r | dap-ui-repl (console)     |
-| SPC d c   | dap-continue              |
-| SPC d e   | dap-eval                  |
-| SPC d E   | dap-eval-thing-at-point   |
-| SPC d K   | dap-breakpoint-delete-all |
 
 * Configuring Forge for Creating / Reviewing pull requests
 ** For github
@@ -201,7 +169,7 @@ Instead of using enter to select the item in the popup, I use TAB.  The Tab can'
 | Tab     | Select the complation                                    |
 | C-j     | Go down on the popup                                     |
 | C-k     | Go up on the popup                                       |
-| C-i     | Shows solargraph autocompletes                           |
+| C-i     | Shows Robe and LSP autocompletes                         |
 | C-p     | Select a similar word instantly                          |
 | C-S-p   | See the list of similar words                            |
 | C-x C-s | See all the snippets                                     |
@@ -238,3 +206,14 @@ sudo make install
 
 * Solargraph
 To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
+
+* Troubleshoot
+** Disable robe start when use go to definition definition
+add this to your user.el:
+
+#+begin_src elisp
+(after! robe
+  (set-lookup-handlers! 'ruby-mode
+    :definition #'xref-find-definitions
+    :documentation #'robe-doc))
+#+end_src
