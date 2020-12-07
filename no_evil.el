@@ -5,7 +5,7 @@
 
 (defun current-mode-company-mode ()
   (interactive)
-  (when-let (backend (nth 1 company-backends))
+  (if (eq major-mode 'ruby-mode) (progn (robe-start) (call-interactively (company-robe)))) (when-let (backend (nth 1 company-backends))
     (company-begin-backend (nth 1 company-backends))))
 
 ;; Custom file keybindings
@@ -159,5 +159,3 @@ Try the repeated popping up to 10 times."
         (apply orig-fun args)))))
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
-
-(setq +lsp-company-backends '(company-capf :separate company-dabbrev))

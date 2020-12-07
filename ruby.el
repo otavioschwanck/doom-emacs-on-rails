@@ -430,7 +430,7 @@
     (setq-local flycheck-command-wrapper-function
                 (lambda (command) (append '("bundle" "exec") command)))))
 
-(map! :map ruby-mode-map :leader "d b" 'otavio/insert-debugger)
-(map! :map ruby-mode-map :leader "d B" 'otavio/remove-all-debuggers)
-(map! :after web-mode :map web-mode-map :leader "d B" 'otavio/insert-debugger)
-(map! :after web-mode :map web-mode-map :leader "d B" 'otavio/remove-all-debuggers)
+(map! :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
+(map! :after web-mode :map web-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :after web-mode :map web-mode-map :leader "D" 'otavio/remove-all-debuggers)
