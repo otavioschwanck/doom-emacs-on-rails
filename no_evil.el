@@ -159,3 +159,14 @@ Try the repeated popping up to 10 times."
         (apply orig-fun args)))))
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
+
+(after! robe
+  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-capf 'company-yasnippet))
+
+(after! inf-ruby
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
+
+(after! robe
+  (set-lookup-handlers! 'ruby-mode
+    :definition #'xref-find-definitions
+    :documentation #'robe-doc))
