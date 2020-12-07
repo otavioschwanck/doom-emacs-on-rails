@@ -439,3 +439,8 @@
   (lambda ()
     (setq-local flycheck-command-wrapper-function
                 (lambda (command) (append '("bundle" "exec") command)))))
+
+(after! robe
+  (set-lookup-handlers! 'ruby-mode
+    :definition #'xref-find-definitions
+    :documentation #'robe-doc))

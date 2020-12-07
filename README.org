@@ -21,8 +21,6 @@
 - [[#enabling-rubocop-integration][Enabling rubocop integration]]
 - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
 - [[#solargraph][Solargraph]]
-- [[#troubleshoot][Troubleshoot]]
-  - [[#disable-robe-start-when-use-go-to-definition-definition][Disable robe start when use go to definition definition]]
 
 * Description
 # Personal configuration for doom emacs
@@ -206,14 +204,3 @@ sudo make install
 
 * Solargraph
 To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
-
-* Troubleshoot
-** Disable robe start when use go to definition definition
-add this to your user.el:
-
-#+begin_src elisp
-(after! robe
-  (set-lookup-handlers! 'ruby-mode
-    :definition #'xref-find-definitions
-    :documentation #'robe-doc))
-#+end_src
