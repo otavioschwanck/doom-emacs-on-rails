@@ -87,7 +87,6 @@
 (map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
 
 (add-hook! 'ruby-mode-hook (modify-syntax-entry ?_ "w"))
-(add-hook! 'ruby-mode-hook (modify-syntax-entry ?@ "w"))
 (add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
 
 ;; New window command
