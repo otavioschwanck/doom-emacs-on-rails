@@ -86,9 +86,6 @@
 (map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
 (map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
 
-(add-hook! 'ruby-mode-hook (modify-syntax-entry ?_ "w"))
-(add-hook! 'js2-mode-hook (modify-syntax-entry ?_ "w"))
-
 ;; New window command
 (map! :ni "M-k" #'evil-window-up)
 (map! :ni "M-j" #'evil-window-down)
