@@ -31,3 +31,10 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
+
+;; Fix monokai
+(if (eq doom-theme 'doom-monokai-pro)
+    (after! display-line-numbers
+      (custom-set-faces!
+        '(line-number :foreground "#6b6b6b")
+        '(company-tooltip :foreground "#b8b8b8"))))
