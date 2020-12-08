@@ -102,7 +102,7 @@
 ;; C-w C-w evil next > other-window
 (map! :map evil-window-map "C-w" #'evil-window-next)
 (map! "C-<SPC>" #'evil-window-next)
-(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand)
+(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-line)
 
 (setq lsp-enable-file-watchers nil)
 
