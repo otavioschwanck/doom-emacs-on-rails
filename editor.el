@@ -111,3 +111,11 @@
   (setq-local lsp-enable-file-watchers (if (eq major-mode 'js2-mode) nil t)))
 
 (add-hook! 'lsp-after-open-hook :append 'set-file-watchers-h)
+
+;; Fix monokai
+(if (eq doom-theme 'doom-monokai-pro)
+    (after! display-line-numbers
+      (custom-set-faces!
+        '(line-number :foreground "#6b6b6b")
+        '(font-lock-variable-name-face :foreground "#AB9DEE")
+        '(company-tooltip :foreground "#b8b8b8"))))
