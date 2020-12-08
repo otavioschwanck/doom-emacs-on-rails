@@ -114,5 +114,4 @@
     (after! display-line-numbers
       (custom-set-faces!
         '(line-number :foreground "#6b6b6b")
-        '(font-lock-variable-name-face :foreground "#AB9DEE")
         '(company-tooltip :foreground "#b8b8b8"))))
