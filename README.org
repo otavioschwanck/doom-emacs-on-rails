@@ -115,18 +115,25 @@ Example user.el
 ;;; user.el -*- lexical-binding: t; -*-
 
 ;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
-(setq doom-theme 'doom-one)
-
-;; You can change the splash art // put on your ~/.doom.d/user/your_splash.png
-;; (setq fancy-splash-image (expand-file-name "user/your_splash.png" doom-private-dir))
-
-;; You can change the font here
-(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
+(setq doom-theme 'doom-monokai-pro)
 
 ;; You can change your notes with SPC n d, its VERY COOL! USE IT PLEASE
 (after! deft
   (setq deft-directory "~/Documentos"))
+
+;; Make rubocop use bundle exec
+(add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
+
+;; Use operator mono font
+(setq doom-font (font-spec :family "Operator Mono" :size 16)
+      doom-variable-pitch-font (font-spec :family "Operator Mono" :size 14))
+
+;; Improve monokai theme
+(after! display-line-numbers
+    (custom-set-faces!
+      '(line-number :foreground "#6b6b6b")
+      '(font-lock-variable-name-face :foreground "#FE6388")
+      '(company-tooltip :foreground "#b8b8b8")))
 #+end_src
 
 ** For JS and Ruby
