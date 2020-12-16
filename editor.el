@@ -133,8 +133,11 @@
 (add-hook 'shell-mode-hook 'history-for-shell)
 (add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
 
-(add-hook 'kill-buffer-hook #'comint-write-input-ring)
+(add-hook 'kill-buffer
+          (lambda ()
+            (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))
+
 (add-hook 'kill-emacs-hook
           (lambda ()
             (--each (buffer-list)
-              (with-current-buffer it (comint-write-input-ring)))))
+              (with-current-buffer it (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))))
