@@ -117,8 +117,6 @@
         '(font-lock-variable-name-face :foreground "#FB996C")
         '(company-tooltip :foreground "#b8b8b8"))))
 
-(add-hook 'shell-mode-hook 'history-for-shell)
-
 (defun history-for-shell ()
   (if (string-match-p "zsh\\'" shell-file-name)
       (progn
@@ -126,3 +124,17 @@
         (setq-local comint-input-ring-file-name "~/.zsh_history")
         (setq-local comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
         (comint-read-input-ring t))))
+
+(defun history-for-inf-ruby ()
+  (setq-local comint-input-ring-size 100000)
+  (setq-local comint-input-ring-file-name "~/.pry_history")
+  (comint-read-input-ring t))
+
+(add-hook 'shell-mode-hook 'history-for-shell)
+(add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
+
+(add-hook 'kill-buffer-hook #'comint-write-input-ring)
+(add-hook 'kill-emacs-hook
+          (lambda ()
+            (--each (buffer-list)
+              (with-current-buffer it (comint-write-input-ring)))))
