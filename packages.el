@@ -51,3 +51,4 @@
 
 (package! string-inflection)
 (package! company-lsp)
+(package! transpose-mark)

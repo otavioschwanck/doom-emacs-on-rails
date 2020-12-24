@@ -25,6 +25,7 @@
 (map! :v "J" #'drag-stuff-down)
 (map! :niv "C-M-h" #'drag-stuff-left)
 (map! :niv "C-M-l" #'drag-stuff-right)
+(map! :v "M-t" #'transpose-mark)
 
 ;; Another shortcut for begin and end of line
 (map! :nv "0" #'doom/backward-to-bol-or-indent)
