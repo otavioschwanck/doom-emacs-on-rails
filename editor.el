@@ -23,6 +23,8 @@
 ;; Drag stuff
 (map! :v "K" #'drag-stuff-up)
 (map! :v "J" #'drag-stuff-down)
+(map! :niv "C-M-h" #'drag-stuff-left)
+(map! :niv "C-M-l" #'drag-stuff-right)
 
 ;; Another shortcut for begin and end of line
 (map! :nv "0" #'doom/backward-to-bol-or-indent)
