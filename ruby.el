@@ -419,14 +419,18 @@
 (map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
 
+(after! web-mode
+  (define-key web-mode-map (kbd "C-x C-a") #'rails-routes-find)
+  (define-key web-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class))
+
 (after! ruby-mode
   (map! :i :mode ruby-mode-map "<C-M-return>" #'otavio/grb)
   (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
   (map! :map ruby-mode-map :localleader "L" 'otavio/parse-json-to-ruby)
   (map! :map ruby-mode-map :localleader "l" 'otavio/return-let-to-parent)
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
-  (map! :i :map ruby-mode-map "C-x C-a" 'rails-routes-find)
-  (map! :i :map ruby-mode-map "C-x C-M-a" 'rails-routes-find-with-class)
+  (define-key ruby-mode-map (kbd "C-x C-a") #'rails-routes-find)
+  (define-key ruby-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
   (map! :map ruby-mode-map :localleader "a" 'rails-routes-find)
   (map! :map ruby-mode-map :localleader "A" 'rails-routes-find-with-class)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
