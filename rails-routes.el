@@ -32,7 +32,7 @@
 (defvar rails-routes-search-command "RUBYOPT=-W0 rails routes" "Command executed to search the routes.")
 (defvar rails-routes-insert-after-path "_path" "What will be inserted after call rails-routes-find.")
 (defvar rails-routes-use-cache t "If t, will enable caching.  You need to have projectile to use it.")
-(defvar rails-routes-class-name "Rails.application.routes.url_helpers.admin_user_url."
+(defvar rails-routes-class-name "Rails.application.routes.url_helpers."
   "Name the prefix to use on rails routes outside the views.")
 
 (defvar rails-routes-cache '())
