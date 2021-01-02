@@ -431,6 +431,8 @@
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (define-key ruby-mode-map (kbd "C-x C-a") #'rails-routes-find)
   (define-key ruby-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
+  (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
+  (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
   (map! :map ruby-mode-map :localleader "a" 'rails-routes-find)
   (map! :map ruby-mode-map :localleader "A" 'rails-routes-find-with-class)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
