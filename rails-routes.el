@@ -223,9 +223,7 @@
         (add-hook 'after-save-hook 'rails-routes-invalidate-cache))))
 
 (add-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)
-
-(with-eval-after-load 'savehist
-  '(add-hook 'savehist-mode-hook #'rails-routes--add-alist))
+(add-hook 'savehist-mode-hook #'rails-routes--add-alist)
 
 (provide 'rails-routes)
 ;;; rails-routes.el ends here
