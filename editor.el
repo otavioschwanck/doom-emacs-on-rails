@@ -80,6 +80,8 @@
 
 ;; Paste on insert mode
 (map! :ieg "C-r" #'evil-paste-after)
+(map! :ieg "C-v" #'evil-paste-after)
+(map! :ieg "C-V" #'evil-paste-before)
 
 (map! :leader "e" #'+treemacs/toggle)
 (map! :leader "E" #'treemacs-find-file)
@@ -146,3 +148,5 @@
           (lambda ()
             (--each (buffer-list)
               (with-current-buffer it (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))))
+
+(setq uniquify-buffer-name-style 'forward)
