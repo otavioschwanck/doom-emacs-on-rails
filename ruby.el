@@ -434,6 +434,7 @@
   (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
   (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
   (define-key evil-normal-state-map (kbd "g b") #'robe-jump)
+  (define-key evil-normal-state-map (kbd "g B") #'robe-rails-refresh)
   (define-key evil-visual-state-map (kbd "g b") #'robe-jump)
   (map! :map ruby-mode-map :localleader "a" 'rails-routes-find)
   (map! :map ruby-mode-map :localleader "A" 'rails-routes-find-with-class)
