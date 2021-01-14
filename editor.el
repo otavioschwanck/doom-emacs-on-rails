@@ -132,21 +132,5 @@
         (setq-local comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
         (comint-read-input-ring t))))
 
-(defun history-for-inf-ruby ()
-  (setq-local comint-input-ring-size 100000)
-  (setq-local comint-input-ring-file-name "~/.pry_history")
-  (comint-read-input-ring t))
-
 (add-hook 'shell-mode-hook 'history-for-shell)
-(add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
-
-(add-hook 'kill-buffer
-          (lambda ()
-            (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))
-
-(add-hook 'kill-emacs-hook
-          (lambda ()
-            (--each (buffer-list)
-              (with-current-buffer it (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))))
-
 (setq uniquify-buffer-name-style 'forward)
