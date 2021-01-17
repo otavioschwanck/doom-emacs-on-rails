@@ -127,10 +127,25 @@
 (defun history-for-shell ()
   (if (string-match-p "zsh\\'" shell-file-name)
       (progn
-        (setq-local comint-input-ring-size 100000)
+        (setq-local comint-input-ring-size 10000)
         (setq-local comint-input-ring-file-name "~/.zsh_history")
         (setq-local comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
         (comint-read-input-ring t))))
 
 (add-hook 'shell-mode-hook 'history-for-shell)
 (setq uniquify-buffer-name-style 'forward)
+
+(defun history-for-inf-ruby ()
+  (setq-local comint-input-ring-file-name "~/.irb_history")
+  (setq-local comint-input-ring-size 1000)
+  (toggle-truncate-lines)
+  (comint-read-input-ring t))
+
+(after! inf-ruby
+  (defun run-ruby-or-pop-to-buffer (command &optional name buffer)
+    (if (not (and buffer
+                  (comint-check-proc buffer)))
+        (run-ruby-new command name)
+      (pop-to-buffer buffer))))
+
+(add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
