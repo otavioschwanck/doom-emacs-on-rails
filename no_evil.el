@@ -165,11 +165,3 @@ Try the repeated popping up to 10 times."
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
-
-(after! robe
-  (set-lookup-handlers! 'ruby-mode
-    :definition #'xref-find-definitions
-    :documentation #'robe-doc))
-
-(after! lookup
-  (map! "M-." #'+lookup/type-definition))

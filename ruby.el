@@ -434,3 +434,12 @@
 (map! :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
 (map! :after web-mode :map web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :map web-mode-map :leader "D" 'otavio/remove-all-debuggers)
+
+(define-key ruby-mode-map (kbd "C-x C-a") #'rails-routes-find)
+(define-key ruby-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
+(define-key ruby-mode-map (kbd "C-x g a") #'rails-routes-jump)
+
+(after! web-mode
+  (define-key web-mode-map (kbd "C-x C-a") #'rails-routes-find)
+  (define-key web-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
+  (define-key ruby-mode-map (kbd "C-x g a") #'rails-routes-jump))

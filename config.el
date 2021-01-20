@@ -73,6 +73,8 @@
 (setq +workspaces-switch-project-function #'open-rails-project)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(load (expand-file-name "rails-routes.el" doom-private-dir))
 (load (expand-file-name "editor.el" doom-private-dir))
 (load (expand-file-name "ruby.el" doom-private-dir))
 (load (expand-file-name "company.el" doom-private-dir))
