@@ -79,7 +79,6 @@
 (map! :leader "t t" #'toggle-truncate-lines)
 
 ;; Paste on insert mode
-(map! :ieg "C-r" #'evil-paste-after)
 (map! :ieg "C-v" #'evil-paste-after)
 (map! :ieg "C-V" #'evil-paste-before)
 
