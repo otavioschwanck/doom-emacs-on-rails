@@ -161,7 +161,7 @@ Try the repeated popping up to 10 times."
             #'modi/multi-pop-to-mark)
 
 (after! robe
-  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-capf 'company-yasnippet))
+  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-dabbrev 'company-yasnippet))
