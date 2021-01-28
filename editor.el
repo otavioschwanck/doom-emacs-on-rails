@@ -150,3 +150,6 @@
 (add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
 
 (setq kill-ring-max 200)
+
+(after! counsel
+  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done))
