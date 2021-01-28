@@ -148,3 +148,5 @@
       (pop-to-buffer buffer))))
 
 (add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
+
+(setq kill-ring-max 200)
