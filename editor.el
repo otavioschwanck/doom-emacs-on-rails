@@ -79,7 +79,8 @@
 (map! :leader "t t" #'toggle-truncate-lines)
 
 ;; Paste on insert mode
-(map! :ieg "C-r" #'evil-paste-after)
+(map! :ieg "C-v" #'evil-paste-after)
+(map! :ieg "C-V" #'evil-paste-before)
 
 (map! :leader "e" #'+neotree/open)
 (map! :leader "E" #'+neotree/find-this-file)
@@ -125,24 +126,30 @@
 (defun history-for-shell ()
   (if (string-match-p "zsh\\'" shell-file-name)
       (progn
-        (setq-local comint-input-ring-size 100000)
+        (setq-local comint-input-ring-size 10000)
         (setq-local comint-input-ring-file-name "~/.zsh_history")
         (setq-local comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
         (comint-read-input-ring t))))
 
+(add-hook 'shell-mode-hook 'history-for-shell)
+(setq uniquify-buffer-name-style 'forward)
+
 (defun history-for-inf-ruby ()
-  (setq-local comint-input-ring-size 100000)
-  (setq-local comint-input-ring-file-name "~/.pry_history")
+  (setq-local comint-input-ring-file-name "~/.irb_history")
+  (setq-local comint-input-ring-size 1000)
+  (toggle-truncate-lines)
   (comint-read-input-ring t))
 
-(add-hook 'shell-mode-hook 'history-for-shell)
+(after! inf-ruby
+  (defun run-ruby-or-pop-to-buffer (command &optional name buffer)
+    (if (not (and buffer
+                  (comint-check-proc buffer)))
+        (run-ruby-new command name)
+      (pop-to-buffer buffer))))
+
 (add-hook 'inf-ruby-mode-hook 'history-for-inf-ruby)
 
-(add-hook 'kill-buffer
-          (lambda ()
-            (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))
+(setq kill-ring-max 200)
 
-(add-hook 'kill-emacs-hook
-          (lambda ()
-            (--each (buffer-list)
-              (with-current-buffer it (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))))
+(after! counsel
+  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done))

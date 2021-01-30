@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: attribute :name, Value
+# key: attr
+# --
+attribute :${column}, ${String}

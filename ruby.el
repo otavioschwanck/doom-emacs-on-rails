@@ -416,6 +416,16 @@
   (end-of-line)
   (newline-and-indent))
 
+(defun otavio/generate-irbrc ()
+  (interactive)
+  (if (not (file-exists-p "~/.irbrc"))
+      (progn
+        (shell-command "echo \"require 'irb/ext/save-history'\" >> ~/.irbrc")
+        (shell-command "echo \"IRB.conf[:SAVE_HISTORY] = 1000\" >> ~/.irbrc")
+        (shell-command "echo \"IRB.conf[:HISTORY_FILE] = ENV['HOME'] + '/.irb_history' \" >> ~/.irbrc")
+        (shell-command "echo \"IRB.conf[:USE_MULTILINE] = false if ENV['INSIDE_EMACS']\" >> ~/.irbrc")
+        (message "~/.irbrc generated!"))))
+
 (map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
 
@@ -431,6 +441,11 @@
   (map! :map ruby-mode-map :localleader "i" 'otavio/swap-if-unless-ruby)
   (define-key ruby-mode-map (kbd "C-x C-a") #'rails-routes-find)
   (define-key ruby-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
+  (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
+  (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
+  (define-key evil-normal-state-map (kbd "g b") #'robe-jump)
+  (define-key evil-normal-state-map (kbd "g B") #'robe-rails-refresh)
+  (define-key evil-visual-state-map (kbd "g b") #'robe-jump)
   (map! :map ruby-mode-map :localleader "a" 'rails-routes-find)
   (map! :map ruby-mode-map :localleader "A" 'rails-routes-find-with-class)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)

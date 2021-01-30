@@ -21,7 +21,7 @@
 (map! :i "C-S-p" #'+company/dabbrev)
 
 (after! ruby-mode
-  (map! :i :mode ruby-mode-map "C-i" #'current-mode-company-mode))
+  (map! :i :mode ruby-mode-map "C-l" #'current-mode-company-mode))
 
 (map! :after company
       :map company-active-map
@@ -29,7 +29,7 @@
       "<return>" #'newline-and-indent
       "<c-return>" #'newline-and-indent
       "<tab>" #'company-complete-selection
-      "C-i" #'current-mode-company-mode
+      "C-l" #'current-mode-company-mode
       "C-q" #'yas-expand)
 
 (after! company
@@ -50,7 +50,7 @@
       "C-q" 'yas-next-and-close-company)
 
 (after! robe
-  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-capf 'company-yasnippet))
+  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-capf 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-dabbrev 'company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-dabbrev 'company-yasnippet))
