@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: activerecord ... model ...
+# key: model
+# --
+activerecord:
+  models:
+    ${1:`(current-file-name-for-yas)`}:
+      one: ${2:translation}
+      other: ${2:$(inflection-pluralize-string yas-text)}
+
+  attributes:
+    $1:

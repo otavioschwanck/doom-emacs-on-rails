@@ -153,3 +153,8 @@
 
 (after! counsel
   (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done))
+
+(defun update-yas-indentation ()
+  (setq-local yas-indent-line 'fixed))
+
+(add-hook! 'yaml-mode-hook 'update-yas-indentation)

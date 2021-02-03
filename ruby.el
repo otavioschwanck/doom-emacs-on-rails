@@ -467,3 +467,12 @@
   (set-lookup-handlers! 'ruby-mode
     :definition #'xref-find-definitions
     :documentation #'robe-doc))
+
+(defun current-file-name-for-yas ()
+  (interactive)
+  (let* ((files (split-string buffer-file-name "/"))
+         (file (nth (1- (length files)) files))
+         (parsed (split-string file "\\."))
+         (model (nth 0 parsed))
+         )
+    model))
