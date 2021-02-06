@@ -158,3 +158,8 @@
   (setq-local yas-indent-line 'fixed))
 
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
+
+(set-popup-rule! "^\\*\\(shell\\)?" :ttl nil)
+
+(after! lsp-javascript
+  (set-lsp-priority! 'ts-ls 1))
