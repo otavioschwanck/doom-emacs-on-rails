@@ -104,6 +104,7 @@
 (map! :map evil-window-map "C-w" #'evil-window-next)
 (map! "C-<SPC>" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-line)
+(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-line)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
 (map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
 
@@ -160,6 +161,3 @@
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
 
 (set-popup-rule! "^\\*\\(shell\\)?" :ttl nil)
-
-(after! lsp-javascript
-  (set-lsp-priority! 'ts-ls 1))
