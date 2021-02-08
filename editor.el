@@ -103,8 +103,8 @@
 ;; C-w C-w evil next > other-window
 (map! :map evil-window-map "C-w" #'evil-window-next)
 (map! "C-<SPC>" #'evil-window-next)
-(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-line)
-(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-line)
+(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
+(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
 (map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
 
@@ -158,6 +158,11 @@
 (defun update-yas-indentation ()
   (setq-local yas-indent-line 'fixed))
 
+(defun set-emmet-class-name ()
+  (setq-local emmet-expand-jsx-htmlFor? t)
+  (setq-local emmet-expand-jsx-className? t))
+
+(add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
 
 (set-popup-rule! "^\\*\\(shell\\)?" :ttl nil)

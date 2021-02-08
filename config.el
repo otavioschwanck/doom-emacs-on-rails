@@ -75,6 +75,7 @@
 
 (load (expand-file-name "rails-routes.el" doom-private-dir))
 
+(load (expand-file-name "library_fixes.el" doom-private-dir))
 (load (expand-file-name "editor.el" doom-private-dir))
 (load (expand-file-name "ruby.el" doom-private-dir))
 (load (expand-file-name "company.el" doom-private-dir))
