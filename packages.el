@@ -54,4 +54,3 @@
 (package! transpose-mark)
 (package! js-import)
 (package! plantuml-mode)
-(package! ivy-file-preview)

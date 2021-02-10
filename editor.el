@@ -170,5 +170,4 @@
 (after! lsp-javascript
   (set-lsp-priority! 'ts-ls 1))
 
-(after! ivy-file-preview
-  (ivy-file-preview-mode))
+(setq +ivy-buffer-preview t)
