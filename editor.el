@@ -166,3 +166,9 @@
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
 
 (set-popup-rule! "^\\*\\(shell\\)?" :ttl nil)
+
+(after! lsp-javascript
+  (set-lsp-priority! 'ts-ls 1))
+
+(after! ivy-file-preview
+  (ivy-file-preview-mode))

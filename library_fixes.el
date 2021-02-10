@@ -28,7 +28,7 @@
                                (let ((key (car prop)))
                                  (concat (if (symbolp key) (symbol-name key)
                                            (if (and emmet-expand-jsx-htmlFor?
-                                                    (string= key "for")) "forName" key))
+                                                    (string= key "for")) "htmlFor" key))
                                          "=\"" (cadr prop) "\""))))))
             (content-multiline? (and content (string-match "\n" content)))
             (block-tag?         (and settings (gethash "block" settings)))
