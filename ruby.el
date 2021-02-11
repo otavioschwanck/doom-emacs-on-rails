@@ -454,6 +454,11 @@
           (projectile-rails-goto-file-at-point) (user-error (call-interactively 'robe-jump)))
       (projectile-rails-goto-file-at-point))))
 
+(after! ruby-mode
+  (set-lookup-handlers! 'ruby-mode
+    :definition #'otavio/better-ruby-goto-definition
+    :documentation #'robe-doc))
+
 (after! robe
   (set-lookup-handlers! 'ruby-mode
     :definition #'otavio/better-ruby-goto-definition
