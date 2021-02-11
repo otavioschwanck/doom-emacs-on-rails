@@ -63,3 +63,34 @@
           (lambda ()
             (--each (buffer-list)
               (with-current-buffer it (if (eq major-mode 'inf-ruby-mode) (comint-write-input-ring))))))
+
+(setq kill-ring-max 200)
+
+(defun current-file-name-for-yas ()
+  (interactive)
+  (let* ((files (split-string buffer-file-name "/"))
+         (file (nth (1- (length files)) files))
+         (parsed (split-string file "\\."))
+         (model (nth 0 parsed))
+         )
+    model))
+
+(after! counsel
+  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done))
+
+(defun update-yas-indentation ()
+  (setq-local yas-indent-line 'fixed))
+
+(defun set-emmet-class-name ()
+  (setq-local emmet-expand-jsx-htmlFor? t)
+  (setq-local emmet-expand-jsx-className? t))
+
+(add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
+(add-hook! 'yaml-mode-hook 'update-yas-indentation)
+
+(set-popup-rule! "^\\*\\(shell\\)?" :ttl nil)
+
+(after! lsp-javascript
+  (set-lsp-priority! 'ts-ls 1))
+
+(setq +ivy-buffer-preview t)

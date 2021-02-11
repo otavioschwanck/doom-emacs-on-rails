@@ -444,3 +444,27 @@
   (define-key web-mode-map (kbd "C-x C-a") #'rails-routes-find)
   (define-key web-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
   (define-key ruby-mode-map (kbd "C-x g a") #'rails-routes-jump))
+
+(defun otavio/better-ruby-goto-definition ()
+  (interactive)
+  (let ((buffer (current-buffer))
+        (inf-ruby-buffer* (or (inf-ruby-buffer) inf-ruby-buffer)))
+    (if (get-buffer-process inf-ruby-buffer*)
+       (condition-case nil
+          (projectile-rails-goto-file-at-point) (user-error (call-interactively 'robe-jump)))
+      (projectile-rails-goto-file-at-point))))
+
+(after! robe
+  (set-lookup-handlers! 'ruby-mode
+    :definition #'otavio/better-ruby-goto-definition
+    :documentation #'robe-doc))
+
+(defun otavio/generate-irbrc ()
+  (interactive)
+  (if (not (file-exists-p "~/.irbrc"))
+      (progn
+        (shell-command "echo \"require 'irb/ext/save-history'\" >> ~/.irbrc")
+        (shell-command "echo \"IRB.conf[:SAVE_HISTORY] = 1000\" >> ~/.irbrc")
+        (shell-command "echo \"IRB.conf[:HISTORY_FILE] = ENV['HOME'] + '/.irb_history' \" >> ~/.irbrc")
+        (shell-command "echo \"IRB.conf[:USE_MULTILINE] = false if ENV['INSIDE_EMACS']\" >> ~/.irbrc")
+        (message "~/.irbrc generated!"))))

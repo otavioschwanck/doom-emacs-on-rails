@@ -28,7 +28,10 @@
 (map! "<C-return>" #'dabbrev-expand)
 (map! "C-S-j" #'current-mode-company-mode)
 (map! "C-q" #'yas-expand)
-(map! "C-." #'+lookup/definition)
+
+(after! robe
+  (map! :map ruby-mode-map "C-." #'otavio/better-ruby-goto-definition))
+
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-c e" #'+treemacs/toggle)
 (map! "C-c E" #'treemacs-find-file)
