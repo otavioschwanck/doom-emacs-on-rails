@@ -463,9 +463,18 @@
     (setq-local flycheck-command-wrapper-function
                 (lambda (command) (append '("bundle" "exec") command)))))
 
+(defun otavio/better-ruby-goto-definition ()
+  (interactive)
+  (let ((buffer (current-buffer))
+        (inf-ruby-buffer* (or (inf-ruby-buffer) inf-ruby-buffer)))
+    (if (get-buffer-process inf-ruby-buffer*)
+       (condition-case nil
+          (projectile-rails-goto-file-at-point) (user-error (call-interactively 'robe-jump)))
+      (projectile-rails-goto-file-at-point))))
+
 (after! robe
   (set-lookup-handlers! 'ruby-mode
-    :definition #'xref-find-definitions
+    :definition #'otavio/better-ruby-goto-definition
     :documentation #'robe-doc))
 
 (defun current-file-name-for-yas ()
