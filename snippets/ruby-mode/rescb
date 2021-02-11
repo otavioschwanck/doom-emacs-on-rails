@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rescue StandardError => e ... byebug
+# key: rescb
+# --
+rescue StandardError => e
+  byebug
