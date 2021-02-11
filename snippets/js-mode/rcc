@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: React#classComponent
+# key: rcc
+# --
+import React from 'react';
+
+class $1 extends React.Component {
+  render() {
+    return (
+      ${3:}
+    );
+  }
+};
+
+export default ${1:`(let* ((filename (split-string (buffer-file-name) "/")) (file (nth (1- (length filename)) filename))) (nth 0 (split-string file "\\.")))`};

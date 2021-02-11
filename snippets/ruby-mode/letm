@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: let!(:model) { create(:model)
+# key: letm
+# --
+let(:${1:model_name}) { create(:$1${2:, $3}) }
