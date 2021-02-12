@@ -171,3 +171,6 @@
   (set-lsp-priority! 'ts-ls 1))
 
 (setq +ivy-buffer-preview t)
+
+(after! treemacs
+  (setq doom-themes-treemacs-theme 'colors))
