@@ -20,7 +20,7 @@
 - [[#getting-help][Getting help]]
 - [[#enabling-rubocop-integration][Enabling rubocop integration]]
 - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
-- [[#solargraph][Solargraph]]
+- [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
 
 * Description
 # Personal configuration for doom emacs
@@ -194,7 +194,6 @@ In your =~/.doom.d/user.el=, just add:
 #+end_src
 
 * Using GCCEmacs (recommended)
-
 For better performance, i recommend to use the gccemacs version.  To install it, you need to compile.
 
 For Ubuntu:
@@ -212,5 +211,5 @@ make -j2 NATIVE_FULL_AOT=1
 sudo make install
 #+end_src
 
-* Solargraph
-To configure solargraph for the full potential in your project, follow this steps: https://github.com/otavioschwanck/solargraph-rails
+* Using Emacs from snap (also recommended)
+Just run `sudo snap install emacs --classic`
