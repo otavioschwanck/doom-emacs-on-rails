@@ -19,7 +19,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Fira Code" :size 16 :weight 'bold)
+(setq doom-font (font-spec :family "Fira Code" :size 16 :weight 'regular)
       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
@@ -80,6 +80,7 @@
 (load (expand-file-name "ruby.el" doom-private-dir))
 (load (expand-file-name "company.el" doom-private-dir))
 (load (expand-file-name "performance.el" doom-private-dir))
+(load (expand-file-name "projectile-rails-custom-finders.el" doom-private-dir))
 
 (when (file-exists-p (expand-file-name "user.el" doom-private-dir))
   (load (expand-file-name "user.el" doom-private-dir)))
