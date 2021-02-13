@@ -2,7 +2,7 @@
 
 (after! projectile-rails
   (defun projectile-rails-find-service ()
-    "Find a model."
+    "Find a service."
     (interactive)
     (if (file-exists-p (concat (projectile-project-root) "app/services"))
         (projectile-rails-find-resource
@@ -13,7 +13,31 @@
           (projectile-rails-find-resource
            "service: "
            '(("app/business/" "\\(.+\\)\\.rb$"))
-           "app/business/${filename}.rb")))
+           "app/business/${filename}.rb"))))
+
+  (defun projectile-rails-find-graphql-all ()
+    "Find all in graphql."
+    (interactive)
+    (projectile-rails-find-resource
+     "graphql: "
+     '(("app/graphql/" "\\(.+\\)\\.rb$"))
+     "app/graphql/${filename}.rb"))
+
+  (defun projectile-rails-find-graphql-type ()
+    "Find graphql type."
+    (interactive)
+    (projectile-rails-find-resource
+     "graphql: "
+     '(("app/graphql/types/" "\\(.+\\)\\.rb$"))
+     "app/graphql/types/${filename}.rb"))
+
+  (defun projectile-rails-find-graphql-mutation ()
+    "Find graphql type."
+    (interactive)
+    (projectile-rails-find-resource
+     "graphql: "
+     '(("app/graphql/mutations/" "\\(.+\\)\\.rb$"))
+     "app/graphql/mutations/${filename}.rb"))
 
   (defun projectile-rails-find-current-service ()
     "Find a model for the current resource."
@@ -26,7 +50,10 @@
           (projectile-rails-find-current-resource "app/business/"
                                                   "${singular}\\.rb$"
                                                   'projectile-rails-find-service)
-        (message "Service or business folder not found")))))
+        (message "Service or business folder not found"))))
 
   (map! :leader "rs" #'projectile-rails-find-service)
-  (map! :leader "rS" #'projectile-rails-find-current-service))
+  (map! :leader "rS" #'projectile-rails-find-current-service)
+  (map! :leader "rqa" #'projectile-rails-find-graphql-all)
+  (map! :leader "rqm" #'projectile-rails-find-graphql-mutation)
+  (map! :leader "rqt" #'projectile-rails-find-graphql-type))
