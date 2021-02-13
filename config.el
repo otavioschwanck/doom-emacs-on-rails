@@ -80,6 +80,7 @@
 (load (expand-file-name "ruby.el" doom-private-dir))
 (load (expand-file-name "company.el" doom-private-dir))
 (load (expand-file-name "performance.el" doom-private-dir))
+(load (expand-file-name "projectile-rails-custom-finders.el" doom-private-dir))
 
 (when (file-exists-p (expand-file-name "user.el" doom-private-dir))
   (load (expand-file-name "user.el" doom-private-dir)))
