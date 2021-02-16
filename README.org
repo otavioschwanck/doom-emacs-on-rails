@@ -44,6 +44,7 @@
 
 * Installation
 #+BEGIN_SRC shell
+# Install my config
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
@@ -137,6 +138,8 @@ See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.
 | SPC m i             | normal             | toggle if / unless into single / multi-line |
 | SPC m S             | normal             | split a giant string into strings with \    |
 | SPC r s             | normal             | Search inside app/services OR app/business  |
+| C-x C-a             | insert mode        | Insert rails routes on code                 |
+| ga                  | normal             | Go to route on point                        |
 
 * Using Autocomplete
 #+caption: Autocomplete
