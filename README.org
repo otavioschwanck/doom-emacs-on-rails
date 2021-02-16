@@ -38,7 +38,7 @@
  - Emacs 26.1+ (27 is recommended) with GNUTLS support
  - ripgrep 11.0+ =(sudo apt install ripgrep)=
  - GNU find
- - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
+ - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands) =(sudo apt install find-fd)= (good for large projects)
  - typescript-language-server =(npm install -g typescript-language-server)=
  - fira code (fonts) =(sudo apt install fonts-firacode)=
 
@@ -47,6 +47,9 @@
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
+
+# Install fira code and fd (ubuntu 20.04+)
+sudo apt install fonts-firacode find-fd
 #+END_SRC
 
 * Demonstration
@@ -63,6 +66,7 @@ Press C-c C-c to confirm the edit or C-c C-k to cancel.
 
 ** Multiple-cursors
 To use multiple-cursors, select the word, then, press =M-d= to go forward or =M-D= to go backwards.  Press =C= to edit all.
+
 ** Using method generator (emmet) in ruby
 Syntax: init@param1,param2;method_name@param1,param2;method2;method@param
 
@@ -86,13 +90,6 @@ Example =~/.doom.d/user.el=:
 ;; Use operator mono font
 (setq doom-font (font-spec :family "Operator Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Operator Mono" :size 14))
-
-;; Improve monokai theme
-(after! display-line-numbers
-    (custom-set-faces!
-      '(line-number :foreground "#6b6b6b")
-      '(font-lock-variable-name-face :foreground "#FB996C")
-      '(company-tooltip :foreground "#b8b8b8")))
 
 ;;; Ignore some folders on projectile (SPC SPC)
 ;; (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
