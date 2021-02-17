@@ -6,7 +6,7 @@
     (interactive)
     (projectile-rails-find-resource
      "admin: "
-     '(("app/models/" "\\(.+\\)\\.rb$"))
+     '(("app/admin/" "\\(.+\\)\\.rb$"))
      "app/admin/${filename}.rb"))
 
   (defun projectile-rails-find-current-admin ()
