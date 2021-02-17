@@ -1,6 +1,21 @@
 ;;; projectile-rails-remaps.el -*- lexical-binding: t; -*-
 
 (after! projectile-rails
+  (defun projectile-rails-find-admin ()
+    "Find a model."
+    (interactive)
+    (projectile-rails-find-resource
+     "admin: "
+     '(("app/models/" "\\(.+\\)\\.rb$"))
+     "app/admin/${filename}.rb"))
+
+  (defun projectile-rails-find-current-admin ()
+    "Find a model for the current resource."
+    (interactive)
+    (projectile-rails-find-current-resource "app/admin/"
+                                            "${singular}\\.rb$"
+                                            'projectile-rails-find-admin))
+
   (defun projectile-rails-find-service ()
     "Find a service."
     (interactive)
@@ -52,6 +67,8 @@
                                                   'projectile-rails-find-service)
         (message "Service or business folder not found"))))
 
+  (map! :leader "rt" #'projectile-rails-find-admin)
+  (map! :leader "rT" #'projectile-rails-find-current-admin)
   (map! :leader "rs" #'projectile-rails-find-service)
   (map! :leader "rS" #'projectile-rails-find-current-service)
   (map! :leader "rqa" #'projectile-rails-find-graphql-all)
