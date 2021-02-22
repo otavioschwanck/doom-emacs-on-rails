@@ -2,98 +2,59 @@
 - [[#description][Description]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
+- [[#demonstration][Demonstration]]
+- [[#tips][Tips]]
+  - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
+  - [[#multiple-cursors][Multiple-cursors]]
+  - [[#using-method-generator-emmet-in-ruby][Using method generator (emmet) in ruby]]
+  - [[#customizing][Customizing]]
+  - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
+  - [[#for-other-git-server][For other git server]]
+- [[#custom-keybindings][Custom Keybindings]]
+- [[#using-autocomplete][Using Autocomplete]]
+- [[#getting-help][Getting help]]
+- [[#enabling-rubocop-integration][Enabling rubocop integration]]
+- [[#installation-1][Installation]]
+  - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
+  - [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
 - [[#never-heard-about-emacs-before][Never heard about emacs before?]]
   - [[#history][History]]
   - [[#about-doom-emacs][About Doom Emacs]]
   - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
-- [[#method-generator][Method Generator]]
-- [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
-  - [[#for-github][For github]]
-  - [[#for-other-git-server][For other git server]]
-- [[#tips][Tips]]
-  - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
-  - [[#multiple-cursors][Multiple-cursors]]
-  - [[#want-to-add-your-own-config][Want to add your own config]]
-  - [[#for-js-and-ruby][For JS and Ruby]]
-- [[#keybindings-that-i-made-myself][Keybindings that i made myself]]
-- [[#using-autocomplete][Using Autocomplete]]
-- [[#getting-help][Getting help]]
-- [[#enabling-rubocop-integration][Enabling rubocop integration]]
-- [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
-- [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
 
 * Description
 # Personal configuration for doom emacs
 
-+ Working with JS
-+ Full functional with Ruby on Rails
++ Javascript support
++ Fully functional with Ruby on Rails
 + Some new functions added from vanilla doom emacs.
-+ Robe for autocompletes (C-p and C-S-p to complete with buffers text)
-+ Magit for awesome git usage and pull request creation / review.
++ Very nice autocomplete
++ Code Lint
++ Awesome git client (magit)
++ Perfect for vim users
 
 * Prerequisites
  - Git 2.23+
  - Emacs 26.1+ (27 is recommended) with GNUTLS support
  - ripgrep 11.0+ =(sudo apt install ripgrep)=
  - GNU find
- - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands)
+ - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands) =(sudo apt install find-fd)= (good for large projects)
  - typescript-language-server =(npm install -g typescript-language-server)=
  - fira code (fonts) =(sudo apt install fonts-firacode)=
 
 * Installation
 #+BEGIN_SRC shell
+# Install my config
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
+
+# Install fira code and fd (ubuntu 20.04+)
+sudo apt install fonts-firacode find-fd ripgrep
 #+END_SRC
 
-* Never heard about emacs before?
-
-** History
-Emacs is a text editor designed for POSIX operating systems and available on Linux, BSD, macOS, Windows, and more.
-Users love Emacs because it features efficient commands for common but complex actions and for the plugins and configuration hacks that have developed around it for nearly 40 years.
-
-** About Doom Emacs
-Doom emacs is a configuration framework built over emacs that brings a package manager and a lot of facilities to build your own emacs configuration.
-It also brings the =Evil Mode= implementation, that set the =vim keybindings= in emacs.
-
-** What i need to know to start using ?
-I really recommend you to learn the basics of vim first, choose one:
-
-+ [[https://www.udemy.com/course/vim-commands-cheat-sheet/][Vim Udemy Course]] (non-free) (for vim) (3h course) (very good course, i did this) (Very Complete!)
-+ [[https://www.youtube.com/watch?v=ER5JYFKkYDg][Vim Tutorial pt 1]] and [[https://www.youtube.com/watch?v=tExTz7GnpdQ][Vim Tutorial pt 2]] (free) (basic)
-+ [[https://www.youtube.com/watch?v=H3o4l4GVLW0&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R][Vim Youtube Course - 6 Videos, ignore the 6]] (free) (basic-intermediary)
-
-After that, you can see the [[https://www.youtube.com/watch?v=rCMh7srOqvw&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj][Doom Casts]] to learn the basics of doom emacs (optional)
-Don't forget to see the =evil cheatsheet pt-BR.png= on the root of this repository!
-
-Don'tt forget the [[https://discord.gg/qvGgnVx][Doom Emacs Discord Server]], is always full of people that always helps!
-You can get help of any command on doom with SPC h p (function) of SPC h k + keybinding = (to see the options, etc.)
-
-* Method Generator
-I've developed a emacs function to generate methods in Ruby files.  To use, just press =C-M-enter=.
-If the method name is init, it creates a initialize settings the args on instance variables.
-
-Syntax: method_name@arg_1,arg_2,arg_n;method_two@arg_1,arg_2,arg_n
-#+caption: Generate Methods
-[[file:generate_method.gif]]
-
-* Configuring Forge for Creating / Reviewing pull requests
-** For github
-1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
-
-2 - Don't forget to configure your user in github with git config --global github.user youruser
-
-3 - Create a file called =~/.authinfo=
-
-4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
-
-5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
-
-6 - delete the =~/.authinfo=
-
-** For other git server
-See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
+* Demonstration
+[[file:demonstration.gif]]
 
 * Tips
 ** Search and replace in whole project
@@ -107,10 +68,14 @@ Press C-c C-c to confirm the edit or C-c C-k to cancel.
 ** Multiple-cursors
 To use multiple-cursors, select the word, then, press =M-d= to go forward or =M-D= to go backwards.  Press =C= to edit all.
 
-** Want to add your own config
+** Using method generator (emmet) in ruby
+Syntax: init@param1,param2;method_name@param1,param2;method2;method@param
+
+Press C-e to expand.
+** Customizing
 Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
 
-Example user.el
+Example =~/.doom.d/user.el=:
 #+begin_src elisp
 ;;; user.el -*- lexical-binding: t; -*-
 
@@ -123,48 +88,58 @@ Example user.el
 
 ;; Make rubocop use bundle exec
 (add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
-
 ;; Use operator mono font
 (setq doom-font (font-spec :family "Operator Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Operator Mono" :size 14))
-
-;; Improve monokai theme
-(after! display-line-numbers
-    (custom-set-faces!
-      '(line-number :foreground "#6b6b6b")
-      '(font-lock-variable-name-face :foreground "#FB996C")
-      '(company-tooltip :foreground "#b8b8b8")))
 
 ;;; Ignore some folders on projectile (SPC SPC)
 ;; (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
 #+end_src
 
-** For JS and Ruby
-I really recommend you to use ts-ls and Javascript LSP to work with ruby
+** Configuring Forge for Creating / Reviewing pull requests
+*** For github
+1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
 
-* Keybindings that i made myself
-| Key                 | Mode               | Description                                                |
-| SPC a and SPC A     | Ruby               | Go to / create spec file                                   |
-| SPC v               | All                | Open terminal on project root                              |
-| SPC t t             | All                | Toggle truncate lines                                      |
-| SPC -               | All                | Indent the file                                            |
-| SPC =               | Ruby               | Runs rubocop -a on current file                            |
-| ]g and [g           | All                | Navigate on git changes                                    |
-| SPC l               | Terminals          | Clean terminal                                             |
-| C-j                 | All                | Go one sentence down (very useful)                         |
-| C-k                 | All                | Go one sentence up (very useful)                           |
-| TAB                 | All (except org)   | Same as / (search)                                         |
-| C-TAB               | All (except org)   | Same as ? (search-backwards)                               |
-| C-q                 | All (insert mode)  | Paste on insert mode                                       |
-| J and K             | Normal Mode        | Drag stuff down and up                                     |
-| C-, and C-;         | Normal Mode        | Previous and Next buffer                                   |
-| ç                   | Normal mode        | Save all files                                             |
-| SPC gdo and SPC gdm | Git conflict       | Keep other or Keep mine (git)                              |
-| SPC e               | All                | Toggle treemacs                                            |
-| C-e                 | Insert (web-mode)  | emmet-expand (like ul>li*3)                                |
-| C-e                 | Insert (ruby-mode) | emmet-expand (Ruby) (Method generator) (Same as C-M-enter) |
-| SPC m i             | normal             | toggle if / unless into single / multi-line                |
-| SPC m S             | normal             | split a giant string into strings with \                   |
+2 - Don't forget to configure your user in github with git config --global github.user youruser
+
+3 - Create a file called =~/.authinfo=
+
+4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
+
+5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
+
+6 - delete the =~/.authinfo=
+
+
+** For other git server
+See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
+
+* Custom Keybindings
+| Key                 | Mode               | Description                                 |
+| SPC a and SPC A     | Ruby               | Go to / create spec file                    |
+| SPC v               | All                | Open terminal on project root               |
+| SPC t t             | All                | Toggle truncate lines                       |
+| SPC -               | All                | Indent the file                             |
+| SPC =               | Ruby               | Runs rubocop -a on current file             |
+| ]g and [g           | All                | Navigate on git changes                     |
+| SPC l               | Terminals          | Clean terminal                              |
+| C-j                 | All                | Go one sentence down (very useful)          |
+| C-k                 | All                | Go one sentence up (very useful)            |
+| TAB                 | All (except org)   | Same as / (search)                          |
+| C-TAB               | All (except org)   | Same as ? (search-backwards)                |
+| C-v                 | All (insert mode)  | Paste on insert mode                        |
+| J and K             | Visual Mode        | Drag stuff down and up                      |
+| C-, and C-;         | Normal Mode        | Previous and Next buffer                    |
+| ç                   | Normal mode        | Save all files                              |
+| SPC gdo and SPC gdm | Git conflict       | Keep other or Keep mine (git)               |
+| SPC e               | All                | Toggle treemacs                             |
+| C-e                 | Insert (web-mode)  | emmet-expand (like ul>li*3)                 |
+| C-e                 | Insert (ruby-mode) | emmet-expand (Ruby) (Method generator)      |
+| SPC m i             | normal             | toggle if / unless into single / multi-line |
+| SPC m S             | normal             | split a giant string into strings with \    |
+| SPC r s             | normal             | Search inside app/services OR app/business  |
+| C-x C-a             | insert mode        | Insert rails routes on code                 |
+| ga                  | normal             | Go to route on point                        |
 
 * Using Autocomplete
 #+caption: Autocomplete
@@ -193,7 +168,8 @@ In your =~/.doom.d/user.el=, just add:
 (add-hook! 'ruby-mode-hook (setq-local flycheck-checker 'ruby-rubocop))
 #+end_src
 
-* Using GCCEmacs (recommended)
+* Installation
+** Using GCCEmacs (recommended)
 For better performance, i recommend to use the gccemacs version.  To install it, you need to compile.
 
 For Ubuntu:
@@ -211,5 +187,27 @@ make -j2 NATIVE_FULL_AOT=1
 sudo make install
 #+end_src
 
-* Using Emacs from snap (also recommended)
+** Using Emacs from snap (also recommended)
 Just run `sudo snap install emacs --classic`
+
+* Never heard about emacs before?
+** History
+Emacs is a text editor designed for POSIX operating systems and available on Linux, BSD, macOS, Windows, and more.
+Users love Emacs because it features efficient commands for common but complex actions and for the plugins and configuration hacks that have developed around it for nearly 40 years.
+
+** About Doom Emacs
+Doom emacs is a configuration framework built over emacs that brings a package manager and a lot of facilities to build your own emacs configuration.
+It also brings the =Evil Mode= implementation, that set the =vim keybindings= in emacs.
+
+** What i need to know to start using ?
+I really recommend you to learn the basics of vim first, choose one:
+
++ [[https://www.udemy.com/course/vim-commands-cheat-sheet/][Vim Udemy Course]] (non-free) (for vim) (3h course) (very good course, i did this) (Very Complete!)
++ [[https://www.youtube.com/watch?v=ER5JYFKkYDg][Vim Tutorial pt 1]] and [[https://www.youtube.com/watch?v=tExTz7GnpdQ][Vim Tutorial pt 2]] (free) (basic)
++ [[https://www.youtube.com/watch?v=H3o4l4GVLW0&list=PLm323Lc7iSW_wuxqmKx_xxNtJC_hJbQ7R][Vim Youtube Course - 6 Videos, ignore the 6]] (free) (basic-intermediary)
+
+After that, you can see the [[https://www.youtube.com/watch?v=rCMh7srOqvw&list=PLhXZp00uXBk4np17N39WvB80zgxlZfVwj][Doom Casts]] to learn the basics of doom emacs (optional)
+Don't forget to see the =evil cheatsheet pt-BR.png= on the root of this repository!
+
+Don'tt forget the [[https://discord.gg/qvGgnVx][Doom Emacs Discord Server]], is always full of people that always helps!
+You can get help of any command on doom with SPC h p (function) of SPC h k + keybinding = (to see the options, etc.)

@@ -1,5 +1,5 @@
 (after! emmet-mode
-  (defvar emmet-expand-jsx-htmlFor?)
+  (defvar emmet-expand-jsx-htmlFor? nil)
 
   (defun emmet-make-html-tag (tag-name tag-has-body? tag-id tag-classes tag-props tag-txt settings content)
     "Create HTML markup string"

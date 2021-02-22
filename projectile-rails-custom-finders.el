@@ -1,6 +1,21 @@
 ;;; projectile-rails-remaps.el -*- lexical-binding: t; -*-
 
 (after! projectile-rails
+  (defun projectile-rails-find-admin ()
+    "Find a model."
+    (interactive)
+    (projectile-rails-find-resource
+     "admin: "
+     '(("app/admin/" "\\(.+\\)\\.rb$"))
+     "app/admin/${filename}.rb"))
+
+  (defun projectile-rails-find-current-admin ()
+    "Find a model for the current resource."
+    (interactive)
+    (projectile-rails-find-current-resource "app/admin/"
+                                            "${singular}\\.rb$"
+                                            'projectile-rails-find-admin))
+
   (defun projectile-rails-find-service ()
     "Find a service."
     (interactive)
@@ -23,22 +38,6 @@
      '(("app/graphql/" "\\(.+\\)\\.rb$"))
      "app/graphql/${filename}.rb"))
 
-  (defun projectile-rails-find-graphql-type ()
-    "Find graphql type."
-    (interactive)
-    (projectile-rails-find-resource
-     "graphql: "
-     '(("app/graphql/types/" "\\(.+\\)\\.rb$"))
-     "app/graphql/types/${filename}.rb"))
-
-  (defun projectile-rails-find-graphql-mutation ()
-    "Find graphql type."
-    (interactive)
-    (projectile-rails-find-resource
-     "graphql: "
-     '(("app/graphql/mutations/" "\\(.+\\)\\.rb$"))
-     "app/graphql/mutations/${filename}.rb"))
-
   (defun projectile-rails-find-current-service ()
     "Find a model for the current resource."
     (interactive)
@@ -52,8 +51,8 @@
                                                   'projectile-rails-find-service)
         (message "Service or business folder not found"))))
 
+  (map! :leader "rt" #'projectile-rails-find-admin)
+  (map! :leader "rT" #'projectile-rails-find-current-admin)
   (map! :leader "rs" #'projectile-rails-find-service)
   (map! :leader "rS" #'projectile-rails-find-current-service)
-  (map! :leader "rqa" #'projectile-rails-find-graphql-all)
-  (map! :leader "rqm" #'projectile-rails-find-graphql-mutation)
-  (map! :leader "rqt" #'projectile-rails-find-graphql-type))
+  (map! :leader "rq" #'projectile-rails-find-graphql-all))

@@ -10,6 +10,8 @@
 ;; Projectile globally with SPC r
 (require 'projectile-rails)
 (map! :leader "r" #'projectile-rails-command-map)
+(after! rspec-mode
+  (map! :leader "t" #'rspec-mode-keymap))
 
 (after! which-key
   (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
