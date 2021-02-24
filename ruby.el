@@ -11,7 +11,8 @@
 (require 'projectile-rails)
 (map! :leader "r" #'projectile-rails-command-map)
 (after! rspec-mode
-  (map! :leader "t" #'rspec-mode-keymap))
+  (map! :leader "t" #'rspec-mode-keymap)
+  (map! :leader "tl" #'rspec-run-last-failed))
 
 (after! which-key
   (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
