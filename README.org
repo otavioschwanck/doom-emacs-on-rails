@@ -14,7 +14,7 @@
 - [[#using-autocomplete][Using Autocomplete]]
 - [[#getting-help][Getting help]]
 - [[#enabling-rubocop-integration][Enabling rubocop integration]]
-- [[#installation-1][Installation]]
+- [[#emacs-installation][Emacs Installation]]
   - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
   - [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
 - [[#never-heard-about-emacs-before][Never heard about emacs before?]]
@@ -35,7 +35,7 @@
 
 * Prerequisites
  - Git 2.23+
- - Emacs 26.1+ (27 is recommended) with GNUTLS support
+ - Emacs 27 with GNUTLS support
  - ripgrep 11.0+ =(sudo apt install ripgrep)=
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands) =(sudo apt install find-fd)= (good for large projects)
@@ -168,7 +168,7 @@ In your =~/.doom.d/user.el=, just add:
 (add-hook! 'ruby-mode-hook (setq-local flycheck-checker 'ruby-rubocop))
 #+end_src
 
-* Installation
+* Emacs Installation
 ** Using GCCEmacs (recommended)
 For better performance, i recommend to use the gccemacs version.  To install it, you need to compile.
 

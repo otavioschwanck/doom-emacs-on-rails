@@ -171,3 +171,11 @@
   (set-lsp-priority! 'ts-ls 1))
 
 (setq +ivy-buffer-preview t)
+
+(after! web-mode
+  (defun msc/save-and-revert-buffer ()
+    (interactive)
+    (call-interactively 'save-buffer)
+    (msc/revert-buffer-noconfirm))
+
+  (map! :mode web-mode-map :leader "j" 'msc/save-and-revert-buffer))
