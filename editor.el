@@ -94,3 +94,7 @@
   (set-lsp-priority! 'ts-ls 1))
 
 (setq +ivy-buffer-preview t)
+
+;; Mac improvement
+(setq mac-command-modifier 'meta)
+(setq ns-function-modifier 'control)
