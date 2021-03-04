@@ -92,6 +92,9 @@ Example =~/.doom.d/user.el=:
 (setq doom-font (font-spec :family "Operator Mono" :size 16)
       doom-variable-pitch-font (font-spec :family "Operator Mono" :size 14))
 
+;; If you use macos with rbenv on homebrew, add it
+;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+
 ;;; Ignore some folders on projectile (SPC SPC)
 ;; (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
 #+end_src
