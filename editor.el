@@ -179,3 +179,7 @@
     (msc/revert-buffer-noconfirm))
 
   (map! :mode web-mode-map :leader "j" 'msc/save-and-revert-buffer))
+
+;; Mac improvement
+(setq mac-command-modifier 'meta)
+(setq ns-function-modifier 'control)
