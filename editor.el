@@ -194,3 +194,5 @@
   (defun rspec-run-git-diff-from-head ()
     (interactive)
     (rspec-run-multiple-files (butlast (split-string (shell-command-to-string "git diff HEAD --name-only | grep _spec") "\n")))))
+
+(setq vterm-always-compile-module t)
