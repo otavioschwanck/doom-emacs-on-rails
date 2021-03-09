@@ -12,7 +12,9 @@
 (map! :leader "r" #'projectile-rails-command-map)
 (after! rspec-mode
   (map! :leader "t" #'rspec-mode-keymap)
-  (map! :leader "tl" #'rspec-run-last-failed))
+  (map! :leader "tl" #'rspec-run-last-failed)
+  (map! :leader "tg" #'rspec-run-git-diff-from-head)
+  (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! which-key
   (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
