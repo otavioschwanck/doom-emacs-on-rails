@@ -278,6 +278,32 @@
 
 ;; Rubocop com C-=
 (after! ruby-mode
+  (defvar rails-reset-command "rails db:drop db:create db:migrate;rails db:seed"
+    "Command to reset rails")
+
+  (defun otavio/kill-ruby-instances ()
+    (interactive)
+    (async-shell-command "killall -9 rails ruby spring bundle; echo 'Ruby Instances Killed!'" "*Ruby Kill Output*"))
+
+  (defun otavio/reset-rails-database ()
+    (interactive)
+    (message "Rails database is being reseted!")
+    (async-shell-command (concat rails-reset-command "; echo 'Rails database reseted, please close this popup'" )"*Ruby Reset Output*")
+    (+popup/raise "*Ruby Reset Output*")
+    (projectile-rails-console nil)
+    (+popup/close-all))
+
+  (set-popup-rule! "^\\*\\(Ruby Kill Output\\)?" :ttl nil)
+  (set-popup-rule! "^\\*\\(Ruby Reset Output\\)?" :ttl nil)
+
+  (defun otavio/rails-reset-all ()
+    (interactive)
+    (otavio/kill-ruby-instances)
+    (otavio/reset-rails-database))
+
+  (map! :mode ruby-mode :localleader "ww" #'otavio/rails-reset-all)
+  (map! :mode ruby-mode :localleader "wk" #'otavio/kill-ruby-instances)
+
   (defun msc/revert-buffer-noconfirm ()
     "Call `revert-buffer' with the NOCONFIRM argument set."
     (interactive)
