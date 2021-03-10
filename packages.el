@@ -50,7 +50,6 @@
 ;(unpin! t)
 
 (package! string-inflection)
-(package! company-lsp)
 (package! transpose-mark)
 (package! js-import)
 (package! plantuml-mode)
