@@ -473,3 +473,7 @@
         (shell-command "echo \"IRB.conf[:HISTORY_FILE] = ENV['HOME'] + '/.irb_history' \" >> ~/.irbrc")
         (shell-command "echo \"IRB.conf[:USE_MULTILINE] = false if ENV['INSIDE_EMACS']\" >> ~/.irbrc")
         (message "~/.irbrc generated!"))))
+
+(after! rspec-mode
+  (global-set-key (kbd "C-c , g") 'rspec-run-git-diff-from-head)
+  (global-set-key (kbd "C-c , G") 'rspec-run-git-diff-from-master))

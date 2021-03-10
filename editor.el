@@ -88,7 +88,7 @@
 (add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
 
-(set-popup-rule! "^\\*\\(shell\\)?" :ttl nil)
+(set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
 
 (after! lsp-javascript
   (set-lsp-priority! 'ts-ls 1))
@@ -98,3 +98,14 @@
 ;; Mac improvement
 (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'control)
+
+(defvar rspec-run-git-diff-master-branch-name "master")
+
+(after! rspec-mode
+  (defun rspec-run-git-diff-from-master ()
+    (interactive)
+    (rspec-run-multiple-files (butlast (split-string (shell-command-to-string (concat "git diff " rspec-run-git-diff-master-branch-name " --name-only | grep _spec")) "\n"))))
+
+  (defun rspec-run-git-diff-from-head ()
+    (interactive)
+    (rspec-run-multiple-files (butlast (split-string (shell-command-to-string "git diff HEAD --name-only | grep _spec") "\n")))))
