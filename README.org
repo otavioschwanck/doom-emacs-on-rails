@@ -50,7 +50,7 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 
 # Install fira code and fd (ubuntu 20.04+)
-sudo apt install fonts-firacode find-fd ripgrep
+sudo apt install fonts-firacode find-fd ripgrep libtool-bin cmake
 #+END_SRC
 
 * Demonstration
