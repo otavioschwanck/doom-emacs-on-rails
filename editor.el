@@ -196,3 +196,7 @@
     (rspec-run-multiple-files (butlast (split-string (shell-command-to-string "git diff HEAD --name-only | grep _spec") "\n")))))
 
 (setq vterm-always-compile-module t)
+
+(setq company-dabbrev-code-everywhere t)
+(setq company-dabbrev-code-other-buffers t)
+(setq company-dabbrev-code-modes t)
