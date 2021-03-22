@@ -17,10 +17,6 @@
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
 ;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -58,7 +54,7 @@
 (defvar robe-time-to-start 20
   "Set the time to start robe after starting inf-ruby-console-auto")
 
-(defvar start-rails-server nil)
+(defvar start-rails-server t)
 
 (defun open-rails-project (&optional DIRECTORY CACHE)
   (interactive)
