@@ -81,6 +81,7 @@
 ;; Paste on insert mode
 (map! :ieg "C-v" #'evil-paste-after)
 (map! :ieg "C-V" #'evil-paste-before)
+(map! :iego "M-v" #'evil-paste-after)
 
 (map! :leader "e" #'+neotree/open)
 (map! :leader "E" #'+neotree/find-this-file)
@@ -196,3 +197,9 @@
     (rspec-run-multiple-files (butlast (split-string (shell-command-to-string "git diff HEAD --name-only | grep _spec") "\n")))))
 
 (setq vterm-always-compile-module t)
+
+(setq company-dabbrev-code-everywhere t)
+(setq company-dabbrev-code-other-buffers t)
+(setq company-dabbrev-code-modes t)
+
+(setq evil-split-window-below t evil-vsplit-window-right t)

@@ -40,7 +40,6 @@
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands) =(sudo apt install find-fd)= (good for large projects)
  - typescript-language-server =(npm install -g typescript-language-server)=
- - fira code (fonts) =(sudo apt install fonts-firacode)=
 
 * Installation
 #+BEGIN_SRC shell
@@ -49,8 +48,14 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 
-# Install fira code and fd (ubuntu 20.04+)
-sudo apt install fonts-firacode find-fd ripgrep
+# Some dependencies (ubuntu)
+sudo apt install find-fd ripgrep libtool-bin cmake
+
+# If you use mac
+brew install fd ripgrep
+
+# Install dependencies for LSP
+npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server
 #+END_SRC
 
 * Demonstration
@@ -88,9 +93,9 @@ Example =~/.doom.d/user.el=:
 
 ;; Make rubocop use bundle exec
 (add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
-;; Use operator mono font
-(setq doom-font (font-spec :family "Operator Mono" :size 16)
-      doom-variable-pitch-font (font-spec :family "Operator Mono" :size 14))
+;; Set your favorite font there
+(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 
 ;; If you use macos with rbenv on homebrew, add it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")

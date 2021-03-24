@@ -10,18 +10,18 @@
       "C-S-p" #'+company/dabbrev
       "C-p" #'dabbrev-expand)
 
-(defun current-mode-company-mode ()
-  (interactive)
-  (if (eq major-mode 'ruby-mode) (progn (robe-start) (call-interactively 'company-robe))
-    (when-let (backend (nth 1 company-backends))
-      (company-begin-backend (nth 1 company-backends)))))
-
 (map! :i "C-q" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
 
 (after! ruby-mode
   (map! :i :mode ruby-mode-map "C-l" #'current-mode-company-mode))
+
+(defun current-mode-company-mode ()
+  (interactive)
+  (if (eq major-mode 'ruby-mode) (progn (robe-start) (call-interactively 'company-robe))
+    (when-let (backend (nth 1 company-backends))
+      (company-begin-backend (nth 1 company-backends)))))
 
 (map! :after company
       :map company-active-map
@@ -35,7 +35,7 @@
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
-  (setq company-idle-delay 0.04))
+  (setq company-idle-delay 0))
 
 (defun yas-next-and-close-company ()
   (interactive)
@@ -49,5 +49,11 @@
       "<tab>" #'company-complete-selection
       "C-q" 'yas-next-and-close-company)
 
+(setq company-dabbrev-code-everywhere t)
+(setq company-dabbrev-code-other-buffers t)
+
 (after! robe
   (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-capf 'company-yasnippet))
+
+(after! inf-ruby
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code))
