@@ -81,6 +81,7 @@
 ;; Paste on insert mode
 (map! :ieg "C-v" #'evil-paste-after)
 (map! :ieg "C-V" #'evil-paste-before)
+(map! :iego "M-v" #'evil-paste-after)
 
 (map! :leader "e" #'+treemacs/toggle)
 (map! :leader "E" #'treemacs-find-file)
@@ -200,3 +201,5 @@
 (setq company-dabbrev-code-everywhere t)
 (setq company-dabbrev-code-other-buffers t)
 (setq company-dabbrev-code-modes t)
+
+(setq evil-split-window-below t evil-vsplit-window-right t)
