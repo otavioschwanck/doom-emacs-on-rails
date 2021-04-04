@@ -104,6 +104,7 @@
 ;; C-w C-w evil next > other-window
 (map! :map evil-window-map "C-w" #'evil-window-next)
 (map! "C-<SPC>" #'evil-window-next)
+(map! :map vterm-mode-map "C-<SPC>" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
@@ -203,3 +204,12 @@
 (setq company-dabbrev-code-modes t)
 
 (setq evil-split-window-below t evil-vsplit-window-right t)
+
+(defun popserver-when-on-byebug (_SYMBOL NEWVAL _OPERATION _WHERE)
+  (when (and (eq NEWVAL 0) (cl-search "projectile-rails" (buffer-name)))
+    (progn (switch-to-buffer (buffer-name))
+           (goto-char (point-max))
+           (when (featurep 'evil)
+             (evil-insert-state)))))
+
+(add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
