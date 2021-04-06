@@ -5,6 +5,8 @@
 ;; Keywords: autocomplete, company
 
 (after! company
+  (setq company-dabbrev-code-everywhere t)
+  (setq company-dabbrev-code-other-buffers t)
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
   (setq company-idle-delay 0.04))
