@@ -10,7 +10,6 @@
       "C-S-p" #'+company/dabbrev
       "C-p" #'dabbrev-expand)
 
-(map! :i "C-q" #'yas-expand)
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
 
@@ -38,6 +37,7 @@
       :map company-active-map
       "<C-SPC>" #'company-abort
       "<tab>" #'expand-snippet-or-next
+      "C-q" #'company-complete
       "C-l" #'current-mode-company-mode)
 
 (after! company
@@ -47,7 +47,8 @@
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (company-abort)
+  (if (company--active-p)
+      (company-complete-selection))
   (yas-next-field))
 
 (map! :after yasnippet
