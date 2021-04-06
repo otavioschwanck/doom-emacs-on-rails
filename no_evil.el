@@ -27,7 +27,6 @@
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
 (map! "C-S-j" #'current-mode-company-mode)
-(map! "C-q" #'current-mode-company-mode)
 
 (after! robe
   (map! :map ruby-mode-map "C-." #'otavio/better-ruby-goto-definition))
@@ -112,7 +111,7 @@ there's a region, all lines that region covers will be duplicated."
       "<tab>" #'expand-snippet-or-next
       "<C-S-return>" #'current-mode-company-mode
       "<C-return>" #'dabbrev-expand
-      "C-q" #'current-mode-company-mode)
+      "C-q" #'company-complete)
 
 (setq mark-ring-max 10)
 (setq global-mark-ring-max 10)
@@ -125,7 +124,8 @@ there's a region, all lines that region covers will be duplicated."
 
 (defun yas-next-and-close-company ()
   (interactive)
-  (company-abort)
+  (if (company--active-p)
+      (company-complete-selection))
   (yas-next-field))
 
 (map! :after yasnippet
