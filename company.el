@@ -14,6 +14,17 @@
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-S-p" #'+company/dabbrev)
 
+(defun do-yas-expand ()
+  (let ((yas/fallback-behavior 'return-nil))
+    (yas/expand)))
+
+(defun expand-snippet-or-next ()
+  (interactive)
+  (if (or (not yas/minor-mode)
+      (null (do-yas-expand))
+      (company-abort))
+      (do-yas-expand)))
+
 (after! ruby-mode
   (map! :i :mode ruby-mode-map "C-l" #'current-mode-company-mode))
 
@@ -25,12 +36,9 @@
 
 (map! :after company
       :map company-active-map
-      "RET" #'newline-and-indent
-      "<return>" #'newline-and-indent
-      "<c-return>" #'newline-and-indent
-      "<tab>" #'company-complete-selection
-      "C-l" #'current-mode-company-mode
-      "C-q" #'yas-expand)
+      "<C-SPC>" #'company-abort
+      "<tab>" #'expand-snippet-or-next
+      "C-l" #'current-mode-company-mode)
 
 (after! company
   (setq company-dabbrev-downcase 0)
@@ -44,10 +52,9 @@
 
 (map! :after yasnippet
       :map yas-keymap
+      "<tab>" #'yas-next-and-close-company
       "C-d" #'yas-skip-and-clear-field
-      "C-e" #'emmet-expand
-      "<tab>" #'company-complete-selection
-      "C-q" 'yas-next-and-close-company)
+      "C-e" #'emmet-expand)
 
 (setq company-dabbrev-code-everywhere t)
 (setq company-dabbrev-code-other-buffers t)
@@ -56,4 +63,4 @@
   (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-capf 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code))
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf))

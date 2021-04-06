@@ -156,16 +156,15 @@ See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.
 On my doom config, i've done several tweaks to the default autocomplete.
 Instead of using enter to select the item in the popup, I use TAB.  The Tab can't go down and up in the autocomplete popup.  Instead of tab, i use =C-j= and =C-k=.
 
-| Key     | Command                                                  |
-| Tab     | Select the complation                                    |
-| C-j     | Go down on the popup                                     |
-| C-k     | Go up on the popup                                       |
-| C-i     | Shows Robe and LSP autocompletes                         |
-| C-p     | Select a similar word instantly                          |
-| C-S-p   | See the list of similar words                            |
-| C-x C-s | See all the snippets                                     |
-| C-q     | Toggle snippet / go foward in snippet                    |
-| C-d     | (while snipped is active) Delete the highlighted snippet |
+| Key     | Command                                                            |
+| Tab     | Select the complation                                              |
+| C-j     | Go down on the popup                                               |
+| C-k     | Go up on the popup                                                 |
+| C-l     | Shows Robe and LSP autocompletes                                   |
+| C-p     | Select a similar word instantly (keep pressing to change the word) |
+| C-x C-s | See all the snippets                                               |
+| <tab>   | Toggle snippet / go foward in snippet                              |
+| C-d     | (while snipped is active) Delete the highlighted snippet           |
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
