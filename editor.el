@@ -105,6 +105,8 @@
 (map! :map evil-window-map "C-w" #'evil-window-next)
 (map! "C-<SPC>" #'evil-window-next)
 (map! :map vterm-mode-map "C-<SPC>" #'evil-window-next)
+(map! "M-o" #'evil-window-next)
+(map! :map vterm-mode-map "M-o" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
