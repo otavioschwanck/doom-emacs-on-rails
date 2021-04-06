@@ -27,7 +27,7 @@
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
 (map! "C-S-j" #'current-mode-company-mode)
-(map! "C-q" #'yas-expand)
+(map! "C-q" #'current-mode-company-mode)
 
 (after! robe
   (map! :map ruby-mode-map "C-." #'otavio/better-ruby-goto-definition))
@@ -96,15 +96,23 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :mode magit-status-mode-map "<C-tab>" #'+ivy/switch-workspace-buffer)
 
+(defun do-yas-expand ()
+  (let ((yas/fallback-behavior 'return-nil))
+    (yas/expand)))
+
+(defun expand-snippet-or-next ()
+  (interactive)
+  (if (or (not yas/minor-mode)
+      (null (do-yas-expand))
+      (company-abort))
+      (do-yas-expand)))
+
 (map! :after company
       :map company-active-map
-      "RET" #'newline-and-indent
-      "<return>" #'newline-and-indent
+      "<tab>" #'expand-snippet-or-next
       "<C-S-return>" #'current-mode-company-mode
-      "<tab>" #'company-complete-selection
       "<C-return>" #'dabbrev-expand
-      "<C-S-return>" #'company-dabbrev
-      "C-q" #'yas-expand)
+      "C-q" #'current-mode-company-mode)
 
 (setq mark-ring-max 10)
 (setq global-mark-ring-max 10)
@@ -122,9 +130,8 @@ there's a region, all lines that region covers will be duplicated."
 
 (map! :after yasnippet
       :map yas-keymap
-      "C-S-q" 'yas-prev-field
       "C-d" 'yas-skip-and-clear-field
-      "C-q" 'yas-next-and-close-company)
+      "<tab>" 'yas-next-and-close-company)
 
 (after! ruby-mode
   (defun msc/revert-buffer-noconfirm ()
@@ -167,4 +174,4 @@ Try the repeated popping up to 10 times."
   (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-yasnippet))
 
 (after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-dabbrev 'company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
