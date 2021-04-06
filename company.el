@@ -60,7 +60,7 @@
 (setq company-dabbrev-code-other-buffers t)
 
 (after! robe
-  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-capf 'company-yasnippet))
+  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-yasnippet))
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf))
