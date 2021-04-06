@@ -109,6 +109,7 @@
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
 (map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
+(map! :after web-mode :map web-mode-map :i "<tab>" #'+web/indent-or-yas-or-emmet-expand)
 
 (setq lsp-enable-file-watchers nil)
 
