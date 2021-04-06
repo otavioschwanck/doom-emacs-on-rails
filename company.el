@@ -35,7 +35,7 @@
 
 (map! :after company
       :map company-active-map
-      "<C-SPC>" #'company-abort
+      "<C-SPC>" #'company-complete
       "<tab>" #'expand-snippet-or-next
       "C-q" #'company-complete
       "C-l" #'current-mode-company-mode)
