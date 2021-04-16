@@ -222,3 +222,4 @@
 (map! :i "M-]" (cmd! (insert "|")))
 
 (setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
+(setq truncate-lines nil)

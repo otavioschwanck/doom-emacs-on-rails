@@ -63,7 +63,5 @@
 (after! robe
   (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-yasnippet))
 
-(setq truncate-lines t)
-
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf))
