@@ -223,3 +223,6 @@
 
 (setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
 (setq truncate-lines nil)
+
+(after! treemacs
+  (map! :map treemacs-mode-map "M-l" #'evil-window-right))
