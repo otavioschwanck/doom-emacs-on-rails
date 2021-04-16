@@ -261,7 +261,7 @@
 (after! ruby-mode
   (defun otavio/kill-ruby-instances ()
     (interactive)
-    (async-shell-command "killall -9 rails ruby spring bundle; echo 'Ruby Instances Killed!'" "*Ruby Kill Output*"))
+    (async-shell-command "rails db:environment:set RAILS_ENV=development; rails db:drop db:create db:migrate;rails db:seed" "*Ruby Kill Output*"))
 
   (defun start-rails-console-in-time ()
     (interactive)
