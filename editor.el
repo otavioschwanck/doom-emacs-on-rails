@@ -118,12 +118,3 @@
              (evil-insert-state)))))
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
-
-(defun popserver-when-on-byebug (_SYMBOL NEWVAL _OPERATION _WHERE)
-  (when (and (eq NEWVAL 0) (cl-search "projectile-rails" (buffer-name)))
-    (progn (switch-to-buffer (buffer-name))
-           (goto-char (point-max))
-           (when (featurep 'evil)
-             (evil-insert-state)))))
-
-(add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
