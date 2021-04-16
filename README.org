@@ -105,7 +105,7 @@ Example =~/.doom.d/user.el=:
       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 
 ;; Disable truncate lines if you want
-;; (setq truncate-lines nil)
+(setq truncate-lines t)
 
 ;; If you use macos with rbenv on homebrew, add it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
