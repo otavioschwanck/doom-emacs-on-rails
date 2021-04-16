@@ -278,7 +278,7 @@
 
 ;; Rubocop com C-=
 (after! ruby-mode
-  (defvar rails-reset-command "rails db:drop db:create db:migrate;rails db:seed"
+  (defvar rails-reset-command "rails db:environment:set RAILS_ENV=development; rails db:drop db:create db:migrate;rails db:seed"
     "Command to reset rails")
 
   (defun otavio/kill-ruby-instances ()
