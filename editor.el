@@ -220,3 +220,5 @@
 (map! :i "M-w" (cmd! (insert "?")))
 (map! :i "M-;" (cmd! (insert "?")))
 (map! :i "M-]" (cmd! (insert "|")))
+
+(setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)

@@ -97,9 +97,15 @@ Example =~/.doom.d/user.el=:
 ;; Disable Rubocop if you want
 ;; (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop))
 
+;; Change the fill column length
+(setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
+
 ;; Set your favorite font there
 (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
+
+;; Disable truncate lines if you want
+;; (setq truncate-lines nil)
 
 ;; If you use macos with rbenv on homebrew, add it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
