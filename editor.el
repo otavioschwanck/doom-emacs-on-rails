@@ -216,3 +216,7 @@
              (evil-insert-state)))))
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
+
+(map! :i "M-w" (cmd! (insert "?")))
+(map! :i "M-;" (cmd! (insert "?")))
+(map! :i "M-]" (cmd! (insert "|")))

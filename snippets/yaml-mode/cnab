@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# key: cnab
+# --
+${field}:
+  range: !ruby/range ${start}..${end}
+  content: ${content}
+  format: :${text_left}
