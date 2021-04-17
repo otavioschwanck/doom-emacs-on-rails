@@ -217,11 +217,11 @@
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
 
-(map! :ie "M-w" (cmd! (insert "?")))
-(map! :ie "M-;" (cmd! (insert "?")))
-(map! :ie "M-}" (cmd! (insert "|")))
-(map! :ie "M-]" (cmd! (insert "\\")))
-(map! :ie "M-Q" (cmd! (insert "\\")))
+(map! :ieg "M-w" (cmd! (insert "?")))
+(map! :ieg "M-;" (cmd! (insert "?")))
+(map! :ieg "M-}" (cmd! (insert "|")))
+(map! :ieg "M-]" (cmd! (insert "\\")))
+(map! :ieg "M-Q" (cmd! (insert "\\")))
 
 (setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
 (setq truncate-lines nil)
