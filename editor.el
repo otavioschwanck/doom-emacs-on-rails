@@ -226,6 +226,8 @@
 (map! :leader "n" #'tab-new)
 (map! :leader "N" #'tab-list)
 
+(define-key evil-normal-state-map (kbd "g t") #'tab-next)
+
 (setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
 (setq truncate-lines nil)
 
