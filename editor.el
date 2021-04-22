@@ -223,6 +223,9 @@
 (map! :ieg "M-]" (cmd! (insert "\\")))
 (map! :ieg "M-Q" (cmd! (insert "\\")))
 
+(map! :leader "n" #'tab-new)
+(map! :leader "N" #'tab-list)
+
 (setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
 (setq truncate-lines nil)
 
