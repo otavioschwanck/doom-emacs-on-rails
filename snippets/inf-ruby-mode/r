@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: r
+# expand-env: ((yas-after-exit-snippet-hook #'comint-send-input))
+# --
+reload!

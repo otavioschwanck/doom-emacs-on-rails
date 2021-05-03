@@ -24,8 +24,8 @@
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
 
-(setq debugger-command "byebug")
-(setq pry-show-helper t)
+(defvar debugger-command "require 'pry'; binding.pry")
+(defvar pry-show-helper nil)
 
 (defun otavio/remove-all-debuggers ()
   (interactive)
