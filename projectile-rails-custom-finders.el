@@ -51,6 +51,7 @@
                                                   'projectile-rails-find-service)
         (message "Service or business folder not found"))))
 
+  (map! :leader "rd" #'otavio/go-to-latest-migration)
   (map! :leader "rt" #'projectile-rails-find-admin)
   (map! :leader "rT" #'projectile-rails-find-current-admin)
   (map! :leader "rs" #'projectile-rails-find-service)

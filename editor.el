@@ -217,12 +217,77 @@
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
 
-(map! :i "M-w" (cmd! (insert "?")))
-(map! :i "M-;" (cmd! (insert "?")))
-(map! :i "M-]" (cmd! (insert "|")))
+(map! :ieg "M-w" (cmd! (insert "?")))
+(map! :ieg "M-;" (cmd! (insert "?")))
+(map! :ieg "M-}" (cmd! (insert "|")))
+(map! :ieg "M-]" (cmd! (insert "\\")))
+(map! :ieg "M-Q" (cmd! (insert "\\")))
+
+(map! :leader "n" #'tab-new)
+(map! :leader "N" #'tab-list)
+
+(define-key evil-normal-state-map (kbd "g t") #'tab-next)
 
 (setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
 (setq truncate-lines nil)
 
 (after! treemacs
   (map! :map treemacs-mode-map "M-l" #'evil-window-right))
+
+(defun remove-accents (&optional @begin @end)
+  "Remove accents in some letters and some
+Change European language characters into equivalent ASCII ones, e.g. “café” ⇒ “cafe”.
+When called interactively, work on current line or text selection.
+
+URL `http://ergoemacs.org/emacs/emacs_zap_gremlins.html'
+Version 2018-11-12"
+  (interactive)
+  (let (($charMap
+         [
+          ["ß" "ss"]
+          ["á\\|à\\|â\\|ä\\|ā\\|ǎ\\|ã\\|å\\|ą\\|ă\\|ạ\\|ả\\|ả\\|ấ\\|ầ\\|ẩ\\|ẫ\\|ậ\\|ắ\\|ằ\\|ẳ\\|ặ" "a"]
+          ["æ" "ae"]
+          ["ç\\|č\\|ć" "c"]
+          ["é\\|è\\|ê\\|ë\\|ē\\|ě\\|ę\\|ẹ\\|ẻ\\|ẽ\\|ế\\|ề\\|ể\\|ễ\\|ệ" "e"]
+          ["í\\|ì\\|î\\|ï\\|ī\\|ǐ\\|ỉ\\|ị" "i"]
+          ["ñ\\|ň\\|ń" "n"]
+          ["ó\\|ò\\|ô\\|ö\\|õ\\|ǒ\\|ø\\|ō\\|ồ\\|ơ\\|ọ\\|ỏ\\|ố\\|ổ\\|ỗ\\|ộ\\|ớ\\|ờ\\|ở\\|ợ" "o"]
+          ["ú\\|ù\\|û\\|ü\\|ū\\|ũ\\|ư\\|ụ\\|ủ\\|ứ\\|ừ\\|ử\\|ữ\\|ự"     "u"]
+          ["ý\\|ÿ\\|ỳ\\|ỷ\\|ỹ"     "y"]
+          ["þ" "th"]
+          ["ď\\|ð\\|đ" "d"]
+          ["ĩ" "i"]
+          ["ľ\\|ĺ\\|ł" "l"]
+          ["ř\\|ŕ" "r"]
+          ["š\\|ś" "s"]
+          ["ť" "t"]
+          ["ž\\|ź\\|ż" "z"]
+          [" " " "]       ; thin space etc
+          ["–" "-"]       ; dash
+          ["—\\|一" "--"] ; em dash etc
+          ])
+        $begin $end
+        )
+    (if (null @begin)
+        (if (use-region-p)
+            (setq $begin (region-beginning) $end (region-end))
+          (setq $begin (line-beginning-position) $end (line-end-position)))
+      (setq $begin @begin $end @end))
+    (let ((case-fold-search t))
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (mapc
+         (lambda ($pair)
+           (goto-char (point-min))
+           (while (search-forward-regexp (elt $pair 0) (point-max) t)
+             (replace-match (elt $pair 1))))
+         $charMap)))))
+
+(defun remove--accents (@string)
+  "Returns a new string. European language chars are changed ot ASCII ones e.g. “café” ⇒ “cafe”.
+See `xah-asciify-text'
+Version 2015-06-08"
+  (with-temp-buffer
+      (insert @string)
+      (xah-asciify-text (point-min) (point-max))
+      (buffer-string)))
