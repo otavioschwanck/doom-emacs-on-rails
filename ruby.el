@@ -16,6 +16,17 @@
   (map! :leader "tg" #'rspec-run-git-diff-from-head)
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
+(defun aj-fetch-latest (path)
+  (let ((e (f-entries path)))
+    (car (sort e (lambda (a b)
+                   (not (time-less-p (aj-mtime a)
+                                     (aj-mtime b))))))))
+(defun aj-mtime (f) (let ((attrs (file-attributes f))) (nth 5 attrs)))
+
+(defun otavio/go-to-latest-migration ()
+  (interactive)
+  (find-file (aj-fetch-latest (concat (doom-project-root) "db/migrate/"))))
+
 (after! which-key
   (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
         which-key-replacement-alist))
@@ -497,14 +508,13 @@
     (setq-local flycheck-command-wrapper-function
                 (lambda (command) (append '("bundle" "exec") command)))))
 
-
 (defun otavio/better-ruby-goto-definition ()
   (interactive)
   (let ((buffer (current-buffer))
         (inf-ruby-buffer* (or (inf-ruby-buffer) inf-ruby-buffer)))
     (if (get-buffer-process inf-ruby-buffer*)
         (condition-case nil
-            (projectile-rails-goto-file-at-point) (user-error (call-interactively 'robe-jump)))
+            (call-interactively 'robe-jump) (error (call-interactively 'projectile-rails-goto-file-at-point)))
       (projectile-rails-goto-file-at-point))))
 
 (after! ruby-mode
