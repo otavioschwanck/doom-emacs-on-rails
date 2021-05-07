@@ -104,7 +104,7 @@
 ;; C-w C-w evil next > other-window
 (map! :map evil-window-map "C-w" #'evil-window-next)
 (map! "C-<SPC>" #'evil-window-next)
-(map! :map vterm-mode-map "C-<SPC>" #'evil-window-next)
+(map! :map vterm-mode-map :n "C-<SPC>" #'evil-window-next)
 (map! "M-o" #'evil-window-next)
 (map! :map vterm-mode-map "M-o" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
@@ -129,15 +129,6 @@
         '(font-lock-variable-name-face :foreground "#FB996C")
         '(company-tooltip :foreground "#b8b8b8"))))
 
-(defun history-for-shell ()
-  (if (string-match-p "zsh\\'" shell-file-name)
-      (progn
-        (setq-local comint-input-ring-size 10000)
-        (setq-local comint-input-ring-file-name "~/.zsh_history")
-        (setq-local comint-input-ring-separator "\n: \\([0-9]+\\):\\([0-9]+\\);")
-        (comint-read-input-ring t))))
-
-(add-hook 'shell-mode-hook 'history-for-shell)
 (setq uniquify-buffer-name-style 'forward)
 
 (defun history-for-inf-ruby ()

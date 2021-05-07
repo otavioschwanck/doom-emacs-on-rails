@@ -74,6 +74,7 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (load (expand-file-name "rails-routes.el" doom-private-dir))
+(load (expand-file-name "rails-http-status.el" doom-private-dir))
 
 (load (expand-file-name "library_fixes.el" doom-private-dir))
 (load (expand-file-name "editor.el" doom-private-dir))
