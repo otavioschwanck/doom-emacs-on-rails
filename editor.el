@@ -77,7 +77,8 @@
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
 
 ;; Open Terminal
-(map! :leader "v" #'projectile-run-vterm)
+(map! :leader "v" #'+vterm/toggle)
+(map! :leader "V" #'+vterm/here)
 
 ;; Toggle truncate lines
 (map! :leader "t t" #'toggle-truncate-lines)
