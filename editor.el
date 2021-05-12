@@ -12,6 +12,14 @@
 
 (map! :n "ç" #'save-all-buffers)
 
+(map! :after vterm
+      :map vterm-mode-map
+      :i [tab] #'vterm--self-insert)
+
+(map! :after vterm
+      :map vterm-mode-map
+      :ni "C-l" #'vterm-clear)
+
 ;; Search with tab is easier on code
 (map! :nv "<tab>" #'evil-ex-search-forward)
 (map! :nv "<C-tab>" #'evil-ex-search-backward)
