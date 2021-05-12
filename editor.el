@@ -14,10 +14,6 @@
 
 (map! :after vterm
       :map vterm-mode-map
-      :i [tab] #'vterm--self-insert)
-
-(map! :after vterm
-      :map vterm-mode-map
       :ni "C-l" #'vterm-clear)
 
 ;; Search with tab is easier on code
