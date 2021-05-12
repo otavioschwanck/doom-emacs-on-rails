@@ -287,3 +287,5 @@ Version 2015-06-08"
       (insert @string)
       (xah-asciify-text (point-min) (point-max))
       (buffer-string)))
+
+(setq evil-want-visual-char-semi-exclusive t)
