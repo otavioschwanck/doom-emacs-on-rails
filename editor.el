@@ -20,6 +20,9 @@
 (map! :nv "<tab>" #'evil-ex-search-forward)
 (map! :nv "<C-tab>" #'evil-ex-search-backward)
 
+;; Rainbow
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 ;; Previous and next buffer
 (map! :n "C-," #'previous-buffer)
 (map! :n "C-;" #'next-buffer)
@@ -133,8 +136,6 @@
         '(line-number :foreground "#6b6b6b")
         '(font-lock-variable-name-face :foreground "#FB996C")
         '(company-tooltip :foreground "#b8b8b8"))))
-
-(setq uniquify-buffer-name-style 'forward)
 
 (defun history-for-inf-ruby ()
   (setq-local comint-input-ring-file-name "~/.irb_history")
