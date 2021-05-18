@@ -290,3 +290,7 @@ Version 2015-06-08"
       (buffer-string)))
 
 (setq evil-want-visual-char-semi-exclusive t)
+
+(after! ivy-mode
+  (setq ivy-virtual-abbreviate 'abbreviate
+        uniquify-min-dir-content 10))
