@@ -53,3 +53,4 @@
 (package! transpose-mark)
 (package! js-import)
 (package! plantuml-mode)
+(unpin! company)

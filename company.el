@@ -34,9 +34,10 @@
       (company-begin-backend (nth 1 company-backends)))))
 
 (map! :after company
-      :map company-active-map
+      :map company-tng-map
       "<C-SPC>" #'company-complete
       "<tab>" #'expand-snippet-or-next
+      "TAB" #'expand-snippet-or-next
       "C-q" #'company-complete
       "C-l" #'current-mode-company-mode)
 
