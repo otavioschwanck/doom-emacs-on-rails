@@ -301,3 +301,18 @@ Version 2015-06-08"
 
 (after! vterm
   (set-evil-initial-state! 'vterm-mode 'emacs))
+
+(defun otavio/swap-arg-forward ()
+  (interactive)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
+    (evil-forward-arg 1)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
+
+(defun otavio/swap-arg-backward ()
+  (interactive)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
+    (evil-backward-arg 1)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
+
+(global-set-key (kbd "C-l") #'otavio/swap-arg-forward)
+(global-set-key (kbd "C-h") #'otavio/swap-arg-backward)

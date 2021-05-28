@@ -25,7 +25,7 @@
       (do-yas-expand)))
 
 (after! ruby-mode
-  (map! :i :mode ruby-mode-map "C-l" #'current-mode-company-mode))
+  (map! :mode ruby-mode :i "C-l" #'current-mode-company-mode))
 
 (defun current-mode-company-mode ()
   (interactive)
