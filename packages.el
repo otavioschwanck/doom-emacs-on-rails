@@ -53,4 +53,5 @@
 (package! transpose-mark)
 (package! js-import)
 (package! plantuml-mode)
+(package! splitjoin)
 (unpin! company)

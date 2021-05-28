@@ -115,6 +115,8 @@
 (map! :map vterm-mode-map :n "C-<SPC>" #'evil-window-next)
 (map! "M-o" #'evil-window-next)
 (map! :map vterm-mode-map "M-o" #'evil-window-next)
+(map! :map vterm-mode-map "M-k" #'evil-window-up)
+(map! :map vterm-mode-map "<C-SPC>" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
@@ -294,3 +296,8 @@ Version 2015-06-08"
 (after! ivy-mode
   (setq ivy-virtual-abbreviate 'abbreviate
         uniquify-min-dir-content 10))
+
+(add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
+
+(after! vterm
+  (set-evil-initial-state! 'vterm-mode 'emacs))
