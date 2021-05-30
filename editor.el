@@ -314,5 +314,5 @@ Version 2015-06-08"
     (evil-backward-arg 1)
     (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
 
-(global-set-key (kbd "C-l") #'otavio/swap-arg-forward)
-(global-set-key (kbd "C-h") #'otavio/swap-arg-backward)
+(map! :ni "C-l" #'otavio/swap-arg-forward)
+(map! :ni "C-h" #'otavio/swap-arg-backward)

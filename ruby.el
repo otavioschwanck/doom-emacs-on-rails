@@ -35,8 +35,8 @@
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
 
-(defvar debugger-command "require 'pry'; binding.pry")
-(defvar pry-show-helper nil)
+(defvar debugger-command "byebug")
+(defvar pry-show-helper t)
 
 (defun otavio/remove-all-debuggers ()
   (interactive)
@@ -536,3 +536,7 @@
          (model (nth 0 parsed))
          )
     model))
+
+(after! evil
+  (define-key evil-normal-state-map (kbd "g S") #'multi-line)
+  (define-key evil-normal-state-map (kbd "g J") #'multi-line-single-line))
