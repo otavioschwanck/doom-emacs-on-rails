@@ -299,9 +299,6 @@ Version 2015-06-08"
 
 (add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
 
-(after! vterm
-  (set-evil-initial-state! 'vterm-mode 'emacs))
-
 (defun otavio/swap-arg-forward ()
   (interactive)
     (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
