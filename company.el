@@ -7,9 +7,11 @@
 ;; C-p when company is active
 (map! :after company
       :map company-active-map
-      "<C-return>" #'dabbrev-expand)
+      "C-S-p" #'+company/dabbrev
+      "C-p" #'dabbrev-expand)
 
-(map! :i "<C-return>" #'dabbrev-expand)
+(map! :i "C-p" #'dabbrev-expand)
+(map! :i "C-S-p" #'+company/dabbrev)
 
 (defun do-yas-expand ()
   (let ((yas/fallback-behavior 'return-nil))
