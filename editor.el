@@ -20,6 +20,9 @@
 (map! :nv "<tab>" #'evil-ex-search-forward)
 (map! :nv "<C-tab>" #'evil-ex-search-backward)
 
+;; Rainbow
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 ;; Previous and next buffer
 (map! :n "C-," #'previous-buffer)
 (map! :n "C-;" #'next-buffer)
@@ -112,6 +115,8 @@
 (map! :map vterm-mode-map :n "C-<SPC>" #'evil-window-next)
 (map! "M-o" #'evil-window-next)
 (map! :map vterm-mode-map "M-o" #'evil-window-next)
+(map! :map vterm-mode-map "M-k" #'evil-window-up)
+(map! :map vterm-mode-map "<C-SPC>" #'evil-window-next)
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
@@ -133,8 +138,6 @@
         '(line-number :foreground "#6b6b6b")
         '(font-lock-variable-name-face :foreground "#FB996C")
         '(company-tooltip :foreground "#b8b8b8"))))
-
-(setq uniquify-buffer-name-style 'forward)
 
 (defun history-for-inf-ruby ()
   (setq-local comint-input-ring-file-name "~/.irb_history")
@@ -289,3 +292,24 @@ Version 2015-06-08"
       (buffer-string)))
 
 (setq evil-want-visual-char-semi-exclusive t)
+
+(after! ivy-mode
+  (setq ivy-virtual-abbreviate 'abbreviate
+        uniquify-min-dir-content 10))
+
+(add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
+
+(defun otavio/swap-arg-forward ()
+  (interactive)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
+    (evil-forward-arg 1)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
+
+(defun otavio/swap-arg-backward ()
+  (interactive)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
+    (evil-backward-arg 1)
+    (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
+
+(map! :ni "C-l" #'otavio/swap-arg-forward)
+(map! :ni "C-h" #'otavio/swap-arg-backward)
