@@ -56,6 +56,13 @@
 
 (defvar start-rails-server t)
 
+(defun better-robe-start ()
+  (interactive)
+  (robe-mode t)
+  (let ((buffer (current-buffer))
+        (inf-ruby-buffer* (or (inf-ruby-buffer) inf-ruby-buffer)))
+    (if (get-buffer-process inf-ruby-buffer*) (robe-start) (run-at-time robe-time-to-start nil #'better-robe-start))))
+
 (defun open-rails-project (&optional DIRECTORY CACHE)
   (interactive)
   (magit-status DIRECTORY)
@@ -67,6 +74,7 @@
     (when start-rails-server
       (progn
         (projectile-rails-console nil)
+        (run-at-time robe-time-to-start nil #'better-robe-start)
         (+popup/close-all)))))
 
 (setq +workspaces-switch-project-function #'open-rails-project)
@@ -75,7 +83,7 @@
 
 (load (expand-file-name "rails-routes.el" doom-private-dir))
 (load (expand-file-name "rails-http-status.el" doom-private-dir))
-
+(load (expand-file-name "indentation.el" doom-private-dir))
 (load (expand-file-name "library_fixes.el" doom-private-dir))
 (load (expand-file-name "editor.el" doom-private-dir))
 (load (expand-file-name "ruby.el" doom-private-dir))

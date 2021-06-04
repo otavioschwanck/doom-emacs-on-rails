@@ -313,3 +313,7 @@ Version 2015-06-08"
 
 (map! :ni "C-l" #'otavio/swap-arg-forward)
 (map! :ni "C-h" #'otavio/swap-arg-backward)
+
+(after! edit-server
+  (require 'edit-server)
+  (edit-server-start))

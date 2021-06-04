@@ -54,4 +54,5 @@
 (package! js-import)
 (package! plantuml-mode)
 (package! multi-line)
+(package! edit-server)
 (unpin! company)

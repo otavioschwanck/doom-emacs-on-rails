@@ -24,9 +24,6 @@
       (company-abort))
       (do-yas-expand)))
 
-(after! ruby-mode
-  (map! :mode ruby-mode :i "C-l" #'current-mode-company-mode))
-
 (defun current-mode-company-mode ()
   (interactive)
   (if (eq major-mode 'ruby-mode) (progn (robe-start) (call-interactively 'company-robe))
@@ -38,8 +35,7 @@
       "<C-SPC>" #'company-complete
       "<tab>" #'expand-snippet-or-next
       "TAB" #'expand-snippet-or-next
-      "C-q" #'company-complete
-      "C-l" #'current-mode-company-mode)
+      "C-q" #'company-complete)
 
 (after! company
   (setq company-dabbrev-downcase 0)
@@ -60,9 +56,6 @@
 
 (setq company-dabbrev-code-everywhere t)
 (setq company-dabbrev-code-other-buffers t)
-
-(after! robe
-  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-yasnippet))
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf))
