@@ -46,7 +46,8 @@
 (map! :nv "[g" #'git-gutter:previous-hunk)
 
 ;; Search with avy
-(map! :nv "C-s" #'evil-avy-goto-char-2)
+(map! :nv "C-s" #'save-all-buffers)
+(map! :nv "M-s" #'evil-avy-goto-char-2)
 
 ;; Shortcut for the emacs C-M-j and C-M-k
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
@@ -317,3 +318,6 @@ Version 2015-06-08"
 (after! edit-server
   (require 'edit-server)
   (edit-server-start))
+
+(setq ispell-dictionary "pt_BR")
+(setq flyspell-default-dictionary "pt_BR")

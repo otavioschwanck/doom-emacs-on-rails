@@ -92,3 +92,6 @@
 
 (when (file-exists-p (expand-file-name "user.el" doom-private-dir))
   (load (expand-file-name "user.el" doom-private-dir)))
+
+(when (file-exists-p (expand-file-name "face.png" doom-private-dir))
+  (setq +doom-dashboard-banner-file (expand-file-name "face.png" doom-private-dir)))
