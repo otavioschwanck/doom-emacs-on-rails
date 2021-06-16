@@ -46,8 +46,10 @@
 (map! :nv "[g" #'git-gutter:previous-hunk)
 
 ;; Search with avy
-(map! :nv "C-s" #'save-all-buffers)
-(map! :nv "M-s" #'evil-avy-goto-char-2)
+(map! :nv "ç" #'save-all-buffers)
+(map! :nv "M-s" #'save-all-buffers)
+(map! :nv "\\" #'save-all-buffers)
+(map! :nv "C-s" #'evil-avy-goto-char-2)
 
 ;; Shortcut for the emacs C-M-j and C-M-k
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
