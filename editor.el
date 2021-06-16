@@ -321,3 +321,5 @@ Version 2015-06-08"
 
 (setq ispell-dictionary "pt_BR")
 (setq flyspell-default-dictionary "pt_BR")
+
+(setq avy-single-candidate-jump t)
