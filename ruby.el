@@ -540,3 +540,6 @@
 (after! evil
   (define-key evil-normal-state-map (kbd "g S") #'multi-line)
   (define-key evil-normal-state-map (kbd "g J") #'multi-line-single-line))
+
+;; Improve Rails Console pop-up
+(set-popup-rule! "^\\*rails\\**" :size 0.4 :ttl nil :select t)
