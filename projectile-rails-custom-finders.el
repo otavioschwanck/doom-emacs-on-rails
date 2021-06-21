@@ -16,19 +16,27 @@
                                             "${singular}\\.rb$"
                                             'projectile-rails-find-admin))
 
-  (defun projectile-rails-find-service ()
+  (defun projectile-rails-find-business-or-service ()
     "Find a service."
     (interactive)
-    (if (file-exists-p (concat (projectile-project-root) "app/services"))
+    (if (file-exists-p (concat (projectile-project-root) "app/business"))
         (projectile-rails-find-resource
+           "business: "
+           '(("app/business/" "\\(.+\\)\\.rb$"))
+           "app/business/${filename}.rb")
+      (if (file-exists-p (concat (projectile-project-root) "app/services"))
+          (projectile-rails-find-resource
          "service: "
          '(("app/services/" "\\(.+\\)\\.rb$"))
-         "app/services/${filename}.rb")
-      (if (file-exists-p (concat (projectile-project-root) "app/business"))
-          (projectile-rails-find-resource
-           "service: "
-           '(("app/business/" "\\(.+\\)\\.rb$"))
-           "app/business/${filename}.rb"))))
+         "app/services/${filename}.rb"))))
+
+  (defun projectile-rails-find-service ()
+    "Find all in graphql."
+    (interactive)
+    (projectile-rails-find-resource
+     "service: "
+     '(("app/services/" "\\(.+\\)\\.rb$"))
+     "app/services/${filename}.rb"))
 
   (defun projectile-rails-find-graphql-all ()
     "Find all in graphql."
@@ -38,22 +46,9 @@
      '(("app/graphql/" "\\(.+\\)\\.rb$"))
      "app/graphql/${filename}.rb"))
 
-  (defun projectile-rails-find-current-service ()
-    "Find a model for the current resource."
-    (interactive)
-    (if (file-exists-p (concat (projectile-project-root) "app/services"))
-        (projectile-rails-find-current-resource "app/services/"
-                                                "${singular}\\.rb$"
-                                                'projectile-rails-find-service)
-      (if (file-exists-p (concat (projectile-project-root) "app/business"))
-          (projectile-rails-find-current-resource "app/business/"
-                                                  "${singular}\\.rb$"
-                                                  'projectile-rails-find-service)
-        (message "Service or business folder not found"))))
-
   (map! :leader "rd" #'otavio/go-to-latest-migration)
   (map! :leader "rt" #'projectile-rails-find-admin)
   (map! :leader "rT" #'projectile-rails-find-current-admin)
-  (map! :leader "rs" #'projectile-rails-find-service)
-  (map! :leader "rS" #'projectile-rails-find-current-service)
+  (map! :leader "rs" #'projectile-rails-find-business-or-service)
+  (map! :leader "rS" #'projectile-rails-find-service)
   (map! :leader "rq" #'projectile-rails-find-graphql-all))
