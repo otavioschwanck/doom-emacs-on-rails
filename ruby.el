@@ -495,6 +495,7 @@
   (map! :map ruby-mode-map :localleader "a" 'rails-routes-find)
   (map! :map ruby-mode-map :localleader "A" 'rails-routes-find-with-class)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
+  (map! :map ruby-mode-map :localleader "m" 'ruby-move-selection-to-new-method)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
   (map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point)
   (map! :mode ruby-mode-map :leader "d" 'otavio/insert-debugger)
