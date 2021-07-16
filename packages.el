@@ -55,4 +55,6 @@
 (package! plantuml-mode)
 (package! multi-line)
 (package! edit-server)
+(package! kubernetes)
+(package! kubernetes-evil)
 (unpin! company)
