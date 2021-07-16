@@ -26,6 +26,9 @@
   :config
   (setq kubernetes-poll-frequency 3600
         kubernetes-redraw-frequency 3600))
+
+(use-package! kubernetes-evil)
+
 (map! :leader
         (:prefix "o"
         :desc "Kubernetes" "K" 'kubernetes-overview))
