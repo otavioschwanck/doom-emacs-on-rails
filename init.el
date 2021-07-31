@@ -24,6 +24,7 @@
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy +prescient +icons); a search engine for love and life
+       ;;(vertico +icons)
 
        :ui
        deft              ; notational velocity for Emacs
@@ -40,7 +41,7 @@
        nav-flash         ; blink cursor line after big motions
        ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
-       (popup +defaults +all)   ; tame sudden yet inevitable temporary windows
+       ;;(popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;; tabs              ; a tab bar for Emacs
        (treemacs +treemacs-git-mode)          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages

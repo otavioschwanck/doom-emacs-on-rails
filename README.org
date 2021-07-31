@@ -15,7 +15,6 @@
 - [[#getting-help][Getting help]]
 - [[#enabling-rubocop-integration][Enabling rubocop integration]]
 - [[#emacs-installation][Emacs Installation]]
-  - [[#using-gccemacs-recommended][Using GCCEmacs (recommended)]]
   - [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
 - [[#never-heard-about-emacs-before][Never heard about emacs before?]]
   - [[#history][History]]
@@ -92,14 +91,10 @@ Example =~/.doom.d/user.el=:
 ;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
 (setq doom-theme 'doom-monokai-pro)
 
-;; You can change your notes with SPC n d, its VERY COOL! USE IT PLEASE
-(after! deft
-  (setq deft-directory "~/Documentos"))
-
 ;; Make rubocop use bundle exec
 (add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
 
-;; Disable Rubocop if you want
+;; Disable Rubocop or any other lint if you want
 ;; (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop))
 
 ;; Change the fill column length
@@ -191,24 +186,6 @@ In your =~/.doom.d/user.el=, just add:
 #+end_src
 
 * Emacs Installation
-** Using GCCEmacs (recommended)
-For better performance, i recommend to use the gccemacs version.  To install it, you need to compile.
-
-For Ubuntu:
-#+begin_src
-sudo apt install libxpm-dev libgif-dev libjpeg-dev libpng-dev libtiff-dev libx11-dev libncurses5-dev automake autoconf texinfo libgtk2.0-dev
-sudo add-apt-repository ppa:ubuntu-toolchain-r/ppa
-sudo apt install gcc-10 g++-10 libgccjit0 libgccjit-10-dev libjansson4 libjansson-dev
-git clone git://git.sv.gnu.org/emacs.git
-cd emacs
-git checkout feature/native-comp
-export CC=/usr/bin/gcc-10 CXX=/usr/bin/gcc-10
-./autogen.sh
-./configure --with-nativecomp --with-json CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
-make -j2 NATIVE_FULL_AOT=1
-sudo make install
-#+end_src
-
 ** Using Emacs from snap (also recommended)
 Just run `sudo snap install emacs --classic`
 

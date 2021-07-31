@@ -223,8 +223,6 @@
   (search-backward "let(:)") (search-forward ":")
   (if (featurep 'evil) (evil-insert 1)))
 
-(use-package! string-inflection)
-
 (defun otavio/swap-if-unless-ruby ()
   (interactive)
   (beginning-of-line)
