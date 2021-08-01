@@ -23,8 +23,8 @@
        (company +tng)             ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +prescient +icons); a search engine for love and life
-       ;;(vertico +icons)
+       ;; (ivy +prescient +icons); a search engine for love and life
+       (vertico +icons)
 
        :ui
        deft              ; notational velocity for Emacs

@@ -327,3 +327,7 @@ Version 2015-06-08"
 (setq avy-single-candidate-jump t)
 
 (use-package! string-inflection)
+
+(after! vertico
+  (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
+  (setq consult-async-split-style 'space))
