@@ -2,6 +2,7 @@
 - [[#description][Description]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
+- [[#after-install][After Install]]
 - [[#demonstration][Demonstration]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
@@ -62,6 +63,20 @@ if [[ -v PROOT ]]; then
 fi
 #+END_SRC
 
+* After Install
+Create a file on =user.el= with at least this:
+
+#+begin_elisp elisp
+
+;; Locals where emacs can find your projects, use SPC p d to load the projects
+(setq projectile-project-search-path '("~/Projetos" "~/Study"))
+
+#+end_elisp
+
+Just change the strings with your project folders path
+
+After that, just press SPC p d to load your projects into emacs.   Use =SPC p p= to enter on a project.
+
 * Demonstration
 [[file:demonstration.gif]]
 
@@ -87,6 +102,9 @@ Just create and user.el and add your configs there!  You also can create an fold
 Example =~/.doom.d/user.el=:
 #+begin_src elisp
 ;;; user.el -*- lexical-binding: t; -*-
+
+;; Locals where emacs can find your projects, use SPC p d to load the projects
+(setq projectile-project-search-path '("~/Projetos" "~/Study"))
 
 ;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
 (setq doom-theme 'doom-monokai-pro)
