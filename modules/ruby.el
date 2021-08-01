@@ -542,4 +542,8 @@
   (define-key evil-normal-state-map (kbd "g J") #'multi-line-single-line))
 
 ;; Improve Rails Console pop-up
-(set-popup-rule! "^\\*rails\\**" :size 0.4 :ttl nil :select t)
+(after! projectile-rails
+  (set-popup-rule! "^\\*rails\\**" :ignore t))
+
+(after! rspec-mode
+  (set-popup-rule! "^\\*\\(rspec-\\)?compilation" :ignore t))
