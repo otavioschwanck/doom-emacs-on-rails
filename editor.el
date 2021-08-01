@@ -118,3 +118,7 @@
              (evil-insert-state)))))
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
+
+(after! vertico
+  (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
+  (setq consult-async-split-style 'space))

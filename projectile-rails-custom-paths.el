@@ -15,6 +15,20 @@
            '(("app/business/" "\\(.+\\)\\.rb$"))
            "app/business/${filename}.rb"))))
 
+  (defun projectile-rails-find-business-or-service ()
+    "Find a service."
+    (interactive)
+    (if (file-exists-p (concat (projectile-project-root) "app/business"))
+        (projectile-rails-find-resource
+           "business: "
+           '(("app/business/" "\\(.+\\)\\.rb$"))
+           "app/business/${filename}.rb")
+      (if (file-exists-p (concat (projectile-project-root) "app/services"))
+          (projectile-rails-find-resource
+         "service: "
+         '(("app/services/" "\\(.+\\)\\.rb$"))
+         "app/services/${filename}.rb"))))
+
   (defun projectile-rails-find-graphql-all ()
     "Find all in graphql."
     (interactive)
@@ -52,8 +66,8 @@
                                                   'projectile-rails-find-service)
         (message "Service or business folder not found"))))
 
-  (map! :leader "rs" #'projectile-rails-find-service)
-  (map! :leader "rS" #'projectile-rails-find-current-service)
+  (map! :leader "rs" #'projectile-rails-find-business-or-service)
+  (map! :leader "rS" #'projectile-rails-find-service)
   (map! :leader "rqa" #'projectile-rails-find-graphql-all)
   (map! :leader "rqm" #'projectile-rails-find-graphql-mutation)
   (map! :leader "rqt" #'projectile-rails-find-graphql-type))
