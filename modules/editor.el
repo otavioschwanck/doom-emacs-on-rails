@@ -331,3 +331,4 @@ Version 2015-06-08"
 (after! vertico
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
   (setq consult-async-split-style 'space))
+(use-package! doom-snippets)

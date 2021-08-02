@@ -58,3 +58,4 @@
 (package! kubernetes)
 (package! kubernetes-evil)
 (unpin! company)
+(unpin! doom-snippets)
