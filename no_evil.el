@@ -9,9 +9,9 @@
     (company-begin-backend (nth 1 company-backends))))
 
 ;; Custom file keybindings
-(map! "<C-tab>" #'+ivy/switch-workspace-buffer)
+(map! "<C-tab>" #'+vertico/switch-workspace-buffer)
 (map! "C-S-g" #'magit-status)
-(map! "C-j" #'+ivy/projectile-find-file)
+(map! "C-j" #'projectile-find-file)
 
 ;; Custom Editing Keybindings
 (global-set-key (kbd "C-o") (kbd "C-e C-m"))
