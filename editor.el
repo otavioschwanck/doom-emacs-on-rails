@@ -122,3 +122,8 @@
 (after! vertico
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
   (setq consult-async-split-style 'space))
+
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*")
