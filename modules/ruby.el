@@ -546,4 +546,4 @@
   (set-popup-rule! "^\\*rails\\**" :ignore t))
 
 (after! rspec-mode
-  (set-popup-rule! "^\\*\\(rspec-\\)?compilation" :ignore t))
+  (set-popup-rule! "^\\*\\(rspec-\\)?compilation" :size 0.5 :ttl nil :select t))

@@ -296,10 +296,6 @@ Version 2015-06-08"
 
 (setq evil-want-visual-char-semi-exclusive t)
 
-(after! ivy-mode
-  (setq ivy-virtual-abbreviate 'abbreviate
-        uniquify-min-dir-content 10))
-
 (add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
 
 (defun otavio/swap-arg-forward ()
@@ -331,4 +327,10 @@ Version 2015-06-08"
 (after! vertico
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
   (setq consult-async-split-style 'space))
+
 (use-package! doom-snippets)
+
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*")
