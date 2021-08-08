@@ -493,6 +493,7 @@
   (map! :map ruby-mode-map :localleader "a" 'rails-routes-find)
   (map! :map ruby-mode-map :localleader "A" 'rails-routes-find-with-class)
   (map! :map ruby-mode-map :localleader "S" 'otavio/split-ruby-giant-string)
+  (map! :map (ruby-mode-map evil-visual-state-map) "<S-return>" 'otavio/ruby-interpolate-in-string)
   (map! :map ruby-mode-map :localleader "m" 'ruby-move-selection-to-new-method)
   (map! :map ruby-mode-map :localleader "B" 'ruby-toggle-block)
   (map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point)
@@ -522,6 +523,11 @@
   (set-lookup-handlers! 'ruby-mode
     :definition #'otavio/better-ruby-goto-definition
     :documentation #'robe-doc))
+
+(defun otavio/ruby-interpolate-in-string (BEG END)
+  (interactive (evil-operator-range))
+  (goto-char BEG) (insert "#{") (goto-char (+ 2 END))
+  (insert "}"))
 
 (after! robe
   (set-lookup-handlers! 'ruby-mode
