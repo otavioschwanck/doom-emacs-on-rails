@@ -89,10 +89,14 @@
 ;; Toggle truncate lines
 (map! :leader "t t" #'toggle-truncate-lines)
 
+(defun better-paste-after ()
+  (interactive)
+  (evil-paste-after 1) (forward-char 1))
+
 ;; Paste on insert mode
-(map! :ieg "C-v" #'evil-paste-after)
-(map! :ieg "C-V" #'evil-paste-before)
-(map! :iego "M-v" #'evil-paste-after)
+(map! :iego "C-v" #'better-paste-after)
+(map! :iego "C-V" #'evil-paste-before)
+(map! :iego "M-v" #'better-paster-after)
 
 (map! :leader "e" #'+treemacs/toggle)
 (map! :leader "E" #'treemacs-find-file)

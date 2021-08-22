@@ -78,7 +78,6 @@ Just change the strings with your project folders path
 After that, just press SPC p d to load your projects into emacs.   Use =SPC p p= to enter on a project.
 
 * Demonstration
-[[file:demonstration.gif]]
 
 * Tips
 ** Search and replace in whole project
