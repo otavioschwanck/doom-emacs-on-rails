@@ -49,7 +49,7 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 
 # Some dependencies (ubuntu)
-sudo apt install fd-find ripgrep libtool-bin cmake
+sudo apt install fd-find ripgrep libtool-bin cmake tidy stylelint js-beautify
 
 # If you use mac
 brew install fd ripgrep
