@@ -121,6 +121,9 @@ On my doom config, i've done several tweaks to the default autocomplete.
 
 To toggle snippets and go forward, use C-o.
 
+#+caption: AutoComplete
+[[autocomplete.gif]]
+
 | Key     | Command                                                            |
 | Tab     | Next item                                                          |
 | S-Tab   | Previous item                                                      |
