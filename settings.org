@@ -343,6 +343,7 @@ C-l to clear v-term
       :map yas-keymap
       "C-o" #'select-and-yas-next
       "C-S-o" #'select-and-yas-previous
+      "<S-tab>" nil
       "C-d" #'yas-skip-and-clear-field
       "C-e" #'emmet-expand)
 
