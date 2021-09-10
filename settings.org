@@ -363,6 +363,11 @@ C-l to clear v-term
 #+end_src
 ** Better go to definition
 #+begin_src elisp
+(after! robe
+  (set-lookup-handlers! 'ruby-mode
+    :definition '(projectile-rails-goto-file-at-point robe-jump)
+    :documentation #'robe-doc))
+
 (after! ruby-mode
   (set-lookup-handlers! 'ruby-mode
     :definition '(projectile-rails-goto-file-at-point robe-jump)
