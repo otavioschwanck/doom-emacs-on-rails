@@ -1,37 +1,28 @@
 * Index :toc:
-- [[#description][Description]]
+- [[#features][Features]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
-- [[#demonstration][Demonstration]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#using-method-generator-emmet-in-ruby][Using method generator (emmet) in ruby]]
-  - [[#customizing][Customizing]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#for-other-git-server][For other git server]]
 - [[#custom-keybindings][Custom Keybindings]]
 - [[#using-autocomplete][Using Autocomplete]]
 - [[#getting-help][Getting help]]
-- [[#enabling-rubocop-integration][Enabling rubocop integration]]
-- [[#emacs-installation][Emacs Installation]]
   - [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
-- [[#never-heard-about-emacs-before][Never heard about emacs before?]]
-  - [[#history][History]]
-  - [[#about-doom-emacs][About Doom Emacs]]
-  - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
+- [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 
-* Description
-# Personal configuration for doom emacs
-
+* Features
++ Made for Ruby on rails
 + Javascript support
-+ Fully functional with Ruby on Rails
-+ Some new functions added from vanilla doom emacs.
-+ Very nice autocomplete
-+ Code Lint
-+ Awesome git client (magit)
-+ Perfect for vim users
++ Cool stuff for Ruby Refactoring
++ Advance autocomplete and snippets management
++ Code Diagnostics
++ Best git client integrated (Magit)
++ Vim Keybindings
 
 * Prerequisites
  - Git 2.23+
@@ -56,28 +47,11 @@ brew install fd ripgrep
 
 # Install dependencies for LSP
 npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server
-
-# Add this to your .zshrc or .bashrc (to improve SPC v (terminal))
-if [[ -v PROOT ]]; then
-   cd $PROOT
-fi
+gem install solargraph
 #+END_SRC
 
 * After Install
-Create a file on =user.el= with at least this:
-
-#+begin_elisp elisp
-
-;; Locals where emacs can find your projects, use SPC p d to load the projects
-(setq projectile-project-search-path '("~/Projetos" "~/Study"))
-
-#+end_elisp
-
-Just change the strings with your project folders path
-
-After that, just press SPC p d to load your projects into emacs.   Use =SPC p p= to enter on a project.
-
-* Demonstration
+Open your personal configuration with =SPC f P= user.org and read the file
 
 * Tips
 ** Search and replace in whole project
@@ -95,41 +69,6 @@ To use multiple-cursors, select the word, then, press =M-d= to go forward or =M-
 Syntax: init@param1,param2;method_name@param1,param2;method2;method@param
 
 Press C-e to expand.
-** Customizing
-Just create and user.el and add your configs there!  You also can create an folder called user/ and put any files there!
-
-Example =~/.doom.d/user.el=:
-#+begin_src elisp
-;;; user.el -*- lexical-binding: t; -*-
-
-;; Locals where emacs can find your projects, use SPC p d to load the projects
-(setq projectile-project-search-path '("~/Projetos" "~/Study"))
-
-;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
-(setq doom-theme 'doom-monokai-pro)
-
-;; Make rubocop use bundle exec
-(add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
-
-;; Disable Rubocop or any other lint if you want
-;; (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop))
-
-;; Change the fill column length
-(setq-hook! '(ruby-mode-hook js2-mode-hook) fill-column 125)
-
-;; Set your favorite font there
-(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
-
-;; Disable truncate lines if you want
-(setq truncate-lines t)
-
-;; If you use macos with rbenv on homebrew, add it
-;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
-
-;;; Ignore some folders on projectile (SPC SPC)
-;; (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
-#+end_src
 
 ** Configuring Forge for Creating / Reviewing pull requests
 *** For github
@@ -178,44 +117,26 @@ See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.
 
 * Using Autocomplete
 #+caption: Autocomplete
-[[file:autocomplete.gif]]
-
 On my doom config, i've done several tweaks to the default autocomplete.
-Instead of using enter to select the item in the popup, I use TAB.  The Tab can't go down and up in the autocomplete popup.  Instead of tab, i use =C-j= and =C-k=.
+
+To toggle snippets and go forward, use C-o.
 
 | Key     | Command                                                            |
-| Tab     | Select the complation                                              |
-| C-j     | Go down on the popup                                               |
-| C-k     | Go up on the popup                                                 |
-| C-l     | Shows Robe and LSP autocompletes                                   |
+| Tab     | Next item                                                          |
+| S-Tab   | Previous item                                                      |
+| C-o     | Toggle Snippet                                                     |
 | C-p     | Select a similar word instantly (keep pressing to change the word) |
 | C-x C-s | See all the snippets                                               |
-| <tab>   | Toggle snippet / go foward in snippet                              |
+| <C-spc> | Toggle current selection                                           |
 | C-d     | (while snipped is active) Delete the highlighted snippet           |
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
 
-* Enabling rubocop integration
-In your =~/.doom.d/user.el=, just add:
-#+begin_src elisp
-(add-hook! 'ruby-mode-hook (setq-local flycheck-checker 'ruby-rubocop))
-#+end_src
-
-* Emacs Installation
 ** Using Emacs from snap (also recommended)
 Just run `sudo snap install emacs --classic`
 
-* Never heard about emacs before?
-** History
-Emacs is a text editor designed for POSIX operating systems and available on Linux, BSD, macOS, Windows, and more.
-Users love Emacs because it features efficient commands for common but complex actions and for the plugins and configuration hacks that have developed around it for nearly 40 years.
-
-** About Doom Emacs
-Doom emacs is a configuration framework built over emacs that brings a package manager and a lot of facilities to build your own emacs configuration.
-It also brings the =Evil Mode= implementation, that set the =vim keybindings= in emacs.
-
-** What i need to know to start using ?
+* What i need to know to start using ?
 I really recommend you to learn the basics of vim first, choose one:
 
 + [[https://www.udemy.com/course/vim-commands-cheat-sheet/][Vim Udemy Course]] (non-free) (for vim) (3h course) (very good course, i did this) (Very Complete!)
