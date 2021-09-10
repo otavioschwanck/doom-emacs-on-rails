@@ -22,6 +22,7 @@
 - [[#ruby][Ruby]]
   - [[#console][Console]]
   - [[#projectile-rails-is-love][Projectile Rails is love]]
+  - [[#better-go-to-definition][Better go to definition]]
   - [[#projectile-custom-finders][Projectile Custom Finders]]
   - [[#rspec-mode][Rspec Mode]]
   - [[#checkers][Checkers]]
@@ -359,6 +360,13 @@ C-l to clear v-term
 (after! projectile-rails
   (set-popup-rule! "^\\*rails\\**" :ignore t))
 
+#+end_src
+** Better go to definition
+#+begin_src elisp
+(after! ruby-mode
+  (set-lookup-handlers! 'ruby-mode
+    :definition '(projectile-rails-goto-file-at-point robe-jump)
+    :documentation #'robe-doc))
 #+end_src
 ** Projectile Custom Finders
 #+begin_src elisp
