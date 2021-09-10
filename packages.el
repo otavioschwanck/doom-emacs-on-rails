@@ -53,3 +53,4 @@
 (package! kubernetes)
 (package! kubernetes-evil)
 (package! multi-line)
+(package! ruby-refactor)
