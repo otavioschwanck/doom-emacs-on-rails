@@ -24,7 +24,6 @@
 
 ;;; Code:
 
-
 (setq rails-http-statuses '(("100 - continue")
                             ("101 - switching_protocols")
                             ("102 - processing")

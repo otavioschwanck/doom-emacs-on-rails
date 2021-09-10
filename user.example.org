@@ -1,0 +1,53 @@
+#+TITLE: User custom configurations
+
+Hi, welcome to your personal configuration!
+
+Here you can organize your configurations the way you want.
+
+* Must Have Config
+#+begin_src elisp
+;; Your name nad e-mail
+(setq user-full-name "Otávio Schwanck dos Santos"
+      user-mail-address "otavioschwanck@gmail.com")
+
+;; Relative lines
+(setq display-line-numbers-type 'relative)
+;; Set here your projects path here to use with SPC p p
+(setq projectile-project-search-path '("~/Projetos" "~/Study"))
+#+end_src
+* Ignoring some folders on search
+#+begin_src elisp
+(setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
+#+end_src
+* Org Files Directory
+#+begin_src elisp
+(setq org-directory "~/Dropbox/org/")
+#+end_src
+* Apparence
+** Theme
+#+begin_src elisp
+;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
+;; Uncomment with gcc
+(setq doom-theme 'doom-one)
+#+end_src
+
+** Font
+#+begin_src elisp
+;; To test teh new font, selectg the text below and press M-x eval-region and then, M-x doom/reload-font
+;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
+;;       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
+#+end_src
+
+* Ruby Linters (rubocop)
+#+begin_src elisp
+;; Make rubocop use bundle exec
+(add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
+
+;; Disable Rubocop or any other lint if you want
+;; (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop))
+#+end_src
+* Rbenv
+#+begin_src elisp
+;; If you use macos with rbenv on homebrew, add it
+;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+#+end_src

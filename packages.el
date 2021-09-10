@@ -50,12 +50,6 @@
 ;(unpin! t)
 
 (package! string-inflection)
-(package! transpose-mark)
-(package! js-import)
-(package! plantuml-mode)
-(package! multi-line)
-(package! edit-server)
 (package! kubernetes)
 (package! kubernetes-evil)
-(unpin! company)
-(unpin! doom-snippets)
+(package! multi-line)

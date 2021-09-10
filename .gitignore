@@ -5,8 +5,5 @@ tmp/
 
 custom.el
 user.el
-user/
-user/**/*
-themes/
-themes/**/*
-face.png
+user.org
+settings.el

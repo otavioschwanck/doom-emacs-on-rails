@@ -1,0 +1,751 @@
+#+TITLE: Settings
+
+* index :toc:
+- [[#load-external-plugins][Load External Plugins]]
+- [[#start-with-magit][Start with Magit]]
+- [[#editor-settings][Editor Settings]]
+  - [[#basic-settings][Basic Settings]]
+  - [[#avy][Avy]]
+  - [[#evil-changes][Evil changes]]
+  - [[#window-control][Window Control]]
+  - [[#emmet-is-love-emmet-is-life][Emmet is love, emmet is life]]
+  - [[#web-mode-stuff][Web Mode Stuff]]
+  - [[#switch-args][Switch Args]]
+  - [[#vertico][Vertico]]
+  - [[#buffer-name-hack][Buffer Name Hack]]
+  - [[#fix-iedit][Fix iedit]]
+- [[#javascript][Javascript]]
+- [[#autocomplete-and-snippets][Autocomplete And Snippets]]
+  - [[#functions][Functions]]
+  - [[#autocomplete][Autocomplete]]
+  - [[#snippets][Snippets]]
+- [[#ruby][Ruby]]
+  - [[#console][Console]]
+  - [[#projectile-rails-is-love][Projectile Rails is love]]
+  - [[#projectile-custom-finders][Projectile Custom Finders]]
+  - [[#rspec-mode][Rspec Mode]]
+  - [[#checkers][Checkers]]
+  - [[#edit-hacks][Edit Hacks]]
+  - [[#add-debug-on-code][Add Debug on code]]
+  - [[#copy-class-name][Copy Class Name]]
+  - [[#rails-routes-plugin][Rails Routes Plugin]]
+  - [[#http-code-plugin][HTTP Code Plugin]]
+  - [[#rubocop][Rubocop]]
+  - [[#refactor][Refactor]]
+  - [[#method-generator][Method Generator]]
+- [[#custom-functions][Custom Functions]]
+  - [[#remove-accents][Remove Accents]]
+  - [[#current-file-name-for-yas][Current File Name For yas]]
+- [[#kubernetes][Kubernetes]]
+- [[#load-userorg][Load user.org]]
+
+* Load External Plugins
+Loading plugins like rails routes, rails http status, etc.
+
+#+begin_src elisp
+
+;; Load only after ruby mode
+(after! ruby-mode
+  (load (expand-file-name "plugins/rails-routes.el" doom-private-dir))
+  (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
+  (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir)))
+
+;; Fixes some bugs in some libraries
+(load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
+#+end_src
+* Start with Magit
+#+begin_src elisp
+(defun open-projectile-with-magit (&optional DIRECTORY CACHE)
+  (interactive)
+  (magit-status DIRECTORY)
+  (if (fboundp 'magit-fetch-from-upstream)
+      (call-interactively #'magit-fetch-from-upstream)
+    (call-interactively #'magit-fetch-current)))
+
+(setq +workspaces-switch-project-function #'open-projectile-with-magit)
+#+end_src
+
+* Editor Settings
+** Basic Settings
+*** Open Full screen
+#+begin_src elisp
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+end_src
+*** Indentation
+**** Indent with 2 spaces
+#+begin_src elisp
+(after! web-mode
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2))
+
+(after! js2-mode
+  (setq js-indent-level 2)
+  (setq indent-tabs-mode nil))
+#+end_src
+
+**** Indent whole buffer
+#+begin_src elisp
+(defun indent-whole-buffer ()
+  "INDENT WHOLE BUFFER."
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+(map! :leader "-" #'indent-whole-buffer)
+#+end_src
+*** Editor Basics
+**** Save with ç or \
+#+begin_src elisp
+;; Save all
+(defun save-all-buffers ()
+  (interactive)
+  (save-some-buffers 0))
+
+(map! :n "ç" #'save-all-buffers)
+(map! :n "\\" #'save-all-buffers)
+#+end_src
+**** Previous And Next buffer
+#+begin_src elisp
+
+;; Previous and next buffer
+(map! :n "C-," #'previous-buffer)
+(map! :n "C-;" #'next-buffer)
+#+end_src
+**** Drag Stuff
+#+begin_src elisp
+(map! :v "K" #'drag-stuff-up)
+(map! :v "J" #'drag-stuff-down)
+#+end_src
+**** Change begginging and end of line
+#+begin_src elisp
+(map! :nv "0" #'doom/backward-to-bol-or-indent)
+(map! :nv "-" #'end-of-line)
+#+end_src
+
+**** Kill buffer
+#+begin_src elisp
+(map! :leader "k" #'kill-current-buffer)
+#+end_src
+
+**** Navigate in git hunks
+#+begin_src elisp
+(map! :nv "]g" #'git-gutter:next-hunk)
+(map! :nv "[g" #'git-gutter:previous-hunk)
+#+end_src
+
+**** Avy for the Window
+#+begin_src elisp
+(map! :nv "C-s" #'evil-avy-goto-char-2)
+
+#+end_src
+**** C-j and C-k for the Win
+#+begin_src elisp
+(global-set-key (kbd "C-j") (kbd "C-M-n"))
+(global-set-key (kbd "C-k") (kbd "C-M-p"))
+#+end_src
+
+**** jj to escape insert mode
+#+begin_src elisp
+(setq-default evil-escape-key-sequence "jj")
+(setq-default evil-escape-delay 0.5)
+#+end_src
+
+*** VTerm and shell stuff
+C-l to clear v-term
+#+begin_src elisp
+(map! :after vterm
+      :map vterm-mode-map
+      :ni "C-l" #'vterm-clear)
+
+(map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
+
+(map! :leader "v" #'+vterm/toggle)
+(map! :leader "V" #'+vterm/here)
+
+
+(set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
+
+(setq vterm-always-compile-module t)
+#+end_src
+
+*** Better Paste
+#+begin_src elisp
+(defun better-paste-after ()
+  (interactive)
+  (evil-paste-after 1))
+
+(map! :iego "C-v" #'better-paste-after)
+#+end_src
+*** Treemacs (please, use SPC .)
+#+begin_src elisp
+(map! :leader "e" #'+treemacs/toggle)
+(map! :leader "E" #'treemacs-find-file)
+
+(after! treemacs
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+#+end_src
+*** Git Stuff
+#+begin_src elisp
+(map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
+(map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
+(map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
+(map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
+#+end_src
+** Avy
+#+begin_src elisp
+(setq avy-single-candidate-jump t)
+#+end_src
+** Evil changes
+#+begin_src elisp
+(setq evil-want-visual-char-semi-exclusive t)
+(add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
+(map! :leader "j" #'consult-global-mark)
+#+end_src
+
+** Window Control
+#+begin_src elisp
+(map! :ni "M-k" #'evil-window-up)
+(map! :ni "M-j" #'evil-window-down)
+(map! :ni "M-h" #'evil-window-left)
+(map! :ni "M-l" #'evil-window-right)
+
+(map! "C-<SPC>" #'ace-window)
+(map! :map vterm-mode-map :n "C-<SPC>" #'ace-window)
+
+(setq evil-split-window-below t evil-vsplit-window-right t)
+#+end_src
+
+** Emmet is love, emmet is life
+#+begin_src elisp
+(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
+(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
+#+end_src
+
+** Web Mode Stuff
+#+begin_src elisp
+(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
+(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
+(map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
+(map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
+(map! :after web-mode :map web-mode-map :i "C-o" #'+web/indent-or-yas-or-emmet-expand)
+
+;; Fixing annoying lose of highlight
+(after! web-mode
+  (defun msc/save-and-revert-buffer ()
+    (interactive)
+    (call-interactively 'save-buffer)
+    (msc/revert-buffer-noconfirm))
+
+  (map! :mode web-mode-map :leader "j" 'msc/save-and-revert-buffer))
+
+#+end_src
+** Switch Args
+#+begin_src elisp
+(defun otavio/swap-arg-forward ()
+  (interactive)
+  (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
+  (evil-forward-arg 1)
+  (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
+
+(defun otavio/swap-arg-backward ()
+  (interactive)
+  (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
+  (evil-backward-arg 1)
+  (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
+
+(map! :ni "C-l" #'otavio/swap-arg-forward)
+(map! :ni "C-h" #'otavio/swap-arg-backward)
+#+end_src
+** Vertico
+#+begin_src elisp
+(after! vertico
+  (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
+  (setq consult-async-split-style 'space))
+
+#+end_src
+** Buffer Name Hack
+#+begin_src elisp
+
+;; Show path of file on SPC ,
+(setq uniquify-buffer-name-style 'reverse)
+(setq uniquify-separator "/")
+(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+(setq uniquify-ignore-buffers-re "^\\*")
+
+#+end_src
+** Fix iedit
+#+begin_src elisp
+(setq iedit-toggle-key-default nil)
+#+end_src
+
+* Javascript
+#+begin_src elisp
+(defun update-yas-indentation ()
+  (setq-local yas-indent-line 'fixed))
+
+(defun set-emmet-class-name ()
+  (setq-local emmet-expand-jsx-htmlFor? t)
+  (setq-local emmet-expand-jsx-className? t))
+
+(add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
+(add-hook! 'yaml-mode-hook 'update-yas-indentation)
+
+(after! lsp-javascript
+  (set-lsp-priority! 'ts-ls 1))
+#+end_src
+
+* Autocomplete And Snippets
+** Functions
+#+begin_src elisp
+(defun company-complete-if-selected ()
+  (interactive)
+  (if (eq company-selection nil) (newline-and-indent) (company-complete)))
+#+end_src
+
+** Autocomplete
+#+begin_src elisp
+(map! :i "C-p" #'dabbrev-expand)
+(map! :i "C-o" #'yas-expand)
+
+(after! company
+  (setq company-dabbrev-downcase 0)
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0))
+
+(setq company-dabbrev-code-everywhere t)
+(setq company-dabbrev-code-other-buffers t)
+
+(map! :after company
+      :map company-tng-map
+      "C-o" 'yas-expand
+      "C-p" 'dabbrev-expand
+      "<C-SPC>" 'company-complete-if-selected)
+
+#+end_src
+** Snippets
+#+begin_src elisp
+(map! :after yasnippet
+      :map yas-keymap
+      "C-o" #'yas-next-field
+      "C-S-o" #'yas-prev-field
+      "C-d" #'yas-skip-and-clear-field
+      "C-e" #'emmet-expand)
+
+#+end_src
+* Ruby
+** Console
+#+begin_src elisp
+(defun popserver-when-on-byebug (_SYMBOL NEWVAL _OPERATION _WHERE)
+  (when (and (eq NEWVAL 0) (cl-search "projectile-rails" (buffer-name)))
+    (progn (switch-to-buffer (buffer-name))
+           (goto-char (point-max))
+           (when (featurep 'evil)
+             (evil-insert-state)))))
+
+(add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
+#+end_src
+** Projectile Rails is love
+#+begin_src elisp
+(require 'projectile-rails)
+(map! :leader "r" #'projectile-rails-command-map)
+
+(after! which-key
+  (push '((nil . "projectile-rails-\\(.+\\)") . (nil . "\\1"))
+        which-key-replacement-alist))
+
+;; Improve Rails Console pop-up
+(after! projectile-rails
+  (set-popup-rule! "^\\*rails\\**" :ignore t))
+
+#+end_src
+** Projectile Custom Finders
+#+begin_src elisp
+;;; projectile-rails-remaps.el -*- lexical-binding: t; -*-
+
+(after! projectile-rails
+  (defun projectile-rails-find-admin ()
+    "Find a model."
+    (interactive)
+    (projectile-rails-find-resource
+     "admin: "
+     '(("app/admin/" "\\(.+\\)\\.rb$"))
+     "app/admin/${filename}.rb"))
+
+  (defun projectile-rails-find-current-admin ()
+    "Find a model for the current resource."
+    (interactive)
+    (projectile-rails-find-current-resource "app/admin/"
+                                            "${singular}\\.rb$"
+                                            'projectile-rails-find-admin))
+
+  (defun projectile-rails-find-business-or-service ()
+    "Find a service."
+    (interactive)
+    (if (file-exists-p (concat (projectile-project-root) "app/business"))
+        (projectile-rails-find-resource
+         "business: "
+         '(("app/business/" "\\(.+\\)\\.rb$"))
+         "app/business/${filename}.rb")
+      (if (file-exists-p (concat (projectile-project-root) "app/services"))
+          (projectile-rails-find-resource
+           "service: "
+           '(("app/services/" "\\(.+\\)\\.rb$"))
+           "app/services/${filename}.rb"))))
+
+  (defun projectile-rails-find-service ()
+    "Find all in graphql."
+    (interactive)
+    (projectile-rails-find-resource
+     "service: "
+     '(("app/services/" "\\(.+\\)\\.rb$"))
+     "app/services/${filename}.rb"))
+
+  (defun projectile-rails-find-graphql-all ()
+    "Find all in graphql."
+    (interactive)
+    (projectile-rails-find-resource
+     "graphql: "
+     '(("app/graphql/" "\\(.+\\)\\.rb$"))
+     "app/graphql/${filename}.rb"))
+
+  (map! :leader "rd" #'otavio/go-to-latest-migration)
+  (map! :leader "rt" #'projectile-rails-find-admin)
+  (map! :leader "rT" #'projectile-rails-find-current-admin)
+  (map! :leader "rs" #'projectile-rails-find-business-or-service)
+  (map! :leader "rS" #'projectile-rails-find-service)
+  (map! :leader "rq" #'projectile-rails-find-graphql-all))
+#+end_src
+** Rspec Mode
+*** Basic Config
+#+begin_src elisp
+(after! rspec-mode
+  (set-popup-rule! "^\\*\\(rspec-\\)?compilation" :size 0.5 :ttl nil :select t))
+
+(after! rspec-mode
+  (map! :leader "t" #'rspec-mode-keymap)
+  (map! :leader "tl" #'rspec-run-last-failed)
+  (map! :leader "tg" #'rspec-run-git-diff-from-head)
+  (map! :leader "tG" #'rspec-run-git-diff-from-master))
+
+(map! :mode ruby-mode-map :leader "a" 'goto-test)
+(map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
+#+end_src
+*** Super Goto test
+#+begin_src elisp
+(defun file-path-to-test (filename)
+  (if (string-match-p "/spec/" filename)
+      (if (string-match-p "/admin/" filename)
+          (concat
+           (replace-regexp-in-string "/spec/controllers/" "/app/" (file-name-directory filename))
+           (singularize-string (replace-regexp-in-string "_controller_spec" "" (file-name-base filename)))
+           "."
+           (file-name-extension filename))
+        (concat
+         (replace-regexp-in-string "/spec/" "/app/" (file-name-directory filename))
+         (replace-regexp-in-string "_spec" "" (file-name-base filename))
+         "."
+         (file-name-extension filename)))
+    (if (string-match-p "/admin/" filename)
+        (concat
+         (replace-regexp-in-string "/app/" "/spec/controllers/" (file-name-directory filename))
+         (pluralize-string (file-name-base filename))
+         "_controller_spec."
+         (file-name-extension filename))
+      (concat
+       (replace-regexp-in-string "/app/" "/spec/" (file-name-directory filename))
+       (file-name-base filename)
+       "_spec."
+       (file-name-extension filename)))))
+
+(defun goto-test-and-vsplit ()
+  (interactive)
+  (if (string-match-p "/spec/" buffer-file-name) (find-file (file-path-to-test buffer-file-name)))
+  (delete-other-windows)
+  (evil-window-vsplit)
+  (if (string-match-p "/app/" buffer-file-name) (find-file (file-path-to-test buffer-file-name))))
+
+(defun goto-test ()
+  (interactive)
+  (find-file (file-path-to-test buffer-file-name)))
+
+(map! :mode ruby-mode-map :leader "a" 'goto-test)
+(map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
+#+end_src
+** Checkers
+#+begin_src elisp
+;; make flycheck use bundle instead of rubocop latest version
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (setq-local flycheck-command-wrapper-function
+                        (lambda (command) (append '("bundle" "exec") command)))))
+(with-eval-after-load 'flycheck
+  (setq-default flycheck-disabled-checkers '(ruby-reek lsp ruby-rubylint))) ;; rubocop from emacs is better
+#+end_src
+** Edit Hacks
+#+begin_src elisp
+(map! :map ruby-mode-map
+      "C-k" #'ruby-beginning-of-block
+      "C-j" #'ruby-end-of-block)
+
+(after! evil
+  (define-key evil-normal-state-map (kbd "g S") #'multi-line)
+  (define-key evil-normal-state-map (kbd "g J") #'multi-line-single-line))
+
+#+end_src
+
+** Add Debug on code
+#+begin_src elisp
+(defvar debugger-command "byebug")
+(defvar pry-show-helper t)
+
+(defun otavio/remove-all-debuggers ()
+  (interactive)
+  (setq CURRENT_LINE (line-number-at-pos))
+  (setq DELETATIONS 0)
+  (goto-char (point-min))
+  (while (search-forward debugger-command (point-max) t)
+    (beginning-of-line)
+    (kill-line 1)
+    (setq DELETATIONS (1+ DELETATIONS)))
+  (goto-char (point-min))
+  (forward-line (- (1- CURRENT_LINE) DELETATIONS)))
+
+(defun otavio/insert-debugger ()
+  (interactive)
+  (setq HELPER (if pry-show-helper " # next; step; break; break 14;break FooBar#func;break --help;" ""))
+  (setq REAL_COMMAND (if (eq major-mode 'ruby-mode) (concat debugger-command HELPER) (concat "<% " debugger-command HELPER " %>")))
+  (back-to-indentation)
+  (newline-and-indent)
+  (forward-line -1)
+  (insert REAL_COMMAND)
+  (indent-according-to-mode)
+  (save-buffer))
+
+(map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
+#+end_src
+
+** Copy Class Name
+#+begin_src elisp
+(after! ruby-mode
+  ;; SPC m C to copy class name, super useful to test things on console.
+  (defun endless/-ruby-symbol-at-point ()
+    (let ((l (point)))
+      (save-excursion
+        (forward-sexp 1)
+        (buffer-substring l (point)))))
+
+  (defun endless/ruby-copy-class-name ()
+    (interactive)
+    (save-excursion
+      (let ((name nil)
+            (case-fold-search nil))
+        (skip-chars-backward (rx (syntax symbol)))
+        (when (looking-at-p "\\_<[A-Z]")
+          (setq name (endless/-ruby-symbol-at-point)))
+        (while (ignore-errors (backward-up-list) t)
+          (when (looking-at-p "class\\|module")
+            (save-excursion
+              (forward-word 1)
+              (skip-chars-forward "\r\n[:blank:]")
+              (setq name (if name
+                             (concat (endless/-ruby-symbol-at-point) "::" name)
+                           (endless/-ruby-symbol-at-point))))))
+        (kill-new name)
+        (message "Copied %s" name))))
+
+  ;; binding it to SPC m c
+  (map! :map ruby-mode-map :localleader "C" #'endless/ruby-copy-class-name)
+  (map! :map ruby-mode-map :localleader "c" #'endless/ruby-copy-class-name))
+#+end_src
+** Rails Routes Plugin
+#+begin_src elisp
+(after! web-mode
+  (define-key web-mode-map (kbd "C-x C-a") #'rails-routes-find)
+  (define-key web-mode-map (kbd "C-x C-S-a") #'rails-routes-find-with-class))
+
+(define-key ruby-mode-map (kbd "C-x C-a") #'rails-routes-find)
+(define-key ruby-mode-map (kbd "C-x C-A") #'rails-routes-find-with-class)
+#+end_src
+** HTTP Code Plugin
+#+begin_src elisp
+(define-key ruby-mode-map (kbd "C-c s") #'rails-http-statues-insert-symbol)
+(define-key ruby-mode-map (kbd "C-c S") #'rails-http-statues-insert-code)
+#+end_src
+
+** Rubocop
+#+begin_src elisp
+(defun rubocop-on-current-file ()
+  "RUBOCOP ON CURRENT_FILE."
+  (interactive)
+  (save-buffer)
+  (message "%s" (shell-command-to-string
+                 (concat "bundle exec rubocop -a "
+                         (shell-quote-argument (buffer-file-name)))))
+  (msc/revert-buffer-noconfirm))
+
+(map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point)
+(map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file)
+#+end_src
+** Refactor
+#+begin_src elisp
+(add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
+#+end_src
+
+** Method Generator
+#+begin_src elisp
+(defun otavio/chomp (str)
+  "Trim leading and trailing whitespace from STR."
+  (replace-regexp-in-string "\\(\\`[[:space:]\n]*\\|[[:space:]\n]*\\'\\)" "" str))
+
+(defun otavio/delete-current-line ()
+  "Delete (not kill) the current line."
+  (interactive)
+  (save-excursion
+    (delete-region
+     (progn (forward-visible-line 0) (point))
+     (progn (forward-visible-line 1) (point)))))
+
+(defun otavio/grb ()
+  (interactive)
+  (setq line-text (buffer-substring (line-beginning-position) (line-end-position)))
+  (setq splitted-string (s-split ";" line-text))
+  (delete-region (line-beginning-position) (line-end-position))
+  (dolist (item splitted-string)
+    (setq splitted-item (s-split "\\@" (otavio/chomp item)))
+    (setq method-name (nth 0 splitted-item))
+    (if (equal method-name "init")
+        (setq method-name "initialize"))
+    (insert (concat "def " method-name))
+    (if (eq (length splitted-item) 2)
+        (progn
+          (insert "(")
+          (dolist (arg (s-split "," (nth 1 splitted-item)))
+            (insert (concat arg ", ")))
+          (delete-char -2)
+          (insert ")")))
+    (indent-region (line-beginning-position) (line-end-position))
+    (newline)
+    (if (eq (length splitted-item) 2)
+        (if (equal (nth 0 splitted-item) "init")
+            (progn
+              (dolist (arg (s-split "," (nth 1 splitted-item)))
+                (insert (concat "@" arg " = " arg))
+                (indent-region (line-beginning-position) (line-end-position))
+                (newline)
+                )))
+      )
+
+    (insert "end")
+    (indent-region (line-beginning-position) (line-end-position))
+    (newline)
+    (newline))
+  (otavio/delete-current-line)
+  (forward-line -1)
+  (otavio/delete-current-line)
+  (forward-line -2)
+  (end-of-line)
+  (newline-and-indent))
+
+(map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
+#+end_src
+
+* Custom Functions
+** Remove Accents
+#+begin_src elisp
+(defun remove-accents (&optional @begin @end)
+  "Remove accents in some letters and some
+Change European language characters into equivalent ASCII ones, e.g. “café” ⇒ “cafe”.
+When called interactively, work on current line or text selection.
+
+URL `http://ergoemacs.org/emacs/emacs_zap_gremlins.html'
+Version 2018-11-12"
+  (interactive)
+  (let (($charMap
+         [
+          ["ß" "ss"]
+          ["á\\|à\\|â\\|ä\\|ā\\|ǎ\\|ã\\|å\\|ą\\|ă\\|ạ\\|ả\\|ả\\|ấ\\|ầ\\|ẩ\\|ẫ\\|ậ\\|ắ\\|ằ\\|ẳ\\|ặ" "a"]
+          ["æ" "ae"]
+          ["ç\\|č\\|ć" "c"]
+          ["é\\|è\\|ê\\|ë\\|ē\\|ě\\|ę\\|ẹ\\|ẻ\\|ẽ\\|ế\\|ề\\|ể\\|ễ\\|ệ" "e"]
+          ["í\\|ì\\|î\\|ï\\|ī\\|ǐ\\|ỉ\\|ị" "i"]
+          ["ñ\\|ň\\|ń" "n"]
+          ["ó\\|ò\\|ô\\|ö\\|õ\\|ǒ\\|ø\\|ō\\|ồ\\|ơ\\|ọ\\|ỏ\\|ố\\|ổ\\|ỗ\\|ộ\\|ớ\\|ờ\\|ở\\|ợ" "o"]
+          ["ú\\|ù\\|û\\|ü\\|ū\\|ũ\\|ư\\|ụ\\|ủ\\|ứ\\|ừ\\|ử\\|ữ\\|ự"     "u"]
+          ["ý\\|ÿ\\|ỳ\\|ỷ\\|ỹ"     "y"]
+          ["þ" "th"]
+          ["ď\\|ð\\|đ" "d"]
+          ["ĩ" "i"]
+          ["ľ\\|ĺ\\|ł" "l"]
+          ["ř\\|ŕ" "r"]
+          ["š\\|ś" "s"]
+          ["ť" "t"]
+          ["ž\\|ź\\|ż" "z"]
+          [" " " "]       ; thin space etc
+          ["–" "-"]       ; dash
+          ["—\\|一" "--"] ; em dash etc
+          ])
+        $begin $end
+        )
+    (if (null @begin)
+        (if (use-region-p)
+            (setq $begin (region-beginning) $end (region-end))
+          (setq $begin (line-beginning-position) $end (line-end-position)))
+      (setq $begin @begin $end @end))
+    (let ((case-fold-search t))
+      (save-restriction
+        (narrow-to-region $begin $end)
+        (mapc
+         (lambda ($pair)
+           (goto-char (point-min))
+           (while (search-forward-regexp (elt $pair 0) (point-max) t)
+             (replace-match (elt $pair 1))))
+         $charMap)))))
+
+(defun remove--accents (@string)
+  "Returns a new string. European language chars are changed ot ASCII ones e.g. “café” ⇒ “cafe”.
+See `xah-asciify-text'
+Version 2015-06-08"
+  (with-temp-buffer
+    (insert @string)
+    (xah-asciify-text (point-min) (point-max))
+    (buffer-string)))
+#+end_src
+** Current File Name For yas
+#+begin_src elisp
+
+(defun current-file-name-for-yas ()
+  (interactive)
+  (let* ((files (split-string buffer-file-name "/"))
+         (file (nth (1- (length files)) files))
+         (parsed (split-string file "\\."))
+         (model (nth 0 parsed))
+         )
+    model))
+#+end_src
+* Kubernetes
+#+begin_src elisp
+(use-package! kubernetes
+  :config
+  (setq kubernetes-poll-frequency 3600
+        kubernetes-redraw-frequency 3600))
+
+(use-package! kubernetes-evil)
+
+(map! :leader
+      (:prefix "o"
+       :desc "Kubernetes" "K" 'kubernetes-overview))
+#+end_src
+
+* Load user.org
+#+begin_src elisp
+(if (file-exists-p (expand-file-name "user.org" doom-private-dir))
+    (org-babel-load-file
+     (expand-file-name "user.org" doom-private-dir))
+  (progn
+    (shell-command "cp ~/.doom.d/user.example.org ~/.doom.d/user.org")
+    (org-babel-load-file
+     (expand-file-name "user.org" doom-private-dir))))
+#+end_src
