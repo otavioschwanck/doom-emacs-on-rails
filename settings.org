@@ -327,10 +327,22 @@ C-l to clear v-term
 #+end_src
 ** Snippets
 #+begin_src elisp
+(defun select-and-yas-next ()
+  (interactive)
+  (if (eq company-selection nil)
+      (yas-next-field)
+    (progn (company-complete-selection) (yas-next-field))))
+
+(defun select-and-yas-previous ()
+  (interactive)
+  (if (eq company-selection nil)
+      (yas-prev-field)
+    (progn (company-complete-selection) (yas-prev-field))))
+
 (map! :after yasnippet
       :map yas-keymap
-      "C-o" #'yas-next-field
-      "C-S-o" #'yas-prev-field
+      "C-o" #'select-and-yas-next
+      "C-S-o" #'select-and-yas-previous
       "C-d" #'yas-skip-and-clear-field
       "C-e" #'emmet-expand)
 
