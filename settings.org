@@ -367,6 +367,10 @@ C-l to clear v-term
   (set-lookup-handlers! 'ruby-mode
     :definition '(projectile-rails-goto-file-at-point robe-jump)
     :documentation #'robe-doc))
+
+(after! web-mode
+  (set-lookup-handlers! 'web-mode
+    :definition '(projectile-rails-goto-file-at-point rails-routes-jump)))
 #+end_src
 ** Projectile Custom Finders
 #+begin_src elisp
