@@ -34,6 +34,8 @@
   - [[#rubocop][Rubocop]]
   - [[#refactor][Refactor]]
   - [[#method-generator][Method Generator]]
+  - [[#toggle-if-single-and-multiline][Toggle if single and multiline]]
+  - [[#split-giant-string][Split Giant String]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -554,6 +556,8 @@ C-l to clear v-term
   (indent-according-to-mode)
   (save-buffer))
 
+(map! :after ruby-mode :mode ruby-mode :leader "d" 'otavio/insert-debugger)
+(map! :after ruby-mode :mode ruby-mode :leader "D" 'otavio/remove-all-debuggers)
 (map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
 #+end_src
@@ -686,6 +690,119 @@ C-l to clear v-term
   (newline-and-indent))
 
 (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
+#+end_src
+** Toggle if single and multiline
+#+begin_src elisp
+(defun otavio/-current-line-empty-p ()
+  (save-excursion
+    (beginning-of-line)
+    (looking-at-p "[[:space:]]*$")))
+
+(defun otavio/-swap-search-forward-swap-to-singleline (SEARCH)
+  (if (search-backward SEARCH (line-beginning-position) t)
+      (progn
+        (kill-visual-line)
+        (forward-line 1)
+        (end-of-line)
+        (insert " ")
+        (yank)
+        (indent-according-to-mode)
+        (forward-line 1)
+        (kill-line)
+        (kill-line)
+        (forward-line -2)
+        (kill-line)
+        (forward-to-indentation 0)
+        t)))
+
+(defun otavio/-swap-search-forward-swap-to-multiline (SEARCH)
+  (if (search-forward SEARCH (line-end-position) t)
+      (progn
+        (backward-word)
+        (backward-char)
+        (kill-visual-line)
+        (forward-line -1)
+        (if (not (otavio/-current-line-empty-p))
+            (progn
+              (end-of-line)))
+        (newline)
+        (yank)
+        (indent-according-to-mode)
+        (forward-line 1)
+        (indent-according-to-mode)
+        (end-of-line)
+        (newline)
+        (insert "end")
+        (indent-according-to-mode)
+        t)))
+
+(defun otavio/swap-if-unless-ruby ()
+  (interactive)
+  (beginning-of-line)
+  (forward-word)
+  (setq CHANGED nil)
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-multiline " if ")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-multiline " unless ")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "if")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless")))
+  (if (not CHANGED)
+      (progn
+        (forward-line -1)
+        (beginning-of-line)
+        (forward-word)))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "if")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless")))
+  (if (not CHANGED)
+      (progn
+        (forward-line -1)
+        (beginning-of-line)
+        (forward-word)))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "if")))
+  (if (not CHANGED)
+      (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless"))))
+
+(map! :after ruby-mode :map ruby-mode-map :localleader "i" #'otavio/swap-if-unless-ruby)
+#+end_src
+** Split Giant String
+#+begin_src elisp
+(defvar split-ruby-giant-string-default 125)
+
+(defun otavio/split-ruby-giant-string (&optional line-split-real)
+  (interactive)
+  (if (not line-split-real)
+      (setq line-split-real (read-number "split in column:" split-ruby-giant-string-default)))
+  (setq line-split (- line-split-real 3))
+  (move-to-column line-split)
+  (setq char-at-point-is-closing (eq ?\" (char-after)))
+  (if (not char-at-point-is-closing)
+      (if (eq (current-column) line-split)
+          (progn
+            ;; Start refactoring
+            (if (< (+ (current-indentation) 5 (length (word-at-point))) line-split)
+                (backward-word))
+            (insert "\"\"")
+            (backward-char)
+            (newline)
+            (forward-line -1)
+            (end-of-line)
+            (insert " \\")
+            (forward-line 1)
+            (indent-according-to-mode)
+            (end-of-line)
+            (if (> (current-column) line-split-real)
+                (otavio/split-ruby-giant-string line-split-real)
+              )
+            )
+        )))
+
+(map! :after ruby-mode :map ruby-mode-map :localleader "S" #'otavio/split-ruby-giant-string)
 #+end_src
 
 * Custom Functions

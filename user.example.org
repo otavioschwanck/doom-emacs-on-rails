@@ -15,6 +15,13 @@ Here you can organize your configurations the way you want.
 ;; Set here your projects path here to use with SPC p p
 (setq projectile-project-search-path '("~/Projetos" "~/Study"))
 #+end_src
+* Debugger Command
+By default, the value of debugger is byebug.  To change, modify the variable below:
+#+begin_src elisp
+(setq debugger-command "byebug") ;; change from byebug to "require 'pry'; binding.pry" for example..
+(setq pry-show-helper t) ;; show some helper, change to nil if you dont like
+
+#+end_src
 * Ignoring some folders on search
 #+begin_src elisp
 (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
@@ -50,4 +57,10 @@ Here you can organize your configurations the way you want.
 #+begin_src elisp
 ;; If you use macos with rbenv on homebrew, add it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+#+end_src
+
+* Add Your custom code here
+#+begin_src elisp
+;; Add your code here:
+
 #+end_src
