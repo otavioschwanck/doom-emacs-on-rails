@@ -11,7 +11,10 @@ Here you can organize your configurations the way you want.
       user-mail-address "otavioschwanck@gmail.com")
 
 ;; Relative lines
-(setq display-line-numbers-type 'relative)
+;; (setq display-line-numbers-type 'visual)
+;; or Common
+(setq display-line-numbers-type t)
+
 ;; Set here your projects path here to use with SPC p p
 (setq projectile-project-search-path '("~/Projetos" "~/Study"))
 #+end_src

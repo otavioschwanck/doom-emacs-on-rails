@@ -36,6 +36,7 @@
   - [[#method-generator][Method Generator]]
   - [[#toggle-if-single-and-multiline][Toggle if single and multiline]]
   - [[#split-giant-string][Split Giant String]]
+  - [[#ruby-refactor][Ruby Refactor]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -803,6 +804,13 @@ C-l to clear v-term
         )))
 
 (map! :after ruby-mode :map ruby-mode-map :localleader "S" #'otavio/split-ruby-giant-string)
+#+end_src
+** Ruby Refactor
+#+begin_src elisp
+(after! ruby-refactor
+ (setq ruby-refactor-add-parens t))
+
+(map! :after ruby-mode :mode ruby-mode :localleader "m" #'ruby-refactor-extract-to-method)
 #+end_src
 
 * Custom Functions
