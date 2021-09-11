@@ -313,7 +313,7 @@ C-l to clear v-term
 (after! company
   (setq company-dabbrev-downcase 0)
   (setq company-show-numbers t)
-  (setq company-idle-delay 0))
+  (setq company-idle-delay 0.15))
 
 (setq company-dabbrev-code-everywhere t)
 (setq company-dabbrev-code-other-buffers t)
@@ -343,6 +343,7 @@ C-l to clear v-term
       :map yas-keymap
       "C-o" #'select-and-yas-next
       "C-S-o" #'select-and-yas-previous
+      "<tab>" nil
       "<S-tab>" nil
       "C-d" #'yas-skip-and-clear-field
       "C-e" #'emmet-expand)
