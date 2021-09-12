@@ -54,3 +54,4 @@
 (package! kubernetes-evil)
 (package! multi-line)
 (package! ruby-refactor)
+(package! command-log-mode)

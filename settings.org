@@ -21,6 +21,7 @@
   - [[#snippets][Snippets]]
 - [[#ruby][Ruby]]
   - [[#console][Console]]
+  - [[#reset-database][Reset Database]]
   - [[#projectile-rails-is-love][Projectile Rails is love]]
   - [[#better-go-to-definition][Better go to definition]]
   - [[#projectile-custom-finders][Projectile Custom Finders]]
@@ -364,6 +365,35 @@ C-l to clear v-term
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
 #+end_src
+** Reset Database
+#+begin_src elisp
+(after! ruby-mode
+  (defvar rails-reset-command "rails db:environment:set RAILS_ENV=development; rails db:drop db:create db:migrate;rails db:seed"
+    "Command to reset rails")
+
+  (defun otavio/kill-ruby-instances ()
+    (interactive)
+    (async-shell-command "killall -9 rails ruby spring bundle; echo 'Ruby Instances Killed!'" "*Ruby Kill Output*"))
+
+  (defun otavio/reset-rails-database ()
+    (interactive)
+    (message "Rails database is being reseted!")
+    (async-shell-command (concat rails-reset-command "; echo 'Rails database reseted, please close this popup'" )"*Ruby Reset Output*")
+    (+popup/raise "*Ruby Reset Output*"))
+
+  (set-popup-rule! "^\\*\\(Ruby Kill Output\\)?" :ttl nil)
+  (set-popup-rule! "^\\*\\(Ruby Reset Output\\)?" :ttl nil)
+
+  (defun otavio/rails-reset-all ()
+    (interactive)
+    (otavio/kill-ruby-instances)
+    (run-at-time "30 seconds" nil #'start-rails-console-in-time)
+    (otavio/reset-rails-database))
+
+  (map! :after ruby-mode :mode ruby-mode :localleader "ww" #'otavio/rails-reset-all)
+  (map! :after ruby-mode :mode ruby-mode :localleader "wk" #'otavio/kill-ruby-instances))
+
+#+end_src
 ** Projectile Rails is love
 #+begin_src elisp
 (require 'projectile-rails)
@@ -618,6 +648,12 @@ C-l to clear v-term
 
 ** Rubocop
 #+begin_src elisp
+
+(defun msc/revert-buffer-noconfirm ()
+  "Call `revert-buffer' with the NOCONFIRM argument set."
+  (interactive)
+  (revert-buffer nil t))
+
 (defun rubocop-on-current-file ()
   "RUBOCOP ON CURRENT_FILE."
   (interactive)
