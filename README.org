@@ -55,7 +55,8 @@ gem install solargraph
 Open your personal configuration with =SPC f P= user.org and read the file
 * My Configuration features
 Here is an example of some features that i made for Ruby:
-[[file:refactoring in emacs.gif][Refactoring in Emacs]]
+#+caption: AutoComplete
+[[refactoring in emacs.gif]]
 
 * Tips
 ** Search and replace in whole project
