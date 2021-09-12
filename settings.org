@@ -32,11 +32,10 @@
   - [[#rails-routes-plugin][Rails Routes Plugin]]
   - [[#http-code-plugin][HTTP Code Plugin]]
   - [[#rubocop][Rubocop]]
-  - [[#refactor][Refactor]]
   - [[#method-generator][Method Generator]]
   - [[#toggle-if-single-and-multiline][Toggle if single and multiline]]
   - [[#split-giant-string][Split Giant String]]
-  - [[#ruby-refactor][Ruby Refactor]]
+  - [[#add-parameter][Add Parameter]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -630,11 +629,6 @@ C-l to clear v-term
 (map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point)
 (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file)
 #+end_src
-** Refactor
-#+begin_src elisp
-(add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
-#+end_src
-
 ** Method Generator
 #+begin_src elisp
 (defun otavio/chomp (str)
@@ -805,14 +799,32 @@ C-l to clear v-term
 
 (map! :after ruby-mode :map ruby-mode-map :localleader "S" #'otavio/split-ruby-giant-string)
 #+end_src
-** Ruby Refactor
+** Add Parameter
 #+begin_src elisp
-(after! ruby-refactor
- (setq ruby-refactor-add-parens t))
+(defun ruby-add-parameter--with-existing-parameters (args)
+  (interactive)
+  (forward-char -1)
+  (insert ", " args))
 
-(map! :after ruby-mode :mode ruby-mode :localleader "m" #'ruby-refactor-extract-to-method)
+(defun ruby-add-parameter--without-existing-parameters (args)
+  (interactive)
+  (call-interactively 'end-of-line)
+  (insert "(" args ")"))
+
+(defun ruby-add-parameter ()
+  (interactive)
+  (let (
+        (args (read-string "Please enter the parameters that you want to add (separated by commma): "))
+        )
+    (when (not (string= args ""))
+      (save-excursion
+      (+evil/previous-beginning-of-method 1)
+      (if (search-forward ")" (point-at-eol) t)
+          (ruby-add-parameter--with-existing-parameters args)
+        (ruby-add-parameter--without-existing-parameters args))))))
+
+(map! :after ruby-mode :mode ruby-mode :localleader "a" #'ruby-add-parameter)
 #+end_src
-
 * Custom Functions
 ** Remove Accents
 #+begin_src elisp
