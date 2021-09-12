@@ -849,6 +849,8 @@ C-l to clear v-term
 (defun ruby-extract-function--create-function (function-name args)
   (save-excursion
     (+evil/next-end-of-method)
+    (when (not (string= (string (char-after)) "\n"))
+      (+evil/insert-newline-above 1))
     (+evil/insert-newline-below 1)
     (forward-line 1)
     (insert "def " function-name)

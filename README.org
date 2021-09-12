@@ -3,6 +3,7 @@
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
+- [[#my-configuration-features][My Configuration features]]
 - [[#tips][Tips]]
   - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
   - [[#multiple-cursors][Multiple-cursors]]
@@ -52,6 +53,9 @@ gem install solargraph
 
 * After Install
 Open your personal configuration with =SPC f P= user.org and read the file
+* My Configuration features
+Here is an example of some features that i made for Ruby:
+[[file:refactoring in emacs.gif][Refactoring in Emacs]]
 
 * Tips
 ** Search and replace in whole project
