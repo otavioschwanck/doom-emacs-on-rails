@@ -36,6 +36,7 @@
   - [[#toggle-if-single-and-multiline][Toggle if single and multiline]]
   - [[#split-giant-string][Split Giant String]]
   - [[#add-parameter][Add Parameter]]
+  - [[#method-refactor][Method Refactor]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -258,8 +259,8 @@ C-l to clear v-term
   (evil-backward-arg 1)
   (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg))))
 
-(map! :ni "C-l" #'otavio/swap-arg-forward)
-(map! :ni "C-h" #'otavio/swap-arg-backward)
+(map! :n "C-l" #'otavio/swap-arg-forward)
+(map! :n "C-h" #'otavio/swap-arg-backward)
 #+end_src
 ** Vertico
 #+begin_src elisp
@@ -825,6 +826,47 @@ C-l to clear v-term
 
 (map! :after ruby-mode :mode ruby-mode :localleader "a" #'ruby-add-parameter)
 #+end_src
+** Method Refactor
+#+begin_src elisp
+(defun ruby-extract-function ()
+  (interactive)
+  (let* ((function-name (read-string "Method name? "))
+         (args (read-string "Arguments without paranthesis (leave blank for no parameters): ")))
+
+    (when (not (string= function-name ""))
+      (call-interactively 'evil-change)
+      (call-interactively 'evil-normal-state)
+      (ruby-extract-function--create-function function-name args)
+      (ruby-extract-function--insert-function function-name args)
+      )))
+
+(defun ruby-extract-function--insert-function (function-name args)
+  (insert " " function-name)
+  (when (not (string= args ""))
+    (insert "(" args ")"))
+  (evil-indent (point-at-bol) (point-at-eol)))
+
+(defun ruby-extract-function--create-function (function-name args)
+  (save-excursion
+    (+evil/next-end-of-method)
+    (+evil/insert-newline-below 1)
+    (forward-line 1)
+    (insert "def " function-name)
+    (when (not (string= args ""))
+      (insert "(" args ")"))
+    (evil-indent (point-at-bol) (point-at-eol)) (+evil/insert-newline-below 1) (forward-line 1)
+    (insert "end") (evil-indent (point-at-bol) (point-at-eol))
+    (+evil/insert-newline-above 1) (+evil/insert-newline-below 1)
+    (forward-line -1)
+    (evil-paste-after 1)
+    (forward-line -1)
+    (when (string= (string (char-after)) "\n") (delete-char 1))
+    (+evil/reselect-paste)
+    (call-interactively 'evil-indent)))
+
+(map! :after ruby-mode :mode ruby-mode :localleader "m" #'ruby-extract-function)
+#+end_src
+
 * Custom Functions
 ** Remove Accents
 #+begin_src elisp
