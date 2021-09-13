@@ -877,7 +877,8 @@ C-l to clear v-term
       )))
 
 (defun ruby-extract-function--insert-function (function-name args)
-  (insert " " function-name)
+  (evil-forward-char)
+  (insert function-name)
   (when (not (string= args ""))
     (insert "(" args ")"))
   (evil-indent (point-at-bol) (point-at-eol)))
@@ -885,7 +886,7 @@ C-l to clear v-term
 (defun ruby-extract-function--create-function (function-name args)
   (save-excursion
     (+evil/next-end-of-method)
-    (when (not (string= (string (char-after)) "\n"))
+    (when (not (string= (string (following-char)) "\n"))
       (+evil/insert-newline-above 1))
     (+evil/insert-newline-below 1)
     (forward-line 1)
@@ -898,7 +899,7 @@ C-l to clear v-term
     (forward-line -1)
     (evil-paste-after 1)
     (forward-line -1)
-    (when (string= (string (char-after)) "\n") (delete-char 1))
+    (when (string= (string (following-char)) "\n") (delete-char 1))
     (+evil/reselect-paste)
     (call-interactively 'evil-indent)))
 
