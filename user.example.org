@@ -25,6 +25,18 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 (setq pry-show-helper t) ;; show some helper, change to nil if you dont like
 
 #+end_src
+
+* Use Docker?
+#+begin_src elisp
+;; Rspec on docker?
+;; (setq rspec-use-docker-when-possible t)
+;; (setq rspec-docker-command "docker-compose run")
+;; (setq rspec-docker-cwd "/app/")
+;; (setq rspec-docker-container "rspec-container-name") ;; Name of the container to run rspec into
+;; (setq projectile-rails-custom-server-command "docker-compose run web rails s")
+;; (setq projectile-rails-custom-console-command "docker-compose run web rails c")
+
+#+end_src
 * Ignoring some folders on search
 #+begin_src elisp
 (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
@@ -56,10 +68,58 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 ;; Disable Rubocop or any other lint if you want
 ;; (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop))
 #+end_src
+
 * Rbenv
 #+begin_src elisp
 ;; If you use macos with rbenv on homebrew, add it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+#+end_src
+
+* Use minitest?
+Just uncomment the code above (without begin-src and end-src)
+
+#+begin_src elisp
+;; (defun goto-test ()
+;;   (interactive)
+;;   (find-file (file-path-to-test buffer-file-name)))
+
+;; (defun goto-test-and-vsplit ()
+;;   (interactive)
+;;   (if (string-match-p "/test/" buffer-file-name) (find-file (file-path-to-test buffer-file-name)))
+;;   (delete-other-windows)
+;;   (evil-window-vsplit)
+;;   (if (string-match-p "/app/" buffer-file-name) (find-file (file-path-to-test buffer-file-name))))
+
+;; (defun file-path-to-test (filename)
+;;   (if (string-match-p "/test/" filename)
+;;       (if (string-match-p "/admin/" filename)
+;;           (concat
+;;            (replace-regexp-in-string "/test/controllers/" "/app/" (file-name-directory filename))
+;;            (singularize-string (replace-regexp-in-string "_controller_test" "" (file-name-base filename)))
+;;            "."
+;;            (file-name-extension filename))
+;;         (concat
+;;          (replace-regexp-in-string "/test/" "/app/" (file-name-directory filename))
+;;          (replace-regexp-in-string "_test" "" (file-name-base filename))
+;;          "."
+;;          (file-name-extension filename)))
+;;     (if (string-match-p "/admin/" filename)
+;;         (concat
+;;          (replace-regexp-in-string "/app/" "/test/controllers/" (file-name-directory filename))
+;;          (pluralize-string (file-name-base filename))
+;;          "_controller_test."
+;;          (file-name-extension filename))
+;;       (concat
+;;        (replace-regexp-in-string "/app/" "/test/" (file-name-directory filename))
+;;        (file-name-base filename)
+;;        "_test."
+;;        (file-name-extension filename)))))
+
+;; (after! rspec-mode
+;;   (map! :mode ruby-mode :leader "tv" #'minitest-verify)
+;;   (map! :mode ruby-mode :leader "ts" #'minitest-verify-single)
+;;   (map! :mode ruby-mode :leader "tr" #'minitest-rerun)
+;;   (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
 #+end_src
 
 * Add Your custom code here
