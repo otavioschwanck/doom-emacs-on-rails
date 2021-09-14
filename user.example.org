@@ -6,7 +6,7 @@ Here you can organize your configurations the way you want.
 
 * Must Have Config
 #+begin_src elisp
-;; Your name nad e-mail
+;; Your name and e-mail
 (setq user-full-name "Otávio Schwanck dos Santos"
       user-mail-address "otavioschwanck@gmail.com")
 
@@ -21,6 +21,7 @@ Here you can organize your configurations the way you want.
 * Debugger Command
 By default, the value of debugger is byebug.  To change, modify the variable below:
 #+begin_src elisp
+;; SPC d to put a debugger.  SPC D to delete all debuggers from the file
 (setq debugger-command "byebug") ;; change from byebug to "require 'pry'; binding.pry" for example..
 (setq pry-show-helper t) ;; show some helper, change to nil if you dont like
 
