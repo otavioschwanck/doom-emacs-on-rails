@@ -1,5 +1,4 @@
 #+TITLE: Settings
-
 * index :toc:
 - [[#load-external-plugins][Load External Plugins]]
 - [[#start-with-magit][Start with Magit]]
@@ -20,7 +19,9 @@
   - [[#autocomplete][Autocomplete]]
   - [[#snippets][Snippets]]
 - [[#ruby][Ruby]]
+  - [[#indentation][Indentation]]
   - [[#console][Console]]
+  - [[#solargraph][Solargraph]]
   - [[#reset-database][Reset Database]]
   - [[#projectile-rails-is-love][Projectile Rails is love]]
   - [[#better-go-to-definition][Better go to definition]]
@@ -113,10 +114,14 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 **** Previous And Next buffer
 #+begin_src elisp
+(after! centaur-tabs
+  ;; Previous and next buffer
+  (map! :n "C-," #'centaur-tabs-backward)
+  (map! :n "C-;" #'centaur-tabs-forward)
 
-;; Previous and next buffer
-(map! :n "C-," #'previous-buffer)
-(map! :n "C-;" #'next-buffer)
+  (map! :n "C-M-," #'centaur-tabs-backward-group)
+  (map! :n "C-M-;" #'centaur-tabs-forward-group)
+  (setq centaur-tabs-height 18))
 #+end_src
 **** Drag Stuff
 #+begin_src elisp
@@ -354,6 +359,14 @@ C-l to clear v-term
 
 #+end_src
 * Ruby
+** Indentation
+#+begin_src elisp
+(defvar ruby-indent-to-hook 2)
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (setq-local ruby-indent-level ruby-indent-to-hook)))
+#+end_src
 ** Console
 #+begin_src elisp
 (defun popserver-when-on-byebug (_SYMBOL NEWVAL _OPERATION _WHERE)
@@ -364,6 +377,12 @@ C-l to clear v-term
              (evil-insert-state)))))
 
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
+#+end_src
+** Solargraph
+#+begin_src elisp
+(after! lsp-mode
+  (setq lsp-solargraph-formatting nil)
+  (setq lsp-solargraph-folding nil))
 #+end_src
 ** Reset Database
 #+begin_src elisp
@@ -540,10 +559,21 @@ C-l to clear v-term
 ** Checkers
 #+begin_src elisp
 ;; make flycheck use bundle instead of rubocop latest version
+(defun project-has-rubocop ()
+  (let ((found nil))
+    (cl-block find-rubocop
+      (mapc (lambda (line) (when (string-match "rubocop" line) (setq found t) (cl-return-from find-rubocop)))
+            (with-temp-buffer
+              (insert-file-contents (concat (projectile-project-root) "Gemfile.lock"))
+              (split-string (buffer-string) "\n" t))))
+    found))
+
 (add-hook 'ruby-mode-hook
           (lambda ()
-            (setq-local flycheck-command-wrapper-function
-                        (lambda (command) (append '("bundle" "exec") command)))))
+            (if (and (not (eq (projectile-project-root) nil)) (file-exists-p (concat (projectile-project-root) "Gemfile.lock")) (project-has-rubocop))
+                (setq-local flycheck-command-wrapper-function
+                            (lambda (command) (append '("bundle" "exec") command)))
+              (setq-local flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop)))))
 (with-eval-after-load 'flycheck
   (setq-default flycheck-disabled-checkers '(ruby-reek lsp ruby-rubylint))) ;; rubocop from emacs is better
 #+end_src
