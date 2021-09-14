@@ -123,7 +123,7 @@ Loading plugins like rails routes, rails http status, etc.
   (map! :n "C-M-," #'centaur-tabs-backward-group)
   (map! :n "C-M-;" #'centaur-tabs-forward-group)
 
-  (setq centaur-tabs-adjust-buffer-order 'left)
+  (setq centaur-tabs-adjust-buffer-order 'right)
   (centaur-tabs-enable-buffer-reordering)
 
   (setq centaur-tabs-height 18))
