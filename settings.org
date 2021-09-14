@@ -122,6 +122,16 @@ Loading plugins like rails routes, rails http status, etc.
   (map! :n "C-," #'centaur-tabs-backward)
   (map! :n "C-;" #'centaur-tabs-forward)
 
+  (map! "C-1" 'centaur-tabs-select-visible-tab)
+  (map! "C-2" 'centaur-tabs-select-visible-tab)
+  (map! "C-3" 'centaur-tabs-select-visible-tab)
+  (map! "C-4" 'centaur-tabs-select-visible-tab)
+  (map! "C-5" 'centaur-tabs-select-visible-tab)
+  (map! "C-6" 'centaur-tabs-select-visible-tab)
+  (map! "C-7" 'centaur-tabs-select-visible-tab)
+  (map! "C-8" 'centaur-tabs-select-visible-tab)
+  (map! "C-9" 'centaur-tabs-select-visible-tab)
+
   (map! "C-c 1" 'centaur-tabs-select-visible-tab)
   (map! "C-c 2" 'centaur-tabs-select-visible-tab)
   (map! "C-c 3" 'centaur-tabs-select-visible-tab)
