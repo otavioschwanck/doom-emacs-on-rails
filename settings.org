@@ -618,14 +618,22 @@ C-l to clear v-term
               (split-string (buffer-string) "\n" t))))
     found))
 
+(defvar rubocop-append-command '("bundle" "exec")
+  "Commands to run before rubocop")
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (if (and (not (eq (projectile-project-root) nil)) (file-exists-p (concat (projectile-project-root) "Gemfile.lock")) (project-has-rubocop))
-                (setq-local flycheck-command-wrapper-function
-                            (lambda (command) (append '("bundle" "exec") command)))
+                (progn
+                  (setq-local flycheck-checker 'ruby-rubocop)
+                  (setq-local flycheck-command-wrapper-function
+                            (lambda (command) (append rubocop-append-command command))))
+
               (setq-local flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop)))))
-(with-eval-after-load 'flycheck
-  (setq-default flycheck-disabled-checkers '(ruby-reek lsp ruby-rubylint))) ;; rubocop from emacs is better
+
+(defvar ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint) "Checkers to automatically disable on ruby files.")
+
+(add-hook! 'ruby-mode-hook (setq-local flycheck-disabled-checkers ruby-disabled-checkers))
 #+end_src
 ** Edit Hacks
 #+begin_src elisp

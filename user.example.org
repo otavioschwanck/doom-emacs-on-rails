@@ -62,11 +62,11 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 
 * Ruby Linters (rubocop)
 #+begin_src elisp
-;; Make rubocop use bundle exec
-(add-hook! 'ruby-mode-hook (setq flycheck-checker 'ruby-rubocop))
+;; Commands to run before rubocop (nice for docker)
+;; (setq rubocop-append-command '("bundle" "exec"))
 
 ;; Disable Rubocop or any other lint if you want
-;; (setq-default flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop))
+;; (setq ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop))
 #+end_src
 
 * Rbenv
