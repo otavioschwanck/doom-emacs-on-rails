@@ -62,8 +62,13 @@ https://www.youtube.com/watch?v=5H1-Qc9uD5A
 
 * My Configuration features
 Here is an example of some features that i made for Ruby:
-#+caption: AutoComplete
+#+caption: Refactoring
 [[refactoring in emacs.gif]]
+
+#+caption: Method Creating at point
+[[method at point.gif]]
+
+Please ignore the wrong comment at line 8 =D.
 
 * Tips
 ** Search and replace in whole project
