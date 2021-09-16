@@ -966,7 +966,8 @@ C-l to clear v-term
       )))
 
 (defun ruby-extract-function--insert-function (function-name args)
-  (evil-forward-char)
+  (when (not (eq (point) (point-at-eol)))
+    (evil-forward-char))
   (insert function-name)
   (when (not (string= args ""))
     (insert "(" args ")"))
