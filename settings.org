@@ -52,7 +52,7 @@
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
 
-#+begin_src elisp
+#+begin_src emacs-lisp
 
 ;; Load only after ruby mode
 (after! ruby-mode
@@ -64,7 +64,7 @@ Loading plugins like rails routes, rails http status, etc.
 (load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
 #+end_src
 * Start with Magit
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun open-projectile-with-magit (&optional DIRECTORY CACHE)
   (interactive)
   (magit-status DIRECTORY)
@@ -78,12 +78,12 @@ Loading plugins like rails routes, rails http status, etc.
 * Editor Settings
 ** Basic Settings
 *** Open Full screen
-#+begin_src elisp
+#+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 *** Indentation
 **** Indent with 2 spaces
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! web-mode
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
@@ -95,7 +95,7 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 
 **** Indent whole buffer
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun indent-whole-buffer ()
   "INDENT WHOLE BUFFER."
   (interactive)
@@ -107,7 +107,7 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 *** Editor Basics
 **** Save with ç or \
-#+begin_src elisp
+#+begin_src emacs-lisp
 ;; Save all
 (defun save-all-buffers ()
   (interactive)
@@ -117,7 +117,7 @@ Loading plugins like rails routes, rails http status, etc.
 (map! :n "\\" #'save-all-buffers)
 #+end_src
 **** Previous And Next buffer
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! centaur-tabs
   ;; Previous and next buffer
   (map! :n "C-," #'centaur-tabs-backward)
@@ -152,47 +152,47 @@ Loading plugins like rails routes, rails http status, etc.
   (setq centaur-tabs-height 18))
 #+end_src
 **** Drag Stuff
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :v "K" #'drag-stuff-up)
 (map! :v "J" #'drag-stuff-down)
 #+end_src
 **** Change begginging and end of line
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :nv "0" #'doom/backward-to-bol-or-indent)
 (map! :nv "-" #'end-of-line)
 #+end_src
 
 **** Kill buffer
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :leader "k" #'kill-current-buffer)
 #+end_src
 
 **** Navigate in git hunks
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :nv "]g" #'git-gutter:next-hunk)
 (map! :nv "[g" #'git-gutter:previous-hunk)
 #+end_src
 
 **** Avy for the Window
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :nv "C-s" #'evil-avy-goto-char-2)
 
 #+end_src
 **** C-j and C-k for the Win
-#+begin_src elisp
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
 (global-set-key (kbd "C-k") (kbd "C-M-p"))
 #+end_src
 
 **** jj to escape insert mode
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq-default evil-escape-key-sequence "jj")
 (setq-default evil-escape-delay 0.5)
 #+end_src
 
 *** VTerm and shell stuff
 C-l to clear v-term
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :after vterm
       :map vterm-mode-map
       :ni "C-l" #'vterm-clear)
@@ -209,7 +209,7 @@ C-l to clear v-term
 #+end_src
 
 *** Better Paste
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun better-paste-after ()
   (interactive)
   (evil-paste-after 1))
@@ -217,7 +217,7 @@ C-l to clear v-term
 (map! :iego "C-v" #'better-paste-after)
 #+end_src
 *** Treemacs (please, use SPC .)
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :leader "e" #'+treemacs/toggle)
 (map! :leader "E" #'treemacs-find-file)
 
@@ -225,18 +225,18 @@ C-l to clear v-term
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 #+end_src
 *** Git Stuff
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
 (map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
 (map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
 (map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
 #+end_src
 ** YAML
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq flycheck-yamllintrc ".yamllint.yml")
 #+end_src
 ** Open on Line
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defadvice find-file-noselect (around find-file-noselect-at-line
                                       (filename &optional nowarn rawfile wildcards)
                                       activate)
@@ -254,22 +254,22 @@ C-l to clear v-term
           (forward-line (1- line-number)))))))
 #+end_src
 ** Popup
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :leader "]" '+popup/raise)
 #+end_src
 ** Avy
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq avy-single-candidate-jump t)
 #+end_src
 ** Evil changes
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq evil-want-visual-char-semi-exclusive t)
 (add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
 (map! :leader "j" #'consult-global-mark)
 #+end_src
 
 ** Window Control
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :ni "M-k" #'evil-window-up)
 (map! :ni "M-j" #'evil-window-down)
 (map! :ni "M-h" #'evil-window-left)
@@ -283,13 +283,13 @@ C-l to clear v-term
 #+end_src
 
 ** Emmet is love, emmet is life
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 #+end_src
 
 ** Web Mode Stuff
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
@@ -307,7 +307,7 @@ C-l to clear v-term
 
 #+end_src
 ** Switch Args
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun otavio/swap-arg-forward ()
   (interactive)
   (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
@@ -324,14 +324,14 @@ C-l to clear v-term
 (map! :n "C-h" #'otavio/swap-arg-backward)
 #+end_src
 ** Vertico
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! vertico
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
   (setq consult-async-split-style 'space))
 
 #+end_src
 ** Buffer Name Hack
-#+begin_src elisp
+#+begin_src emacs-lisp
 
 ;; Show path of file on SPC ,
 (setq uniquify-buffer-name-style 'reverse)
@@ -341,12 +341,12 @@ C-l to clear v-term
 
 #+end_src
 ** Fix iedit
-#+begin_src elisp
+#+begin_src emacs-lisp
 (setq iedit-toggle-key-default nil)
 #+end_src
 
 * Javascript
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun update-yas-indentation ()
   (setq-local yas-indent-line 'fixed))
 
@@ -363,14 +363,14 @@ C-l to clear v-term
 
 * Autocomplete And Snippets
 ** Functions
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun company-complete-if-selected ()
   (interactive)
   (if (eq company-selection nil) (newline-and-indent) (company-complete)))
 #+end_src
 
 ** Autocomplete
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :i "C-p" #'dabbrev-expand)
 (map! :i "C-o" #'yas-expand)
 
@@ -390,7 +390,7 @@ C-l to clear v-term
 
 #+end_src
 ** Snippets
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun select-and-yas-next ()
   (interactive)
   (if (eq company-selection nil)
@@ -415,7 +415,7 @@ C-l to clear v-term
 #+end_src
 * Ruby
 ** Indentation
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defvar ruby-indent-to-hook 2)
 
 (add-hook 'ruby-mode-hook
@@ -423,7 +423,7 @@ C-l to clear v-term
             (setq-local ruby-indent-level ruby-indent-to-hook)))
 #+end_src
 ** Console
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun popserver-when-on-byebug (_SYMBOL NEWVAL _OPERATION _WHERE)
   (when (and (eq NEWVAL 0) (cl-search "projectile-rails" (buffer-name)))
     (progn (switch-to-buffer (buffer-name))
@@ -434,13 +434,13 @@ C-l to clear v-term
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
 #+end_src
 ** Solargraph
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! lsp-mode
   (setq lsp-solargraph-formatting nil)
   (setq lsp-solargraph-folding nil))
 #+end_src
 ** Reset Database
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! ruby-mode
   (defvar rails-reset-command "rails db:environment:set RAILS_ENV=development; rails db:drop db:create db:migrate;rails db:seed"
     "Command to reset rails")
@@ -469,7 +469,7 @@ C-l to clear v-term
 
 #+end_src
 ** Projectile Rails is love
-#+begin_src elisp
+#+begin_src emacs-lisp
 (require 'projectile-rails)
 (map! :leader "r" #'projectile-rails-command-map)
 
@@ -479,7 +479,7 @@ C-l to clear v-term
 
 #+end_src
 ** Better go to definition
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! robe
   (set-lookup-handlers! 'ruby-mode
     :definition '(projectile-rails-goto-file-at-point robe-jump)
@@ -495,7 +495,7 @@ C-l to clear v-term
     :definition '(projectile-rails-goto-file-at-point rails-routes-jump)))
 #+end_src
 ** Projectile Custom Finders
-#+begin_src elisp
+#+begin_src emacs-lisp
 ;;; projectile-rails-remaps.el -*- lexical-binding: t; -*-
 
 (after! projectile-rails
@@ -553,7 +553,7 @@ C-l to clear v-term
 #+end_src
 ** Rspec Mode
 *** Basic Config
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! rspec-mode
   (set-popup-rule! "^\\*\\(rspec-\\)?compilation" :size 0.5 :ttl nil :select t))
 
@@ -567,7 +567,7 @@ C-l to clear v-term
 (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
 #+end_src
 *** Super Goto test
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun file-path-to-test (filename)
   (if (string-match-p "/spec/" filename)
       (if (string-match-p "/admin/" filename)
@@ -608,7 +608,7 @@ C-l to clear v-term
 (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit)
 #+end_src
 ** Checkers
-#+begin_src elisp
+#+begin_src emacs-lisp
 ;; make flycheck use bundle instead of rubocop latest version
 (defun project-has-rubocop ()
   (let ((found nil))
@@ -637,7 +637,7 @@ C-l to clear v-term
 (add-hook! 'ruby-mode-hook (setq-local flycheck-disabled-checkers ruby-disabled-checkers))
 #+end_src
 ** Edit Hacks
-#+begin_src elisp
+#+begin_src emacs-lisp
 (map! :map ruby-mode-map
       "C-k" #'ruby-beginning-of-block
       "C-j" #'ruby-end-of-block)
@@ -649,7 +649,7 @@ C-l to clear v-term
 #+end_src
 
 ** Add Debug on code
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defvar debugger-command "byebug")
 (defvar pry-show-helper t)
 
@@ -683,7 +683,7 @@ C-l to clear v-term
 #+end_src
 
 ** Copy Class Name
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! ruby-mode
   ;; SPC m C to copy class name, super useful to test things on console.
   (defun endless/-ruby-symbol-at-point ()
@@ -716,7 +716,7 @@ C-l to clear v-term
   (map! :map ruby-mode-map :localleader "c" #'endless/ruby-copy-class-name))
 #+end_src
 ** Rails Routes Plugin
-#+begin_src elisp
+#+begin_src emacs-lisp
 (after! web-mode
   (define-key web-mode-map (kbd "C-x C-a") #'rails-routes-find)
   (define-key web-mode-map (kbd "C-x C-S-a") #'rails-routes-find-with-class))
@@ -730,13 +730,13 @@ C-l to clear v-term
 (define-key evil-visual-state-map (kbd "g r") #'rails-routes-jump)
 #+end_src
 ** HTTP Code Plugin
-#+begin_src elisp
+#+begin_src emacs-lisp
 (define-key ruby-mode-map (kbd "C-c s") #'rails-http-statues-insert-symbol)
 (define-key ruby-mode-map (kbd "C-c S") #'rails-http-statues-insert-code)
 #+end_src
 
 ** Rubocop
-#+begin_src elisp
+#+begin_src emacs-lisp
 
 (defun msc/revert-buffer-noconfirm ()
   "Call `revert-buffer' with the NOCONFIRM argument set."
@@ -756,7 +756,7 @@ C-l to clear v-term
 (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file)
 #+end_src
 ** Method Generator
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun otavio/chomp (str)
   "Trim leading and trailing whitespace from STR."
   (replace-regexp-in-string "\\(\\`[[:space:]\n]*\\|[[:space:]\n]*\\'\\)" "" str))
@@ -813,7 +813,7 @@ C-l to clear v-term
 (map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
 #+end_src
 ** Toggle if single and multiline
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun otavio/-current-line-empty-p ()
   (save-excursion
     (beginning-of-line)
@@ -892,7 +892,7 @@ C-l to clear v-term
 (map! :after ruby-mode :map ruby-mode-map :localleader "i" #'otavio/swap-if-unless-ruby)
 #+end_src
 ** Split Giant String
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defvar split-ruby-giant-string-default 125)
 
 (defun otavio/split-ruby-giant-string (&optional line-split-real)
@@ -926,7 +926,7 @@ C-l to clear v-term
 (map! :after ruby-mode :map ruby-mode-map :localleader "S" #'otavio/split-ruby-giant-string)
 #+end_src
 ** Add Parameter
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun ruby-add-parameter--with-existing-parameters (args)
   (interactive)
   (forward-char -1)
@@ -952,7 +952,7 @@ C-l to clear v-term
 (map! :after ruby-mode :mode ruby-mode :localleader "a" #'ruby-add-parameter)
 #+end_src
 ** Method Refactor
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun ruby-extract-function ()
   (interactive)
   (let* ((function-name (read-string "Method name? "))
@@ -996,7 +996,7 @@ C-l to clear v-term
 (map! :after ruby-mode :mode ruby-mode :localleader "m" #'ruby-extract-function)
 #+end_src
 ** Create Method At Point
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun ruby-new-method-from-symbol-at-point ()
   (interactive)
   (better-jumper-set-jump)
@@ -1061,7 +1061,7 @@ C-l to clear v-term
 
 * Custom Functions
 ** Remove Accents
-#+begin_src elisp
+#+begin_src emacs-lisp
 (defun remove-accents (&optional @begin @end)
   "Remove accents in some letters and some
 Change European language characters into equivalent ASCII ones, e.g. “café” ⇒ “cafe”.
@@ -1121,7 +1121,7 @@ Version 2015-06-08"
     (buffer-string)))
 #+end_src
 ** Current File Name For yas
-#+begin_src elisp
+#+begin_src emacs-lisp
 
 (defun current-file-name-for-yas ()
   (interactive)
@@ -1133,7 +1133,7 @@ Version 2015-06-08"
     model))
 #+end_src
 * Kubernetes
-#+begin_src elisp
+#+begin_src emacs-lisp
 (use-package! kubernetes
   :config
   (setq kubernetes-poll-frequency 3600
@@ -1147,7 +1147,7 @@ Version 2015-06-08"
 #+end_src
 
 * Load user.org
-#+begin_src elisp
+#+begin_src emacs-lisp
 (if (file-exists-p (expand-file-name "user.org" doom-private-dir))
     (org-babel-load-file
      (expand-file-name "user.org" doom-private-dir))
