@@ -122,15 +122,10 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 **** Previous And Next buffer
 #+begin_src emacs-lisp
-(after! centaur-tabs
   ;; Previous and next buffer
-  (map! :n "C-," #'previous-buffer)
-  (map! :n "C-;" #'next-buffer)
+(map! :n "C-," #'previous-buffer)
+(map! :n "C-;" #'next-buffer)
 
-  (setq centaur-tabs-adjust-buffer-order 'right)
-  (centaur-tabs-enable-buffer-reordering)
-
-  (setq centaur-tabs-height 18))
 #+end_src
 **** Drag Stuff
 #+begin_src emacs-lisp
