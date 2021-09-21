@@ -1099,7 +1099,7 @@ C-l to clear v-term
 (defun ruby-new-method-from-symbol-at-point--verify-exist (argument)
   (save-excursion
     (goto-char (point-min))
-    (if (search-forward (concat "def " argument) (point-max) t)
+    (if (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t)
         nil
       (if (eq 0 (length (let ((case-fold-search nil))
                           (remove "" (split-string argument "[a-z]+\\(_[a-z]+\\)*"))))) argument
