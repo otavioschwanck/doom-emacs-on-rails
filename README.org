@@ -97,7 +97,7 @@ Press C-e to expand.
 
 4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
 
-5 - M-x =epa-encrypt-file= and select =~/authinfo= to encrypt with gpg.
+5 - M-x =epa-encrypt-file= and select =~/.authinfo= to encrypt with gpg.
 
 6 - delete the =~/.authinfo=
 
