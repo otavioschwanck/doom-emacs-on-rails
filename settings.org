@@ -47,6 +47,7 @@
   - [[#method-refactor][Method Refactor]]
   - [[#create-method-at-point][Create Method At Point]]
   - [[#go-to-rspec-and-activate-compilation][Go to Rspec and activate compilation]]
+  - [[#ruby-refactoring-external-plugin][Ruby Refactoring external plugin]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -122,7 +123,7 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 **** Previous And Next buffer
 #+begin_src emacs-lisp
-  ;; Previous and next buffer
+;; Previous and next buffer
 (map! :n "C-," #'previous-buffer)
 (map! :n "C-;" #'next-buffer)
 
@@ -677,7 +678,7 @@ C-l to clear v-term
                 (progn
                   (setq-local flycheck-checker 'ruby-rubocop)
                   (setq-local flycheck-command-wrapper-function
-                            (lambda (command) (append rubocop-append-command command))))
+                              (lambda (command) (append rubocop-append-command command))))
 
               (setq-local flycheck-disabled-checkers '(ruby-reek ruby-rubylint ruby-rubocop)))))
 
@@ -993,10 +994,10 @@ C-l to clear v-term
         )
     (when (not (string= args ""))
       (save-excursion
-      (+evil/previous-beginning-of-method 1)
-      (if (search-forward ")" (point-at-eol) t)
-          (ruby-add-parameter--with-existing-parameters args)
-        (ruby-add-parameter--without-existing-parameters args))))))
+        (+evil/previous-beginning-of-method 1)
+        (if (search-forward ")" (point-at-eol) t)
+            (ruby-add-parameter--with-existing-parameters args)
+          (ruby-add-parameter--without-existing-parameters args))))))
 
 (map! :after ruby-mode :mode ruby-mode :localleader "a" #'ruby-add-parameter)
 #+end_src
@@ -1076,7 +1077,7 @@ C-l to clear v-term
   (forward-line -1)
   (when (featurep 'evil)
     (evil-change (point) (point))) (indent-for-tab-command)
-    (message "Method created!  Pro Tip:  Use C-o (normal mode) to jump back to the method usage."))
+  (message "Method created!  Pro Tip:  Use C-o (normal mode) to jump back to the method usage."))
 
 (defun ruby-new-method-from-symbol-at-point--get-arguments (has-arguments variable-end-point)
   (when has-arguments
@@ -1109,6 +1110,81 @@ C-l to clear v-term
 #+end_src
 ** Go to Rspec and activate compilation
 #+begin_src emacs-lisp
+#+end_src
+** Ruby Refactoring external plugin
+#+begin_src emacs-lisp
+(require 'ruby-refactor)
+
+(add-hook! 'ruby-mode-hook 'ruby-refactor-mode-launch)
+
+(after! ruby-refactor
+  (map! :mode ruby-mode :localleader "v" 'ruby-refactor-extract-local-variable)
+  (map! :mode ruby-mode :localleader "V" 'ruby-refactor-extract-constant)
+
+  (defun ruby-refactor-extract-local-variable(  )
+    "Extracts selected text to local variable"
+    (interactive)
+    (save-restriction
+      (save-match-data
+        (widen)
+        (let* ((text-begin (region-beginning))
+               (text-end (region-end))
+               (text (ruby-refactor-trim-newline-endings (buffer-substring-no-properties text-begin text-end)))
+               (variable-name (read-from-minibuffer "Variable name? ")))
+          (delete-region text-begin text-end)
+          (insert variable-name)
+          (beginning-of-line)
+          (open-line 1)
+          (ruby-indent-line)
+          (insert variable-name " = " text "\n")
+          (search-forward variable-name)
+          (backward-sexp)))))
+
+  (defun ruby-refactor-extract-constant ()
+    "Extracts selected text to a constant at the top of the current class or module"
+    (interactive)
+    (save-restriction
+      (save-match-data
+        (widen)
+        (let* ((text-begin (region-beginning))
+               (text-end (region-end))
+               (text (ruby-refactor-trim-newline-endings (buffer-substring-no-properties text-begin text-end)))
+               (constant-name (read-from-minibuffer "Constant name? ")))
+          (delete-region text-begin text-end)
+          (insert constant-name)
+          (forward-line -1)
+          (beginning-of-line)
+          (evil-forward-word-begin)
+          (let ((class-at-root (looking-at "class")) (first-character (substring text 0 1)))
+            (ruby-refactor-goto-constant-insertion-point)
+            (beginning-of-line)
+            (if class-at-root
+                (progn
+                  (open-line 2)
+                  (forward-line 1)))
+            (ruby-indent-line)
+            (if (or (string= "(" first-character)
+                    (string= "[" first-character)
+                    (string= "{" first-character)
+                    (string= "\"" first-character)
+                    (string= ":" first-character)
+                    (string-match "^[a-zA-Z0-9_]+[_]*[a-zA-Z\w_]*$" text)
+                    (string= "'" first-character))
+                (insert constant-name " = " text ".freeze" "\n")
+              (if (or (string-match "\\.\\." text)
+                      (string-match "\\.\\.\\." text)
+                      (string-match "\\+" text)
+                      (string-match "\\-" text)
+                      (not (string-match "^[a-zA-Z0-9_]+[_]*[a-zA-Z\w_]*$" text))
+                      (string-match "\\*" text)
+                      (string-match "\\*\\*" text))
+                  (insert constant-name " = (" text ")" ".freeze" "\n") (insert constant-name " = " text ".freeze" "\n"))
+              )
+
+            (evil-indent-line (point-at-bol) (point-at-eol))
+            (forward-line 1)
+            (search-forward constant-name)
+            (backward-sexp)))))))
 #+end_src
 
 * Custom Functions

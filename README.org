@@ -126,7 +126,13 @@ See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.
 | SPC m i             | normal             | toggle if / unless into single / multi-line |
 | SPC m S             | normal             | split a giant string into strings with \    |
 | SPC r s             | normal             | Search inside app/services OR app/business  |
-| SPC r S             | normal             | Search inside app/services  |
+| SPC r S             | normal             | Search inside app/services                  |
+| SPC m m             | normal             | Extract Method                              |
+| SPC m n             | normal             | Create Method at point                      |
+| SPC m a             | normal             | Add parameter to current method             |
+| SPC m a             | normal             | Add parameter to current method             |
+| SPC m v             | normal             | extract variable                            |
+| SPC m V             | normal             | extract constant                            |
 | C-x C-a             | insert mode        | Insert rails routes on code                 |
 
 * Using Autocomplete
