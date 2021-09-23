@@ -11,6 +11,7 @@
   - [[#using-method-generator-emmet-in-ruby][Using method generator (emmet) in ruby]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#for-other-git-server][For other git server]]
+- [[#emacs-handbook-with-best-commands][Emacs Handbook with best commands]]
 - [[#custom-keybindings][Custom Keybindings]]
 - [[#using-autocomplete][Using Autocomplete]]
 - [[#getting-help][Getting help]]
@@ -104,6 +105,12 @@ Press C-e to expand.
 
 ** For other git server
 See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
+
+* Emacs Handbook with best commands
+
+I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
+
+The PDF is on this project root [[Emacs Handbook.pdf]]
 
 * Custom Keybindings
 | Key                 | Mode               | Description                                 |
