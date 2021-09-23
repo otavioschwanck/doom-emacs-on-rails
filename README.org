@@ -6,16 +6,10 @@
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
 - [[#tips][Tips]]
-  - [[#search-and-replace-in-whole-project][Search and replace in whole project]]
-  - [[#multiple-cursors][Multiple-cursors]]
-  - [[#using-method-generator-emmet-in-ruby][Using method generator (emmet) in ruby]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
-  - [[#for-other-git-server][For other git server]]
-- [[#emacs-handbook-with-best-commands][Emacs Handbook with best commands]]
-- [[#custom-keybindings][Custom Keybindings]]
-- [[#using-autocomplete][Using Autocomplete]]
+- [[#keybindings][Keybindings]]
 - [[#getting-help][Getting help]]
-  - [[#using-emacs-from-snap-also-recommended][Using Emacs from snap (also recommended)]]
+- [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 
 * Features
@@ -72,22 +66,6 @@ Here is an example of some features that i made for Ruby:
 Please ignore the wrong comment at line 8 =D.
 
 * Tips
-** Search and replace in whole project
-*** Replacing a text
-You can search and replace by pressing =SPC s p= to search in project, then, =C-c C-e= to open the search on a buffer.  To replace some word, just run =:%s/old_text/new_text/g=. You also can use the multiple cursors.
-
-*** Renaming multiple files
-If you want to also, rename multiple files in project, just run =M-x= =find-dired= and type -name "\*your_class\*.extension" (without the \ (vertical bars)). It will open a dired with all matches in the project.  Just press =C-e C-e= to toggle the edit mode and edit the filenames like a text file!
-Press C-c C-c to confirm the edit or C-c C-k to cancel.
-
-** Multiple-cursors
-To use multiple-cursors, select the word, then, press =M-d= to go forward or =M-D= to go backwards.  Press =C= to edit all.
-
-** Using method generator (emmet) in ruby
-Syntax: init@param1,param2;method_name@param1,param2;method2;method@param
-
-Press C-e to expand.
-
 ** Configuring Forge for Creating / Reviewing pull requests
 *** For github
 1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
@@ -102,68 +80,21 @@ Press C-e to expand.
 
 6 - delete the =~/.authinfo=
 
-
-** For other git server
+*** For other git server
 See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
 
-* Emacs Handbook with best commands
+* Keybindings
 
 I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
-The PDF is on this project root [[Emacs Handbook.pdf]]
+The PDF is on this project root [[file:Emacs Handbook.pdf]].
 
-* Custom Keybindings
-| Key                 | Mode               | Description                                 |
-| SPC a and SPC A     | Ruby               | Go to / create spec file                    |
-| SPC v               | All                | Open terminal on project root               |
-| SPC -               | All                | Indent the file                             |
-| SPC =               | Ruby               | Runs rubocop -a on current file             |
-| ]g and [g           | All                | Navigate on git changes                     |
-| SPC l               | Terminals          | Clean terminal                              |
-| C-j                 | All                | Go one sentence down (very useful)          |
-| C-k                 | All                | Go one sentence up (very useful)            |
-| C-v                 | All (insert mode)  | Paste on insert mode                        |
-| J and K             | Visual Mode        | Drag stuff down and up                      |
-| C-, and C-;         | Normal Mode        | Previous and Next buffer                    |
-| ç or \              | Normal mode        | Save all files                              |
-| SPC gdo and SPC gdm | Git conflict       | Keep other or Keep mine (git)               |
-| SPC e               | All                | Toggle treemacs                             |
-| C-e                 | Insert (web-mode)  | emmet-expand (like ul>li*3)                 |
-| C-e                 | Insert (ruby-mode) | emmet-expand (Ruby) (Method generator)      |
-| SPC m i             | normal             | toggle if / unless into single / multi-line |
-| SPC m S             | normal             | split a giant string into strings with \    |
-| SPC r s             | normal             | Search inside app/services OR app/business  |
-| SPC r S             | normal             | Search inside app/services                  |
-| SPC m m             | normal             | Extract Method                              |
-| SPC m n             | normal             | Create Method at point                      |
-| SPC m a             | normal             | Add parameter to current method             |
-| SPC m a             | normal             | Add parameter to current method             |
-| SPC m v             | normal             | extract variable                            |
-| SPC m V             | normal             | extract constant                            |
-| C-x C-a             | insert mode        | Insert rails routes on code                 |
-
-* Using Autocomplete
-#+caption: Autocomplete
-On my doom config, i've done several tweaks to the default autocomplete.
-
-To toggle snippets and go forward, use C-o.
-
-#+caption: AutoComplete
-[[autocomplete.gif]]
-
-| Key     | Command                                                            |
-| Tab     | Next item                                                          |
-| S-Tab   | Previous item                                                      |
-| C-o     | Toggle Snippet                                                     |
-| C-p     | Select a similar word instantly (keep pressing to change the word) |
-| C-x C-s | See all the snippets                                               |
-| <C-spc> | Toggle current selection                                           |
-| C-d     | (while snipped is active) Delete the highlighted snippet           |
+This PDF is perfect to be printed out or be used on second monitor.
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
 
-** Using Emacs from snap (also recommended)
+* Installing Emacs on Ubuntu
 Just run `sudo snap install emacs --classic`
 
 * What i need to know to start using ?
