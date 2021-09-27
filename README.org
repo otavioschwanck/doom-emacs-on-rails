@@ -3,11 +3,11 @@
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
+- [[#keybindings][Keybindings]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
 - [[#tips][Tips]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
-- [[#keybindings][Keybindings]]
 - [[#getting-help][Getting help]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
@@ -50,6 +50,14 @@ gem install solargraph
 * After Install
 Open your personal configuration with =SPC f P= user.org and read the file
 
+* Keybindings
+
+I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
+
+The PDF is on this project root [[file:./Emacs Handbook.pdf]]
+
+This PDF is perfect to be printed out or be used on second monitor.
+
 * Video Showcase + Guide
 I made a video showcase with the principal commands (See description all the video highlights)
 
@@ -82,14 +90,6 @@ Please ignore the wrong comment at line 8 =D.
 
 *** For other git server
 See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
-
-* Keybindings
-
-I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
-
-The PDF is on this project root[[file:Emacs Handbook.pdf][ Handbook with keybindings]]
-
-This PDF is perfect to be printed out or be used on second monitor.
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
