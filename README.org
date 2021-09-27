@@ -54,7 +54,7 @@ Open your personal configuration with =SPC f P= user.org and read the file
 
 I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
-The PDF is on this project root [[file:./Emacs Handbook.pdf]]
+The PDF is on this project root: [[Emacs Handbook.pdf]]
 
 This PDF is perfect to be printed out or be used on second monitor.
 
