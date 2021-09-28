@@ -4,7 +4,6 @@
 - [[#start-with-magit][Start with Magit]]
 - [[#editor-settings][Editor Settings]]
   - [[#basic-settings][Basic Settings]]
-  - [[#evil-mark][Evil Mark]]
   - [[#rotate-text][Rotate Text]]
   - [[#yaml][YAML]]
   - [[#open-on-line][Open on Line]]
@@ -207,10 +206,6 @@ C-l to clear v-term
 (map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
 (map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
 (map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
-#+end_src
-** Evil Mark
-#+begin_src emacs-lisp
-(map! :n "<RET>" 'evil-goto-mark-line)
 #+end_src
 ** Rotate Text
 #+begin_src emacs-lisp
