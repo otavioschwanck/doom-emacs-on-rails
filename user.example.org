@@ -141,3 +141,17 @@ Just uncomment the code above (without begin-src and end-src)
 
 (setq +workspaces-switch-project-function #'open-projectile-with-magit)
 #+end_src
+
+* Build your own file switches
+#+begin_src emacs-lisp
+;; (after! projectile-rails
+;;   ;; Example: switch from app/contracts/{resource}.rb to app/services/{resource} and vice-versa
+;;   (defun projectile-rails-find-contract ()
+;;     "Switch from contract to service and vice versa."
+;;     (interactive)
+;;     (if (string-match-p "app/contracts" (buffer-file-name)) (find-file (replace-regexp-in-string "contract" "service" (replace-regexp-in-string "_contracts" "_services" (buffer-file-name))))
+;;       (find-file (replace-regexp-in-string "service" "contract" (replace-regexp-in-string "_services" "_contracts" (buffer-file-name))))))
+
+;;   (map! :leader "rq" #'projectile-rails-find-contract) ;; Uncomment to bind to SPC r q
+;;   )
+#+end_src
