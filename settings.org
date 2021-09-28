@@ -350,7 +350,7 @@ C-l to clear v-term
 (add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
 
-(after! lsp-javascript
+(after! lsp-mode
   (set-lsp-priority! 'ts-ls 1))
 #+end_src
 
@@ -484,6 +484,7 @@ C-l to clear v-term
 ** Solargraph
 #+begin_src emacs-lisp
 (after! lsp-mode
+  (setq lsp-auto-guess-root t)
   (setq lsp-solargraph-formatting nil)
   (setq lsp-solargraph-symbols nil)
   (setq lsp-solargraph-folding nil))
