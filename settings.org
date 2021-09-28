@@ -72,6 +72,10 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
+*** Toggle Case
+#+begin_src emacs-lisp
+(map! "M-c" 'string-inflection-toggle )
+#+end_src
 *** Indentation
 **** Indent with 2 spaces
 #+begin_src emacs-lisp
