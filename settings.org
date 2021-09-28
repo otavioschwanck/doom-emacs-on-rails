@@ -349,9 +349,6 @@ C-l to clear v-term
 
 (add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
-
-(after! lsp-mode
-  (set-lsp-priority! 'ts-ls 1))
 #+end_src
 
 * Autocomplete And Snippets
