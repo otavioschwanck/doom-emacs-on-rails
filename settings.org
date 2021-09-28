@@ -1,7 +1,6 @@
 #+TITLE: Settings
 * index :toc:
 - [[#load-external-plugins][Load External Plugins]]
-- [[#start-with-magit][Start with Magit]]
 - [[#editor-settings][Editor Settings]]
   - [[#basic-settings][Basic Settings]]
   - [[#rotate-text][Rotate Text]]
@@ -67,18 +66,6 @@ Loading plugins like rails routes, rails http status, etc.
 ;; Fixes some bugs in some libraries
 (load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
 #+end_src
-* Start with Magit
-#+begin_src emacs-lisp
-(defun open-projectile-with-magit (&optional DIRECTORY CACHE)
-  (interactive)
-  (magit-status DIRECTORY)
-  (if (fboundp 'magit-fetch-from-upstream)
-      (call-interactively #'magit-fetch-from-upstream)
-    (call-interactively #'magit-fetch-current)))
-
-(setq +workspaces-switch-project-function #'open-projectile-with-magit)
-#+end_src
-
 * Editor Settings
 ** Basic Settings
 *** Open Full screen
