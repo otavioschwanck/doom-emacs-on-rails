@@ -546,6 +546,8 @@ C-l to clear v-term
 ;;; projectile-rails-remaps.el -*- lexical-binding: t; -*-
 
 (after! projectile-rails
+  (setq projectile-rails-expand-snippet-with-magic-comment t)
+
   (defun projectile-rails-find-admin ()
     "Find a model."
     (interactive)
@@ -598,6 +600,10 @@ C-l to clear v-term
   (map! :leader "rS" #'projectile-rails-find-service)
   (map! :leader "rq" #'projectile-rails-find-graphql-all))
 #+end_src
+
+#+RESULTS:
+: projectile-rails-find-graphql-all
+
 ** Rspec Mode
 *** Basic Config
 #+begin_src emacs-lisp

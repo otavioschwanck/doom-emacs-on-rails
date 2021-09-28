@@ -52,47 +52,6 @@
                          lf
                          "</" tag-name ">")))))))
 
-;; Projectile Rails
-(after! projectile-rails
-(defun projectile-rails--ruby-mode-indent-tabs-p ()
-  (with-temp-buffer
-    (set-auto-mode)
-    indent-tabs-mode))
-(defun projectile-rails-corresponding-snippet ()
-  "Call `projectile-rails--expand-snippet' with a snippet corresponding to the current file."
-  (let* ((name (buffer-file-name))
-         (snippet
-          (cond ((string-match "app/[^/]+/concerns/\\(.+\\)\\.rb$" name)
-                 (format
-                  "module %s\n  extend ActiveSupport::Concern\n  $0\nend"
-                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
-                ((string-match "app/controllers/\\(.+\\)\\.rb$" name)
-                 (format
-                  "class %s < ${1:ApplicationController}\n$2\nend"
-                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
-                ((string-match "app/jobs/\\(.+\\)\\.rb$" name)
-                 (format
-                  "class %s < ${1:ApplicationJob}\n$2\nend"
-                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
-                ((string-match "spec/[^/]+/\\(.+\\)_spec\\.rb$" name)
-                 (format
-                  "require '${1:rails_helper}'\n\nRSpec.describe %s do\n  $0\nend"
-                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
-                ((string-match "app/models/\\(.+\\)\\.rb$" name)
-                 (projectile-rails--snippet-for-model (match-string 1 name)))
-                ((string-match "app/helpers/\\(.+\\)_helper\\.rb$" name)
-                 (format
-                  "module %sHelper\n$1\nend"
-                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
-                ((string-match "lib/\\(.+\\)\\.rb$" name)
-                 (projectile-rails--snippet-for-module "${1:module} %s\n" name))
-                ((string-match "app/\\(?:[^/]+\\)/\\(.+\\)\\.rb$" name)
-                 (projectile-rails--snippet-for-module "${1:class} %s\n" name)))))
-    (if (and snippet projectile-rails-expand-snippet-with-magic-comment)
-        (format "# frozen_string_literal: true\n\n%s" snippet)
-      snippet)))
-  )
-
 (after! evil
   (defadvice
       evil-ex-search
