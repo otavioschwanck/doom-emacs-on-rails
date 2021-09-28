@@ -131,12 +131,13 @@ Just uncomment the code above (without begin-src and end-src)
 
 * Start with Magit
 #+begin_src emacs-lisp
-;; (defun open-projectile-with-magit (&optional DIRECTORY CACHE)
-;;   (interactive)
-;;   (magit-status DIRECTORY)
-;;   (if (fboundp 'magit-fetch-from-upstream)
-;;       (call-interactively #'magit-fetch-from-upstream)
-;;     (call-interactively #'magit-fetch-current)))
+;; Comment to disable
+(defun open-projectile-with-magit (&optional DIRECTORY CACHE)
+  (interactive)
+  (magit-status DIRECTORY)
+  (if (fboundp 'magit-fetch-from-upstream)
+      (call-interactively #'magit-fetch-from-upstream)
+    (call-interactively #'magit-fetch-current)))
 
-;; (setq +workspaces-switch-project-function #'open-projectile-with-magit)
+(setq +workspaces-switch-project-function #'open-projectile-with-magit)
 #+end_src
