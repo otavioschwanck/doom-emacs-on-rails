@@ -74,6 +74,10 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 #+begin_src emacs-lisp
 ;; If you use macos with rbenv on homebrew, add it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+
+;; Mac improvement (cmd = meta)
+;; (setq mac-command-modifier 'meta)
+;; (setq ns-function-modifier 'control)
 #+end_src
 
 * Use minitest?

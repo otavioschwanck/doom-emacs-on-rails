@@ -333,8 +333,12 @@ C-l to clear v-term
   (setq-local emmet-expand-jsx-htmlFor? t)
   (setq-local emmet-expand-jsx-className? t))
 
+(defun set-js-company ()
+  (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet)))
+
 (add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
+(add-hook! 'rjsx-mode-hook 'set-js-company)
 #+end_src
 
 * Autocomplete And Snippets
