@@ -1,6 +1,7 @@
 #+TITLE: Settings
 * index :toc:
 - [[#load-external-plugins][Load External Plugins]]
+- [[#google-translate][Google Translate]]
 - [[#editor-settings][Editor Settings]]
   - [[#basic-settings][Basic Settings]]
   - [[#rotate-text][Rotate Text]]
@@ -65,6 +66,24 @@ Loading plugins like rails routes, rails http status, etc.
 
 ;; Fixes some bugs in some libraries
 (load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
+#+end_src
+* Google Translate
+#+begin_src emacs-lisp
+(after! google-translate
+  (defun google-translate--search-tkk ()
+    "Search TKK."
+    (list 430675 2721866130)))
+
+(after! google-translate-default-ui
+  (defun google-translate--search-tkk ()
+    "Search TKK."
+    (list 430675 2721866130)))
+
+(map! :nvi "C-c t" 'google-translate-at-point)
+(map! :nvi "C-c T" 'google-translate-at-point-reverse)
+
+(setq google-translate-default-source-language "en")
+(setq google-translate-default-target-language "pt")
 #+end_src
 * Editor Settings
 ** Basic Settings

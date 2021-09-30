@@ -55,3 +55,4 @@
 (package! multi-line)
 (package! ruby-refactor)
 (package! command-log-mode)
+(package! google-translate)
