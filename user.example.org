@@ -27,6 +27,11 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 
 #+end_src
 
+* Google Tradutor
+#+begin_src emacs-lisp
+(setq google-translate-default-source-language "en")
+(setq google-translate-default-target-language "pt")
+#+end_src
 * Use Docker?
 #+begin_src emacs-lisp
 ;; Rspec on docker?
