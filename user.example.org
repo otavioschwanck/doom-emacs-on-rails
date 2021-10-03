@@ -29,9 +29,16 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 
 * Google Tradutor
 #+begin_src emacs-lisp
+;; Use C-c t and C-c T to verify text at point
 (setq google-translate-default-source-language "en")
 (setq google-translate-default-target-language "pt")
 #+end_src
+
+* Where is your fixtures?
+#+begin_src emacs-lisp
+(setq projectile-rails-fixture-dirs '("spec/fixtures/" "spec/factories/"))
+#+end_src
+
 * Use Docker?
 #+begin_src emacs-lisp
 ;; Rspec on docker?

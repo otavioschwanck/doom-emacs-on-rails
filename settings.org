@@ -93,8 +93,9 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 *** Toggle Case
 #+begin_src emacs-lisp
-(map! "M-c" 'string-inflection-toggle )
-#+end_src
+(map! "M-c" 'string-inflection-toggle)
+(map! "M-S-c" 'string-inflection-cycle)
+ #+end_src
 *** Indentation
 **** Indent with 2 spaces
 #+begin_src emacs-lisp
@@ -352,7 +353,10 @@ C-l to clear v-term
   (setq-local emmet-expand-jsx-htmlFor? t)
   (setq-local emmet-expand-jsx-className? t))
 
+(setq lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/dev/stderr"))
+
 (defun set-js-company ()
+  (setq lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/dev/stderr"))
   (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet)))
 
 (add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
@@ -788,8 +792,6 @@ C-l to clear v-term
 
 (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
 (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
-(define-key evil-normal-state-map (kbd "g r") #'rails-routes-jump)
-(define-key evil-visual-state-map (kbd "g r") #'rails-routes-jump)
 #+end_src
 ** HTTP Code Plugin
 #+begin_src emacs-lisp

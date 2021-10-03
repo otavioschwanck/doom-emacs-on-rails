@@ -1,4 +1,5 @@
 * Index :toc:
+- [[#this-project-goal][This project goal]]
 - [[#features][Features]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
@@ -11,6 +12,12 @@
 - [[#getting-help][Getting help]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
+
+* This project goal
+
+This project goal is bring emacs and its powerful features to people that don't want to lose time searching and configuring stuff.  The doom-emacs-on-rails config is ready to use and easy to customize.  The user can change the user.org the way he wants, receiving a lot of tips.  Doom Emacs + this dotfiles is the fusion of power and simplicity.
+
+The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video demonstration with some cool commands below.
 
 * Features
 + Made for Ruby on rails
