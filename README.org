@@ -12,6 +12,7 @@
 - [[#getting-help][Getting help]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
+- [[#buy-me-a-coffee][Buy me a coffee]]
 
 * This project goal
 
@@ -116,3 +117,8 @@ Don't forget to see the =evil cheatsheet pt-BR.png= on the root of this reposito
 
 Don'tt forget the [[https://discord.gg/qvGgnVx][Doom Emacs Discord Server]], is always full of people that always helps!
 You can get help of any command on doom with SPC h p (function) of SPC h k + keybinding = (to see the options, etc.)
+
+* Buy me a coffee
+
+If you want to support my work, please, buy me a coffee:
+https://www.buymeacoffee.com/otavioschwanck
