@@ -47,6 +47,7 @@
   - [[#create-method-at-point][Create Method At Point]]
   - [[#go-to-rspec-and-activate-compilation][Go to Rspec and activate compilation]]
   - [[#ruby-refactoring-external-plugin][Ruby Refactoring external plugin]]
+  - [[#variable-defaults][Variable defaults]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -1199,6 +1200,10 @@ C-l to clear v-term
             (forward-line 1)
             (search-forward constant-name)
             (backward-sexp)))))))
+#+end_src
+** Variable defaults
+#+begin_src emacs-lisp
+(defvar ruby-rspec-describe-class "call")
 #+end_src
 
 * Custom Functions

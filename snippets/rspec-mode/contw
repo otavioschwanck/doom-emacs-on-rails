@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: context 'when something' do .. end
+# key: contw
+# --
+context 'when ${1:something}' do
+  ${0:}
+end

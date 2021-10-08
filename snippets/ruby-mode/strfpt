@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: strftime('%d/%m/%Y')
+# key: strfpt
+# --
+strftime('%d/%m/%Y')

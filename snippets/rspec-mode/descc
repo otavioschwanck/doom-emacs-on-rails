@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: description '#call' do ... end
+# key: descc
+# --
+describe '#`ruby-rspec-describe-class`' do
+  ${0:}
+end

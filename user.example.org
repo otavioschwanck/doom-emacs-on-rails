@@ -18,6 +18,7 @@ Here you can organize your configurations the way you want.
 ;; Set here your projects path here to use with SPC p p
 (setq projectile-project-search-path '("~/Projetos" "~/Study"))
 #+end_src
+
 * Debugger Command
 By default, the value of debugger is byebug.  To change, modify the variable below:
 #+begin_src emacs-lisp
@@ -50,14 +51,17 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 ;; (setq projectile-rails-custom-console-command "docker-compose run web rails c")
 
 #+end_src
+
 * Ignoring some folders on search
 #+begin_src emacs-lisp
 (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd"))
 #+end_src
+
 * Org Files Directory
 #+begin_src emacs-lisp
 (setq org-directory "~/Dropbox/org/")
 #+end_src
+
 * Apparence
 ** Theme
 #+begin_src emacs-lisp
@@ -72,6 +76,7 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
 ;;       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 #+end_src
+
 
 * Ruby Linters (rubocop)
 #+begin_src emacs-lisp
@@ -139,12 +144,6 @@ Just uncomment the code above (without begin-src and end-src)
 ;;   (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
 #+end_src
 
-* Add Your custom code here
-#+begin_src emacs-lisp
-;; Add your code here:
-
-#+end_src
-
 * Start with Magit
 #+begin_src emacs-lisp
 ;; Comment to disable
@@ -171,3 +170,17 @@ Just uncomment the code above (without begin-src and end-src)
 ;;   (map! :leader "rq" #'projectile-rails-find-contract) ;; Uncomment to bind to SPC r q
 ;;   )
 #+end_src
+
+* Snippet Settings
+#+begin_src emacs-lisp
+;; use descc snippet on rspec to create describe '#call' ..
+;; You can change the function uncommenting the code below and changing to your most used function
+;; (setq ruby-rspec-describe-class "call")
+#+end_src
+
+* Add Your custom code here
+#+begin_src emacs-lisp
+;; Add your code here:
+
+#+end_src
+

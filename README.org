@@ -78,8 +78,10 @@ Here is an example of some features that i made for Ruby:
 
 #+caption: Method Creating at point
 [[method at point.gif]]
-
 Please ignore the wrong comment at line 8 =D.
+
+#+caption: Snippets, snippets SNIPPETS!
+[[snippets.gif]]
 
 * Tips
 ** Configuring Forge for Creating / Reviewing pull requests

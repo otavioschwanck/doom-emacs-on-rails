@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: let(:params) do { ... } end
+# key: params
+# --
+let(:params) do
+  {
+    ${0:}
+  }
+end
