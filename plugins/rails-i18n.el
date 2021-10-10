@@ -5,7 +5,7 @@
 ;; Author: Otávio Schwanck dos Santos <otavioschwanck@gmail.com>
 ;; Keywords: tools languages
 ;; Version: 0.2
-;; Package-Requires: ((emacs "27.2") (dash "2.19.1"))
+;; Package-Requires: ((emacs "27.2") (yaml "0.1.0") (dash "2.19.1"))
 ;; Homepage: https://github.com/otavioschwanck/rails-i18n.el
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -208,8 +208,11 @@
   "Add rails-i18n-cache to savehist."
   (add-to-list 'savehist-additional-variables 'rails-i18n-cache))
 
-(add-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
-(add-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb)
+;;;###autoload
+(defun rails-i18n-global-mode ()
+  "Toggle cache hooks and watchs for rails-i18n."
+  (add-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
+  (add-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb))
 
 (provide 'rails-i18n)
 ;;; rails-i18n.el ends here

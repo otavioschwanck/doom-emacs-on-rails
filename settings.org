@@ -799,6 +799,8 @@ C-l to clear v-term
 
 (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
 (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
+
+(rails-routes-global-mode)
 #+end_src
 ** Rails i18n plugin
 #+begin_src emacs-lisp
@@ -806,6 +808,8 @@ C-l to clear v-term
 (map! :map ruby-mode-map "C-c C-i" 'rails-i18n-insert-no-cache) ;; Search refresh cache on ruby modee
 (map! :map web-mode-map "C-c i" 'rails-i18n-insert-with-cache) ;; Search with cache on web-mode
 (map! :map web-mode-map "C-c C-i" 'rails-i18n-insert-no-cache) ;; Search refresh cache web-mode
+
+(rails-i18n-global-mode)
 #+end_src
 ** HTTP Code Plugin
 #+begin_src emacs-lisp

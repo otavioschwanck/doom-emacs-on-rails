@@ -240,8 +240,11 @@ CONTROLLER_NAME: Path of controller.  ACTION:  Action of the path."
              (assoc (funcall rails-routes-project-name-function) rails-routes-cache-validations))
     (add-hook 'after-save-hook 'rails-routes-invalidate-cache nil t)))
 
-(add-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)
-(add-hook 'savehist-mode-hook #'rails-routes--add-alist)
+;;;###autoload
+(defun rails-routes-global-mode ()
+  "Initialize cache and routes watch."
+  (add-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)
+  (add-hook 'savehist-mode-hook #'rails-routes--add-alist))
 
 (provide 'rails-routes)
 ;;; rails-routes.el ends here
