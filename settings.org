@@ -791,11 +791,12 @@ C-l to clear v-term
 ** Rails Routes Plugin
 #+begin_src emacs-lisp
 (after! web-mode
-  (define-key web-mode-map (kbd "C-c r") #'rails-routes-insert)
-  (define-key web-mode-map (kbd "C-c C-r") #'rails-routes-insert-no-cache))
+  (define-key web-mode-map (kbd "C-c o") #'rails-routes-insert)
+  (define-key web-mode-map (kbd "C-c C-o") #'rails-routes-insert-no-cache))
 
-(define-key ruby-mode-map (kbd "C-c r") #'rails-routes-insert)
-(define-key ruby-mode-map (kbd "C-c C-r") #'rails-routes-insert-no-cache)
+(after! ruby-mode
+  (map! :mode ruby-mode "C-c o" #'rails-routes-insert)
+  (map! :mode ruby-mode "C-c C-o" #'rails-routes-insert-no-cache))
 
 (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
 (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
