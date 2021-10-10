@@ -35,12 +35,35 @@
 (require 'yaml)
 (require 'dash)
 
-(defvar rails-i18n-use-double-quotes nil "If t, use double quotes instead single-quotes.")
-(defvar rails-i18n-project-root-function 'projectile-project-root "Function used to get project root.")
-(defvar rails-i18n-project-name-function 'projectile-project-name "Function used to get project name.")
-(defvar rails-i18n-locales-directory "config/locales" "I18n locales folder.")
-(defvar rails-i18n-locales-regexp "\\.yml$" "Query to get the the yamls to i18n.")
-(defvar rails-i18n-separator ":      " "Query to get the the yamls to i18n.")
+(defgroup rails-i18n nil
+  "Search for and insert rails i18n."
+  :group 'tools
+  :group 'languages)
+
+(defcustom rails-i18n-use-double-quotes nil
+  "If t, use double quotes instead single-quotes."
+  :type 'boolean)
+
+(defcustom rails-i18n-project-root-function 'projectile-project-root
+  "Function used to get project root."
+  :type 'symbol)
+
+(defcustom rails-i18n-project-name-function 'projectile-project-name
+  "Function used to get project name."
+  :type 'symbol)
+
+(defcustom rails-i18n-locales-directory "config/locales"
+  "I18n locales folder."
+  :type 'string)
+
+(defcustom rails-i18n-locales-regexp "\\.yml$"
+  "Query to get the the yamls to i18n."
+  :type 'string)
+
+(defcustom rails-i18n-separator ":  "
+  "Query to get the the yamls to i18n."
+  :type 'string)
+
 (defvar rails-i18n-cache '() "Initialize the i18n cache.")
 (defvar rails-i18n-yaml-mode-hook 'yaml-mode-hook "Hook used to add rails-i18n cache upgrader.")
 
@@ -144,6 +167,7 @@
 (defun rails-i18n--watch-rb ()
   "Watch if yaml file is saved, if its a i18n file, upgrade cache."
   (when (and
+         (buffer-file-name)
          (string-match-p rails-i18n-locales-regexp (file-name-nondirectory (buffer-file-name)))
          (string-match-p rails-i18n-locales-directory (buffer-file-name)))
     (add-hook 'after-save-hook #'rails-i18n--upgrade-single-file-cache) 100 t))
