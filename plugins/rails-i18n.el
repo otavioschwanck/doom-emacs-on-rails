@@ -5,7 +5,7 @@
 ;; Author: Otávio Schwanck dos Santos <otavioschwanck@gmail.com>
 ;; Keywords: tools languages
 ;; Version: 0.2
-;; Package-Requires: ((emacs "27.2") (yaml "0.1.0"))
+;; Package-Requires: ((emacs "27.2") (dash "2.19.1"))
 ;; Homepage: https://github.com/otavioschwanck/rails-i18n.el
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,11 @@
 ;; and insert your i18ns.
 
 ;;; Code:
+
+(require 'savehist)
+(require 'subr-x)
+(require 'yaml)
+(require 'dash)
 
 (defvar rails-i18n-use-double-quotes nil "If t, use double quotes instead single-quotes.")
 (defvar rails-i18n-project-root-function 'projectile-project-root "Function used to get project root.")
