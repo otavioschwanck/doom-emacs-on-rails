@@ -37,6 +37,7 @@
   - [[#add-debug-on-code][Add Debug on code]]
   - [[#copy-class-name][Copy Class Name]]
   - [[#rails-routes-plugin][Rails Routes Plugin]]
+  - [[#rails-i18n-plugin][Rails i18n plugin]]
   - [[#http-code-plugin][HTTP Code Plugin]]
   - [[#rubocop][Rubocop]]
   - [[#method-generator][Method Generator]]
@@ -63,6 +64,7 @@ Loading plugins like rails routes, rails http status, etc.
 (after! ruby-mode
   (load (expand-file-name "plugins/rails-routes.el" doom-private-dir))
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
+  (load (expand-file-name "plugins/rails-i18n.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir)))
 
 ;; Fixes some bugs in some libraries
@@ -599,6 +601,10 @@ C-l to clear v-term
      '(("app/services/" "\\(.+\\)\\.rb$"))
      "app/services/${filename}.rb"))
 
+  (defun otavio/go-to-latest-migration ()
+    (interactive)
+    (find-file (aj-fetch-latest (concat (doom-project-root) "db/migrate/"))))
+
   (defun projectile-rails-find-graphql-all ()
     "Find all in graphql."
     (interactive)
@@ -793,6 +799,13 @@ C-l to clear v-term
 
 (define-key evil-normal-state-map (kbd "g a") #'rails-routes-jump)
 (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
+#+end_src
+** Rails i18n plugin
+#+begin_src emacs-lisp
+(map! :map ruby-mode-map "C-c i" 'rails-i18n-insert-with-cache) ;; Search with cache on ruby mode
+(map! :map ruby-mode-map "C-c C-i" 'rails-i18n-insert-no-cache) ;; Search refresh cache on ruby modee
+(map! :map web-mode-map "C-c i" 'rails-i18n-insert-with-cache) ;; Search with cache on web-mode
+(map! :map web-mode-map "C-c C-i" 'rails-i18n-insert-no-cache) ;; Search refresh cache web-mode
 #+end_src
 ** HTTP Code Plugin
 #+begin_src emacs-lisp
