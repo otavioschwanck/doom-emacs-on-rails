@@ -138,7 +138,9 @@
 
 (defun rails-i18n--watch-rb ()
   "Watch if yaml file is saved, if its a i18n file, upgrade cache."
-  (when (string-match-p rails-i18n-locales-regexp (file-name-nondirectory (buffer-file-name)))
+  (when (and
+         (string-match-p rails-i18n-locales-regexp (file-name-nondirectory (buffer-file-name)))
+         (string-match-p rails-i18n-locales-directory (buffer-file-name)))
     (add-hook 'after-save-hook #'rails-i18n--upgrade-single-file-cache) 100 t))
 
 (defun rails-i18n--upgrade-cache-for (result)
