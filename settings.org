@@ -400,85 +400,58 @@ C-l to clear v-term
 #+end_src
 ** Improve Autocomplete
 #+begin_src emacs-lisp
-
-;; -*- lexical-binding: t; -*-
-
-;; I want to use `company-dabbrev-code' with `company-capf'.  This
-;; means that, for example, I can get completion on functions I'm
-;; currently writing, before I've evaluated them, in Emacs Lisp
-;; buffers.  Very nice.
-;;
-;; However, you will get duplicates from `company-dabbrev-code'
-;; if/when `company-capf' returns completions with annotations like
-;; "<f>" on functions in Emacs Lisp buffers.  Company does not
-;; consider two candidates with identical strings but different
-;; annotations to be duplicates.  However, I can't imagine
-;; `company-dabbrev-code' ever adds annotations, so if you've got a
-;; completion from it that is a duplicate of one from a smarter
-;; backend, we always drop the duplicate `company-dabbrev-code'
-;; completion.  To accomplish this requires us to add a new function
-;; to `company-transformers'.
-;;
-;; See also:
-;; https://github.com/company-mode/company-mode/issues/432
-;; https://github.com/company-mode/company-mode/pull/509
-;; Company commit 7779820493, and its revert in 395f846b05f
-
-(defun my:company-remove-duplicates-ignoring-annotations (candidates)
-  "Reorder company candidates, removing any duplicates.
-cand-1 is a duplicate of cand-2 if (string= cand-1 cand-2).  Note
-that this ignores text properties, such as the company-backend
-text property as well as any annotation-related properties.  This
-is desirable to, for example, remove duplicate candidates when
-using `company-dabbrev-code' grouped with other, (presumably) more
-intelligent backends.
-In fact, this function will also replace a candidate from
-`company-dabbrev-code' with any other `string=' candidate.
-Order of candidates is preserved (which is usually
-important/desirable, particularly when using something like
-company-prescient).  If a `company-dabbrev-code' candidate has a
-duplicate later in the of candidates, the `company-dabbrev-code'
-candidate will be replaced by the candidate that appears later in
-the list."
-  (let* ((default-backend (if (listp company-backend)
-                              (car company-backend)
-                            company-backend))
-         (best-cands (make-hash-table :test #'equal))
-         has-duplicates)
-    ;; First pass: Put the best candidate in hash table best-cands.
-    ;; Candidates from `company-dabbrev-code' backend are worse than
-    ;; all other candidates.  Aside from that rule, first candidate ==
-    ;; best candidate.
-    (dolist (cand candidates)
-      (pcase-let* ((cand-backend (or (get-text-property 0 'company-backend cand)
-                                     default-backend))
-                   (cand-prio (cond
-                               ((eq cand-backend 'company-dabbrev-code) -10)
-                               (t 0)))
-                   (`(,best-cand . ,best-prio) (gethash cand best-cands)))
-        (when best-cand
-          (setq has-duplicates t)
-          (when (> cand-prio best-prio)
-            (puthash cand (cons cand cand-prio) best-cands)))))
-    (if has-duplicates
-        ;; Second pass: Remove duplicates.  Replace the first instance
-        ;; of a given candidate with its best candidate, e.g. replace
-        ;; a `company-dabbrev-code' candidate with a duplicate
-        ;; candidate from any other backend.
-        (cl-loop
-         for cand in candidates
-         for (best-cand . best-prio) = (gethash cand best-cands)
-         if best-cand
-         collect best-cand
-         and do (remhash cand best-cands))
-      ;; There were no duplicates (maybe a common case), we can just
-      ;; return the original list.
-      candidates)))
+(defun j-company-remove-dabbrev-dups-keep-order (candidates)
+  "Loop over CANDIDATES and remove duplicate candidates if they belong to
+  `company-dabbrev' or `company-dabbrev-code'."
+  (let ((hash (make-hash-table :test 'equal :size (length candidates)))
+        (new-list nil))
+    (dolist (candidate candidates)
+      (let ((stripped-candidate (substring-no-properties candidate))
+            (candidate-backend (get-text-property 0 'company-backend candidate)))
+        (cond
+         ;; Candidate is `company-yasnippet', always push this.
+         ((eq (get-text-property 0 'company-backend candidate)
+              'company-yasnippet)
+          (push candidate new-list))
+         ;; Candidate has not been seen.
+         ((not (gethash stripped-candidate hash))
+          (puthash stripped-candidate candidate hash)
+          (push candidate new-list))
+         ;; Candidate has been seen.
+         ;; `company-dabbrev' or `company-dabbrev-code' is the candidate.
+         ((or candidate-backend
+              (eq candidate-backend 'company-dabbrev-code)
+              (eq candidate-backend 'company-dabbrev))
+          t)
+         ;; Candidate has been seen but is not `company-dabbrev'
+         ;; or `company-dabbrev-code'.
+         (:seen-but-candidate-not-dabbrev
+          ;; If the candidate in the hash table is dabbrev, replace it.
+          ;; Otherwise, we are fine with duplicates as long as the backends
+          ;; are meaningful.
+          (let* ((hash-candidate (gethash stripped-candidate hash))
+                 (hash-backend (get-text-property
+                                0 'company-backend hash-candidate)))
+            (if (or hash-backend
+                    (eq hash-backend 'company-dabbrev)
+                    (eq hash-backend 'company-dabbrev-code))
+                (progn
+                  (setcar
+                   (nthcdr
+                    (cl-position hash-candidate new-list :test 'eq)
+                    new-list)
+                   candidate)
+                  (puthash stripped-candidate candidate hash)
+                  t)
+              ;; Only need one candidate in the hash table.
+              (push candidate new-list)))))))
+    (reverse new-list)))
 
 (after! company
   (setq +lsp-company-backends '(:separate company-dabbrev-code company-capf company-yasnippet))
+
   (add-to-list 'company-transformers
-               #'my:company-remove-duplicates-ignoring-annotations))
+               #'j-company-remove-dabbrev-dups-keep-order))
 #+end_src
 ** Snippets
 #+begin_src emacs-lisp
