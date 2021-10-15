@@ -151,7 +151,7 @@
            (lambda (k v)
              (push (rails-i18n--parse-yaml
                     (append previousKey
-                            (make-vector 1 (symbol-name k)) nil) v) $result))
+                            (make-vector 1 (format "%s" k)) nil) v) $result))
            yamlHashTable)
 
           $result))
