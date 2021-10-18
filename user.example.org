@@ -144,6 +144,12 @@ Just uncomment the code above (without begin-src and end-src)
 ;;   (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
 #+end_src
 
+* Dictionary for spellcheck
+#+begin_src emacs-lisp
+;; sudo apt install aspell-pt-br
+(setq ispell-dictionary "brasileiro")
+#+end_src
+
 * Start with Magit
 #+begin_src emacs-lisp
 ;; Comment to disable

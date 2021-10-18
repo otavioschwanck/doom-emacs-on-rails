@@ -241,10 +241,17 @@ CONTROLLER_NAME: Path of controller.  ACTION:  Action of the path."
     (add-hook 'after-save-hook 'rails-routes-invalidate-cache nil t)))
 
 ;;;###autoload
-(defun rails-routes-global-mode ()
+(define-minor-mode rails-routes-global-mode
   "Initialize cache and routes watch."
-  (add-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)
-  (add-hook 'savehist-mode-hook #'rails-routes--add-alist))
+  :global t
+  :lighter " lighter"
+  (if rails-routes-global-mode
+      (progn
+        (add-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)
+        (add-hook 'savehist-mode-hook #'rails-routes--add-alist))
+    (progn
+      (remove-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)
+      (remove-hook 'savehist-mode-hook #'rails-routes--add-alist))))
 
 (provide 'rails-routes)
 ;;; rails-routes.el ends here

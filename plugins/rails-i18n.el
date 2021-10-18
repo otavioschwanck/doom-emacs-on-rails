@@ -209,10 +209,17 @@
   (add-to-list 'savehist-additional-variables 'rails-i18n-cache))
 
 ;;;###autoload
-(defun rails-i18n-global-mode ()
+(define-minor-mode rails-i18n-global-mode
   "Toggle cache hooks and watchs for rails-i18n."
-  (add-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
-  (add-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb))
+  :global t
+  :lighter "lighter"
+  (if rails-i18n-global-mode
+      (progn
+        (add-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
+        (add-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb))
+    (progn
+      (remove-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
+      (remove-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb))))
 
 (provide 'rails-i18n)
 ;;; rails-i18n.el ends here
