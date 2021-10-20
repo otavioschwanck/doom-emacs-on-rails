@@ -352,6 +352,8 @@ C-l to clear v-term
 
 * Javascript
 #+begin_src emacs-lisp
+(setq emmet-expand-jsx-className? nil)
+
 (defun update-yas-indentation ()
   (setq-local yas-indent-line 'fixed))
 
@@ -448,7 +450,7 @@ C-l to clear v-term
     (reverse new-list)))
 
 (after! company
-  (setq +lsp-company-backends '(:separate company-dabbrev-code company-capf company-yasnippet))
+  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
 
   (add-to-list 'company-transformers
                #'j-company-remove-dabbrev-dups-keep-order))
