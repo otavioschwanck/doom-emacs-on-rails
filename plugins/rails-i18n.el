@@ -107,8 +107,32 @@
                                       (nth 1 (split-string i18nString rails-i18n-separator)))))
     (insert
      (if ignoreClass "" "I18n.")
-     "t(" (rails-i18n--quotes) (nth 0 (split-string i18nString rails-i18n-separator)) (rails-i18n--quotes) ")")
+     "t(" (rails-i18n--quotes) (rails-i18n--format-substring i18nString ignoreClass) (rails-i18n--quotes) ")")
     (when hasArguments (forward-char -1) (insert ", "))))
+
+(defun rails-i18n--format-substring (i18nString ignoreClass)
+  "Format the substring depending of mode. IGNORECLASS: boolean taht indicates if I18n class was ignored. I18NSTRING: String to be inserted."
+  (let ((stringToBeInserted (nth 0 (split-string i18nString rails-i18n-separator))))
+    (if
+        ignoreClass
+        (rails-i18n--insert-for-view stringToBeInserted)
+      stringToBeInserted)))
+
+(defun rails-i18n--insert-for-view (i18nString)
+  "Insert with view rules. I18NSTRING: String to be inserted."
+  (let ((stringToBeInserted (substring i18nString 1 (length i18nString))))
+    (if (string-match "app/views" (buffer-file-name))
+        (replace-regexp-in-string (rails-i18n--controller-and-action-name) "" stringToBeInserted)
+      stringToBeInserted)))
+
+(defun rails-i18n--controller-and-action-name ()
+  "Current controller and action."
+  (let*
+      ((withoutProjectName (replace-regexp-in-string (concat (funcall rails-i18n-project-root-function) "app/views") "" (buffer-file-name)))
+       (withoutUnderline (replace-regexp-in-string "/_" "/" withoutProjectName))
+       (slashChanged (replace-regexp-in-string "/" "." withoutUnderline))
+       (fixedString (string-join (butlast (split-string slashChanged "\\.") 2) ".")))
+    (substring fixedString 1 (length fixedString))))
 
 (defun rails-i18n--guess-use-class ()
   "Guess if current file needs to pass the class."
@@ -197,11 +221,13 @@
          ($result))
     (if (and (eq (type-of yaml) 'hash-table) hasCache)
         (progn
+          (message "Upgrading file cache (rails-i18n)...  Press C-g to cancel.")
           (push (flatten-list
                  (rails-i18n--parse-yaml
                   []
                   yaml )) $result)
-          (rails-i18n--upgrade-cache-for (-distinct (flatten-list $result))))
+          (rails-i18n--upgrade-cache-for (-distinct (flatten-list $result)))
+          (message "Cache upgraded!"))
       (message "Rails i18n: Cache not found or cannot parse yaml."))))
 
 (defun rails-i18n--add-to-savehist ()
