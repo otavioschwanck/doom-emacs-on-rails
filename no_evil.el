@@ -175,3 +175,199 @@ Try the repeated popping up to 10 times."
 
 (after! inf-ruby
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
+
+(setq emmet-expand-jsx-className? nil)
+
+(defun update-yas-indentation ()
+  (setq-local yas-indent-line 'fixed))
+
+(defun set-emmet-class-name ()
+  (setq-local emmet-expand-jsx-htmlFor? t)
+  (setq-local emmet-expand-jsx-className? t))
+
+(setq lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/dev/stderr"))
+
+(defun set-js-company ()
+  (setq lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/dev/stderr"))
+  (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet)))
+
+(add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
+(add-hook! 'yaml-mode-hook 'update-yas-indentation)
+(add-hook! 'rjsx-mode-hook 'set-js-company)
+
+(after! lsp-mode
+  (setq lsp-auto-guess-root t)
+  (setq lsp-solargraph-formatting nil)
+  (setq lsp-solargraph-symbols nil)
+  (setq lsp-solargraph-folding nil))
+
+(after! robe
+  (set-lookup-handlers! 'ruby-mode
+    :definition '(projectile-rails-goto-file-at-point robe-jump)
+    :documentation #'robe-doc))
+
+(after! ruby-mode
+  (set-lookup-handlers! 'ruby-mode
+    :definition '(projectile-rails-goto-file-at-point robe-jump)
+    :documentation #'robe-doc))
+
+(after! web-mode
+  (set-lookup-handlers! 'web-mode
+    :definition '(projectile-rails-goto-file-at-point rails-routes-jump)))
+
+(defun ruby-extract-function ()
+  (interactive)
+  (let* ((function-name (read-string "Method name? "))
+         (args (read-string "Arguments without paranthesis (leave blank for no parameters): ")))
+
+    (when (not (string= function-name ""))
+      (call-interactively 'evil-change)
+      (call-interactively 'evil-normal-state)
+      (ruby-extract-function--create-function function-name args)
+      (ruby-extract-function--insert-function function-name args)
+      )))
+
+(defun ruby-extract-function--insert-function (function-name args)
+  (when (not (eq (point) (point-at-eol)))
+    (evil-forward-char))
+  (insert function-name)
+  (when (not (string= args ""))
+    (insert "(" args ")"))
+  (evil-indent (point-at-bol) (point-at-eol)))
+
+(defun ruby-extract-function--create-function (function-name args)
+  (save-excursion
+    (+evil/next-end-of-method)
+    (when (not (string= (string (following-char)) "\n"))
+      (+evil/insert-newline-above 1))
+    (+evil/insert-newline-below 1)
+    (forward-line 1)
+    (insert "def " function-name)
+    (when (not (string= args ""))
+      (insert "(" args ")"))
+    (evil-indent (point-at-bol) (point-at-eol)) (+evil/insert-newline-below 1) (forward-line 1)
+    (insert "end") (evil-indent (point-at-bol) (point-at-eol))
+    (+evil/insert-newline-above 1) (+evil/insert-newline-below 1)
+    (forward-line -1)
+    (evil-paste-after 1)
+    (forward-line -1)
+    (when (string= (string (following-char)) "\n") (delete-char 1))
+    (+evil/reselect-paste)
+    (call-interactively 'evil-indent)))
+
+(map! :after ruby-mode :mode ruby-mode :localleader "m" #'ruby-extract-function)
+
+(defun ruby-new-method-from-symbol-at-point ()
+  (interactive)
+  (better-jumper-set-jump)
+  (when (looking-at-p "\\sw\\|\\s_")
+    (forward-sexp 1))
+  (forward-sexp -1)
+  (let* ((variable-start-point (point))
+         (variable-end-point nil)
+         (variable-name (save-excursion (forward-sexp 1) (setq variable-end-point (point)) (buffer-substring-no-properties variable-start-point (point))))
+         (has-arguments (save-excursion (goto-char variable-end-point) (looking-at-p "(")))
+         (arguments (ruby-new-method-from-symbol-at-point--get-arguments has-arguments variable-end-point))
+         )
+    (ruby-new-method-from-symbol-at-point--create-method variable-name (string-join (remove nil arguments) ", "))
+    ))
+
+(defun ruby-new-method-from-symbol-at-point--create-method (function-name args)
+  (+evil/next-end-of-method)
+  (when (not (string= (string (following-char)) "\n"))
+    (+evil/insert-newline-above 1))
+  (+evil/insert-newline-below 1)
+  (forward-line 1)
+  (insert "def " function-name)
+  (when (not (string= args ""))
+    (insert "(" args ")"))
+  (evil-indent (point-at-bol) (point-at-eol)) (+evil/insert-newline-below 1) (forward-line 1)
+  (insert "end") (evil-indent (point-at-bol) (point-at-eol))
+  (+evil/insert-newline-above 1) (+evil/insert-newline-below 1)
+  (forward-line -1)
+  (when (featurep 'evil)
+    (evil-change (point) (point))) (indent-for-tab-command)
+  (message "Method created!  Pro Tip:  Use C-o (normal mode) to jump back to the method usage."))
+
+(defun ruby-new-method-from-symbol-at-point--get-arguments (has-arguments variable-end-point)
+  (when has-arguments
+    (let* ((start-args-point nil)
+           (end-args-point nil)
+           (args-raw nil)
+           )
+      (save-excursion (goto-char variable-end-point) (evil-forward-word-begin) (setq start-args-point (point)) (evil-backward-word-end)
+                      (evil-jump-item)
+                      (setq end-args-point (point)))
+      (setq args-raw (buffer-substring-no-properties start-args-point end-args-point))
+      (mapcar
+       (lambda (argument)
+         (if (string-match-p "(...)" argument)
+             (read-string (concat "name for " argument " argument:  "))
+           (if (string= (substring argument 0 1) "@") nil (ruby-new-method-from-symbol-at-point--verify-exist argument)))
+
+         ) (mapcar 'string-trim (split-string (replace-regexp-in-string "(.*)" "(...)" args-raw) ","))))))
+
+(defun ruby-new-method-from-symbol-at-point--verify-exist (argument)
+  (save-excursion
+    (goto-char (point-min))
+    (if (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t)
+        nil
+      (if (eq 0 (length (let ((case-fold-search nil))
+                          (remove "" (split-string argument "[a-z]+\\(_[a-z]+\\)*"))))) argument
+        (read-string (concat "name for " argument " expression:  "))))))
+
+(map! :after ruby-mode :mode ruby-mode :localleader "n" #'ruby-new-method-from-symbol-at-point)
+
+(defun j-company-remove-dabbrev-dups-keep-order (candidates)
+  "Loop over CANDIDATES and remove duplicate candidates if they belong to
+  `company-dabbrev' or `company-dabbrev-code'."
+  (let ((hash (make-hash-table :test 'equal :size (length candidates)))
+        (new-list nil))
+    (dolist (candidate candidates)
+      (let ((stripped-candidate (substring-no-properties candidate))
+            (candidate-backend (get-text-property 0 'company-backend candidate)))
+        (cond
+         ;; Candidate is `company-yasnippet', always push this.
+         ((eq (get-text-property 0 'company-backend candidate)
+              'company-yasnippet)
+          (push candidate new-list))
+         ;; Candidate has not been seen.
+         ((not (gethash stripped-candidate hash))
+          (puthash stripped-candidate candidate hash)
+          (push candidate new-list))
+         ;; Candidate has been seen.
+         ;; `company-dabbrev' or `company-dabbrev-code' is the candidate.
+         ((or candidate-backend
+              (eq candidate-backend 'company-dabbrev-code)
+              (eq candidate-backend 'company-dabbrev))
+          t)
+         ;; Candidate has been seen but is not `company-dabbrev'
+         ;; or `company-dabbrev-code'.
+         (:seen-but-candidate-not-dabbrev
+          ;; If the candidate in the hash table is dabbrev, replace it.
+          ;; Otherwise, we are fine with duplicates as long as the backends
+          ;; are meaningful.
+          (let* ((hash-candidate (gethash stripped-candidate hash))
+                 (hash-backend (get-text-property
+                                0 'company-backend hash-candidate)))
+            (if (or hash-backend
+                    (eq hash-backend 'company-dabbrev)
+                    (eq hash-backend 'company-dabbrev-code))
+                (progn
+                  (setcar
+                   (nthcdr
+                    (cl-position hash-candidate new-list :test 'eq)
+                    new-list)
+                   candidate)
+                  (puthash stripped-candidate candidate hash)
+                  t)
+              ;; Only need one candidate in the hash table.
+              (push candidate new-list)))))))
+    (reverse new-list)))
+
+(after! company
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code)
+  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
+
+  (add-to-list 'company-transformers
+               #'j-company-remove-dabbrev-dups-keep-order))
