@@ -60,17 +60,17 @@
   (setq INITIAL_LINE_NUM (line-number-at-pos))
   (beginning-of-line) (search-forward ":")
   (setq LET_NAME (let ((l (point)))
-    (save-excursion
-      (search-forward ")") (backward-char)
-      (buffer-substring l (point)))))
+                   (save-excursion
+                     (search-forward ")") (backward-char)
+                     (buffer-substring l (point)))))
   (setq CAMEL_LOWER_CASE (string-inflection-lower-camelcase-function LET_NAME))
   (setq CAMEL_CASE (string-inflection-camelcase-function LET_NAME))
   (setq UPPER_CASE (string-inflection-upcase-function LET_NAME))
   (search-forward "{ ")
   (setq VARIABLE_VALUE (let ((l (point)))
-    (save-excursion
-      (search-forward "}") (backward-char 2)
-      (buffer-substring l (point)))))
+                         (save-excursion
+                           (search-forward "}") (backward-char 2)
+                           (buffer-substring l (point)))))
   (message VARIABLE_VALUE)
 
   (setq FIXED (otavio/-fix-backward-let-to-parent LET_NAME LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)
@@ -122,9 +122,9 @@
       (search-backward "{"))
 
   (setq JSON_NOT_PARSED (let ((l (point)))
-    (save-excursion
-      (setq JSON_OBJECT (json-read-object))
-      (buffer-substring l (point)))))
+                          (save-excursion
+                            (setq JSON_OBJECT (json-read-object))
+                            (buffer-substring l (point)))))
   (search-backward JSON_NOT_PARSED (point-min) t)
   (setq START (point))
   (search-forward JSON_NOT_PARSED (point-max) t)
@@ -138,7 +138,7 @@
               (progn
                 (insert (string-inflection-underscore-function (symbol-name (car x)))))
             (insert (format "%S" (cdr x))))
-           (insert ",") (newline-and-indent))
+          (insert ",") (newline-and-indent))
         JSON_OBJECT)
   (search-backward ",") (delete-char 1) (newline-and-indent)
   (insert "}") (newline-and-indent) (insert "end") (newline-and-indent)
@@ -253,9 +253,9 @@
             (end-of-line)
             (if (> (current-column) line-split-real)
                 (otavio/split-ruby-giant-string line-split-real)
-                )
+              )
             )
-          )))
+        )))
 
 ;; Rubocop com C-=
 (after! ruby-mode
@@ -453,32 +453,38 @@
 (add-hook! 'lsp-after-open-hook :append 'set-file-watchers-h)
 
 (add-hook 'ruby-mode-hook
-  (lambda ()
-    (setq-local flycheck-command-wrapper-function
-                (lambda (command) (append '("bundle" "exec") command)))))
+          (lambda ()
+            (setq-local flycheck-command-wrapper-function
+                        (lambda (command) (append '("bundle" "exec") command)))))
 
 (map! :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
 (map! :after web-mode :map web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :map web-mode-map :leader "D" 'otavio/remove-all-debuggers)
 
-(define-key ruby-mode-map (kbd "C-x C-a") #'rails-routes-find)
-(define-key ruby-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
-(define-key ruby-mode-map (kbd "C-x g a") #'rails-routes-jump)
+(define-key ruby-mode-map (kbd "C-c C-S-o") 'rails-routes-insert-no-cache) ;; Search with cache on ruby mode
+(define-key ruby-mode-map (kbd "C-c C-o") 'rails-routes-insert) ;; Search refresh cache on ruby mode
+(define-key ruby-mode-map (kbd "C-c ! o") 'rails-routes-jump) ;; go to route at point (definition)
 
 (after! web-mode
-  (define-key web-mode-map (kbd "C-x g a") #'rails-routes-jump)
-  (define-key web-mode-map (kbd "C-x C-a") #'rails-routes-find)
-  (define-key web-mode-map (kbd "C-x C-M-a") #'rails-routes-find-with-class)
-  (define-key ruby-mode-map (kbd "C-x g a") #'rails-routes-jump))
+  (define-key web-mode-map (kbd "C-c C-S-o") 'rails-routes-insert-no-cache) ;; Search with cache on web-mode
+  (define-key web-mode-map (kbd "C-c C-o") 'rails-routes-insert) ;; Search refresh cache web-mode
+  (define-key web-mode-map (kbd "C-c ! o") 'rails-routes-jump))
+
+(define-key ruby-mode-map (kbd "C-c C-S-i") 'rails-i18n-insert-no-cache) ;; Search with cache on ruby mode
+(define-key ruby-mode-map (kbd "C-c C-i") 'rails-i18n-insert-with-cache) ;; Search refresh cache on ruby mode
+
+(after! web-mode
+  (define-key web-mode-map (kbd "C-c C-S-i") 'rails-i18n-insert-no-cache) ;; Search with cache on web-mode
+  (define-key web-mode-map (kbd "C-c C-i") 'rails-i18n-insert-with-cache) ;; Search refresh cache web-mode)
 
 (defun otavio/better-ruby-goto-definition ()
   (interactive)
   (let ((buffer (current-buffer))
         (inf-ruby-buffer* (or (inf-ruby-buffer) inf-ruby-buffer)))
     (if (get-buffer-process inf-ruby-buffer*)
-       (condition-case nil
-          (projectile-rails-goto-file-at-point) (user-error (call-interactively 'robe-jump)))
+        (condition-case nil
+            (projectile-rails-goto-file-at-point) (user-error (call-interactively 'robe-jump)))
       (projectile-rails-goto-file-at-point))))
 
 (after! ruby-mode
