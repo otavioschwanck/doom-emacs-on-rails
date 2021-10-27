@@ -120,8 +120,7 @@
 (add-variable-watcher 'inf-ruby-at-top-level-prompt-p 'popserver-when-on-byebug)
 
 (after! vertico
-  (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot)
-  (setq consult-async-split-style 'space))
+  (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot))
 
 (setq uniquify-buffer-name-style 'reverse)
 (setq uniquify-separator "/")
