@@ -29,7 +29,7 @@
 (map! "C-S-j" #'current-mode-company-mode)
 
 (after! robe
-  (map! :map ruby-mode-map "C-." #'otavio/better-ruby-goto-definition))
+  (map! :map ruby-mode-map "C-." #'+lookup/definition))
 
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-c e" #'+treemacs/toggle)
