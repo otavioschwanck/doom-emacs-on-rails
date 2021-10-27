@@ -467,16 +467,16 @@
 (define-key ruby-mode-map (kbd "C-c ! o") 'rails-routes-jump) ;; go to route at point (definition)
 
 (after! web-mode
-  (define-key web-mode-map (kbd "C-c C-S-o") 'rails-routes-insert-no-cache) ;; Search with cache on web-mode
-  (define-key web-mode-map (kbd "C-c C-o") 'rails-routes-insert) ;; Search refresh cache web-mode
+  (define-key web-mode-map (kbd "C-c C-S-o") 'rails-routes-insert-no-cache)
+  (define-key web-mode-map (kbd "C-c C-o") 'rails-routes-insert)
   (define-key web-mode-map (kbd "C-c ! o") 'rails-routes-jump))
 
 (define-key ruby-mode-map (kbd "C-c C-S-i") 'rails-i18n-insert-no-cache) ;; Search with cache on ruby mode
 (define-key ruby-mode-map (kbd "C-c C-i") 'rails-i18n-insert-with-cache) ;; Search refresh cache on ruby mode
 
 (after! web-mode
-  (define-key web-mode-map (kbd "C-c C-S-i") 'rails-i18n-insert-no-cache) ;; Search with cache on web-mode
-  (define-key web-mode-map (kbd "C-c C-i") 'rails-i18n-insert-with-cache) ;; Search refresh cache web-mode)
+  (define-key web-mode-map (kbd "C-c C-S-i") 'rails-i18n-insert-no-cache)
+  (define-key web-mode-map (kbd "C-c C-i") 'rails-i18n-insert-with-cache))
 
 (defun otavio/better-ruby-goto-definition ()
   (interactive)
