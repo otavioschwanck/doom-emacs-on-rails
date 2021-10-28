@@ -3,11 +3,6 @@
 ;; Custom Window Keybindings
 (global-set-key (kbd "M-o") 'ace-window)
 
-(defun current-mode-company-mode ()
-  (interactive)
-  (if (eq major-mode 'ruby-mode) (progn (robe-start) (call-interactively 'company-robe))) (when-let (backend (nth 1 company-backends))
-    (company-begin-backend (nth 1 company-backends))))
-
 ;; Custom file keybindings
 (map! "<C-tab>" #'+vertico/switch-workspace-buffer)
 (map! "C-S-g" #'magit-status)
@@ -26,7 +21,35 @@
 (map! "M-2" #'er/expand-region)
 (map! "C-c s c" #'avy-goto-char-2)
 (map! "<C-return>" #'dabbrev-expand)
-(map! "C-S-j" #'current-mode-company-mode)
+
+(defun select-and-yas-next ()
+  (interactive)
+  (if (eq company-selection nil)
+      (yas-next-field)
+    (progn (company-complete-selection) (yas-next-field))))
+
+(defun select-and-yas-previous ()
+  (interactive)
+  (if (eq company-selection nil)
+      (yas-prev-field)
+    (progn (company-complete-selection) (yas-prev-field))))
+
+(map! :after yasnippet
+      :map yas-keymap
+      "C-j" #'select-and-yas-next
+      "C-S-j" #'select-and-yas-previous
+      "<tab>" nil
+      "<S-tab>" nil
+      "C-d" #'yas-skip-and-clear-field
+      "C-e" #'emmet-expand)
+
+(map! "C-j" #'yas-expand)
+
+(map! :after company
+      :map company-tng-map
+      "C-j" 'yas-expand
+      "C-p" 'dabbrev-expand
+      "<C-SPC>" 'company-complete-if-selected)
 
 (after! robe
   (map! :map ruby-mode-map "C-." #'+lookup/definition))
@@ -34,7 +57,6 @@
 (map! "C-x k" #'kill-this-buffer)
 (map! "C-c e" #'+treemacs/toggle)
 (map! "C-c E" #'treemacs-find-file)
-(map! "<C-S-return>" #'current-mode-company-mode)
 
 ;; Drag stuff rules
 (map! "M-p" #'drag-stuff-up)
@@ -99,39 +121,9 @@ there's a region, all lines that region covers will be duplicated."
   (let ((yas/fallback-behavior 'return-nil))
     (yas/expand)))
 
-(defun expand-snippet-or-next ()
-  (interactive)
-  (if (or (not yas/minor-mode)
-      (null (do-yas-expand))
-      (company-abort))
-      (do-yas-expand)))
-
-(map! :after company
-      :map company-active-map
-      "<tab>" #'expand-snippet-or-next
-      "<C-S-return>" #'current-mode-company-mode
-      "<C-return>" #'dabbrev-expand
-      "C-q" #'company-complete)
-
 (setq mark-ring-max 10)
 (setq global-mark-ring-max 10)
 (setq set-mark-command-repeat-pop t)
-
-(after! company
-  (defadvice! +company--abort-previous-a (&rest _)
-    :before #'company-begin-backend
-    (company-abort)))
-
-(defun yas-next-and-close-company ()
-  (interactive)
-  (if (company--active-p)
-      (company-complete-selection))
-  (yas-next-field))
-
-(map! :after yasnippet
-      :map yas-keymap
-      "C-d" 'yas-skip-and-clear-field
-      "<tab>" 'yas-next-and-close-company)
 
 (after! ruby-mode
   (defun msc/revert-buffer-noconfirm ()
@@ -169,12 +161,6 @@ Try the repeated popping up to 10 times."
         (apply orig-fun args)))))
 (advice-add 'pop-to-mark-command :around
             #'modi/multi-pop-to-mark)
-
-(after! robe
-  (set-company-backend! 'ruby-mode '(company-dabbrev-code :separate company-yasnippet) 'company-robe 'company-yasnippet))
-
-(after! inf-ruby
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code 'company-capf 'company-yasnippet))
 
 (setq emmet-expand-jsx-className? nil)
 
@@ -215,110 +201,7 @@ Try the repeated popping up to 10 times."
   (set-lookup-handlers! 'web-mode
     :definition '(projectile-rails-goto-file-at-point rails-routes-jump)))
 
-(defun ruby-extract-function ()
-  (interactive)
-  (let* ((function-name (read-string "Method name? "))
-         (args (read-string "Arguments without paranthesis (leave blank for no parameters): ")))
-
-    (when (not (string= function-name ""))
-      (call-interactively 'evil-change)
-      (call-interactively 'evil-normal-state)
-      (ruby-extract-function--create-function function-name args)
-      (ruby-extract-function--insert-function function-name args)
-      )))
-
-(defun ruby-extract-function--insert-function (function-name args)
-  (when (not (eq (point) (point-at-eol)))
-    (evil-forward-char))
-  (insert function-name)
-  (when (not (string= args ""))
-    (insert "(" args ")"))
-  (evil-indent (point-at-bol) (point-at-eol)))
-
-(defun ruby-extract-function--create-function (function-name args)
-  (save-excursion
-    (+evil/next-end-of-method)
-    (when (not (string= (string (following-char)) "\n"))
-      (+evil/insert-newline-above 1))
-    (+evil/insert-newline-below 1)
-    (forward-line 1)
-    (insert "def " function-name)
-    (when (not (string= args ""))
-      (insert "(" args ")"))
-    (evil-indent (point-at-bol) (point-at-eol)) (+evil/insert-newline-below 1) (forward-line 1)
-    (insert "end") (evil-indent (point-at-bol) (point-at-eol))
-    (+evil/insert-newline-above 1) (+evil/insert-newline-below 1)
-    (forward-line -1)
-    (evil-paste-after 1)
-    (forward-line -1)
-    (when (string= (string (following-char)) "\n") (delete-char 1))
-    (+evil/reselect-paste)
-    (call-interactively 'evil-indent)))
-
-(map! :after ruby-mode :mode ruby-mode :localleader "m" #'ruby-extract-function)
-
-(defun ruby-new-method-from-symbol-at-point ()
-  (interactive)
-  (better-jumper-set-jump)
-  (when (looking-at-p "\\sw\\|\\s_")
-    (forward-sexp 1))
-  (forward-sexp -1)
-  (let* ((variable-start-point (point))
-         (variable-end-point nil)
-         (variable-name (save-excursion (forward-sexp 1) (setq variable-end-point (point)) (buffer-substring-no-properties variable-start-point (point))))
-         (has-arguments (save-excursion (goto-char variable-end-point) (looking-at-p "(")))
-         (arguments (ruby-new-method-from-symbol-at-point--get-arguments has-arguments variable-end-point))
-         )
-    (ruby-new-method-from-symbol-at-point--create-method variable-name (string-join (remove nil arguments) ", "))
-    ))
-
-(defun ruby-new-method-from-symbol-at-point--create-method (function-name args)
-  (+evil/next-end-of-method)
-  (when (not (string= (string (following-char)) "\n"))
-    (+evil/insert-newline-above 1))
-  (+evil/insert-newline-below 1)
-  (forward-line 1)
-  (insert "def " function-name)
-  (when (not (string= args ""))
-    (insert "(" args ")"))
-  (evil-indent (point-at-bol) (point-at-eol)) (+evil/insert-newline-below 1) (forward-line 1)
-  (insert "end") (evil-indent (point-at-bol) (point-at-eol))
-  (+evil/insert-newline-above 1) (+evil/insert-newline-below 1)
-  (forward-line -1)
-  (when (featurep 'evil)
-    (evil-change (point) (point))) (indent-for-tab-command)
-  (message "Method created!  Pro Tip:  Use C-o (normal mode) to jump back to the method usage."))
-
-(defun ruby-new-method-from-symbol-at-point--get-arguments (has-arguments variable-end-point)
-  (when has-arguments
-    (let* ((start-args-point nil)
-           (end-args-point nil)
-           (args-raw nil)
-           )
-      (save-excursion (goto-char variable-end-point) (evil-forward-word-begin) (setq start-args-point (point)) (evil-backward-word-end)
-                      (evil-jump-item)
-                      (setq end-args-point (point)))
-      (setq args-raw (buffer-substring-no-properties start-args-point end-args-point))
-      (mapcar
-       (lambda (argument)
-         (if (string-match-p "(...)" argument)
-             (read-string (concat "name for " argument " argument:  "))
-           (if (string= (substring argument 0 1) "@") nil (ruby-new-method-from-symbol-at-point--verify-exist argument)))
-
-         ) (mapcar 'string-trim (split-string (replace-regexp-in-string "(.*)" "(...)" args-raw) ","))))))
-
-(defun ruby-new-method-from-symbol-at-point--verify-exist (argument)
-  (save-excursion
-    (goto-char (point-min))
-    (if (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t)
-        nil
-      (if (eq 0 (length (let ((case-fold-search nil))
-                          (remove "" (split-string argument "[a-z]+\\(_[a-z]+\\)*"))))) argument
-        (read-string (concat "name for " argument " expression:  "))))))
-
-(map! :after ruby-mode :mode ruby-mode :localleader "n" #'ruby-new-method-from-symbol-at-point)
-
-(defun j-company-remove-dabbrev-dups-keep-order (candidates)
+ (defun j-company-remove-dabbrev-dups-keep-order (candidates)
   "Loop over CANDIDATES and remove duplicate candidates if they belong to
   `company-dabbrev' or `company-dabbrev-code'."
   (let ((hash (make-hash-table :test 'equal :size (length candidates)))

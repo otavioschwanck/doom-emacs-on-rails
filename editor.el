@@ -20,10 +20,6 @@
   (setq js-indent-level 2)
   (setq indent-tabs-mode nil))
 
-;; jj to escape evil, when you ever typed jj ?
-(setq-default evil-escape-key-sequence "jj")
-(setq-default evil-escape-delay 0.5)
-
 ;; Indent buffer
 (defun indent-whole-buffer ()
   "INDENT WHOLE BUFFER."
