@@ -6,7 +6,7 @@
 ;; Custom file keybindings
 (map! "<C-tab>" #'+vertico/switch-workspace-buffer)
 (map! "C-S-g" #'magit-status)
-(map! "C-j" #'projectile-find-file)
+(map! "M-j" #'projectile-find-file)
 (map! "M-s" #'avy-goto-char-2)
 
 ;; Custom Editing Keybindings
