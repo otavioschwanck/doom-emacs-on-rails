@@ -50,6 +50,7 @@
   - [[#go-to-rspec-and-activate-compilation][Go to Rspec and activate compilation]]
   - [[#ruby-refactoring-external-plugin][Ruby Refactoring external plugin]]
   - [[#variable-defaults][Variable defaults]]
+- [[#ruby-hash-syntax][Ruby Hash Syntax]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -1238,6 +1239,12 @@ C-l to clear v-term
 ** Variable defaults
 #+begin_src emacs-lisp
 (defvar ruby-rspec-describe-class "call")
+#+end_src
+* Ruby Hash Syntax
+#+begin_src emacs-lisp
+(after! ruby-mode
+  (require 'ruby-hash-syntax)
+  (map! :mode ruby-mode :localleader "H" #'ruby-hash-syntax-toggle))
 #+end_src
 * Custom Functions
 ** Remove Accents
