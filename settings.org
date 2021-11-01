@@ -37,6 +37,7 @@
   - [[#add-debug-on-code][Add Debug on code]]
   - [[#copy-class-name][Copy Class Name]]
   - [[#rails-routes-plugin][Rails Routes Plugin]]
+  - [[#rails-json-to-hash-plugin][Rails JSON to hash plugin]]
   - [[#rails-i18n-plugin][Rails i18n plugin]]
   - [[#http-code-plugin][HTTP Code Plugin]]
   - [[#rubocop][Rubocop]]
@@ -49,6 +50,7 @@
   - [[#go-to-rspec-and-activate-compilation][Go to Rspec and activate compilation]]
   - [[#ruby-refactoring-external-plugin][Ruby Refactoring external plugin]]
   - [[#variable-defaults][Variable defaults]]
+  - [[#return-let-to-parent][Return let to parent]]
 - [[#custom-functions][Custom Functions]]
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
@@ -65,6 +67,7 @@ Loading plugins like rails routes, rails http status, etc.
   (load (expand-file-name "plugins/rails-routes.el" doom-private-dir))
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-i18n.el" doom-private-dir))
+  (load (expand-file-name "plugins/ruby-json-to-hash.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir)))
 
 ;; Fixes some bugs in some libraries
@@ -82,6 +85,8 @@ Loading plugins like rails routes, rails http status, etc.
     "Search TKK."
     (list 430675 2721866130)))
 
+(map! :nvi "C-c ! t" 'google-translate-query-translate)
+(map! :nvi "C-c ! T" 'google-translate-query-translate-reverse)
 (map! :nvi "C-c t" 'google-translate-at-point)
 (map! :nvi "C-c T" 'google-translate-at-point-reverse)
 
@@ -202,9 +207,9 @@ C-l to clear v-term
 #+begin_src emacs-lisp
 (defun better-paste-after ()
   (interactive)
-  (evil-paste-after 1))
+  (yank))
 
-(map! :iego "C-v" #'better-paste-after)
+(map! :iegom "C-v" #'better-paste-after)
 #+end_src
 *** Treemacs (please, use SPC .)
 #+begin_src emacs-lisp
@@ -451,7 +456,7 @@ C-l to clear v-term
 
 (after! company
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code)
-  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
+  (setq +lsp-company-backends '(:separate company-dabbrev-code company-capf company-yasnippet))
 
   (add-to-list 'company-transformers
                #'j-company-remove-dabbrev-dups-keep-order))
@@ -808,6 +813,12 @@ C-l to clear v-term
 (define-key evil-visual-state-map (kbd "g a") #'rails-routes-jump)
 
 (rails-routes-global-mode)
+#+end_src
+** Rails JSON to hash plugin
+#+begin_src emacs-lisp
+;; On doom emacs
+(map! :mode ruby-mode :localleader "J" 'ruby-json-to-hash-parse-json) ;; Parse the json, SPC m J
+(map! :mode ruby-mode :localleader "j" 'ruby-json-to-hash-toggle-let) ;; Create a let or send the let back to parent. SPC m j
 #+end_src
 ** Rails i18n plugin
 #+begin_src emacs-lisp
@@ -1228,6 +1239,118 @@ C-l to clear v-term
 ** Variable defaults
 #+begin_src emacs-lisp
 (defvar ruby-rspec-describe-class "call")
+#+end_src
+** Return let to parent
+#+begin_src emacs-lisp
+(defun otavio/-fix-backward-let-to-parent (KEY_NAME LET_NAME VALUE)
+  (if (search-backward (concat KEY_NAME ": " LET_NAME) (point-min) t)
+      (progn
+        (search-forward ": ")
+        (setq START (point)) (search-forward LET_NAME) (kill-region START (point))
+        (insert VALUE)
+        t
+        )))
+
+(defun otavio/-fix-forward-let-to-parent (KEY_NAME LET_NAME VALUE)
+  (if (search-forward (concat KEY_NAME ": " LET_NAME) (point-max) t) (otavio/-fix-backward-let-to-parent KEY_NAME LET_NAME VALUE) nil))
+
+(defun otavio/return-let-to-parent ()
+  (interactive)
+  (setq INITIAL_LINE_NUM (line-number-at-pos))
+  (beginning-of-line) (search-forward ":")
+  (setq LET_NAME (let ((l (point)))
+    (save-excursion
+      (search-forward ")") (backward-char)
+      (buffer-substring l (point)))))
+  (setq CAMEL_LOWER_CASE (string-inflection-lower-camelcase-function LET_NAME))
+  (setq CAMEL_CASE (string-inflection-camelcase-function LET_NAME))
+  (setq UPPER_CASE (string-inflection-upcase-function LET_NAME))
+  (search-forward "{ ")
+  (setq VARIABLE_VALUE (let ((l (point)))
+    (save-excursion
+      (search-forward "}") (backward-char 2)
+      (buffer-substring l (point)))))
+  (message VARIABLE_VALUE)
+
+  (setq FIXED (otavio/-fix-backward-let-to-parent LET_NAME LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-backward-let-to-parent CAMEL_LOWER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-backward-let-to-parent CAMEL_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-backward-let-to-parent UPPER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent LET_NAME LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent CAMEL_LOWER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent CAMEL_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+  (if (not FIXED) (progn (setq FIXED (otavio/-fix-forward-let-to-parent UPPER_CASE LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+
+  (if (not FIXED)
+      (progn
+        (setq CAN_CONTINUE (y-or-n-p "Not found match of key: value in any JS pattern.  Want to search with only the let value ? Emacs will replace the first occurrence. (Recommended)"))
+        (if CAN_CONTINUE (progn
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-backward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           (if (not FIXED) (progn (setq FIXED (otavio/-not-safe-forward-let-to-parent LET_NAME VARIABLE_VALUE)) (goto-line INITIAL_LINE_NUM)))
+                           ))))
+
+  (if FIXED (progn (kill-line 1) (message "Changed successfully.")) (message "Not found.")))
+
+;; requires string-inflection package
+(defun otavio/parse-json-to-ruby ()
+  (interactive)
+  (setq NO_UNDERSCORE_KEYS (y-or-n-p "Do you want to not underscore the keys (recommended for spec)"))
+  (setq CREATE_LETS (y-or-n-p "Do you want to create the lets? if not, the object values will be keeped (recommend for spec)"))
+
+  (if (not (eq ?{ (char-after)))
+      (search-backward "{"))
+
+  (condition-case err (json-read-object) (error
+                                          (progn
+                                            (if (cl-search "json-string-format" (format "%S" err))
+                                                (progn
+                                                  (message "JSON is invalid, trying to fix it...")
+                                                  (search-backward ",") (delete-char 1))))))
+
+
+
+  (if (not (eq ?{ (char-after)))
+      (search-backward "{"))
+
+  (setq JSON_NOT_PARSED (let ((l (point)))
+    (save-excursion
+      (setq JSON_OBJECT (json-read-object))
+      (buffer-substring l (point)))))
+  (search-backward JSON_NOT_PARSED (point-min) t)
+  (setq START (point))
+  (search-forward JSON_NOT_PARSED (point-max) t)
+  (setq END (point))
+  (kill-region START END)
+  (insert "let(:) do") (indent-according-to-mode) (newline-and-indent)
+  (insert "{") (newline-and-indent)
+  (mapc (lambda (x) (insert (if (not NO_UNDERSCORE_KEYS) (string-inflection-underscore-function (symbol-name (car x))) (symbol-name (car x))))
+          (insert ": ")
+          (if CREATE_LETS
+              (progn
+                (insert (string-inflection-underscore-function (symbol-name (car x)))))
+            (insert (format "%S" (cdr x))))
+           (insert ",") (newline-and-indent))
+        JSON_OBJECT)
+  (search-backward ",") (delete-char 1) (newline-and-indent)
+  (insert "}") (newline-and-indent) (insert "end") (newline-and-indent)
+  (if CREATE_LETS
+      (progn
+        (newline-and-indent)
+        (mapc (lambda (x) (insert "let(:" (string-inflection-underscore-function (symbol-name (car x))) ") { " (format "%S" (cdr x)) " }") (newline-and-indent)) JSON_OBJECT)
+        ))
+  (search-backward "let(:)") (search-forward ":")
+  (if (featurep 'evil) (evil-insert 1)))
+
+(require 'string-inflection)
+(map! :map ruby-mode-map :localleader "l" #'otavio/return-let-to-parent)
 #+end_src
 
 * Custom Functions
