@@ -6,7 +6,7 @@
 ;; Keywords: tools languages
 ;; Homepage: https://github.com/otavioschwanck/rails-routes
 ;; Version: 0.3
-;; Package-Requires: ((emacs "27.2") (inflections "1.1"))
+;; Package-Requires: ((emacs "27.2") (inflections "1.1") (projectile "2.5.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -41,17 +41,18 @@
 (require 'subr-x)
 (require 'inflections)
 (require 'cl-lib)
+(require 'projectile)
 
 (defgroup rails-routes nil
   "Search for and insert rails routes."
   :group 'tools
   :group 'languages)
 
-(defcustom rails-routes-project-root-function 'projectile-project-root
+(defcustom rails-routes-project-root-function #'projectile-project-root
   "Function used to get project root."
   :type 'symbol)
 
-(defcustom rails-routes-project-name-function 'projectile-project-name
+(defcustom rails-routes-project-name-function #'projectile-project-name
   "Function used to get project name."
   :type 'symbol)
 
@@ -107,7 +108,7 @@
   (let ((routes-result (if (cdr (assoc (funcall rails-routes-project-name-function) rails-routes-cache-validations))
                            (cdr (assoc (funcall rails-routes-project-name-function) rails-routes-cache))
                          (rails-routes--run-command))))
-    (if (eq routes-result nil)
+    (if (not routes-result)
         (rails-routes--run-command)
       routes-result)))
 
@@ -180,15 +181,15 @@ PATH: a rails routes path or url."
   (let ((words (split-string word "_")))
     (string-join (mapcar #'inflection-singularize-string words) "_")))
 
-(defun rails-routes--goto-activeadmin-controller (controller_name action)
+(defun rails-routes--goto-activeadmin-controller (controller-name action)
   "Try to go to activeadmin first, if not exists, go to app/controllers.
-CONTROLLER_NAME: Path of controller.  ACTION:  Action of the path."
+CONTROLLER-NAME: Path of controller.  ACTION:  Action of the path."
   (let* ((project-root (funcall rails-routes-project-root-function))
          (moved nil)
-         (normal-path (expand-file-name (concat "app/admin" (rails-routes--singularize-string controller_name) ".rb") project-root))
+         (normal-path (expand-file-name (concat "app/admin" (rails-routes--singularize-string controller-name) ".rb") project-root))
          (expanded-path
           (expand-file-name (concat "app/admin"
-                                    (replace-regexp-in-string "_" "/" (rails-routes--singularize-string controller_name)) ".rb")
+                                    (replace-regexp-in-string "_" "/" (rails-routes--singularize-string controller-name)) ".rb")
                             project-root)))
 
     (when (file-exists-p normal-path)
@@ -204,23 +205,23 @@ CONTROLLER_NAME: Path of controller.  ACTION:  Action of the path."
           (goto-char (point-min))
           (search-forward (concat "member_action :" action) (point-max) t)
           (search-forward (concat "collection_action :" action) (point-max) t))
-      (rails-routes--go-to-controller controller_name action))))
+      (rails-routes--go-to-controller controller-name action))))
 
-(defun rails-routes--go-to-controller-and-action (full_action)
-  "Go to controller and then, go to def action_name.  FULL_ACTION: action showed on rails routes."
-  (let ((controller_name (nth 0 (split-string full_action "#"))) (action (nth 1 (split-string full_action "#"))))
-    (if (string-match-p "admin" controller_name)
-        (rails-routes--goto-activeadmin-controller controller_name action)
-      (rails-routes--go-to-controller controller_name action))))
+(defun rails-routes--go-to-controller-and-action (full-action)
+  "Go to controller and then, go to def action_name.  FULL-ACTION: action showed on rails routes."
+  (let ((controller-name (nth 0 (split-string full-action "#"))) (action (nth 1 (split-string full-action "#"))))
+    (if (string-match-p "admin" controller-name)
+        (rails-routes--goto-activeadmin-controller controller-name action)
+      (rails-routes--go-to-controller controller-name action))))
 
 (defun rails-routes--go-to-controller (controller action)
   "Go to controller using action.  CONTROLLER: controller showed on rails routes. ACTION: action showed on rails routes."
   (find-file (rails-routes--controller-full-path controller))
   (search-forward (concat "def " action) (point-max) t))
 
-(defun rails-routes--controller-full-path (controller_name)
-  "Return the path of a rails controller using only the name.  CONTROLLER_NAME: Name of the controller."
-  (concat (funcall rails-routes-project-root-function) "app/controllers/" controller_name "_controller.rb"))
+(defun rails-routes--controller-full-path (controller-name)
+  "Return the path of a rails controller using only the name.  CONTROLLER-NAME: Name of the controller."
+  (concat (funcall rails-routes-project-root-function) "app/controllers/" controller-name "_controller.rb"))
 
 ;;;###autoload
 (defun rails-routes-jump ()
@@ -238,13 +239,13 @@ CONTROLLER_NAME: Path of controller.  ACTION:  Action of the path."
              (string-equal "routes.rb" (file-name-nondirectory (buffer-file-name)))
              (assoc (funcall rails-routes-project-name-function) rails-routes-cache)
              (assoc (funcall rails-routes-project-name-function) rails-routes-cache-validations))
-    (add-hook 'after-save-hook 'rails-routes-invalidate-cache nil t)))
+    (add-hook 'after-save-hook #'rails-routes-invalidate-cache nil t)))
 
 ;;;###autoload
 (define-minor-mode rails-routes-global-mode
   "Initialize cache and routes watch."
   :global t
-  :lighter " lighter"
+  :lighter " routes"
   (if rails-routes-global-mode
       (progn
         (add-hook 'ruby-mode-hook #'rails-routes--set-routes-hook)

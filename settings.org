@@ -475,6 +475,12 @@ C-l to clear v-term
       (yas-prev-field)
     (progn (company-complete-selection) (yas-prev-field))))
 
+(defun yas-emmet-expand ()
+  (interactive)
+  (if (eq major-mode 'web-mode)
+      (emmet-expand)
+    (when (eq major-mode 'ruby-mode) (otavio/grb))))
+
 (map! :after yasnippet
       :map yas-keymap
       "C-o" #'select-and-yas-next
@@ -482,7 +488,7 @@ C-l to clear v-term
       "<tab>" nil
       "<S-tab>" nil
       "C-d" #'yas-skip-and-clear-field
-      "C-e" #'emmet-expand)
+      "C-e" #'yas-emmet-expand)
 
 #+end_src
 * Ruby
