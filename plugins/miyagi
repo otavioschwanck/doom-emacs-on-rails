@@ -2,6 +2,8 @@
 # Welcome to beginner mr miyagi training.
 #
 # To navigate in exercises, please use SPC z j AND SPC z k
+# Use zz to center page
+# use zt to put the current line on top (useful)
 
 # * Exercise 1
 # Before:
@@ -25,8 +27,8 @@ end
 #### M-d = Multiple cursors
 #### EXERCISE 1 HERE: ####
 def initialize(name, last_name)
-  @name = name # < START LINE
-  @last_name = last_name
+  @name = name
+  @last_name = last_name # < START LINE
 end
 
 def initialize(name, last_name)

@@ -74,7 +74,7 @@
 (defun miyagi-generate-popup ()
   (interactive)
   (save-excursion
-    (search-backward "Before")
+    (search-backward "Before:")
     (let ((exercise (miyagi--get-exercise))
           (commands (miyagi--get-commands)))
       (miyagi--create-help-buffer exercise commands)))
