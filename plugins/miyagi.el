@@ -80,7 +80,6 @@
       (miyagi--create-help-buffer exercise commands)))
   (forward-line 1)
   (goto-char (point-at-bol))
-  (evil-forward-word 1)
   (recenter))
 
 (defun miyagi--get-exercise ()
