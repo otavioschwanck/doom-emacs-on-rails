@@ -19,7 +19,7 @@ def initialize(name, last_name, email)
   @email = email
 end
 
-#### COMMANDS TO EXECUTE: SPC m a email ENTER yyp w M-d M-d C email 5j 0
+#### COMMANDS TO EXECUTE: SPC m a email ENTER yyp w M-d M-d C email ESC ESC 5j 0
 ####
 #### NEW COMMANDS WE WILL LEARN:
 ####
@@ -266,7 +266,7 @@ citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinH
 # After (starting at citizen):
 citizen = Citizen.new { User.new(name: "Otávio", last_name: "Schwanck", email: "tavin@gmail.com") }
 
-#### COMMANDS TO EXECUTE: f( cs({ i <SPC> <ESC> ww vt} h S) i User.new sni cio email Ww ve u fh xx i@gmail.com <SEC> 2j0
+#### COMMANDS TO EXECUTE: f( cs({ i <SPC> <ESC> ww vt} h S) i User.new ESC sni cio email ESC Ww ve u fh xx i@gmail.com <SEC> 2j0
 ####
 #### NEW COMMANDS WE WILL LEARN:
 ####
