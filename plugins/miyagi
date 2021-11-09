@@ -24,8 +24,8 @@ end
 #### SPC m a = Add parameter to current method
 #### M-d = Multiple cursors
 #### EXERCISE 1 HERE: ####
-def initialize(name, last_name) # < START LINE
-  @name = name
+def initialize(name, last_name)
+  @name = name # < START LINE
   @last_name = last_name
 end
 
