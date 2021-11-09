@@ -1,0 +1,1027 @@
+# * Introduction
+# Welcome to beginner mr miyagi training.
+
+# * Exercise 1
+# Before:
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+# After:
+def initialize(name, last_name, email)
+  @name = name
+  @last_name = last_name
+  @email = email
+end
+
+#### COMMANDS TO EXECUTE: SPC m a email ENTER yyp w M-d M-d C email 5j 0
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### SPC m a = Add parameter to current method
+#### M-d = Multiple cursors
+#### EXERCISE 1 HERE: ####
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+def initialize(name, last_name)
+  @name = name
+  @last_name = last_name
+end
+
+# * Exercise 2
+# Before:
+Charge::Name.new(name, last_name, email)
+
+# After:
+Emacs.new(name)
+
+#### COMMANDS TO EXECUTE: ct. Emacs <ESC> f, dt) 2j 0
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### t = Until.  Can be used with a operator like, d, y p
+#### M-d = Multiple cursors
+####
+#### EXERCISE 2 HERE: ####
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+Charge::Name.new(name, last_name, email)
+
+# * Exercise 3
+# Before:
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+# After
+def do_something(name)
+  create_email(name) if name
+end
+
+def create_email(name)
+  email = Email.new(name)
+  email.save
+end
+
+#### COMMANDS TO EXECUTE: V j SPC m m create_email ENTER SPC m i 10j 0
+####
+#### NEW COMMANDS WE WILL LEARN:
+#### SPC m m = Extract method from argument
+#### SPC m i = Toggle if to single line
+####
+#### EXERCISE 3 HERE: ####
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+def do_something(name)
+  if name
+    email = Email.new(name)
+    email.save
+  end
+end
+
+#  Exercise 4
+# Before:
+doom = (emacs * 3 + vim) + love
+
+# After (starting on doom =):
+evil = emacs * 3 + vim
+
+doom = evil + love
+
+#### COMMANDS TO EXECUTE: f( va) SPC m v evil ENTER kk - ds) 4j 0
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### SPC m v = Extract variable
+#### va) = Select outside )
+#### ds) = Delete )
+####
+#### WANT TO LEARN MORE ABOUT va) and ds) ? = https://github.com/emacs-evil/evil-surround#examples
+#### EXERCISE 4 HERE: ####
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+doom = (emacs * 3 + vim) + love
+
+# Exercise 5
+# Before:
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+# After (starting at citizen):
+citizen = Citizen.new { User.new(name: "Otávio", last_name: "Schwanck", email: "tavin@gmail.com") }
+
+#### COMMANDS TO EXECUTE: f( cs({ i <SPC> <ESC> ww vt} h S) i User.new sni cio email Ww ve u fh xx i@gmail.com <SEC> 2j0
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### cs){  - Change the () for {} (can be used to any delimiter)
+#### u = selection to lower case (can be used with U to upper)
+#### S (on visual mode) - Add any delimiter to selected text
+#### cio = change thing at point
+#### x = Delete char at cursor
+####
+#### EXERCISE 5 HERE: ####
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+
+# * Exercise 6 - Final Boss
+# Before:
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+# After:
+def hello_world
+  if using_emacs = true
+    you_are = {
+      convert_this_json_into_ruby_hash: { what: 'now we are talking =)', extra: ['hi, welcome.'] },
+      epicness: 1_000_000,
+      names: ['doom', 'emacs', 'max'],
+      wrong_stuff: ['please', 'delete', 'using daa'],
+      things_to_be_changes: [:awesome],
+      my_map_2: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_map: stuff.map { |my_stuff| my_stuff + 1 },
+      my_http_status: :request_entity_too_large,
+      has_stuff_to_delete_here: "I just want text until dot."
+    }
+  end
+end
+
+#### COMMANDS TO EXECUTE - White Screen from akuma to execute (starting on def):
+####
+#### /do ENTER da[ 2dd /emacs_names ENTER vio p C-p j ske daa j ci[ :awesome ESC k J J
+#### j j vij y P E i _2 ESC 3j - SPC m [ j caq C-c s 413 ENTER ESC
+#### j f. l dt" j h SPC m J j vij 10K ESC a, ESC kk W W ciq now we are talking ESC
+#### gJ cs{{ ]] zz
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### C-p after paste = Navigate on yank story
+#### daa = Delete argument (aa object)
+#### J - Join lines
+#### SPC m J - JSON to Hash
+#### vij = Select identation and its delimiters (ij object)
+#### gJ = Join multiline hash into single line (can be used with gS do single line to multiline as well)
+#### cs old new = change delimiter old to new - using brackets keys or parenthesis on open variant ({[ add spaces before and after.
+####
+#### EXERCISE 6 HERE: ####
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
+
+def hello_world
+  if using_emacs = true
+    emacs_names = ['doom', 'emacs', 'max']
+
+    you_are = {
+      epicness: 'max',
+      names: emacs_names,
+      wrong_stuff: ['please', 'delete', 'this key and its values', 'using daa'],
+      things_to_be_changes: [
+        :foo,
+        :bar,
+        :non_sense_stuff
+      ],
+      my_map: stuff.map do |my_stuff|
+        my_stuff + 1
+      end,
+      my_http_status: 'dont remember ;(',
+      has_stuff_to_delete_here: "I just want text until dot.  I dont need this text here",
+      convert_this_json_into_ruby_hash: { "what": "hell this json is doing here?", "extra": ["hi, welcome."] }
+    }
+  end
+end
