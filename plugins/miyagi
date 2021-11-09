@@ -131,7 +131,7 @@ def create_email(name)
   email.save
 end
 
-#### COMMANDS TO EXECUTE: V j SPC m m create_email ENTER SPC m i 10j 0
+#### COMMANDS TO EXECUTE: V j SPC m m create_email ENTER ENTER SPC m i 10j 0
 ####
 #### NEW COMMANDS WE WILL LEARN:
 #### SPC m m = Extract method from argument
@@ -346,7 +346,6 @@ def hello_world
 end
 
 #### COMMANDS TO EXECUTE - White Screen from akuma to execute (starting on def):
-####
 #### /do ENTER da[ 2dd /emacs_names ENTER vio p C-p j ske daa j ci[ :awesome ESC k J J
 #### j j vij y P E i _2 ESC 3j - SPC m [ j caq C-c s 413 ENTER ESC
 #### j f. l dt" j h SPC m J j vij 10K ESC a, ESC kk W W ciq now we are talking ESC
