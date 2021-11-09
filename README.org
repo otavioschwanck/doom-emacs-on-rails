@@ -9,6 +9,7 @@
 - [[#my-configuration-features][My Configuration features]]
 - [[#tips][Tips]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
+  - [[#improve-emacs-speed-a-lot][Improve emacs speed (a lot)]]
 - [[#getting-help][Getting help]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
@@ -100,6 +101,10 @@ Please ignore the wrong comment at line 8 =D.
 
 *** For other git server
 See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
+** Improve emacs speed (a lot)
+Use Emacs Server: https://wikemacs.org/wiki/Emacs_server
+
+Resume:  run =emacs --daemon= on system start.  To open an emacs window, use emacsclient instead emacs.
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
