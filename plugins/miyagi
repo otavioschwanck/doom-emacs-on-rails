@@ -24,7 +24,7 @@ end
 #### SPC m a = Add parameter to current method
 #### M-d = Multiple cursors
 #### EXERCISE 1 HERE: ####
-def initialize(name, last_name)
+def initialize(name, last_name) # < START LINE
   @name = name
   @last_name = last_name
 end
@@ -74,7 +74,7 @@ Emacs.new(name)
 #### M-d = Multiple cursors
 ####
 #### EXERCISE 2 HERE: ####
-Charge::Name.new(name, last_name, email)
+Charge::Name.new(name, last_name, email) # < START LINE
 
 Charge::Name.new(name, last_name, email)
 
@@ -138,7 +138,7 @@ end
 #### EXERCISE 3 HERE: ####
 def do_something(name)
   if name
-    email = Email.new(name)
+    email = Email.new(name) # < START LINE
     email.save
   end
 end
@@ -225,7 +225,7 @@ doom = evil + love
 ####
 #### WANT TO LEARN MORE ABOUT va) and ds) ? = https://github.com/emacs-evil/evil-surround#examples
 #### EXERCISE 4 HERE: ####
-doom = (emacs * 3 + vim) + love
+doom = (emacs * 3 + vim) + love # < START LINE
 
 doom = (emacs * 3 + vim) + love
 
@@ -275,7 +275,7 @@ citizen = Citizen.new { User.new(name: "Otávio", last_name: "Schwanck", email: 
 #### x = Delete char at cursor
 ####
 #### EXERCISE 5 HERE: ####
-citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
+citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo") # < START LINE
 
 citizen = Citizen.new(name: "Otávio", last_name: "Schwanck", nick_name: "TaVinHo")
 
@@ -361,7 +361,7 @@ end
 #### cs old new = change delimiter old to new - using brackets keys or parenthesis on open variant ({[ add spaces before and after.
 ####
 #### EXERCISE 6 HERE: ####
-def hello_world
+def hello_world # < START LINE
   if using_emacs = true
     emacs_names = ['doom', 'emacs', 'max']
 

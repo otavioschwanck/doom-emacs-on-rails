@@ -79,7 +79,9 @@
           (commands (miyagi--get-commands)))
       (miyagi--create-help-buffer exercise commands)))
   (forward-line 1)
+  (search-forward " # < START LINE")
   (goto-char (point-at-bol))
+  (when (looking-at " ") (evil-forward-word-begin))
   (recenter))
 
 (defun miyagi--get-exercise ()
