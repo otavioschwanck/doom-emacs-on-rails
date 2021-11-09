@@ -26,6 +26,7 @@
 (defvar miyagi-exercise-count 6 "Buffer name for mr miyagi")
 
 (defun mr-miyagi ()
+  "Lets train some vim and emacs commands?"
   (interactive)
   (get-buffer-create miyagi-buffer-name)
   (set-buffer miyagi-buffer-name)
@@ -99,8 +100,8 @@
 
 ;;;autoload
 (define-minor-mode mr-miyagi-mode
-  "Initialize cache and routes watch."
-  :global t
+  "Mode for my-miyagi."
+  :global nil
   :lighter " routes"
   (map! :mode mr-miyagi-mode :leader "z j" 'miyagi-next)
   (map! :mode mr-miyagi-mode :leader "z k" 'miyagi-previous)
