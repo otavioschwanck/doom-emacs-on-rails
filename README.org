@@ -104,7 +104,7 @@ See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.
 ** Improve emacs speed (a lot)
 Use Emacs Server: https://wikemacs.org/wiki/Emacs_server
 
-Resume:  run =emacs --daemon= on system start.  To open an emacs window, use emacsclient instead emacs.
+Resume:  run =emacs --daemon= on system start.  To open an emacs window, use emacsclient -c instead emacs.
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
