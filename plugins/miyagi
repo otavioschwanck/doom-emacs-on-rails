@@ -131,7 +131,7 @@ def create_email(name)
   email.save
 end
 
-#### COMMANDS TO EXECUTE: V j SPC m m create_email ENTER ENTER SPC m i 10j 0
+#### COMMANDS TO EXECUTE: V j SPC m m create_email ENTER name ENTER SPC m i 10j 0
 ####
 #### NEW COMMANDS WE WILL LEARN:
 #### SPC m m = Extract method from argument
