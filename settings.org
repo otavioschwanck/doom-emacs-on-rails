@@ -210,7 +210,7 @@ C-l to clear v-term
   (interactive)
   (yank))
 
-(map! :iegom "C-v" #'better-paste-after)
+(map! :i "C-v" #'better-paste-after)
 #+end_src
 *** Treemacs (please, use SPC .)
 #+begin_src emacs-lisp
@@ -1150,17 +1150,19 @@ C-l to clear v-term
        (lambda (argument)
          (if (string-match-p "(...)" argument)
              (read-string (concat "name for " argument " argument:  "))
-           (if (string= (substring argument 0 1) "@") nil (ruby-new-method-from-symbol-at-point--verify-exist argument)))
-
+           (ruby-new-method-from-symbol-at-point--verify-exist argument))
          ) (mapcar 'string-trim (split-string (replace-regexp-in-string "(.*)" "(...)" args-raw) ","))))))
 
 (defun ruby-new-method-from-symbol-at-point--verify-exist (argument)
   (save-excursion
-    (goto-char (point-min))
-    (if (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t)
+    (if (or (search-backward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-min) t)
+         (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t))
         nil
       (if (eq 0 (length (let ((case-fold-search nil))
-                          (remove "" (split-string argument "[a-z]+\\(_[a-z]+\\)*"))))) argument
+                          (remove "" (split-string argument "[a-z]+\\(_[a-z]+\\)*")))))
+          (if (or (string= argument "false")
+                  (string= argument "true"))
+              (read-string (concat "name for " argument " boolean:  ")) argument)
         (read-string (concat "name for " argument " expression:  "))))))
 
 (map! :after ruby-mode :mode ruby-mode :localleader "n" #'ruby-new-method-from-symbol-at-point)

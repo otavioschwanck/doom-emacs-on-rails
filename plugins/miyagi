@@ -1028,3 +1028,75 @@ def hello_world
     }
   end
 end
+
+# Exercise 7
+# Before:
+
+def call
+end
+
+# After (starting at citizen):
+
+def call
+  response = create_something(name, value * temperature, true)
+end
+
+def create_something(name, total_value, temperature_included)
+end
+
+#### COMMANDS TO EXECUTE: o response = create_something(name, value * temperature, true) ESC F c SPC m n
+#### total_value ENTER temperature_included ENTER esc dd 2j 0
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### SPC m n = Create method at point
+####
+#### EXERCISE 7 HERE: ####
+
+def call # < START LINE
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
+
+def call
+end
