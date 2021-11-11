@@ -1100,3 +1100,68 @@ end
 
 def call
 end
+
+# Exercise 8
+# Before:
+# Hello emacs world!  How are you?
+my_function_call()
+
+# After (starting at citizen):
+
+my_function_call(true, { name: "Hello emacs world!  How are you?" })
+my_function_call({ name: "Hello emacs world!  How are you?" }, true)
+
+def create_something(name, total_value, temperature_included)
+end
+
+#### COMMANDS TO EXECUTE: j w D dd j f ( p C-p vi( S" vi( S { a <spc> name: <ESC> F { i true, <ESC> yyp ftf C-l j
+#### total_value ENTER temperature_included ENTER esc dd 2j 0
+####
+#### NEW COMMANDS WE WILL LEARN:
+####
+#### S (on visual mode) - add delimiter
+#### C-l and C-h = Swap arguments to left and right
+####
+#### EXERCISE 8 HERE: ####
+# < START LINE
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()
+
+# Hello emacs world!  How are you?
+my_function_call()

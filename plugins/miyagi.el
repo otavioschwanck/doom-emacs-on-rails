@@ -23,7 +23,7 @@
 ;;; Code:
 
 (defvar miyagi-buffer-name "Mr Miyagi" "Buffer name for mr miyagi")
-(defvar miyagi-exercise-count 7 "Buffer name for mr miyagi")
+(defvar miyagi-exercise-count 8 "Buffer name for mr miyagi")
 
 (defun mr-miyagi ()
   "Lets train some vim and emacs commands?"
