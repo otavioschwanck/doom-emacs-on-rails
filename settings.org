@@ -55,6 +55,7 @@
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
 - [[#kubernetes][Kubernetes]]
+- [[#solidity][Solidity]]
 - [[#load-userorg][Load user.org]]
 
 * Load External Plugins
@@ -104,7 +105,7 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (map! "M-c" 'string-inflection-toggle)
 (map! "M-S-c" 'string-inflection-cycle)
- #+end_src
+#+end_src
 *** Indentation
 **** Indent with 2 spaces
 #+begin_src emacs-lisp
@@ -1156,7 +1157,7 @@ C-l to clear v-term
 (defun ruby-new-method-from-symbol-at-point--verify-exist (argument)
   (save-excursion
     (if (or (search-backward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-min) t)
-         (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t))
+            (search-forward-regexp (concat "def " argument "\\(\(\\|$\\)") (point-max) t))
         nil
       (if (eq 0 (length (let ((case-fold-search nil))
                           (remove "" (split-string argument "[a-z]+\\(_[a-z]+\\)*")))))
@@ -1340,6 +1341,11 @@ Version 2015-06-08"
 (map! :leader
       (:prefix "o"
        :desc "Kubernetes" "K" 'kubernetes-overview))
+#+end_src
+* Solidity
+#+begin_src emacs-lisp
+(after! solidity-mode
+  (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code company-yasnippet)))
 #+end_src
 
 * Load user.org
