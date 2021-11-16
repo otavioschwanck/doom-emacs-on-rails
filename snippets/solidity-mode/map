@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# key: map
+# --
+mapping (${1:address} => ${2:uint}) ${3:public} ${4:interactions};

@@ -5,6 +5,7 @@
 - [[#editor-settings][Editor Settings]]
   - [[#basic-settings][Basic Settings]]
   - [[#rotate-text][Rotate Text]]
+  - [[#improve-multiple-cursors][Improve Multiple Cursors]]
   - [[#yaml][YAML]]
   - [[#open-on-line][Open on Line]]
   - [[#popup][Popup]]
@@ -245,6 +246,13 @@ C-l to clear v-term
   (add-to-list 'rotate-text-symbols '("to" "not_to")))
 
 #+end_src
+** Improve Multiple Cursors
+#+begin_src emacs-lisp
+(map! :n "C-M-d" #'evil-multiedit-match-all)
+
+(after! evil-multiedit
+  (map! :map iedit-occurrence-keymap-default
+        "M-D" nil))#+end_src
 ** YAML
 #+begin_src emacs-lisp
 (setq flycheck-yamllintrc ".yamllint.yml")
