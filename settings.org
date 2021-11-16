@@ -252,7 +252,8 @@ C-l to clear v-term
 
 (after! evil-multiedit
   (map! :map iedit-occurrence-keymap-default
-        "M-D" nil))#+end_src
+        "M-D" nil))
+#+end_src
 ** YAML
 #+begin_src emacs-lisp
 (setq flycheck-yamllintrc ".yamllint.yml")
