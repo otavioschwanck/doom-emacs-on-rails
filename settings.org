@@ -467,7 +467,7 @@ C-l to clear v-term
 
 (after! company
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code)
-  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
+  (setq +lsp-company-backends '(:separate company-dabbrev-code company-capf company-yasnippet))
 
   (add-to-list 'company-transformers
                #'j-company-remove-dabbrev-dups-keep-order))
