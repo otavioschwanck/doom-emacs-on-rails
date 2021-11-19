@@ -633,6 +633,14 @@ C-l to clear v-term
     (interactive)
     (find-file (aj-fetch-latest (concat (doom-project-root) "db/migrate/"))))
 
+  (defun aj-fetch-latest (path)
+    (let ((e (f-entries path)))
+      (car (sort e (lambda (a b)
+                     (not (time-less-p (aj-mtime a)
+                                       (aj-mtime b))))))))
+
+  (defun aj-mtime (f) (let ((attrs (file-attributes f))) (nth 5 attrs)))
+
   (defun projectile-rails-find-graphql-all ()
     "Find all in graphql."
     (interactive)

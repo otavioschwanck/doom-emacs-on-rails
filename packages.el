@@ -57,3 +57,4 @@
 (package! command-log-mode)
 (package! google-translate)
 (package! ruby-hash-syntax)
+(package! f)
