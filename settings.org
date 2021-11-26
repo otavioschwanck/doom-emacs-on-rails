@@ -418,59 +418,9 @@ C-l to clear v-term
 #+end_src
 ** Improve Autocomplete
 #+begin_src emacs-lisp
-(defun j-company-remove-dabbrev-dups-keep-order (candidates)
-  "Loop over CANDIDATES and remove duplicate candidates if they belong to
-  `company-dabbrev' or `company-dabbrev-code'."
-  (let ((hash (make-hash-table :test 'equal :size (length candidates)))
-        (new-list nil))
-    (dolist (candidate candidates)
-      (let ((stripped-candidate (substring-no-properties candidate))
-            (candidate-backend (get-text-property 0 'company-backend candidate)))
-        (cond
-         ;; Candidate is `company-yasnippet', always push this.
-         ((eq (get-text-property 0 'company-backend candidate)
-              'company-yasnippet)
-          (push candidate new-list))
-         ;; Candidate has not been seen.
-         ((not (gethash stripped-candidate hash))
-          (puthash stripped-candidate candidate hash)
-          (push candidate new-list))
-         ;; Candidate has been seen.
-         ;; `company-dabbrev' or `company-dabbrev-code' is the candidate.
-         ((or candidate-backend
-              (eq candidate-backend 'company-dabbrev-code)
-              (eq candidate-backend 'company-dabbrev))
-          t)
-         ;; Candidate has been seen but is not `company-dabbrev'
-         ;; or `company-dabbrev-code'.
-         (:seen-but-candidate-not-dabbrev
-          ;; If the candidate in the hash table is dabbrev, replace it.
-          ;; Otherwise, we are fine with duplicates as long as the backends
-          ;; are meaningful.
-          (let* ((hash-candidate (gethash stripped-candidate hash))
-                 (hash-backend (get-text-property
-                                0 'company-backend hash-candidate)))
-            (if (or hash-backend
-                    (eq hash-backend 'company-dabbrev)
-                    (eq hash-backend 'company-dabbrev-code))
-                (progn
-                  (setcar
-                   (nthcdr
-                    (cl-position hash-candidate new-list :test 'eq)
-                    new-list)
-                   candidate)
-                  (puthash stripped-candidate candidate hash)
-                  t)
-              ;; Only need one candidate in the hash table.
-              (push candidate new-list)))))))
-    (reverse new-list)))
-
 (after! company
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code)
-  (setq +lsp-company-backends '(:separate company-dabbrev-code company-capf company-yasnippet))
+  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code))
 
-  (add-to-list 'company-transformers
-               #'j-company-remove-dabbrev-dups-keep-order))
 #+end_src
 ** Snippets
 #+begin_src emacs-lisp
