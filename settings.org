@@ -398,8 +398,57 @@ C-l to clear v-term
 
 ** Autocomplete
 #+begin_src emacs-lisp
-(map! :i "C-p" #'dabbrev-expand)
-(map! :i "C-o" #'yas-expand)
+(defun insert-into-list (list el n)
+  "Insert into list LIST an element EL at index N.
+
+If N is 0, EL is inserted before the first element.
+
+The resulting list is returned.  As the list contents is mutated
+in-place, the old list reference does not remain valid."
+  (let* ((padded-list (cons nil list))
+         (c (nthcdr n padded-list)))
+    (setcdr c (cons el (cdr c)))
+    (cdr padded-list)))
+
+(defun order-snippet-at-top-when-matches (candidates)
+  "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
+  (interactive)
+  (let* ((matching-snippet nil)
+         (matching-text nil)
+         (new-list '())
+         (word (or (word-at-point t) "")))
+    (dolist (candidate candidates)
+      (let ((stripped-candidate (substring-no-properties candidate))
+            (candidate-backend (get-text-property 0 'company-backend candidate)))
+        (if (and (string= word stripped-candidate) (eq candidate-backend 'company-yasnippet))
+            (setq matching-snippet candidate)
+          (if (and (string= word stripped-candidate) (eq matching-text nil))
+              (setq matching-text candidate) (when (order-snippet-at-top-when-matches--can-push word stripped-candidate candidate-backend new-list) (push candidate new-list))
+              ))))
+    (setq new-list (reverse new-list))
+    (unless yas--active-snippets
+      (when matching-text (setq new-list (insert-into-list new-list matching-text 0)))
+      (when matching-snippet (setq new-list (insert-into-list new-list matching-snippet 0))))
+    new-list))
+
+(defun order-snippet-at-top-when-matches--can-push (word stripped-candidate candidate-backend new-list)
+  "Verify if can push to autocomplete list."
+  (let* ((case-fold-search nil)
+         (valid-case (string-match-p word stripped-candidate))
+         (exist-in-list (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))
+         (begins-with-two-dots (string= (substring stripped-candidate 0 1) ":"))
+         (is-yas yas--active-snippets))
+    (if is-yas
+        (and valid-case
+             (not exist-in-list)
+             (not begins-with-two-dots)
+             (not (eq candidate-backend 'company-dabbrev-code)))
+      (and valid-case (not exist-in-list)))))
+
+(after! company
+  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
+  (add-to-list 'company-transformers
+               #'order-snippet-at-top-when-matches))
 
 (after! company
   (setq company-dabbrev-downcase nil)
@@ -410,17 +459,15 @@ C-l to clear v-term
 (setq company-dabbrev-code-other-buffers t)
 
 (map! :after company
-      :map company-tng-map
-      "C-o" 'yas-expand
-      "C-p" 'dabbrev-expand
-      "<C-SPC>" 'company-complete-if-selected)
+      :map company-active-map
+      "C-o" 'company-abort
+      "C-p" 'dabbrev-expand)
 
 #+end_src
 ** Improve Autocomplete
 #+begin_src emacs-lisp
 (after! company
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code))
-
 #+end_src
 ** Snippets
 #+begin_src emacs-lisp
@@ -428,13 +475,13 @@ C-l to clear v-term
   (interactive)
   (if (eq company-selection nil)
       (yas-next-field)
-    (progn (company-complete-selection) (yas-next-field))))
+    (progn (company-abort) (yas-next-field))))
 
 (defun select-and-yas-previous ()
   (interactive)
   (if (eq company-selection nil)
       (yas-prev-field)
-    (progn (company-complete-selection) (yas-prev-field))))
+    (progn (company-abort) (yas-prev-field))))
 
 (defun yas-emmet-expand ()
   (interactive)
@@ -446,8 +493,6 @@ C-l to clear v-term
       :map yas-keymap
       "C-o" #'select-and-yas-next
       "C-S-o" #'select-and-yas-previous
-      "<tab>" nil
-      "<S-tab>" nil
       "C-d" #'yas-skip-and-clear-field
       "C-e" #'yas-emmet-expand)
 
@@ -885,7 +930,7 @@ C-l to clear v-term
   (end-of-line)
   (newline-and-indent))
 
-(map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
+(map! :after ruby-mode :map ruby-mode-map :i "C-S-e" #'otavio/grb)
 #+end_src
 ** Toggle if single and multiline
 #+begin_src emacs-lisp
