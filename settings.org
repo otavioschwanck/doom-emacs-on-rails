@@ -442,6 +442,7 @@ in-place, the old list reference does not remain valid."
         (and valid-case
              (not exist-in-list)
              (not begins-with-two-dots)
+             (not (eq candidate-backend 'company-yasnippet))
              (not (eq candidate-backend 'company-dabbrev-code)))
       (and valid-case (not exist-in-list)))))
 
