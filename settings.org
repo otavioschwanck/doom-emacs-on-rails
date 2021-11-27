@@ -456,13 +456,20 @@ in-place, the old list reference does not remain valid."
   (setq company-show-numbers t)
   (setq company-idle-delay 0))
 
-(setq company-dabbrev-code-everywhere t)
+(setq company-dabbrev-code-everywhere nil)
 (setq company-dabbrev-code-other-buffers t)
+
+(defun better-dabbrev-expand ()
+  (interactive)
+  (call-interactively 'dabbrev-expand)
+  (company-abort))
+
+(map! :i "C-p" 'better-dabbrev-expand)
 
 (map! :after company
       :map company-active-map
       "C-o" 'company-abort
-      "C-p" 'dabbrev-expand)
+      "C-p" 'better-dabbrev-expand)
 
 #+end_src
 ** Improve Autocomplete
