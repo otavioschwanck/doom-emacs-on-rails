@@ -414,7 +414,6 @@ in-place, the old list reference does not remain valid."
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
   (interactive)
   (let* ((matching-snippet nil)
-         (matching-text nil)
          (new-list '())
          (word (or (word-at-point t) "")))
     (dolist (candidate candidates)
@@ -422,12 +421,9 @@ in-place, the old list reference does not remain valid."
             (candidate-backend (get-text-property 0 'company-backend candidate)))
         (if (and (string= word stripped-candidate) (eq candidate-backend 'company-yasnippet))
             (setq matching-snippet candidate)
-          (if (and (string= word stripped-candidate) (eq matching-text nil))
-              (setq matching-text candidate) (when (order-snippet-at-top-when-matches--can-push word stripped-candidate candidate-backend new-list) (push candidate new-list))
-              ))))
+          (when (order-snippet-at-top-when-matches--can-push word stripped-candidate candidate-backend new-list) (push candidate new-list)))))
     (setq new-list (reverse new-list))
     (unless yas--active-snippets
-      (when matching-text (setq new-list (insert-into-list new-list matching-text 0)))
       (when matching-snippet (setq new-list (insert-into-list new-list matching-snippet 0))))
     new-list))
 
