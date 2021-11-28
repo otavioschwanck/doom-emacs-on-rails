@@ -444,7 +444,7 @@ in-place, the old list reference does not remain valid."
              (not begins-with-two-dots)
              (not (eq candidate-backend 'company-yasnippet))
              (not (eq candidate-backend 'company-dabbrev-code)))
-      (and valid-case (not exist-in-list)))))
+      (and valid-case (not exist-in-list) (not begins-with-two-dots)))))
 
 (after! company
   (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
@@ -938,7 +938,7 @@ in-place, the old list reference does not remain valid."
   (end-of-line)
   (newline-and-indent))
 
-(map! :after ruby-mode :map ruby-mode-map :i "C-S-e" #'otavio/grb)
+(map! :after ruby-mode :map ruby-mode-map :i "C-e" #'otavio/grb)
 #+end_src
 ** Toggle if single and multiline
 #+begin_src emacs-lisp
