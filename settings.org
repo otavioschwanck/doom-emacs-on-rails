@@ -413,19 +413,20 @@ in-place, the old list reference does not remain valid."
 (defun order-snippet-at-top-when-matches (candidates)
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
   (interactive)
-  (let* ((matching-snippet nil)
-         (new-list '())
-         (word (or (word-at-point t) "")))
-    (dolist (candidate candidates)
-      (let ((stripped-candidate (substring-no-properties candidate))
-            (candidate-backend (get-text-property 0 'company-backend candidate)))
-        (if (and (string= word stripped-candidate) (eq candidate-backend 'company-yasnippet))
-            (setq matching-snippet candidate)
-          (when (order-snippet-at-top-when-matches--can-push word stripped-candidate candidate-backend new-list) (push candidate new-list)))))
-    (setq new-list (reverse new-list))
-    (unless yas--active-snippets
-      (when matching-snippet (setq new-list (insert-into-list new-list matching-snippet 0))))
-    new-list))
+  (if (and (not (eq major-mode 'text-mode)) (not (eq major-mode 'org-mode)))
+      (let* ((matching-snippet nil)
+             (new-list '())
+             (word (or (word-at-point t) "")))
+        (dolist (candidate candidates)
+          (let ((stripped-candidate (substring-no-properties candidate))
+                (candidate-backend (get-text-property 0 'company-backend candidate)))
+            (if (and (string= word stripped-candidate) (eq candidate-backend 'company-yasnippet))
+                (setq matching-snippet candidate)
+              (when (order-snippet-at-top-when-matches--can-push word stripped-candidate candidate-backend new-list) (push candidate new-list)))))
+        (setq new-list (reverse new-list))
+        (unless yas--active-snippets
+          (when matching-snippet (setq new-list (insert-into-list new-list matching-snippet 0))))
+        new-list) candidates))
 
 (defun order-snippet-at-top-when-matches--can-push (word stripped-candidate candidate-backend new-list)
   "Verify if can push to autocomplete list."
