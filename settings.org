@@ -1086,14 +1086,14 @@ in-place, the old list reference does not remain valid."
 (defun ruby-extract-function ()
   (interactive)
   (let* ((function-name (read-string "Method name? "))
+         (has-private (ruby-new-method-from-symbol-at-point-verify-private))
          (args (read-string "Arguments without paranthesis (leave blank for no parameters): ")))
 
     (when (not (string= function-name ""))
       (call-interactively 'evil-change)
       (call-interactively 'evil-normal-state)
-      (ruby-extract-function--create-function function-name args)
-      (ruby-extract-function--insert-function function-name args)
-      )))
+      (ruby-extract-function--create-function function-name args has-private)
+      (ruby-extract-function--insert-function function-name args))))
 
 (defun ruby-extract-function--insert-function (function-name args)
   (when (not (eq (point) (point-at-eol)))
@@ -1103,13 +1103,19 @@ in-place, the old list reference does not remain valid."
     (insert "(" args ")"))
   (evil-indent (point-at-bol) (point-at-eol)))
 
-(defun ruby-extract-function--create-function (function-name args)
+(defun ruby-extract-function--create-function (function-name args has-private)
   (save-excursion
-    (+evil/next-end-of-method)
-    (when (not (string= (string (following-char)) "\n"))
-      (+evil/insert-newline-above 1))
-    (+evil/insert-newline-below 1)
-    (forward-line 1)
+    (if (and has-private (yes-or-no-p "private found, create method after private?"))
+        (progn
+          (search-forward "private\n" (point-max) t)
+          (+evil/insert-newline-below 1)
+          (forward-line 1))
+      (progn
+        (+evil/next-end-of-method)
+        (when (not (string= (string (following-char)) "\n"))
+          (+evil/insert-newline-above 1))
+        (+evil/insert-newline-below 1)
+        (forward-line 1)))
     (insert "def " function-name)
     (when (not (string= args ""))
       (insert "(" args ")"))
@@ -1143,7 +1149,6 @@ in-place, the old list reference does not remain valid."
 
 (defun ruby-new-method-from-symbol-at-point-verify-private ()
   (save-excursion
-    (goto-char (point-min))
     (search-forward "private\n" (point-max) t)))
 
 (defun ruby-new-method-from-symbol-at-point--create-method (function-name args has-private)
