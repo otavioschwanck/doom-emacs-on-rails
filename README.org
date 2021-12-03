@@ -12,6 +12,7 @@
   - [[#improve-emacs-speed-a-lot][Improve emacs speed (a lot)]]
 - [[#getting-help][Getting help]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
+- [[#installing-emacs-on-mac][Installing Emacs on Mac]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#buy-me-a-coffee][Buy me a coffee]]
 
@@ -46,13 +47,13 @@ git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 
 # Some dependencies (ubuntu)
-sudo apt install fd-find ripgrep libtool-bin cmake tidy stylelint js-beautify
+sudo apt install fd-find ripgrep libtool-bin cmake tidy
 
 # If you use mac
 brew install fd ripgrep
 
 # Install dependencies for LSP
-npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server
+npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server @tailwindcss/language-server stylelint js-beautify
 gem install solargraph
 #+END_SRC
 
@@ -111,6 +112,11 @@ For getting help, access doom official github page: https://github.com/hlissner/
 
 * Installing Emacs on Ubuntu
 Just run `sudo snap install emacs --classic`
+
+* Installing Emacs on Mac
+Just install from https://emacsformacosx.com/
+
+Tip:  To work, go to applications, right click and then, open.
 
 * What i need to know to start using ?
 I really recommend you to learn the basics of vim first, choose one:
