@@ -1391,8 +1391,18 @@ Version 2015-06-08"
 #+end_src
 * Tailwind
 #+begin_src emacs-lisp
-(use-package! lsp-tailwindcss)
-#+end_src
+(use-package! lsp-tailwindcss
+  :after lsp-mode
+  :init
+  (setq lsp-tailwindcss-add-on-mode t)
+  :config
+  (add-to-list 'lsp-language-id-configuration '(".*\\.erb$" . "html"))
+  (setq lsp-tailwindcss-major-modes '(web-mode css-mode rjsx-mode typescript-tsx-mode)
+        lsp-tailwindcss-emmet-completions (featurep 'emmet-mode)))
+
+(set-docsets! '(web-mode css-mode rjsx-mode typescript-tsx-mode)
+  :add "Tailwind_CSS")
+  #+end_src
 * Load user.org
 #+begin_src emacs-lisp
 (if (file-exists-p (expand-file-name "user.org" doom-private-dir))
