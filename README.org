@@ -53,7 +53,7 @@ sudo apt install fd-find ripgrep libtool-bin cmake tidy
 brew install fd ripgrep
 
 # Install dependencies for LSP
-npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server @tailwindcss/language-server stylelint js-beautify
+npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server @tailwindcss/language-server@0.0.4 stylelint js-beautify
 gem install solargraph
 #+END_SRC
 
