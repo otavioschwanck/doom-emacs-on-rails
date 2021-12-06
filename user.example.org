@@ -188,5 +188,6 @@ Just uncomment the code above (without begin-src and end-src)
 #+begin_src emacs-lisp
 ;; Add your code here:
 
+;; Stop Warning everything
+(setq warning-minimum-level :emergency)
 #+end_src
-

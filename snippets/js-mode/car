@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: const name = () { ... }
+# key: car
+# --
+const ${1:name} = (${3:args}) => {
+  ${4:}
+}

@@ -2,7 +2,7 @@
 # contributor: Seong Yong-ju <otavioschwanck@gmail.com>
 # name: React component
 # --
-const ${1:`(f-base buffer-file-name)`} = (${2:\{ props \}}) => {
+const ${1:`(f-base buffer-file-name)`} = (${2:\{ ${3:props} \}}) => {
   $0
 };
 
