@@ -84,6 +84,7 @@ Please ignore the wrong comment at line 8 =D.
 
 #+caption: Snippets, snippets SNIPPETS!
 [[snippets.gif]]
+Obs about snippets:  You dont need to press Ctrl + space, just tab already completes!
 
 * Tips
 ** Configuring Forge for Creating / Reviewing pull requests
