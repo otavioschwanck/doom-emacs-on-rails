@@ -401,61 +401,21 @@ C-l to clear v-term
 
 ** Autocomplete
 #+begin_src emacs-lisp
-(defun insert-into-list (list el n)
-  "Insert into list LIST an element EL at index N.
-
-If N is 0, EL is inserted before the first element.
-
-The resulting list is returned.  As the list contents is mutated
-in-place, the old list reference does not remain valid."
-  (let* ((padded-list (cons nil list))
-         (c (nthcdr n padded-list)))
-    (setcdr c (cons el (cdr c)))
-    (cdr padded-list)))
-
-(defun order-snippet-at-top-when-matches (candidates)
+(defun remove-company-duplicates (candidates)
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
-  (interactive)
-  (if (and (not (eq major-mode 'text-mode))
-           (not (eq major-mode 'org-mode))
-           (not (eq major-mode 'web-mode))
-           (not (eq major-mode 'yaml-mode))
-           (not (eq major-mode 'json-mode))
-           (not (eq major-mode 'nxml-mode))
-           (<= (length candidates) 350))
-      (let* ((matching-snippet nil)
-             (new-list '())
-             (word (or (word-at-point t) "")))
-        (dolist (candidate candidates)
-          (let ((stripped-candidate (substring-no-properties candidate))
-                (candidate-backend (get-text-property 0 'company-backend candidate)))
-            (if (and (string= word stripped-candidate) (eq candidate-backend 'company-yasnippet))
-                (setq matching-snippet candidate)
-              (when (order-snippet-at-top-when-matches--can-push word stripped-candidate candidate-backend new-list) (push candidate new-list)))))
-        (setq new-list (reverse new-list))
-        (unless yas--active-snippets
-          (when matching-snippet (setq new-list (insert-into-list new-list matching-snippet 0))))
-        new-list) candidates))
+  (if (< (length candidates) 200)
+      (let* ((new-list '()))
 
-(defun order-snippet-at-top-when-matches--can-push (word stripped-candidate candidate-backend new-list)
-  "Verify if can push to autocomplete list."
-  (let* ((case-fold-search nil)
-         (valid-case (string-match-p word stripped-candidate))
-         (exist-in-list (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))
-         (begins-with-two-dots (string= (substring stripped-candidate 0 1) ":"))
-         (is-yas yas--active-snippets))
-    (if is-yas
-        (and valid-case
-             (not exist-in-list)
-             (not begins-with-two-dots)
-             (not (eq candidate-backend 'company-yasnippet))
-             (not (eq candidate-backend 'company-dabbrev-code)))
-      (and valid-case (not exist-in-list) (not begins-with-two-dots)))))
+    (dolist (candidate candidates)
+      (let ((stripped-candidate (substring-no-properties candidate)))
+        (if (and (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate)))
+            (push candidate new-list))))
+    (reverse new-list))) candidates)
 
 (after! company
   (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
   (add-to-list 'company-transformers
-               #'order-snippet-at-top-when-matches))
+               #'remove-company-duplicates))
 
 (after! company
   (setq company-dabbrev-downcase nil)
@@ -470,32 +430,43 @@ in-place, the old list reference does not remain valid."
   (call-interactively 'dabbrev-expand)
   (company-abort))
 
+(defun better-hippie-expand ()
+  (interactive)
+  (call-interactively 'hippie-expand)
+  (company-abort))
+
 (map! :i "C-p" 'better-dabbrev-expand)
+(map! :i "C-S-p" 'better-hippie-expand)
+(map! :i "<C-return>" 'yas-expand)
 
 (map! :after company
-      :map company-active-map
+      :map company-tng-map
+      "<C-return>" 'yas-expand
+      "C-SPC" 'company-complete-selection
       "C-o" 'company-abort
+      "C-S-p" 'better-hippie-expand
       "C-p" 'better-dabbrev-expand)
-
 #+end_src
+
 ** Improve Autocomplete
 #+begin_src emacs-lisp
 (after! company
   (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code))
 #+end_src
+
 ** Snippets
 #+begin_src emacs-lisp
 (defun select-and-yas-next ()
   (interactive)
   (if (eq company-selection nil)
       (yas-next-field)
-    (progn (company-abort) (yas-next-field))))
+    (progn (company-complete-selection) (yas-next-field))))
 
 (defun select-and-yas-previous ()
   (interactive)
   (if (eq company-selection nil)
       (yas-prev-field)
-    (progn (company-abort) (yas-prev-field))))
+    (progn (company-complete-selection) (yas-prev-field))))
 
 (defun yas-emmet-expand ()
   (interactive)
@@ -505,8 +476,8 @@ in-place, the old list reference does not remain valid."
 
 (map! :after yasnippet
       :map yas-keymap
-      "C-o" #'select-and-yas-next
-      "C-S-o" #'select-and-yas-previous
+      "<C-return>" #'select-and-yas-next
+      "<C-S-return>" #'select-and-yas-previous
       "C-d" #'yas-skip-and-clear-field
       "C-e" #'yas-emmet-expand)
 
