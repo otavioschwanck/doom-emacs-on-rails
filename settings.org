@@ -405,12 +405,10 @@ C-l to clear v-term
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
   (if (< (length candidates) 200)
       (let* ((new-list '()))
-
     (dolist (candidate candidates)
-      (let ((stripped-candidate (substring-no-properties candidate)))
-        (if (and (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate)))
-            (push candidate new-list))))
-    (reverse new-list))) candidates)
+      (let* ((stripped-candidate (substring-no-properties candidate)))
+        (unless (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate) (push candidate new-list))))
+    (reverse new-list)) candidates))
 
 (after! company
   (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-yasnippet))
