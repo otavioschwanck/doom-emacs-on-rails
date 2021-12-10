@@ -407,7 +407,7 @@ C-l to clear v-term
       (let* ((new-list '()))
     (dolist (candidate candidates)
       (let* ((stripped-candidate (substring-no-properties candidate)))
-        (unless (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate) (push candidate new-list))))
+        (if (and (not (string= (substring stripped-candidate 0 1) ":")) (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))) (push candidate new-list))))
     (reverse new-list)) candidates))
 
 (after! company
