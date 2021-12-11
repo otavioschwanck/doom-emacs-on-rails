@@ -476,8 +476,8 @@ C-l to clear v-term
                               "acceptance" "validates_associated" "confirmation"
                               "exclusion" "format" "inclusion"
                               "numericality: " "presence: false" "presence: true" "absence"
-                              "uniqueness: false" "uniqueness: true" "uniqueness: " "allow_nil: false" "allow_nil: true" "allow_nil: " "allow_blank: true" "allow_blank: false" "allow_blank: " "message: " "on: "
-                              "yday" "year" "uniqueness" "optional: false" "optional: true" "errors.full_messages.to_sentence" "before_action" "before_action :" "skip_before_action :" "protect_from_forgery with: :" "rescue_from :" "with: ")
+                              "uniqueness: true" "uniqueness: " "allow_nil: true" "allow_nil: " "allow_blank: true" "allow_blank: " "message: " "on: "
+                              "yday" "year" "optional: false" "optional: true" "errors.full_messages.to_sentence" "before_action" "before_action :" "skip_before_action :" "protect_from_forgery with: :" "rescue_from :" "with: ")
   )
 
 (defconst rspec-common-words '("actual"
