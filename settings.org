@@ -666,10 +666,14 @@ C-l to clear v-term
 (defun remove-company-duplicates (candidates)
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
   (if (< (length candidates) 200)
-      (let* ((new-list '()))
+      (let* ((case-fold-search nil)
+             (word (word-at-point t))
+             (new-list '()))
         (dolist (candidate candidates)
           (let* ((stripped-candidate (substring-no-properties candidate)))
-            (if (and (not (string= (substring stripped-candidate 0 1) ":")) (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))) (push candidate new-list))))
+            (if (and (string-match-p word candidate)
+                     (not (string= (substring stripped-candidate 0 1) ":"))
+                     (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))) (push candidate new-list))))
         (reverse new-list)) candidates))
 
 (after! company
