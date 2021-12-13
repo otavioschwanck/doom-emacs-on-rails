@@ -483,6 +483,8 @@ C-l to clear v-term
 (defconst rspec-common-words '("actual"
                                "actual_exists?"
                                "add_should_and_should_not_to"
+                               "and_return"
+                               "allow"
                                "aggregate_failures"
                                "aggregation_block_label"
                                "aggregation_metadata"
@@ -646,9 +648,7 @@ C-l to clear v-term
                  (company-grab-symbol)))
 
     (candidates
-     (cl-remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      rspec-common-words))))
+     (all-completions arg rspec-common-words))))
 
 (defun company-ruby-backend (command &optional arg &rest ignored)
   (interactive (list 'interactive))
@@ -659,9 +659,7 @@ C-l to clear v-term
                  (company-grab-symbol)))
 
     (candidates
-     (cl-remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      ruby-common-words))))
+     (all-completions arg ruby-common-words))))
 
 (defun remove-company-duplicates (candidates)
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
