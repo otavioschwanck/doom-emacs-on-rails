@@ -11,6 +11,7 @@
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#improve-emacs-speed-a-lot][Improve emacs speed (a lot)]]
 - [[#getting-help][Getting help]]
+- [[#want-to-learn-how-to-use-advanced-commands-from-this-config-inside-emacs][Want to learn how to use advanced commands from this config inside emacs?]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
 - [[#installing-emacs-on-mac][Installing Emacs on Mac]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
@@ -110,6 +111,9 @@ Resume:  run =emacs --daemon= on system start.  To open an emacs window, use ema
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
+
+* Want to learn how to use advanced commands from this config inside emacs?
+Just follow this gif:  https://imgur.com/gziLXkm
 
 * Installing Emacs on Ubuntu
 Just run `sudo snap install emacs --classic`
