@@ -113,7 +113,7 @@ Resume:  run =emacs --daemon= on system start.  To open an emacs window, use ema
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
 
 * Want to learn how to use advanced commands from this config inside emacs?
-Just follow this gif:  https://imgur.com/gziLXkm
+Just follow this gif:  https://imgur.com/J3KzrPK
 
 * Installing Emacs on Ubuntu
 Just run `sudo snap install emacs --classic`

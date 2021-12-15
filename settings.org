@@ -359,11 +359,11 @@ C-l to clear v-term
 #+begin_src emacs-lisp
 
 ;; Show path of file on SPC ,
-(setq uniquify-buffer-name-style 'reverse)
-(setq uniquify-separator "/")
-(setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
-(setq uniquify-ignore-buffers-re "^\\*")
-
+(after! vertico
+  (setq uniquify-buffer-name-style 'reverse)
+  (setq uniquify-separator "/")
+  (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
+  (setq uniquify-ignore-buffers-re "^\\*"))
 #+end_src
 ** Fix iedit
 #+begin_src emacs-lisp
