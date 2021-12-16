@@ -816,22 +816,42 @@ C-l to clear v-term
     (interactive)
     (inf-ruby-type "next"))
 
+  (defun inf-ruby-disable-logger ()
+    (interactive)
+    (if logger-disabled
+        (progn
+          (inf-ruby-type "ActiveRecord::Base.logger = old_logger")
+          (setq-local logger-disabled nil)
+          (message "Logger is back!")
+          )
+      (progn
+        (setq-local logger-disabled t)
+        (inf-ruby-type "old_logger = ActiveRecord::Base.logger")
+        (inf-ruby-type "ActiveRecord::Base.logger = nil")
+        (message "Logger disabled!"))))
+
   (defun inf-ruby-add-keybindings ()
-    (message "Ruby Console Tips: Press C-RET to send continue / exit, C-M-RET to reload, press A to move from normal to insert mode at end.")
-      (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
+    (message "Ruby Console Tips: Press C-RET to send continue / exit, C-M-RET to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log.")
+    (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
 
-      (evil-local-set-key 'normal (kbd "<C-return>") #'inf-ruby-exit)
-      (define-key evil-insert-state-local-map (kbd "<C-return>") #'inf-ruby-exit)
-      (evil-local-set-key 'normal  (kbd "<C-M-return>") #'inf-ruby-reload)
-      (define-key evil-insert-state-local-map (kbd "<C-M-return>") #'inf-ruby-reload)
+    (setq-local logger-disabled nil)
 
-      (evil-local-set-key 'normal  (kbd "C-l") #'inf-ruby-step)
-      (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-step)
+    (evil-local-set-key 'normal (kbd "<C-return>") #'inf-ruby-exit)
+    (define-key evil-insert-state-local-map (kbd "<C-return>") #'inf-ruby-exit)
 
-      (evil-local-set-key 'normal  (kbd "C-M-l") #'inf-ruby-next)
-      (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-next)
+    (evil-local-set-key 'normal  (kbd "<C-M-return>") #'inf-ruby-reload)
+    (define-key evil-insert-state-local-map (kbd "<C-M-return>") #'inf-ruby-reload)
 
-      (evil-local-set-key 'normal (kbd "<return>") #'comint-send-input))
+    (evil-local-set-key 'normal  (kbd "C-l") #'inf-ruby-step)
+    (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-step)
+
+    (evil-local-set-key 'normal (kbd "C-M-l") #'inf-ruby-next)
+    (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-next)
+
+    (evil-local-set-key 'normal  (kbd "C-M-o") #'inf-ruby-disable-logger)
+    (define-key evil-insert-state-local-map (kbd "C-M-o") #'inf-ruby-disable-logger)
+
+    (evil-local-set-key 'normal (kbd "<return>") #'comint-send-input))
 
   (add-hook! 'inf-ruby-mode-hook 'inf-ruby-add-keybindings))
 
