@@ -23,32 +23,46 @@ Here you can organize your configurations the way you want.
 By default, the value of debugger is byebug.  To change, modify the variable below:
 #+begin_src emacs-lisp
 ;; SPC d to put a debugger.  SPC D to delete all debuggers from the file
-(setq debugger-command "byebug") ;; change from byebug to "require 'pry'; binding.pry" for example..
-(setq pry-show-helper t) ;; show some helper, change to nil if you dont like
+;; (after! inf-ruby-mode
+;;   (setq debugger-command "byebug") ;; change from pry to "byebug" for example..
+;;   (setq debugger-command "byebug") ;; change from pry to "byebug" for example..
+;; (setq inf-ruby-command-to-continue "continue") ;; used on byebug
+;;   (setq pry-show-helper nil) ;; show some helper, change to t if you want this
+  ;; )
 
 #+end_src
 
 * Google Tradutor
 #+begin_src emacs-lisp
 ;; Use C-c t and C-c T to verify text at point
-(setq google-translate-default-source-language "en")
-(setq google-translate-default-target-language "pt")
+(after! google-translate
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "pt"))
 #+end_src
 
 * Where is your fixtures?
 #+begin_src emacs-lisp
-(setq projectile-rails-fixture-dirs '("spec/fixtures/" "spec/factories/"))
+(after! projectile-rails
+  (setq projectile-rails-fixture-dirs '("spec/fixtures/" "spec/factories/")))
 #+end_src
 
 * Use Docker?
 #+begin_src emacs-lisp
 ;; Rspec on docker?
+;; (after! rspec-mode
 ;; (setq rspec-use-docker-when-possible t)
-;; (setq rspec-docker-command "docker-compose run")
+;; (setq rspec-docker-command "docker-compose run") ;; You can also put ../ to execute on parent folder of project.
 ;; (setq rspec-docker-cwd "/app/")
 ;; (setq rspec-docker-container "rspec-container-name") ;; Name of the container to run rspec into
+;; )
+;; (after! projectile-rails
 ;; (setq projectile-rails-custom-server-command "docker-compose run web rails s")
 ;; (setq projectile-rails-custom-console-command "docker-compose run web rails c")
+;; )
+;; (after! flycheck
+;; (setq rubocop-append-command '("docker-compose" "run" "web"))
+;; )
+;; ()
 
 #+end_src
 
@@ -93,8 +107,8 @@ By default, the value of debugger is byebug.  To change, modify the variable bel
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
 
 ;; Mac improvement (cmd = meta)
-;; (setq mac-command-modifier 'meta)
-;; (setq ns-function-modifier 'control)
+(setq mac-command-modifier 'meta)
+(setq ns-function-modifier 'control)
 #+end_src
 
 * Use minitest?
@@ -153,14 +167,15 @@ Just uncomment the code above (without begin-src and end-src)
 * Start with Magit
 #+begin_src emacs-lisp
 ;; Comment to disable
-(defun open-projectile-with-magit (&optional DIRECTORY CACHE)
-  (interactive)
-  (magit-status DIRECTORY)
-  (if (fboundp 'magit-fetch-from-upstream)
-      (call-interactively #'magit-fetch-from-upstream)
-    (call-interactively #'magit-fetch-current)))
+(after! projectile
+  (defun open-projectile-with-magit (&optional DIRECTORY CACHE)
+    (interactive)
+    (magit-status DIRECTORY)
+    (if (fboundp 'magit-fetch-from-upstream)
+        (call-interactively #'magit-fetch-from-upstream)
+      (call-interactively #'magit-fetch-current)))
 
-(setq +workspaces-switch-project-function #'open-projectile-with-magit)
+  (setq +workspaces-switch-project-function #'open-projectile-with-magit))
 #+end_src
 
 * Build your own file switches
@@ -179,7 +194,7 @@ Just uncomment the code above (without begin-src and end-src)
 
 * Snippet Settings
 #+begin_src emacs-lisp
-;; use descc snippet on rspec to create describe '#call' ..
+;; use descc snippet (with C-RET) on rspec to create describe '#call' ..
 ;; You can change the function uncommenting the code below and changing to your most used function
 ;; (setq ruby-rspec-describe-class "call")
 #+end_src

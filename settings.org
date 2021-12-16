@@ -403,7 +403,7 @@ C-l to clear v-term
 #+begin_src emacs-lisp
 (defconst ruby-common-words '("deep_symbolize_keys" "deep_stringify_keys" "greater_than"
                               "greater_than_or_equal_to" "equal_to" "less_than" "less_than_or_equal_to"
-                              "other_than" "any?" "assoc" "clear"
+                              "other_than" "any?" "assoc" "clear" "Time.zone.now" "Date.today"
                               "compact" "compact!" "compare_by_identity" "compare_by_identity?"
                               "deconstruct_keys" "default" "default=" "default_proc"
                               "default_proc=" "delete" "delete_if" "dig"
@@ -655,7 +655,7 @@ C-l to clear v-term
 
   (cl-case command
     (interactive (company-begin-backend 'company-ruby-backend))
-    (prefix (and (eq major-mode 'ruby-mode)
+    (prefix (and (or (eq major-mode 'ruby-mode) (eq major-mode 'inf-ruby-mode))
                  (company-grab-symbol)))
 
     (candidates
@@ -714,7 +714,7 @@ C-l to clear v-term
 #+begin_src emacs-lisp
 (after! company
   (setq company-dabbrev-code-everywhere t)
-  (set-company-backend! 'inf-ruby-mode 'company-dabbrev-code))
+  (set-company-backend! 'inf-ruby-mode '(:separate company-dabbrev-code company-capf company-ruby-backend)))
 #+end_src
 
 ** Snippets
@@ -756,9 +756,61 @@ C-l to clear v-term
 #+end_src
 ** Console
 #+begin_src emacs-lisp
+(after! inf-ruby
+  (defun inf-ruby-goto-insert ()
+    (interactive)
+    (goto-char (point-max))
+    (when (featurep 'evil)
+      (evil-insert 1)))
+
+  (defun inf-ruby-type (text)
+    (interactive)
+    (inf-ruby-goto-insert)
+    (goto-char (point-at-bol))
+    (when (word-at-point t) (kill-line t))
+    (insert text)
+    (comint-send-input))
+
+  (defvar inf-ruby-command-to-continue "continue" "Command used to exit inf ruby")
+
+  (defun inf-ruby-exit ()
+    (interactive)
+    (inf-ruby-type (if (cl-search "*rails" (buffer-name)) "exit" inf-ruby-command-to-continue)))
+
+  (defun inf-ruby-reload ()
+    (interactive)
+    (inf-ruby-type "reload!"))
+
+  (defun inf-ruby-step ()
+    (interactive)
+    (inf-ruby-type "step"))
+
+  (defun inf-ruby-next ()
+    (interactive)
+    (inf-ruby-type "next"))
+
+  (defun inf-ruby-add-keybindings ()
+    (message "Ruby Console Tips: Press C-RET to send continue / exit, C-M-RET to reload, press A to move from normal to insert mode at end.")
+      (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
+
+      (evil-local-set-key 'normal (kbd "<C-return>") #'inf-ruby-exit)
+      (define-key evil-insert-state-local-map (kbd "<C-return>") #'inf-ruby-exit)
+      (evil-local-set-key 'normal  (kbd "<C-M-return>") #'inf-ruby-reload)
+      (define-key evil-insert-state-local-map (kbd "<C-M-return>") #'inf-ruby-reload)
+
+      (evil-local-set-key 'normal  (kbd "C-l") #'inf-ruby-step)
+      (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-step)
+
+      (evil-local-set-key 'normal  (kbd "C-M-l") #'inf-ruby-next)
+      (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-next)
+
+      (evil-local-set-key 'normal (kbd "<return>") #'comint-send-input))
+
+  (add-hook! 'inf-ruby-mode-hook 'inf-ruby-add-keybindings))
+
 (defun popserver-when-on-byebug (_SYMBOL NEWVAL _OPERATION _WHERE)
   (when (and (eq NEWVAL 0) (cl-search "projectile-rails" (buffer-name)))
-    (progn (switch-to-buffer (buffer-name))
+    (progn (switch-to-buffer-other-window (buffer-name))
            (goto-char (point-max))
            (when (featurep 'evil)
              (evil-insert-state)))))
@@ -1002,8 +1054,8 @@ C-l to clear v-term
 
 ** Add Debug on code
 #+begin_src emacs-lisp
-(defvar debugger-command "byebug")
-(defvar pry-show-helper t)
+(defvar debugger-command "require 'pry'; binding.pry")
+(defvar pry-show-helper nil)
 
 (defun otavio/remove-all-debuggers ()
   (interactive)
