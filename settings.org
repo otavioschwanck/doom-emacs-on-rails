@@ -831,7 +831,12 @@ C-l to clear v-term
         (message "Logger disabled!"))))
 
   (defun inf-ruby-add-keybindings ()
-    (message "Ruby Console Tips: Press C-RET to send continue / exit, C-M-RET to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log.")
+    (if (cl-search "*rails" (buffer-name))
+        (progn
+          (message "Ruby Console Tips: Press C-RET to send exit, C-M-RET to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
+      (progn
+        (message "Debugging Tips: Press C-RET to send continue, press A to move from normal to insert mode at end, C-l to next and C-M-l to step.")))
+
     (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
 
     (setq-local logger-disabled nil)
@@ -842,11 +847,11 @@ C-l to clear v-term
     (evil-local-set-key 'normal  (kbd "<C-M-return>") #'inf-ruby-reload)
     (define-key evil-insert-state-local-map (kbd "<C-M-return>") #'inf-ruby-reload)
 
-    (evil-local-set-key 'normal  (kbd "C-l") #'inf-ruby-step)
-    (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-step)
+    (evil-local-set-key 'normal  (kbd "C-M-l") #'inf-ruby-step)
+    (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-step)
 
-    (evil-local-set-key 'normal (kbd "C-M-l") #'inf-ruby-next)
-    (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-next)
+    (evil-local-set-key 'normal (kbd "C-l") #'inf-ruby-next)
+    (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-next)
 
     (evil-local-set-key 'normal  (kbd "C-M-o") #'inf-ruby-disable-logger)
     (define-key evil-insert-state-local-map (kbd "C-M-o") #'inf-ruby-disable-logger)
