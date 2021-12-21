@@ -7,6 +7,8 @@
 - [[#keybindings][Keybindings]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
+- [[#autocomplete--snippets--3][Autocomplete + Snippets = <3]]
+  - [[#using-snippets-and-autocomplete-together-3][USING SNIPPETS AND AUTOCOMPLETE TOGETHER <3]]
 - [[#tips][Tips]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
   - [[#improve-emacs-speed-a-lot][Improve emacs speed (a lot)]]
@@ -83,9 +85,19 @@ Here is an example of some features that i made for Ruby:
 [[method at point.gif]]
 Please ignore the wrong comment at line 8 =D.
 
-#+caption: Snippets, snippets SNIPPETS!
-[[snippets.gif]]
-Obs about snippets:  You dont need to press Ctrl + space, just tab already completes!
+* Autocomplete + Snippets = <3
+#+caption: Snippets with autocomplete
+[[autocomplete.gif]]
+
+** USING SNIPPETS AND AUTOCOMPLETE TOGETHER <3
+
+To toggle an snippet, Tab also goes forward on snippet
+To go backward on snippets, press Shift + Tab
+To delete selected text on snippet, press C-d
+To go forward on autocomplete list, press C-n OR C-j.
+Use C-enter to complete any text in editor (SUPER USEFUL)
+To use enter ignoring the autocomplete, press Alt + Enter.
+To confirm the selection on autocomplete, press Enter
 
 * Tips
 ** Configuring Forge for Creating / Reviewing pull requests
