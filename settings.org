@@ -417,7 +417,7 @@ C-l to clear v-term
 #+begin_src emacs-lisp
 (defconst ruby-common-words '("deep_symbolize_keys" "deep_stringify_keys" "greater_than"
                               "greater_than_or_equal_to" "equal_to" "less_than" "less_than_or_equal_to"
-                              "other_than" "any?" "assoc" "clear" "Time.zone.now" "Date.today"
+                              "other_than" "any?" "assoc" "clear" "Time.zone.now" "Date.today" "present?" "blank?" "nil?"
                               "compact" "compact!" "compare_by_identity" "compare_by_identity?"
                               "deconstruct_keys" "default" "default=" "default_proc"
                               "default_proc=" "delete" "delete_if" "dig"
