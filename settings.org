@@ -1,6 +1,7 @@
 #+TITLE: Settings
 * index :toc:
 - [[#load-external-plugins][Load External Plugins]]
+- [[#apparence][Apparence]]
 - [[#google-translate][Google Translate]]
 - [[#editor-settings][Editor Settings]]
   - [[#basic-settings][Basic Settings]]
@@ -76,6 +77,12 @@ Loading plugins like rails routes, rails http status, etc.
 
 ;; Fixes some bugs in some libraries
 (load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
+#+end_src
+* Apparence
+#+begin_src emacs-lisp
+(when (eq doom-theme 'doom-one)
+  (custom-set-faces
+   '(line-number ((t (:inherit default :foreground "gray40" :strike-through nil :underline nil :slant normal :weight normal))))))
 #+end_src
 * Google Translate
 #+begin_src emacs-lisp

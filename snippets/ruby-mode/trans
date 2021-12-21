@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ActiveRecord::Base.transaction(...) do
+# key: trans
+# --
+ActiveRecord::Base.transaction(joinable: false, requires_new: true) do
