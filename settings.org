@@ -724,17 +724,27 @@ C-l to clear v-term
   (call-interactively 'hippie-expand)
   (company-abort))
 
-(map! :i "C-p" 'better-dabbrev-expand)
-(map! :i "C-S-p" 'better-hippie-expand)
-(map! :i "<C-return>" 'yas-expand)
+(defun call-real-ret ()
+  (interactive)
+  (when company-selection (company-abort))
+  (funcall (key-binding (kbd "RET"))))
+
+(map! :i "<C-return>" 'better-dabbrev-expand)
+(map! :i "M-RET" 'call-real-ret)
+(map! :i "TAB" 'yas-expand)
+
+(defun better-yas-expand ()
+  (interactive)
+  (if yas--active-snippets (select-and-yas-next) (yas-expand)))
 
 (map! :after company
-      :map company-tng-map
-      "<C-return>" 'yas-expand
-      "C-SPC" 'company-complete-selection
-      "C-o" 'company-abort
-      "C-S-p" 'better-hippie-expand
-      "C-p" 'better-dabbrev-expand)
+      :map company-active-map
+      "TAB" 'better-yas-expand
+      "<tab>" #'better-yas-expand
+      "M-RET" #'call-real-ret
+      "S-TAB" 'company-complete-selection
+      "<C-return>" 'better-dabbrev-expand)
+
 #+end_src
 
 ** Improve Autocomplete
@@ -750,13 +760,13 @@ C-l to clear v-term
   (interactive)
   (if (eq company-selection nil)
       (yas-next-field)
-    (progn (company-complete-selection) (yas-next-field))))
+    (progn (company-abort) (yas-next-field))))
 
 (defun select-and-yas-previous ()
   (interactive)
   (if (eq company-selection nil)
       (yas-prev-field)
-    (progn (company-complete-selection) (yas-prev-field))))
+    (progn (company-abort) (yas-prev-field))))
 
 (defun yas-emmet-expand ()
   (interactive)
@@ -766,8 +776,8 @@ C-l to clear v-term
 
 (map! :after yasnippet
       :map yas-keymap
-      "<C-return>" #'select-and-yas-next
-      "<C-S-return>" #'select-and-yas-previous
+      "TAB" #'select-and-yas-next
+      "S-TAB" #'select-and-yas-previous
       "C-d" #'yas-skip-and-clear-field
       "C-e" #'yas-emmet-expand)
 
@@ -833,19 +843,19 @@ C-l to clear v-term
   (defun inf-ruby-add-keybindings ()
     (if (cl-search "*rails" (buffer-name))
         (progn
-          (message "Ruby Console Tips: Press C-RET to send exit, C-M-RET to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
+          (message "Ruby Console Tips: Press C-h to send exit, C-M-h to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
       (progn
-        (message "Debugging Tips: Press C-RET to send continue, press A to move from normal to insert mode at end, C-l to next and C-M-l to step.")))
+        (message "Debugging Tips: Press C-h to send continue, press A to move from normal to insert mode at end, C-l to next and C-M-l to step.")))
 
     (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
 
     (setq-local logger-disabled nil)
 
-    (evil-local-set-key 'normal (kbd "<C-return>") #'inf-ruby-exit)
-    (define-key evil-insert-state-local-map (kbd "<C-return>") #'inf-ruby-exit)
+    (evil-local-set-key 'normal (kbd "C-h") #'inf-ruby-exit)
+    (define-key evil-insert-state-local-map (kbd "C-h") #'inf-ruby-exit)
 
-    (evil-local-set-key 'normal  (kbd "<C-M-return>") #'inf-ruby-reload)
-    (define-key evil-insert-state-local-map (kbd "<C-M-return>") #'inf-ruby-reload)
+    (evil-local-set-key 'normal  (kbd "C-M-h") #'inf-ruby-reload)
+    (define-key evil-insert-state-local-map (kbd "C-M-h") #'inf-ruby-reload)
 
     (evil-local-set-key 'normal  (kbd "C-M-l") #'inf-ruby-step)
     (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-step)
