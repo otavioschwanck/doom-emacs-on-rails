@@ -2,6 +2,7 @@
 * index :toc:
 - [[#load-external-plugins][Load External Plugins]]
 - [[#apparence][Apparence]]
+- [[#setup-pry-and-irb][Setup Pry and Irb]]
 - [[#google-translate][Google Translate]]
 - [[#editor-settings][Editor Settings]]
   - [[#basic-settings][Basic Settings]]
@@ -84,6 +85,12 @@ Loading plugins like rails routes, rails http status, etc.
   (custom-set-faces
    '(line-number ((t (:inherit default :foreground "gray40" :strike-through nil :underline nil :slant normal :weight normal))))))
 #+end_src
+* Setup Pry and Irb
+#+begin_src emacs-lisp
+(when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.doom.d/.pry-example ~/.pryrc"))
+(if (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.doom.d/.irbrc-example ~/.irbrc"))
+#+end_src
+
 * Google Translate
 #+begin_src emacs-lisp
 (after! google-translate
@@ -850,30 +857,28 @@ C-l to clear v-term
   (defun inf-ruby-add-keybindings ()
     (if (cl-search "*rails" (buffer-name))
         (progn
-          (message "Ruby Console Tips: Press C-h to send exit, C-M-h to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
+          (message "Ruby Console Tips: Press C-l to send exit, C-M-l to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
       (progn
-        (message "Debugging Tips: Press C-h to send continue, press A to move from normal to insert mode at end, C-l to next and C-M-l to step.")))
+        (message "Debugging Tips: Press C-l to send continue, press A to move from normal to insert mode at end, C-f to next and C-M-f to step.")))
 
     (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
 
     (setq-local logger-disabled nil)
 
-    (evil-local-set-key 'normal (kbd "C-h") #'inf-ruby-exit)
-    (define-key evil-insert-state-local-map (kbd "C-h") #'inf-ruby-exit)
+    (evil-local-set-key 'normal (kbd "C-l") #'inf-ruby-exit)
+    (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-exit)
 
-    (evil-local-set-key 'normal  (kbd "C-M-h") #'inf-ruby-reload)
-    (define-key evil-insert-state-local-map (kbd "C-M-h") #'inf-ruby-reload)
+    (evil-local-set-key 'normal  (kbd "C-M-l") #'inf-ruby-reload)
+    (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-reload)
 
-    (evil-local-set-key 'normal  (kbd "C-M-l") #'inf-ruby-step)
-    (define-key evil-insert-state-local-map (kbd "C-M-l") #'inf-ruby-step)
+    (evil-local-set-key 'normal  (kbd "C-M-f") #'inf-ruby-step)
+    (define-key evil-insert-state-local-map (kbd "C-M-f") #'inf-ruby-step)
 
-    (evil-local-set-key 'normal (kbd "C-l") #'inf-ruby-next)
-    (define-key evil-insert-state-local-map (kbd "C-l") #'inf-ruby-next)
+    (evil-local-set-key 'normal (kbd "C-f") #'inf-ruby-next)
+    (define-key evil-insert-state-local-map (kbd "C-f") #'inf-ruby-next)
 
     (evil-local-set-key 'normal  (kbd "C-M-o") #'inf-ruby-disable-logger)
-    (define-key evil-insert-state-local-map (kbd "C-M-o") #'inf-ruby-disable-logger)
-
-    (evil-local-set-key 'normal (kbd "<return>") #'comint-send-input))
+    (define-key evil-insert-state-local-map (kbd "C-M-o") #'inf-ruby-disable-logger))
 
   (add-hook! 'inf-ruby-mode-hook 'inf-ruby-add-keybindings))
 
