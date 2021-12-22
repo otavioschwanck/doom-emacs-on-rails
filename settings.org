@@ -188,7 +188,8 @@ Loading plugins like rails routes, rails http status, etc.
 
 **** Avy for the Window
 #+begin_src emacs-lisp
-(map! :nv "C-s" #'evil-avy-goto-char-2)
+(map! :nv "M-s" #'evil-avy-goto-char-2)
+(map! :nv "C-s" #'+default/search-buffer)
 
 #+end_src
 **** C-j and C-k for the Win
@@ -921,7 +922,6 @@ C-l to clear v-term
   (defun otavio/rails-reset-all ()
     (interactive)
     (otavio/kill-ruby-instances)
-    (run-at-time "30 seconds" nil #'start-rails-console-in-time)
     (otavio/reset-rails-database))
 
   (map! :after ruby-mode :mode ruby-mode :localleader "ww" #'otavio/rails-reset-all)
@@ -1747,7 +1747,7 @@ Version 2015-06-08"
 * Solidity
 #+begin_src emacs-lisp
 (after! solidity-mode
-  (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code company-yasnippet)))
+  (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code)))
 #+end_src
 * Tailwind
 #+begin_src emacs-lisp

@@ -60,3 +60,4 @@
 (package! f)
 (package! js-import)
 (package! lsp-tailwindcss :pin "f2482aadf8a180f823204fd6dd22148288b70f11")
+(package! crdt)
