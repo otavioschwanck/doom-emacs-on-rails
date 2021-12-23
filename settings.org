@@ -686,7 +686,7 @@ C-l to clear v-term
 
   (cl-case command
     (interactive (company-begin-backend 'company-ruby-backend))
-    (prefix (and rspec-mode
+    (prefix (and (and (boundp 'rspec-mode) rspec-mode)
                  (company-grab-symbol)))
 
     (candidates
