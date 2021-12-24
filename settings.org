@@ -117,6 +117,10 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
+*** Scroll
+#+begin_src emacs-lisp
+(setq scroll-margin 3)
+#+end_src
 *** Toggle Case
 #+begin_src emacs-lisp
 (map! "M-c" 'string-inflection-toggle)
