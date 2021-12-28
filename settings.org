@@ -707,6 +707,17 @@ C-l to clear v-term
     (candidates
      (all-completions arg ruby-common-words))))
 
+(add-hook! 'lsp-completion-mode-hook
+  (defun init-company-dabbrev-code-h ()
+    (when lsp-completion-mode
+      (setq-local company-backends '((:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet)))
+      (company-fuzzy-mode 1)
+      (if (eq major-mode 'ruby-mode)
+          (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code company-ruby-backend company-rspec-backend)       )
+        (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code)))
+
+      (setq-local company-backends '(company-fuzzy-all-other-backends)))))
+
 (defun remove-company-duplicates (candidates)
   "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
   (if (< (length candidates) 200)
@@ -721,9 +732,10 @@ C-l to clear v-term
         (reverse new-list)) candidates))
 
 (after! company
-  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
-  (add-to-list 'company-transformers
-               #'remove-company-duplicates))
+  ;; (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
+  ;; (add-to-list 'company-transformers
+  ;;              #'remove-company-duplicates)
+  )
 
 (after! company
   (setq company-dabbrev-downcase nil)

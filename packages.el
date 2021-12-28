@@ -61,3 +61,4 @@
 (package! js-import)
 (package! lsp-tailwindcss)
 (package! crdt)
+(package! company-fuzzy)
