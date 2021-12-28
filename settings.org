@@ -732,12 +732,6 @@ C-l to clear v-term
         (reverse new-list)) candidates))
 
 (after! company
-  ;; (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
-  ;; (add-to-list 'company-transformers
-  ;;              #'remove-company-duplicates)
-  )
-
-(after! company
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers t)
   (setq company-idle-delay 0))
