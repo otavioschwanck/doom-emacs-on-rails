@@ -260,6 +260,8 @@ C-l to clear v-term
   (add-to-list 'rotate-text-words '("valid" "invalid"))
   (add-to-list 'rotate-text-words '("context" "describe"))
   (add-to-list 'rotate-text-symbols '("be_valid" "be_invalid"))
+  (add-to-list 'rotate-text-symbols '("valid?" "invalid?"))
+  (add-to-list 'rotate-text-symbols '("present?" "blank?" "nil?"))
   (add-to-list 'rotate-text-symbols '("belongs_to" "has_many" "has_one"))
   (add-to-list 'rotate-text-symbols '("if" "unless"))
   (add-to-list 'rotate-text-symbols '("greater_than" "greater_than_or_equal_to" "equal_to" "less_than" "less_than_or_equal_to" "other_than" "odd" "even"))
@@ -420,7 +422,7 @@ C-l to clear v-term
 
 ** Autocomplete
 #+begin_src emacs-lisp
-(defconst ruby-common-words '("deep_symbolize_keys" "deep_stringify_keys" "greater_than" "to_json"
+(defconst ruby-common-words '("deep_symbolize_keys" "deep_stringify_keys" "greater_than" "to_json" "valid?" "invalid?"
                               "greater_than_or_equal_to" "equal_to" "less_than" "less_than_or_equal_to"
                               "other_than" "any?" "assoc" "clear" "Time.zone.now" "Date.today" "present?" "blank?" "nil?"
                               "compact" "compact!" "compare_by_identity" "compare_by_identity?"
@@ -722,7 +724,7 @@ C-l to clear v-term
 
 
 (after! company
-  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
+  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend))
   (add-to-list 'company-transformers
                #'remove-company-duplicates))
 
