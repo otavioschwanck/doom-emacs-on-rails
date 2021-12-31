@@ -4,6 +4,7 @@
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
+- [[#upgrading][Upgrading]]
 - [[#keybindings][Keybindings]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
@@ -64,7 +65,8 @@ gem install solargraph
 
 * After Install
 Open your personal configuration with =SPC f m= and read the file.
-
+* Upgrading
+To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
 * Keybindings
 I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
