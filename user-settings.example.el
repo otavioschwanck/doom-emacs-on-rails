@@ -1,0 +1,165 @@
+;; Hi, welcome to your personal configuration!
+;; Here you can organize your configurations the way you want.
+;; Just read the comments before change anything.
+;; Quick Tip: To comment / uncomment, just press gcc on normal mode or gc on visual mode.
+
+;; MOST IMPORTANT CONFIG - Set your project folders
+(setq projectile-project-search-path '("~/Projetos" "~/Study"))
+
+
+;; Set your username
+(setq user-full-name "Otávio Schwanck dos Santos"
+      user-mail-address "otavioschwanck@gmail.com")
+
+
+;; Theme
+;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
+(setq doom-theme 'doom-one)
+
+
+;; To test a new font, press M-x (alt + x) and search for reload-user-settings
+;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
+;;       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
+
+
+;; By default, the value of debugger is require 'pry'; binding.pry.  To change, uncomment and modify the variable below:
+;; (after! inf-ruby-mode
+;;   (setq debugger-command "byebug")
+;;   (setq pry-show-helper nil))
+;;   To insert debugger, just press SPC d
+
+
+;; Google Tradutor, source and target languages
+(after! google-translate
+  (setq google-translate-default-source-language "en")
+  (setq google-translate-default-target-language "pt"))
+
+
+;; Where is your fixtures?
+(after! projectile-rails
+  (setq projectile-rails-fixture-dirs '("spec/fixtures/" "spec/factories/")))
+
+
+;; Use Rails on Docker, uncomment follow the guide:
+;; (after! rspec-mode
+;;   (setq rspec-use-docker-when-possible t) ;; Use Docker when possible
+;;   (setq rspec-docker-command "docker-compose run") ;; Quick tip: You can also put ../ to execute on parent folder of project.
+;;   (setq rspec-docker-cwd "/app/") ;; cwd to use
+;;   (setq rspec-docker-container "web")) ;; Name of the container to run rspec into
+
+;; (after! projectile-rails
+;;   (setq projectile-rails-custom-server-command "docker-compose run web rails s") ;; Server
+;;   (setq projectile-rails-custom-console-command "docker-compose run web rails c")) ;; Console
+
+;; (after! flycheck
+;;   (setq rubocop-append-command '("docker-compose" "run" "web"))) ;; Rubocop
+
+
+;; Ignoring some folders on search
+(after! projectile
+  (setq projectile-globally-ignored-directories '("flow-typed" "node_modules" "~/.emacs.d/.local/" ".idea" ".vscode" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" ".ccls-cache" ".cache" ".clangd")))
+
+
+;; Directory of your org files
+(setq org-directory "~/Dropbox/org/")
+
+
+;; Ruby Linters
+;; Commands to run before rubocop
+;; (setq rubocop-append-command '("bundle" "exec"))
+
+
+;; Disable Rubocop or any other lint if you want.  Linter list on: SPC h v flycheck-checkers
+;; (setq ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop))
+
+
+;; If you use macos with rbenv on homebrew, add it
+;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+
+
+;; Mac improvement (cmd = meta)
+(setq mac-command-modifier 'meta)
+(setq ns-function-modifier 'control)
+
+
+;; Use Minitest? Uncomment the code below:
+;; (defun goto-test ()
+;;   (interactive)
+;;   (find-file (file-path-to-test buffer-file-name)))
+
+;; (defun goto-test-and-vsplit ()
+;;   (interactive)
+;;   (if (string-match-p "/test/" buffer-file-name) (find-file (file-path-to-test buffer-file-name)))
+;;   (delete-other-windows)
+;;   (evil-window-vsplit)
+;;   (if (string-match-p "/app/" buffer-file-name) (find-file (file-path-to-test buffer-file-name))))
+
+;; (defun file-path-to-test (filename)
+;;   (if (string-match-p "/test/" filename)
+;;       (if (string-match-p "/admin/" filename)
+;;           (concat
+;;            (replace-regexp-in-string "/test/controllers/" "/app/" (file-name-directory filename))
+;;            (singularize-string (replace-regexp-in-string "_controller_test" "" (file-name-base filename)))
+;;            "."
+;;            (file-name-extension filename))
+;;         (concat
+;;          (replace-regexp-in-string "/test/" "/app/" (file-name-directory filename))
+;;          (replace-regexp-in-string "_test" "" (file-name-base filename))
+;;          "."
+;;          (file-name-extension filename)))
+;;     (if (string-match-p "/admin/" filename)
+;;         (concat
+;;          (replace-regexp-in-string "/app/" "/test/controllers/" (file-name-directory filename))
+;;          (pluralize-string (file-name-base filename))
+;;          "_controller_test."
+;;          (file-name-extension filename))
+;;       (concat
+;;        (replace-regexp-in-string "/app/" "/test/" (file-name-directory filename))
+;;        (file-name-base filename)
+;;        "_test."
+;;        (file-name-extension filename)))))
+
+;; (after! rspec-mode
+;;   (map! :mode ruby-mode :leader "tv" #'minitest-verify)
+;;   (map! :mode ruby-mode :leader "ts" #'minitest-verify-single)
+;;   (map! :mode ruby-mode :leader "tr" #'minitest-rerun)
+;;   (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
+
+
+;;  Dictionary for spellcheck
+;; sudo apt install aspell-pt-br or brew install aspell-pt-br
+(setq ispell-dictionary "brasileiro")
+
+
+;; Start projectile with magit, uncomment below:
+;; (after! projectile
+;;   (defun open-projectile-with-magit (&optional DIRECTORY CACHE)
+;;     (interactive)
+;;     (magit-status DIRECTORY)
+;;     (if (fboundp 'magit-fetch-from-upstream)
+;;         (call-interactively #'magit-fetch-from-upstream)
+;;       (call-interactively #'magit-fetch-current)))
+;;   (setq +workspaces-switch-project-function #'open-projectile-with-magit))
+
+;; Build your own file switches
+;; (after! projectile-rails
+;;   ;; Example: switch from app/contracts/{resource}.rb to app/services/{resource} and vice-versa
+;;   (defun projectile-rails-find-contract ()
+;;     "Switch from contract to service and vice versa."
+;;     (interactive)
+;;     (if (string-match-p "app/contracts" (buffer-file-name)) (find-file (replace-regexp-in-string "contract" "service" (replace-regexp-in-string "_contracts" "_services" (buffer-file-name))))
+;;       (find-file (replace-regexp-in-string "service" "contract" (replace-regexp-in-string "_services" "_contracts" (buffer-file-name))))))
+;;   (map! :leader "rq" #'projectile-rails-find-contract)) ;; Uncomment to bind to SPC r q
+
+
+;; Snippet describe
+;; use descc snippet (with C-RET) on rspec to create describe '#call' ..
+;; You can change the function uncommenting the code below and changing to your most used function
+;; (setq ruby-rspec-describe-class "call")
+
+
+;; Stop some boring warnings
+(setq warning-minimum-level :emergency)
+
+
+;; Add your custom config here:

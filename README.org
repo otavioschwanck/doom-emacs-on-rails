@@ -21,7 +21,9 @@
 
 * This project goal
 
-This project goal is bring emacs and its powerful features to people that don't want to lose time searching and configuring stuff.  The doom-emacs-on-rails config is ready to use and easy to customize.  The user can change the user.org the way he wants, receiving a lot of tips.  Doom Emacs + this dotfiles is the fusion of power and simplicity.
+This project goal is bring emacs and its powerful features to people that don't want to lose time searching and configuring stuff.  The doom-emacs-on-rails config is ready to use and easy to customize.  The user can change the user-settings.el the way he wants, receiving a lot of tips.  Doom Emacs + this dotfiles is the fusion of power and simplicity.
+
+To access your personal settings, just press SPC f m.
 
 The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video demonstration with some cool commands below.
 
@@ -61,10 +63,9 @@ gem install solargraph
 #+END_SRC
 
 * After Install
-Open your personal configuration with =SPC f P= user.org and read the file
+Open your personal configuration with =SPC f m= and read the file.
 
 * Keybindings
-
 I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
 The PDF is on this project root: [[Emacs Handbook.pdf]]

@@ -7,3 +7,8 @@ custom.el
 user.el
 user.org
 settings.el
+settings.org
+user.org
+user.example.org
+user-settings.el
+doom-settings.el
