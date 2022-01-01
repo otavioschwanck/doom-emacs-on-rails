@@ -84,52 +84,56 @@
 
 
 ;; Use Minitest? Uncomment the code below:
-;; (defun goto-test ()
-;;   (interactive)
-;;   (find-file (file-path-to-test buffer-file-name)))
+;; (after! ruby-mode ;; Beggining of minitest-code
+;;   (defun goto-test ()
+;;     (interactive)
+;;     (find-file (file-path-to-test buffer-file-name)))
+;;   (defun goto-test-and-vsplit ()
+;;     (interactive)
+;;     (if (string-match-p "/test/" buffer-file-name) (find-file (file-path-to-test buffer-file-name)))
+;;     (delete-other-windows)
+;;     (evil-window-vsplit)
+;;     (if (string-match-p "/app/" buffer-file-name) (find-file (file-path-to-test buffer-file-name))))
 
-;; (defun goto-test-and-vsplit ()
-;;   (interactive)
-;;   (if (string-match-p "/test/" buffer-file-name) (find-file (file-path-to-test buffer-file-name)))
-;;   (delete-other-windows)
-;;   (evil-window-vsplit)
-;;   (if (string-match-p "/app/" buffer-file-name) (find-file (file-path-to-test buffer-file-name))))
-
-;; (defun file-path-to-test (filename)
-;;   (if (string-match-p "/test/" filename)
+;;   (defun file-path-to-test (filename)
+;;     (if (string-match-p "/test/" filename)
+;;         (if (string-match-p "/admin/" filename)
+;;             (concat
+;;              (replace-regexp-in-string "/test/controllers/" "/app/" (file-name-directory filename))
+;;              (singularize-string (replace-regexp-in-string "_controller_test" "" (file-name-base filename)))
+;;              "."
+;;              (file-name-extension filename))
+;;           (concat
+;;            (replace-regexp-in-string "/test/" "/app/" (file-name-directory filename))
+;;            (replace-regexp-in-string "_test" "" (file-name-base filename))
+;;            "."
+;;            (file-name-extension filename)))
 ;;       (if (string-match-p "/admin/" filename)
 ;;           (concat
-;;            (replace-regexp-in-string "/test/controllers/" "/app/" (file-name-directory filename))
-;;            (singularize-string (replace-regexp-in-string "_controller_test" "" (file-name-base filename)))
-;;            "."
+;;            (replace-regexp-in-string "/app/" "/test/controllers/" (file-name-directory filename))
+;;            (pluralize-string (file-name-base filename))
+;;            "_controller_test."
 ;;            (file-name-extension filename))
 ;;         (concat
-;;          (replace-regexp-in-string "/test/" "/app/" (file-name-directory filename))
-;;          (replace-regexp-in-string "_test" "" (file-name-base filename))
-;;          "."
-;;          (file-name-extension filename)))
-;;     (if (string-match-p "/admin/" filename)
-;;         (concat
-;;          (replace-regexp-in-string "/app/" "/test/controllers/" (file-name-directory filename))
-;;          (pluralize-string (file-name-base filename))
-;;          "_controller_test."
-;;          (file-name-extension filename))
-;;       (concat
-;;        (replace-regexp-in-string "/app/" "/test/" (file-name-directory filename))
-;;        (file-name-base filename)
-;;        "_test."
-;;        (file-name-extension filename)))))
+;;          (replace-regexp-in-string "/app/" "/test/" (file-name-directory filename))
+;;          (file-name-base filename)
+;;          "_test."
+;;          (file-name-extension filename)))))
 
-;; (after! rspec-mode
-;;   (map! :mode ruby-mode :leader "tv" #'minitest-verify)
-;;   (map! :mode ruby-mode :leader "ts" #'minitest-verify-single)
-;;   (map! :mode ruby-mode :leader "tr" #'minitest-rerun)
-;;   (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
+;;   (after! rspec-mode
+;;     (map! :mode ruby-mode :leader "tv" #'minitest-verify)
+;;     (map! :mode ruby-mode :leader "ts" #'minitest-verify-single)
+;;     (map! :mode ruby-mode :leader "tr" #'minitest-rerun)
+;;     (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
 
-;; Docker with minitest?
-;; (after! minitest
-;;   (setq minitest-use-docker t)
-;;   (setq minitest-docker-container "web"))
+;;   (after! minitest ;; Docker with minitest? Uncomment this
+;;     (setq minitest-use-docker t)
+;;     (setq minitest-docker-container "web"))
+
+;;   ) ;; end of minitest-code
+;;
+;;
+;; Tips: SPC a = switch between test file and real file with minitest and SPC A switch and vsplit
 
 
 ;;  Dictionary for spellcheck
