@@ -1273,12 +1273,15 @@ C-l to clear v-term
     (interactive)
     (revert-buffer nil t))
 
+  (defvar rubocop-on-current-file-command "bundle exec rubocop -a "
+    "Command to execute to fix current file with rubocop")
+
   (defun rubocop-on-current-file ()
     "RUBOCOP ON CURRENT_FILE."
     (interactive)
     (save-buffer)
     (message "%s" (shell-command-to-string
-                   (concat "bundle exec rubocop -a "
+                   (concat rubocop-on-current-file-command
                            (shell-quote-argument (buffer-file-name)))))
     (msc/revert-buffer-noconfirm))
 

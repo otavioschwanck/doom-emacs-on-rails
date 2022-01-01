@@ -51,8 +51,9 @@
 ;;   (setq projectile-rails-custom-server-command "docker-compose run web rails s") ;; Server
 ;;   (setq projectile-rails-custom-console-command "docker-compose run web rails c")) ;; Console
 
-;; (after! flycheck
-;;   (setq rubocop-append-command '("docker-compose" "run" "web"))) ;; Rubocop
+;; (after! flycheck ;; Disable rubocop integration and turns SPC = (rubocop on current file) runs with docker command
+;;   (setq rubocop-on-current-file-command "docker-compose run web rubocop -a")
+;;   (setq ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop)))
 
 
 ;; Ignoring some folders on search
@@ -73,7 +74,7 @@
 ;; (setq ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop))
 
 
-;; If you use macos with rbenv on homebrew, add it
+;; If you use macos with rbenv on homebrew, add it, uncomment it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
 
 
@@ -124,6 +125,11 @@
 ;;   (map! :mode ruby-mode :leader "ts" #'minitest-verify-single)
 ;;   (map! :mode ruby-mode :leader "tr" #'minitest-rerun)
 ;;   (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
+
+;; Docker with minitest?
+;; (after! minitest
+;;   (setq minitest-use-docker t)
+;;   (setq minitest-docker-container "web"))
 
 
 ;;  Dictionary for spellcheck
