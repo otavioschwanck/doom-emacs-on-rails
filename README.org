@@ -30,7 +30,9 @@ The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video d
 
 * Features
 + Made for Ruby on rails
-+ Javascript support
++ Works with rbenv or docker
++ Works with rspec or minitest
++ Javascript support out of box
 + Cool stuff for Ruby Refactoring
 + Advance autocomplete and snippets management
 + Code Diagnostics
