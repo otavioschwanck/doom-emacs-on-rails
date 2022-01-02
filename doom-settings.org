@@ -734,33 +734,27 @@ C-l to clear v-term
                    (company-grab-symbol)))
 
       (candidates
-       (all-completions arg ruby-common-words))))
+       (all-completions arg ruby-common-words)))))
 
-  (setq +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet)))
+(add-hook! 'lsp-completion-mode-hook
+  (defun init-company-dabbrev-code-h ()
+    (when lsp-completion-mode
+      (setq-local company-backends '((company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet)))
+      (company-fuzzy-mode 1)
+      (if (eq major-mode 'ruby-mode)
+          (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code company-ruby-backend company-rspec-backend))
+        (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code)))
+
+      (setq-local company-backends '(company-fuzzy-all-other-backends)))))
+
+(add-hook 'ruby-mode-hook (lambda () (modify-syntax-entry ?@ "w")))
 
 (after! company
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers t)
   (setq company-dabbrev-code-everywhere nil)
   (setq company-dabbrev-code-other-buffers t)
-  (setq company-idle-delay 0)
-
-  (defun remove-company-duplicates (candidates)
-    "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
-    (if (< (length candidates) 200)
-        (let* ((case-fold-search nil)
-               (word (word-at-point t))
-               (new-list '()))
-          (dolist (candidate candidates)
-            (let* ((stripped-candidate (substring-no-properties candidate)))
-              (if (and (string-match-p word candidate)
-                       (not (string= (substring stripped-candidate 0 1) ":"))
-                       (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))) (push candidate new-list))))
-          (reverse new-list)) candidates))
-
-
-  (add-to-list 'company-transformers #'remove-company-duplicates)
-  )
+  (setq company-idle-delay 0))
 
 (defun better-dabbrev-expand ()
   (interactive)

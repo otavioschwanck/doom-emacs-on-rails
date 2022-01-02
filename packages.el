@@ -62,3 +62,4 @@
 (package! lsp-tailwindcss)
 (package! crdt)
 (package! exotica-theme)
+(package! company-fuzzy)
