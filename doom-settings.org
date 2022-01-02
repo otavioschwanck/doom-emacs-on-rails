@@ -100,7 +100,8 @@ Loading plugins like rails routes, rails http status, etc.
   "Pull, Sync and upgrade el file"
   (interactive)
   (load (expand-file-name "user-settings.el" doom-private-dir))
-  (doom/reload-font))
+  (doom/reload-font)
+  (doom/reload-theme))
 
 (defun visit-config-utils ()
   "Visit the user-settings.el."
