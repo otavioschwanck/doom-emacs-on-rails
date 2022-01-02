@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: numericality: { greater_than: 0 }
+# key: numericality
+# --
+numericality: { ${1:greater_than}: ${2:0} }
