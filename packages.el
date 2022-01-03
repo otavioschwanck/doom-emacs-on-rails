@@ -63,3 +63,4 @@
 (package! crdt)
 (package! exotica-theme)
 (package! company-fuzzy)
+(package! flx)

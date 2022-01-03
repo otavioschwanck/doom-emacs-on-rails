@@ -749,6 +749,10 @@ C-l to clear v-term
 
 (add-hook 'ruby-mode-hook (lambda () (modify-syntax-entry ?@ "w")))
 
+(after! company-fuzzy
+  (require 'flx)
+  (setq company-fuzzy-sorting-backend 'flx))
+
 (after! company
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers t)
