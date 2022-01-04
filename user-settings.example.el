@@ -54,7 +54,7 @@
 (setq ruby-docker-disable-solargraph nil) ;; If you want to disable solargraph, change to t.  PS:  You can use solargraph by removing .ruby-version of your project and using from rbenv.
 
 ;; To have always docker mode on, just uncomment:
-(use-ruby-docker) ;; <<<<<<<< UNCOMMENT HERE TO USE DOCKER
+;; (use-ruby-docker) ;; <<<<<<<< UNCOMMENT HERE TO USE DOCKER
 
 ;; You can also call M-x disable-ruby-docker to go back to ruby on machine.  You can call M-x use-ruby-docker whatever you want.
 
