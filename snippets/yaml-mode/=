@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: <%= code_here %>
+# key: =
+# --
+<%= ${1:code here} %>

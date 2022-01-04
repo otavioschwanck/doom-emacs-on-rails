@@ -39,22 +39,24 @@
 (after! projectile-rails
   (setq projectile-rails-fixture-dirs '("spec/fixtures/" "spec/factories/")))
 
+;; Want to use DOCKER?
+;; First, configure you docker variables:
 
-;; Use Rails on Docker, uncomment follow the guide:
-;; (after! rspec-mode
-;;   (setq rspec-use-docker-when-possible t) ;; Use Docker when possible
-;;   (setq rspec-docker-command "docker-compose run") ;; Quick tip: You can also put ../ to execute on parent folder of project.
-;;   (setq rspec-docker-cwd "/app/") ;; cwd to use
-;;   (setq rspec-docker-container "web")) ;; Name of the container to run rspec into
+(setq ruby-docker-compose-command "docker-compose") ;; You docker-compose command (tip: you can use "cd ../; docker-compose")
+(setq ruby-docker-rails-server-command "up") ;' To start rails server with SPC r R (docker-compose is implicit)
+(setq ruby-docker-rails-console-command "run {{container}} rails console") ;; to start rails console (docker-compose is implicit)
 
-;; (after! projectile-rails
-;;   (setq projectile-rails-custom-server-command "docker-compose run web rails s") ;; Server
-;;   (setq projectile-rails-custom-console-command "docker-compose run web rails c")) ;; Console
+(setq ruby-docker-rubocop-command "run {{container}} rubocop -a ") ;; Command to run rubocop on current file with SPC =
+(setq ruby-docker-compose-cwd "/app/")
+(setq ruby-docker-compose-container "web")
 
-;; (after! flycheck ;; Disable rubocop integration and turns SPC = (rubocop on current file) runs with docker command
-;;   (setq rubocop-on-current-file-command "docker-compose run web rubocop -a")
-;;   (setq ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop)))
+;; Tip here:  You can use M-x rbenv-use and select one version that has solargraph.  You can also install with apt or brew.
+(setq ruby-docker-disable-solargraph nil) ;; If you want to disable solargraph, change to t.  PS:  You can use solargraph by removing .ruby-version of your project and using from rbenv.
 
+;; To have always docker mode on, just uncomment:
+(use-ruby-docker) ;; <<<<<<<< UNCOMMENT HERE TO USE DOCKER
+
+;; You can also call M-x disable-ruby-docker to go back to ruby on machine.  You can call M-x use-ruby-docker whatever you want.
 
 ;; Ignoring some folders on search
 (after! projectile
@@ -125,10 +127,6 @@
 ;;     (map! :mode ruby-mode :leader "ts" #'minitest-verify-single)
 ;;     (map! :mode ruby-mode :leader "tr" #'minitest-rerun)
 ;;     (map! :mode ruby-mode :leader "ta" #'minitest-verify-all))
-
-;;   (after! minitest ;; Docker with minitest? Uncomment this
-;;     (setq minitest-use-docker t)
-;;     (setq minitest-docker-container "web"))
 
 ;;   ) ;; end of minitest-code
 ;;
