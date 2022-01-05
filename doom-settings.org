@@ -295,7 +295,7 @@ C-l to clear v-term
         (s-split "" string t))
   (vterm-send-return))
 
-(map! :leader "v" '+vterm-splitted)
+(map! :leader "V" '+vterm-splitted)
 (map! :leader "T" '+vterm-with-command-splitted)
 
 (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
