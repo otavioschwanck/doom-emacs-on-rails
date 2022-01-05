@@ -1110,9 +1110,6 @@ C-l to clear v-term
   (map! :leader "rq" #'projectile-rails-find-graphql-all))
 #+end_src
 
-#+RESULTS:
-: projectile-rails-find-graphql-all
-
 ** Rspec Mode
 *** Basic Config
 #+begin_src emacs-lisp
@@ -1944,9 +1941,6 @@ Version 2015-06-08"
 
   (message "Ruby Docker Mode Activated."))
 #+end_src
-
-#+RESULTS:
-: use-ruby-docker
 
 * Load user.el
 #+begin_src emacs-lisp
