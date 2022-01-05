@@ -20,10 +20,7 @@
 ;; Opening Terminals in new workspace splitted
 ;; You can open an terminal splitted with SPC V.  The two terminals will be blank and you can back with SPC TAB [ or M-1
 ;; But if you want to create this two terminals with some predefined commands, open with SPC T and define the commands here:
-;; (setq +vterm-command-term-1 "docker-compose up")
-;; (setq +vterm-command-term-2 nil) ;; will be empty when nil
-;; You can also open the terminals with M-x +vterm-with-command-splitted
-
+;; (setq +vterm-command-terms '("docker-compose up" nil)) ;; Each element of the list is one terminal.  nil creates an empty terminal.
 
 ;; To test a new font, press M-x (alt + x) and search for reload-user-settings
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
