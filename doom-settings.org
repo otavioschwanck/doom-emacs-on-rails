@@ -248,8 +248,55 @@ C-l to clear v-term
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
 
 (map! :leader "v" #'+vterm/toggle)
-(map! :leader "V" #'+vterm/here)
 
+(defun +vterm-splitted ()
+  (interactive)
+  (if (projectile-project-name)
+      (+workspace-new (concat (projectile-project-name) " - Terminals"))
+      (+workspace-new "Terminals"))
+  (+workspace/switch-to-final)
+  (+vterm/here nil)
+  (rename-buffer "Terminal 1")
+  (evil-insert 1)
+  (evil-window-vsplit)
+  (+vterm/here nil)
+  (rename-buffer "Terminal 2")
+  (evil-insert 1)
+  (message "Terminals created.  Go back to your code with SPC TAB [ or M-1 to M-9. Switch between terminals with M-h and M-l"))
+
+(defvar +vterm-command-term-1 "docker-compose up" "Command to be executed on terminal 1")
+(defvar +vterm-command-term-2 nil "Command to be executed on terminal 2")
+
+(defun +vterm-with-command-splitted ()
+  (interactive)
+  (if (projectile-project-name)
+      (+workspace-new (concat (projectile-project-name) " - Custom Terminals"))
+      (+workspace-new "Custom Terminals"))
+  (+workspace/switch-to-final)
+  (+vterm/here nil)
+  (when +vterm-command-term-1
+    (+vterm-send-string +vterm-command-term-1))
+  (rename-buffer "Custom Terminal 1")
+  (evil-insert 1)
+  (evil-window-vsplit)
+  (+vterm/here nil)
+  (when +vterm-command-term-2
+    (+vterm-send-string +vterm-command-term-2))
+  (rename-buffer "Custom Terminal 2")
+  (evil-insert 1)
+  (message "Terminals created.  Go back to your code with SPC TAB [ or M-1 to M-9. Switch between terminals with M-h and M-l"))
+
+
+(defun +vterm-send-string (string)
+  (mapc (lambda (c)
+          (pcase c
+              (" " (vterm-send-space))
+              (_ (vterm-send c))))
+        (s-split "" string t))
+  (vterm-send-return))
+
+(map! :leader "v" '+vterm-splitted)
+(map! :leader "T" '+vterm-with-command-splitted)
 
 (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
 
