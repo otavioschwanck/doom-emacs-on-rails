@@ -737,22 +737,29 @@ C-l to clear v-term
       (candidates
        (all-completions arg ruby-common-words)))))
 
-(add-hook! 'lsp-completion-mode-hook
-  (defun init-company-dabbrev-code-h ()
-    (when lsp-completion-mode
-      (setq-local company-backends '((company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet)))
-      (company-fuzzy-mode 1)
-      (if (eq major-mode 'ruby-mode)
-          (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code company-ruby-backend company-rspec-backend))
-        (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code)))
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
+            (setq-local company-transformers '(remove-company-duplicates))))
 
-      (setq-local company-backends '(company-fuzzy-all-other-backends)))))
+(after! company
+  (setq company-dabbrev-downcase nil)
+  (setq company-show-numbers t)
+  (setq company-dabbrev-code-everywhere nil)
+  (setq company-dabbrev-code-other-buffers t)
+  (setq company-idle-delay 0)
+
+  (defun remove-company-duplicates (candidates)
+    "Order the snippets / text depending of priority. CANDIDATES: Company candidates."
+    (if (< (length candidates) 200)
+        (let* ((new-list '()))
+          (dolist (candidate candidates)
+            (let* ((stripped-candidate (substring-no-properties candidate)))
+              (if (and (not (string= (substring stripped-candidate 0 1) ":"))
+                       (not (-contains? (mapcar 'substring-no-properties new-list) stripped-candidate))) (push candidate new-list))))
+          (reverse new-list)) candidates)))
 
 (add-hook 'ruby-mode-hook (lambda () (modify-syntax-entry ?@ "w")))
-
-(after! company-fuzzy
-  (require 'flx)
-  (setq company-fuzzy-sorting-backend 'flx))
 
 (after! company
   (setq company-dabbrev-downcase nil)
