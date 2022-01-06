@@ -86,6 +86,10 @@
 ;; If you use macos with rbenv on homebrew, add it, uncomment it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
 
+;; Use different commands to rails server and console?
+;; (setq projectile-rails-custom-server-command "your custom command")
+;; (setq projectile-rails-custom-console-command "your custom command")
+
 ;; two or four spaces for identation?
 (setq js-indent-level 2)
 (setq ruby-indent-level 2)
