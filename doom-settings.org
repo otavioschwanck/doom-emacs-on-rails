@@ -167,6 +167,10 @@ Loading plugins like rails routes, rails http status, etc.
 (after! js2-mode
   (setq js-indent-level 2)
   (setq indent-tabs-mode nil))
+
+(after! rjsx-mode
+  (setq js-indent-level 2)
+  (setq indent-tabs-mode nil))
 #+end_src
 
 **** Indent whole buffer
@@ -202,6 +206,9 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (map! :v "K" #'drag-stuff-up)
 (map! :v "J" #'drag-stuff-down)
+
+(map! "C-M-k" #'drag-stuff-up)
+(map! "C-M-j" #'drag-stuff-down)
 #+end_src
 **** Change begginging and end of line
 #+begin_src emacs-lisp
@@ -417,7 +424,6 @@ C-l to clear v-term
 (map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
 (map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
-(map! :after web-mode :map web-mode-map :i "C-o" #'+web/indent-or-yas-or-emmet-expand)
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
@@ -834,6 +840,7 @@ C-l to clear v-term
       :map company-active-map
       "TAB" 'better-yas-expand
       "<tab>" #'better-yas-expand
+      "C-e" #'emmet-expand-yas
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
       "<C-return>" 'better-dabbrev-expand)
@@ -862,17 +869,17 @@ C-l to clear v-term
         (yas-prev-field)
       (progn (company-abort) (yas-prev-field))))
 
-  (defun yas-emmet-expand ()
+  (defun emmet-expand-line ()
     (interactive)
-    (if (eq major-mode 'web-mode)
-        (emmet-expand)
-      (when (eq major-mode 'ruby-mode) (otavio/grb))))
+    (if (eq major-mode 'ruby-mode)
+        (otavio/grb)
+      (emmet-expand-yas)))
 
   (map! :map yas-keymap
         "TAB" #'select-and-yas-next
         "S-TAB" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
-        "C-e" #'yas-emmet-expand))
+        "C-e" #'emmet-expand-yas))
 #+end_src
 
 * Ruby

@@ -86,6 +86,9 @@
 ;; If you use macos with rbenv on homebrew, add it, uncomment it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
 
+;; two or four spaces for identation?
+(setq js-indent-level 2)
+(setq ruby-indent-level 2)
 
 ;; Mac improvement (cmd = meta)
 (setq mac-command-modifier 'meta)
