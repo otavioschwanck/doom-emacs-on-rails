@@ -1964,7 +1964,7 @@ Version 2015-06-08"
 * Tabs
 #+begin_src emacs-lisp
 (map! :n "<tab>" #'centaur-tabs-forward)
-(map! :n "<S-tab>" #'centaur-tabs-backward)
+(map! :n "<backtab>" #'centaur-tabs-backward)
 
 (after! centaur-tabs
   (add-hook 'vterm-mode-hook 'centaur-tabs-local-mode))
