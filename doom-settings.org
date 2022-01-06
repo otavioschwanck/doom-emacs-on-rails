@@ -1182,6 +1182,9 @@ C-l to clear v-term
 (defvar rubocop-append-command '("bundle" "exec")
   "Commands to run before rubocop")
 
+(defvar disabled-checkers '("bundle" "exec")
+  "Commands to run before rubocop")
+
 (add-hook 'ruby-mode-hook
           (lambda ()
             (if (and (not (eq (projectile-project-root) nil)) (file-exists-p (concat (projectile-project-root) "Gemfile.lock")) (project-has-rubocop))

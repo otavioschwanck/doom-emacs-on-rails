@@ -73,14 +73,16 @@
 
 
 ;; Ruby Linters
-;; Commands to run before rubocop
+;; Commands to run before rubocop (checker)
 ;; (setq rubocop-append-command '("bundle" "exec"))
 
+(setq rubocop-on-current-file-command "bundle exec rubocop -a ") ;; SPC =
 
 ;; Disable Rubocop or any other lint if you want.  Linter list on: SPC h v flycheck-checkers
-;; (setq ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop))
-
-
+;; (add-hook 'ruby-mode-hook
+;;  (lambda ()
+;;    (setq-local flychech-checker nil)
+;;    (setq-local flycheck-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop))) 1000)
 ;; If you use macos with rbenv on homebrew, add it, uncomment it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
 
