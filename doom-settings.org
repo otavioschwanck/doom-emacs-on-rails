@@ -61,6 +61,7 @@
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
 - [[#load-userel][Load user.el]]
+- [[#tabs][Tabs]]
 
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
@@ -1959,4 +1960,9 @@ Version 2015-06-08"
   (progn
     (shell-command "cp ~/.doom.d/user-settings.example.el ~/.doom.d/user-settings.el")
     (load (expand-file-name "user-settings.el" doom-private-dir))))
+#+end_src
+* Tabs
+#+begin_src emacs-lisp
+(map! :n "<tab>" #'centaur-tabs-forward)
+(map! :n "<S-tab>" #'centaur-tabs-backward)
 #+end_src
