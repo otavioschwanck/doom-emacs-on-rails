@@ -99,6 +99,12 @@
 (setq ns-function-modifier 'control)
 
 
+;; Use sorbet instead solargraph?
+;; (after! lsp-mode
+;;   (setq lsp-disabled-clients '(ruby-ls solargraph))
+;;   (setq lsp-sorbet-use-bundler t))
+
+
 ;; Use Minitest? Uncomment the code below:
 ;; (after! ruby-mode ;; Beggining of minitest-code
 ;;   (defun goto-test ()
