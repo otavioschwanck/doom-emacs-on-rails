@@ -92,6 +92,7 @@
 
 ;; two or four spaces for identation?
 (setq js-indent-level 2)
+(setq ts-indent-level 2)
 (setq ruby-indent-level 2)
 
 ;; Mac improvement (cmd = meta)
