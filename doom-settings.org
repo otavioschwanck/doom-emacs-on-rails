@@ -876,6 +876,9 @@ C-l to clear v-term
         (otavio/grb)
       (emmet-expand-yas)))
 
+(after! yasnippet
+  (add-to-list 'yas-snippet-dirs (concat doom-private-dir "user-snippets/")))
+
   (map! :map yas-keymap
         "TAB" #'select-and-yas-next
         "S-TAB" #'select-and-yas-previous
