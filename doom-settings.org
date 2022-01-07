@@ -841,7 +841,7 @@ C-l to clear v-term
       :map company-active-map
       "TAB" 'better-yas-expand
       "<tab>" #'better-yas-expand
-      "C-e" #'emmet-expand-yas
+      "C-e" #'emmet-expand-line
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
       "<C-return>" 'better-dabbrev-expand)
@@ -883,7 +883,7 @@ C-l to clear v-term
         "TAB" #'select-and-yas-next
         "S-TAB" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
-        "C-e" #'emmet-expand-yas))
+        "C-e" #'emmet-expand-line))
 #+end_src
 
 * Ruby
