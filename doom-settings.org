@@ -95,7 +95,7 @@ Loading plugins like rails routes, rails http status, etc.
   "Pull, Sync and upgrade el file"
   (interactive)
   (shell-command "rm ~/.doom.d/doom-settings.el")
-  (shell-command (concat "cd " doom-private-dir "; git reset --hard origin/master; " doom-emacs-dir "bin/doom sync"))
+  (shell-command (concat "cd " doom-private-dir "; git fetch; git reset --hard origin/master; " doom-emacs-dir "bin/doom sync"))
   (message "Upgrade done!  Please restart your config"))
 
 (defun reload-user-settings ()
