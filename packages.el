@@ -61,4 +61,4 @@
 (package! js-import)
 (package! lsp-tailwindcss)
 (package! crdt)
-(package! exotica-theme)
+(package! eacl)
