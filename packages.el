@@ -62,3 +62,4 @@
 (package! lsp-tailwindcss)
 (package! crdt)
 (package! eacl)
+(package! company-fuzzy)
