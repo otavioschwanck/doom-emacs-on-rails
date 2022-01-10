@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: return (<div>...</div>)
+# key: retd
+# --
+return (
+  <${1:div}>$0</$1>
+)

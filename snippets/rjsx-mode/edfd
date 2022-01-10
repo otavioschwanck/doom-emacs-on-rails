@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: export default function functionName() { ... }
+# key: edfd
+# --
+export default function ${1:`(f-base buffer-file-name)`}(${2:\{ ${3:props} \}}) {
+  return (
+    <${4:div}>$0</$4>
+  )
+}
