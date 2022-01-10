@@ -58,7 +58,7 @@
 (package! google-translate)
 (package! ruby-hash-syntax)
 (package! f)
-(package! js-import)
+(package! import-js)
 (package! lsp-tailwindcss)
 (package! crdt)
 (package! eacl)

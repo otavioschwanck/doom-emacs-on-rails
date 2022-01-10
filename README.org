@@ -45,7 +45,8 @@ The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video d
  - ripgrep 11.0+ =(sudo apt install ripgrep)=
  - GNU find
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands) =(sudo apt install find-fd)= (good for large projects)
- - typescript-language-server =(npm install -g typescript-language-server)=
+ - typescript-language-server
+ - solargraph
 
 * Installation
 #+BEGIN_SRC shell
@@ -54,21 +55,24 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
 ~/.emacs.d/bin/doom install
 
-# Some dependencies (ubuntu)
+# if you use Ubuntu
 sudo apt install fd-find ripgrep libtool-bin cmake tidy
 
-# If you use mac
+# If you use Mac
 brew install fd ripgrep
 
 # Install dependencies for LSP
-npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server @tailwindcss/language-server@0.0.4 stylelint js-beautify
+npm install -g vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server @tailwindcss/language-server@0.0.4 stylelint js-beautify import-js
+
 gem install solargraph
 #+END_SRC
 
 * After Install
 Open your personal configuration with =SPC f m= and read the file.
+
 * Upgrading
 To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
+
 * Keybindings
 I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
