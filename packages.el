@@ -63,4 +63,3 @@
 (package! crdt)
 (package! eacl)
 (package! company-fuzzy)
-(package! posframe)
