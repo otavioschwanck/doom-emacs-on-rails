@@ -61,6 +61,3 @@
 (package! import-js)
 (package! lsp-tailwindcss)
 (package! crdt)
-(package! eacl)
-(package! company-fuzzy)
-(package! flx)

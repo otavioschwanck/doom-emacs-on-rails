@@ -789,19 +789,10 @@ C-l to clear v-term
       (candidates
        (all-completions arg ruby-common-words)))))
 
-(add-hook! 'lsp-completion-mode-hook
-  (defun init-company-dabbrev-code-h ()
-    (when (and lsp-completion-mode (eq major-mode 'ruby-mode))
-      (setq-local company-backends '((company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet)))
-      (company-fuzzy-mode 1)
-      (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
-      (setq-local company-backends '(company-fuzzy-all-other-backends)))))
-
-(add-hook 'ruby-mode-hook (lambda () (modify-syntax-entry ?@ "w")))
-
-(after! company-fuzzy
-  (require 'flx)
-  (setq company-fuzzy-sorting-backend 'flx))
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet))
+            (setq-local company-transformers '(remove-company-duplicates))))
 
 (after! company
   (setq company-dabbrev-downcase nil)
