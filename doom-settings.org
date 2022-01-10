@@ -62,6 +62,7 @@
 - [[#docker-on-rails][Docker on rails]]
 - [[#load-userel][Load user.el]]
 - [[#tabs][Tabs]]
+- [[#lsp][LSP]]
 
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
@@ -796,7 +797,6 @@ C-l to clear v-term
       (setq-local company-backends '((company-capf company-dabbrev-code company-ruby-backend company-rspec-backend company-yasnippet)))
       (company-fuzzy-mode 1)
       (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code company-ruby-backend company-rspec-backend))
-      (setq-local company-fuzzy--backends '(company-capf company-dabbrev-code))
       (setq-local company-backends '(company-fuzzy-all-other-backends)))))
 
 (add-hook 'ruby-mode-hook (lambda () (modify-syntax-entry ?@ "w")))
@@ -1977,4 +1977,10 @@ Version 2015-06-08"
 
 (after! centaur-tabs
   (add-hook 'vterm-mode-hook 'centaur-tabs-local-mode))
+#+end_src
+* LSP
+#+begin_src emacs-lisp
+(after! lsp-mode
+  (setq lsp-signature-posframe-params '(:poshandler posframe-poshandler-point-bottom-left-corner-upward :height 5 :border-width 3))
+  (setq lsp-signature-function 'lsp-signature-posframe))
 #+end_src
