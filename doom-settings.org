@@ -28,7 +28,6 @@
   - [[#improve-autocomplete][Improve Autocomplete]]
   - [[#snippets][Snippets]]
 - [[#ruby][Ruby]]
-  - [[#indentation][Indentation]]
   - [[#console][Console]]
   - [[#solargraph][Solargraph]]
   - [[#reset-database][Reset Database]]
@@ -800,6 +799,10 @@ C-l to clear v-term
 
 (add-hook 'ruby-mode-hook (lambda () (modify-syntax-entry ?@ "w")))
 
+(after! company-fuzzy
+  (require 'flx)
+  (setq company-fuzzy-sorting-backend 'flx))
+
 (after! company
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers t)
@@ -892,15 +895,6 @@ C-l to clear v-term
 #+end_src
 
 * Ruby
-** Indentation
-#+begin_src emacs-lisp
-(after! ruby-mode
-  (defvar ruby-indent-to-hook 2))
-
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (setq-local ruby-indent-level ruby-indent-to-hook)))
-#+end_src
 ** Console
 #+begin_src emacs-lisp
 (after! inf-ruby
