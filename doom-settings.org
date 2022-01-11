@@ -147,6 +147,11 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
+*** Smartparens
+#+begin_src emacs-lisp
+(after! smartparens
+  (sp-pair "\{" "\}"))
+#+end_src
 *** Scroll
 #+begin_src emacs-lisp
 (setq scroll-margin 3)
