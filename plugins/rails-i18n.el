@@ -30,7 +30,6 @@
 
 ;;; Code:
 
-(require 'savehist)
 (require 'subr-x)
 (require 'yaml)
 (require 'dash)
@@ -39,6 +38,14 @@
   "Search for and insert rails i18n."
   :group 'tools
   :group 'languages)
+
+(defcustom rails-i18n-cache-path (concat user-emacs-directory ".local/rails-i18n")
+  "Where the cache will be saved."
+  :type 'string)
+
+(defcustom rails-i18n--cache-loaded nil
+  "If t, means that rails i18n already loaded the cache."
+  :type 'string)
 
 (defcustom rails-i18n-use-double-quotes nil
   "If t, use double quotes instead single-quotes."
@@ -73,6 +80,23 @@
                                            (insert-file-contents filePath)
                                            (buffer-string))) (error nil)))
 
+(defun rails-i18n--save-cache ()
+  "Save rails routes cache file."
+  (save-excursion
+    (let ((buf (find-file-noselect rails-i18n-cache-path)))
+      (set-buffer buf)
+      (erase-buffer)
+      (cl-loop for var in '(rails-i18n-cache) do
+            (print (list 'setq var (list 'quote (symbol-value var)))
+                   buf))
+      (save-buffer)
+      (kill-buffer))))
+
+(defun rails-i18n--load-cache ()
+  "Love rails routes cache file."
+  (when (and (file-exists-p rails-i18n-cache-path) (not rails-i18n--cache-loaded))
+    (load rails-i18n-cache-path)))
+
 (defun rails-i18n--quotes ()
   "Return the quote to be used."
   (if rails-i18n-use-double-quotes "\"" "'"))
@@ -91,6 +115,7 @@
 (defun rails-i18n-insert-with-cache ()
   "Search and insert the i18n, searching on cache.  If cache is nil, refresh the cache."
   (interactive)
+  (rails-i18n--load-cache)
   (let ((cachedI18n (rails-i18n--get-cached)))
     (if cachedI18n
         (rails-i18n--insert-i18n (completing-read "Select your I18n: " cachedI18n))
@@ -142,7 +167,8 @@
   "Set the cache values. VAL:  Value to set."
   (when (assoc (funcall rails-i18n-project-name-function) rails-i18n-cache)
     (setq rails-i18n-cache (remove (assoc (funcall rails-i18n-project-name-function) rails-i18n-cache) rails-i18n-cache)))
-  (setq rails-i18n-cache (cons `(,(funcall rails-i18n-project-name-function) . ,val) rails-i18n-cache)))
+  (setq rails-i18n-cache (cons `(,(funcall rails-i18n-project-name-function) . ,val) rails-i18n-cache))
+  (rails-i18n--save-cache))
 
 (defun rails-i18n--parse-yamls ()
   "Return the parsed yaml list."
@@ -229,23 +255,6 @@
           (rails-i18n--upgrade-cache-for (-distinct (flatten-list $result)))
           (message "Cache upgraded!"))
       (message "Rails i18n: Cache not found or cannot parse yaml."))))
-
-(defun rails-i18n--add-to-savehist ()
-  "Add rails-i18n-cache to savehist."
-  (add-to-list 'savehist-additional-variables 'rails-i18n-cache))
-
-;;;###autoload
-(define-minor-mode rails-i18n-global-mode
-  "Toggle cache hooks and watchs for rails-i18n."
-  :global t
-  :lighter "lighter"
-  (if rails-i18n-global-mode
-      (progn
-        (add-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
-        (add-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb))
-    (progn
-      (remove-hook 'savehist-mode-hook #'rails-i18n--add-to-savehist)
-      (remove-hook rails-i18n-yaml-mode-hook #'rails-i18n--watch-rb))))
 
 (provide 'rails-i18n)
 ;;; rails-i18n.el ends here
