@@ -68,9 +68,10 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 
 ;; Load only after ruby mode
+(load (expand-file-name "plugins/miyagi.el" doom-private-dir))
+
 (after! ruby-mode
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
-  (load (expand-file-name "plugins/miyagi.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir))
   (load (expand-file-name "plugins/library-fixes.el" doom-private-dir)))
 #+end_src
