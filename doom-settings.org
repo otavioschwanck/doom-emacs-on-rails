@@ -60,7 +60,6 @@
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
 - [[#load-userel][Load user.el]]
-- [[#tabs][Tabs]]
 
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
@@ -73,6 +72,7 @@ Loading plugins like rails routes, rails http status, etc.
 (after! ruby-mode
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir))
+  (load (concat doom-private-dir "plugins/harpoon.el"))
   (load (expand-file-name "plugins/library-fixes.el" doom-private-dir)))
 #+end_src
 
@@ -140,6 +140,22 @@ Loading plugins like rails routes, rails http status, etc.
 *** Open Full screen
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+end_src
+*** Harpoon
+#+begin_src emacs-lisp
+(map! :leader "j c" 'harpoon-clear)
+(map! :leader "j f" 'harpoon-toggle-file)
+(map! :n "C-s" 'harpoon-add-file)
+(map! :n "C-SPC" 'harpoon-toggle-quick-menu)
+(map! :leader "1" 'harpoon-go-to-1)
+(map! :leader "2" 'harpoon-go-to-2)
+(map! :leader "3" 'harpoon-go-to-3)
+(map! :leader "4" 'harpoon-go-to-4)
+(map! :leader "5" 'harpoon-go-to-5)
+(map! :leader "6" 'harpoon-go-to-6)
+(map! :leader "7" 'harpoon-go-to-7)
+(map! :leader "8" 'harpoon-go-to-8)
+(map! :leader "9" 'harpoon-go-to-9)
 #+end_src
 *** Smartparens
 #+begin_src emacs-lisp
@@ -229,7 +245,6 @@ Loading plugins like rails routes, rails http status, etc.
 **** Avy for the Window
 #+begin_src emacs-lisp
 (map! :nv "M-s" #'evil-avy-goto-char-2)
-(map! :nv "C-s" #'+default/search-buffer)
 
 #+end_src
 **** C-j and C-k for the Win
@@ -401,7 +416,6 @@ C-l to clear v-term
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
 
-(map! :neo "C-<SPC>" #'ace-window)
 (map! "M-o" #'evil-window-next)
 (map! :map vterm-mode-map :n "C-<SPC>" #'ace-window)
 
@@ -1952,12 +1966,4 @@ Version 2015-06-08"
   (progn
     (shell-command "cp ~/.doom.d/user-settings.example.el ~/.doom.d/user-settings.el")
     (load (expand-file-name "user-settings.el" doom-private-dir))))
-#+end_src
-* Tabs
-#+begin_src emacs-lisp
-(map! :n "<tab>" #'centaur-tabs-forward)
-(map! :n "<backtab>" #'centaur-tabs-backward)
-
-(after! centaur-tabs
-  (add-hook 'vterm-mode-hook 'centaur-tabs-local-mode))
 #+end_src
