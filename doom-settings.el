@@ -18,8 +18,6 @@
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
 
-(message "ai pai para")
-
 (defun recompile-doom-emacs ()
   "Pull, Sync and upgrade el file"
   (interactive)
@@ -293,9 +291,7 @@
   (defun msc/save-and-revert-buffer ()
     (interactive)
     (call-interactively 'save-buffer)
-    (msc/revert-buffer-noconfirm))
-
-  (map! :mode web-mode-map :leader "j" 'msc/save-and-revert-buffer))
+    (msc/revert-buffer-noconfirm)))
 
 (defun otavio/swap-arg-forward ()
   (interactive)

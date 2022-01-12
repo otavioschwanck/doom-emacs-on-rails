@@ -451,9 +451,7 @@ C-l to clear v-term
   (defun msc/save-and-revert-buffer ()
     (interactive)
     (call-interactively 'save-buffer)
-    (msc/revert-buffer-noconfirm))
-
-  (map! :mode web-mode-map :leader "j" 'msc/save-and-revert-buffer))
+    (msc/revert-buffer-noconfirm)))
 
 #+end_src
 ** Switch Args
