@@ -6,7 +6,7 @@
 ;; Keywords: tools languages
 ;; Homepage: https://github.com/otavioschwanck/rails-routes
 ;; Version: 0.3
-;; Package-Requires: ((emacs "27.2") (projectile "2.5.0") (magit "3.3.0"))
+;; Package-Requires: ((emacs "27.2") (projectile "2.5.0") (magit "3.3.0") (f "0.20.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -40,6 +40,10 @@
   "Where the cache will be saved."
   :type 'string)
 
+(defcustom harpoon-separate-by-branch t
+  "Harpoon separated by branch."
+  :type 'string)
+
 (defvar harpoon-cache '()
   "Cache for harpoon.")
 
@@ -57,16 +61,16 @@
 
 (defun harpoon--cache-key ()
   "Key to save current file on cache."
-  (concat (harpoon--sanitize (projectile-project-name))
-          "#"
-          (harpoon--sanitize (magit-get-current-branch))))
+  (if harpoon-separate-by-branch
+      (concat (harpoon--sanitize (projectile-project-name))
+              "#"
+              (harpoon--sanitize (magit-get-current-branch)))
+    (harpoon--sanitize (projectile-project-name))))
 
 (defun harpoon--create-directory ()
   "Create harpoon cache dir if dont exists."
   (unless (f-directory? harpoon-cache-file)
     (shell-command (concat "mkdir " harpoon-cache-file))))
-
-
 
 (defun harpoon--file-name ()
   "File name for harpoon on current project."
@@ -189,10 +193,11 @@
   (interactive)
   (let* ((line (buffer-substring-no-properties (point-at-bol) (point-at-eol)))
          (path (concat harpoon--project-path line)))
-    (when (file-exists-p path)
-      (save-buffer)
+    (if (file-exists-p path)
+      (progn (save-buffer)
       (kill-buffer)
-      (find-file path))))
+      (find-file path))
+      (message "File not found."))))
 
 (define-key harpoon-mode-map (kbd "<return>") #'harpoon-find-file)
 

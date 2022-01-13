@@ -78,8 +78,8 @@
 (map! :leader "8" 'harpoon-go-to-8)
 (map! :leader "9" 'harpoon-go-to-9)
 
-(after! smartparens
-  (sp-pair "\{" "\}"))
+(add-hook! 'ruby-mode-hook (sp-local-pair 'ruby-mode "{" "}" :actions '(wrap insert autoskip navigate) :unless '(sp-point-before-word-p sp-point-before-same-p) :post-handlers '(("||
+[i]" "RET") ("| " "SPC"))))
 
 (setq scroll-margin 3)
 
