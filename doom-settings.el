@@ -23,7 +23,7 @@
   (interactive)
   (shell-command "rm ~/.doom.d/doom-settings.el")
   (org-babel-load-file
-     (expand-file-name "doom-settings.org" doom-private-dir))
+   (expand-file-name "doom-settings.org" doom-private-dir))
   (message "Compilation done."))
 
 (defun reload-user-settings ()
@@ -143,60 +143,70 @@
 (setq-default evil-escape-delay 0.5)
 
 (map! :after vterm
-      :map vterm-mode-map
+      :map shell-mode-map
       :ni "C-l" #'vterm-clear)
+
+(map! :after vterm :map shell-mode-map :ni "M-h" #'evil-window-left)
+(map! :after vterm :map shell-mode-map :ni "M-l" #'evil-window-right)
 
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
 
-(map! :leader "v" #'+vterm/toggle)
+(map! :leader "v" #'+eshell/toggle)
 
-(defun +vterm-toggle--create-terms ()
-  (+vterm/here nil)
+(defun open-in-project-root ()
+  (when (projectile-project-root)
+    (insert (concat "cd " (projectile-project-root)))
+    (evil-insert 1)
+    (eshell-send-input)
+    (eshell-emit-prompt)
+    (eshell/clear-scrollback)))
+
+(add-hook! 'eshell-first-time-mode-hook 'open-in-project-root)
+
+(defun +eshell-toggle--create-terms ()
+  (+eshell/here nil)
   (+workspaces-add-current-buffer-h)
   (evil-insert 1)
   (evil-window-vsplit)
-  (+vterm/here nil)
+  (+eshell/here nil)
   (+workspaces-add-current-buffer-h)
   (evil-insert 1)
   (message "Terminals created.  Go back to your code with SPC TAB [ or M-1 to M-9. Switch between terminals with M-h and M-l"))
 
-(defun +vterm-splitted ()
+(defun +eshell-splitted ()
   (interactive)
   (when (if (projectile-project-name)
             (+workspace-new (concat (projectile-project-name) " - Terminals"))
           (+workspace-new "Terminals"))
     (+workspace/switch-to-final)
-    (+vterm-toggle--create-terms)))
+    (+eshell-toggle--create-terms)))
 
-(defvar +vterm-command-terms (list "docker-compose up" nil) "Command to be executed on terminal 1")
+(defvar +eshell-command-terms (list "docker-compose up" nil) "Command to be executed on terminal 1")
 
-(defun +vterm-with-command-splitted ()
+(defun +eshell--cd-folder ()
+  (if (projectile-project-root)
+      (concat "cd " (projectile-project-root) "; ")
+    ""))
+
+(defun +eshell-with-command-splitted ()
   (interactive)
   (if (projectile-project-name)
       (+workspace-new (concat (projectile-project-name) " - Custom Terminals"))
     (+workspace-new "Custom Terminals"))
   (+workspace/switch-to-final)
   (mapc (lambda (command)
-          (+vterm/here nil)
+          (if command
+              (+eshell/here (concat (+eshell--cd-folder) command))
+              (+eshell/here (concat (+eshell--cd-folder))))
           (+workspaces-add-current-buffer-h)
-          (when command
-            (+vterm-send-string command))
           (evil-insert 1)
-          (unless (-contains? (last +vterm-command-terms) command)
+          (unless (-contains? (last +eshell-command-terms) command)
             (evil-window-vsplit))
-          ) +vterm-command-terms))
+          ) +eshell-command-terms))
 
 
-(defun +vterm-send-string (string)
-  (mapc (lambda (c)
-          (pcase c
-            (" " (vterm-send-space))
-            (_ (vterm-send c))))
-        (s-split "" string t))
-  (vterm-send-return))
-
-(map! :leader "V" '+vterm-splitted)
-(map! :leader "T" '+vterm-with-command-splitted)
+(map! :leader "V" '+eshell-splitted)
+(map! :leader "T" '+eshell-with-command-splitted)
 
 (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
 
@@ -275,14 +285,14 @@
 
 (setq evil-split-window-below t evil-vsplit-window-right t)
 
-(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
-(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
+(map! :after web-mode :map web-mode-map :i "M-e" #'emmet-expand-yas)
+(map! :after js2-mode :map rjsx-mode-map :i "M-e" #'emmet-expand-yas)
 
 (after! lsp-mode
   (add-to-list 'lsp-language-id-configuration '(".*\\.html\\.erb$" . "html")))
 
-(map! :after web-mode :map web-mode-map :i "C-e" #'emmet-expand-yas)
-(map! :after js2-mode :map rjsx-mode-map :i "C-e" #'emmet-expand-yas)
+(map! :after web-mode :map web-mode-map :i "M-e" #'emmet-expand-yas)
+(map! :after js2-mode :map rjsx-mode-map :i "M-e" #'emmet-expand-yas)
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
 (map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
 
@@ -678,7 +688,7 @@
       :map company-active-map
       "TAB" 'better-yas-expand
       "<tab>" #'better-yas-expand
-      "C-e" #'emmet-expand-line
+      "M-e" #'emmet-expand-line
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
       "<C-return>" 'better-dabbrev-expand)
@@ -713,7 +723,7 @@
         "TAB" #'select-and-yas-next
         "S-TAB" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
-        "C-e" #'emmet-expand-line))
+        "M-e" #'emmet-expand-line))
 
 (after! inf-ruby
   (defun inf-ruby-goto-insert ()
@@ -1181,7 +1191,7 @@
     (end-of-line)
     (newline-and-indent))
 
-  (map! :map ruby-mode-map :i "C-e" #'otavio/grb))
+  (map! :map ruby-mode-map :i "M-e" #'otavio/grb))
 
 (after! ruby-mode
   (defun otavio/-current-line-empty-p ()
@@ -1597,6 +1607,8 @@ Version 2015-06-08"
          :desc "Kubernetes" "K" 'kubernetes-overview)))
 
 (after! solidity-mode
+  (require 'solidity-flycheck)
+  (setq solidity-flycheck-solc-checker-active t)
   (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code)))
 
 (use-package! lsp-tailwindcss
