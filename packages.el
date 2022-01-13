@@ -61,7 +61,7 @@
 (package! import-js)
 (package! lsp-tailwindcss)
 (package! crdt)
-(package! smartparens :pin "ae84eba15ecfd59e1aab409a60e6ffd4b0d46860")
 (package! rails-routes)
 (package! rails-i18n)
 (package! ruby-json-to-hash)
+(unpin! smartparens)

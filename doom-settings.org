@@ -167,8 +167,8 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 *** Smartparens
 #+begin_src emacs-lisp
-(after! smartparens
-  (sp-pair "\{" "\}"))
+(add-hook! 'ruby-mode-hook (sp-local-pair 'ruby-mode "{" "}" :actions '(wrap insert autoskip navigate) :unless '(sp-point-before-word-p sp-point-before-same-p) :post-handlers '(("||
+[i]" "RET") ("| " "SPC"))))
 #+end_src
 *** Scroll
 #+begin_src emacs-lisp
