@@ -142,73 +142,66 @@
 (setq-default evil-escape-key-sequence "jj")
 (setq-default evil-escape-delay 0.5)
 
-(map! :after vterm
-      :map shell-mode-map
-      :ni "C-l" #'vterm-clear)
+(map! :after vterm :map vterm-mode-map :ni "C-l" #'vterm-clear)
 
-(map! :after eshell :map shell-mode-map :ni "M-h" #'evil-window-left)
-(map! :after eshell :map shell-mode-map :ni "M-l" #'evil-window-right)
-(map! :after eshell :map eshell-mode-map :n "A" #'+eshell/goto-end-of-prompt)
-(map! :after eshell :map eshell-mode-map :i "TAB" #'completion-at-point)
+(defun better-vterm-paste ()
+  (interactive)
+  (+vterm-send-string (substring-no-properties (current-kill 0)) nil))
+
+(map! :after vterm :map vterm-mode-map :n "p" #'better-vterm-paste)
+(map! :after vterm :map vterm-mode-map :i "C-v" #'better-vterm-paste)
+(map! :after vterm :map vterm-mode-map :i "M-v" #'better-vterm-paste)
 
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
 
-(map! :leader "v" #'+eshell/toggle)
+(map! :leader "v" #'+vterm/toggle)
 
-(defun open-in-project-root ()
-  (when (projectile-project-root)
-    (insert (concat "cd " (projectile-project-root)))
-    (evil-insert 1)
-    (eshell-send-input)
-    (eshell-emit-prompt)
-    (eshell/clear-scrollback)))
-
-(add-hook! 'eshell-first-time-mode-hook 'open-in-project-root)
-
-(defun +eshell-toggle--create-terms ()
-  (+eshell/here nil)
+(defun +vterm-toggle--create-terms ()
+  (+vterm/here nil)
   (+workspaces-add-current-buffer-h)
   (evil-insert 1)
   (evil-window-vsplit)
-  (+eshell/here nil)
+  (+vterm/here nil)
   (+workspaces-add-current-buffer-h)
   (evil-insert 1)
   (message "Terminals created.  Go back to your code with SPC TAB [ or M-1 to M-9. Switch between terminals with M-h and M-l"))
 
-(defun +eshell-splitted ()
+(defun +vterm-splitted ()
   (interactive)
   (when (if (projectile-project-name)
-            (+workspace-new (concat (projectile-project-name) " - Terminals"))
+            (+workspace-new (concat (projectile-project-name) " - Terms"))
           (+workspace-new "Terminals"))
     (+workspace/switch-to-final)
-    (+eshell-toggle--create-terms)))
+    (+vterm-toggle--create-terms)))
 
-(defvar +eshell-command-terms (list "docker-compose up" nil) "Command to be executed on terminal 1")
+(defvar +vterm-command-terms (list "docker-compose up" nil) "Command to be executed on terminal 1")
 
-(defun +eshell--cd-folder ()
-  (if (projectile-project-root)
-      (concat "cd " (projectile-project-root) "; ")
-    ""))
-
-(defun +eshell-with-command-splitted ()
+(defun +vterm-with-command-splitted ()
   (interactive)
   (if (projectile-project-name)
-      (+workspace-new (concat (projectile-project-name) " - Custom Terminals"))
+      (+workspace-new (concat (projectile-project-name) " - C Terms"))
     (+workspace-new "Custom Terminals"))
   (+workspace/switch-to-final)
   (mapc (lambda (command)
-          (if command
-              (+eshell/here (concat (+eshell--cd-folder) command))
-              (+eshell/here (concat (+eshell--cd-folder))))
+          (+vterm/here nil)
           (+workspaces-add-current-buffer-h)
+          (when command
+            (+vterm-send-string command t))
           (evil-insert 1)
-          (unless (-contains? (last +eshell-command-terms) command)
+          (unless (-contains? (last +vterm-command-terms) command)
             (evil-window-vsplit))
-          ) +eshell-command-terms))
+          ) +vterm-command-terms))
 
+(defun +vterm-send-string (string send-return)
+  (mapc (lambda (c)
+          (pcase c
+            (" " (vterm-send-space))
+            (_ (vterm-send c))))
+        (s-split "" string t))
+  (when send-return (vterm-send-return)))
 
-(map! :leader "V" '+eshell-splitted)
-(map! :leader "T" '+eshell-with-command-splitted)
+(map! :leader "V" '+vterm-splitted)
+(map! :leader "T" '+vterm-with-command-splitted)
 
 (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
 
