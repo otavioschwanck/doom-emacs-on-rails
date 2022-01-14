@@ -146,8 +146,10 @@
       :map shell-mode-map
       :ni "C-l" #'vterm-clear)
 
-(map! :after vterm :map shell-mode-map :ni "M-h" #'evil-window-left)
-(map! :after vterm :map shell-mode-map :ni "M-l" #'evil-window-right)
+(map! :after eshell :map shell-mode-map :ni "M-h" #'evil-window-left)
+(map! :after eshell :map shell-mode-map :ni "M-l" #'evil-window-right)
+(map! :after eshell :map eshell-mode-map :n "A" #'+eshell/goto-end-of-prompt)
+(map! :after eshell :map eshell-mode-map :i "TAB" #'completion-at-point)
 
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
 
