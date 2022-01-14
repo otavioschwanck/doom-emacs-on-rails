@@ -148,9 +148,18 @@
   (interactive)
   (+vterm-send-string (substring-no-properties (current-kill 0)) nil))
 
+(defun better-vterm-clean ()
+  (interactive)
+  (vterm-send-C-c)
+  (evil-insert 1))
+
+(map! :after vterm :map vterm-mode-map :n "P" #'better-vterm-paste-before)
 (map! :after vterm :map vterm-mode-map :n "p" #'better-vterm-paste)
 (map! :after vterm :map vterm-mode-map :i "C-v" #'better-vterm-paste)
 (map! :after vterm :map vterm-mode-map :i "M-v" #'better-vterm-paste)
+(map! :after vterm :map vterm-mode-map :n "C-p" #'vterm-send-M-p)
+(map! :after vterm :mode vterm-mode :n "C-n" #'vterm-send-M-n)
+(map! :after vterm :mode vterm-mode :n "C-c" #'better-vterm-clean)
 
 (map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
 
