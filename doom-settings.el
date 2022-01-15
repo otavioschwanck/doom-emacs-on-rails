@@ -212,7 +212,8 @@
 (map! :leader "V" '+vterm-splitted)
 (map! :leader "T" '+vterm-with-command-splitted)
 
-(set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil)
+(after! vterm
+  (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil :size 0.4))
 
 (setq vterm-always-compile-module t)
 
