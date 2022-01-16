@@ -6,6 +6,7 @@
 - [[#after-install][After Install]]
 - [[#upgrading][Upgrading]]
 - [[#keybindings][Keybindings]]
+- [[#announcement][Announcement]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
 - [[#autocomplete--snippets--3][Autocomplete + Snippets = <3]]
@@ -72,13 +73,18 @@ Open your personal configuration with =SPC f m= and read the file.
 
 * Upgrading
 To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
-
 * Keybindings
 I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
 The PDF is on this project root: [[Emacs Handbook.pdf]]
 
 This PDF is perfect to be printed out or be used on second monitor.
+* Announcement
+In ~2022-01-16~ i made a big change that requires to setup again the project.  I Created new terminal stuff to improve the workflow with this config.  Check the last page of the [[Emacs Handbook.pdf]] .  To upgrade, just run:
+
+#+begin_src shell
+cd ~/.doom.d; rm user-settings.el; git fetch; git reset --hard origin/master; ~/.emacs.d/bin/doom sync
+#+end_src
 
 * Video Showcase + Guide
 I made a video showcase with the principal commands (See description all the video highlights)

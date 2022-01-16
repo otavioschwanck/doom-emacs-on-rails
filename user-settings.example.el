@@ -16,11 +16,33 @@
 ;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
 (setq doom-theme 'doom-one)
 
+;; TERMINAL MANAGEMENT STUFF ;;
+;; Predefined commands
+;; You can switch to any terminal with SPC ESC
+;; You can execute the command with SPC T
+;;                         | command                           | buffer name |
+(+add-command-to-term-list '("docker-compose up; read; exit" . "Docker Compose"))
+(+add-command-to-term-list '("rails server; read; exit" . "Rails Server"))
 
-;; Opening Terminals in new workspace splitted
-;; You can open an terminal splitted with SPC V.  The two terminals will be blank and you can back with SPC TAB [ or M-1
-;; But if you want to create this two terminals with some predefined commands, open with SPC T and define the commands here:
-;; (setq +vterm-command-terms '("docker-compose up" nil)) ;; Each element of the list is one terminal.  nil creates an empty terminal.
+;; Example of dynamic command (Change )
+(+add-command-to-term-list '((concat "bundle exec rspec " (buffer-file-name) "; read; exit"). "*Rspec on file*")) ;
+
+
+;; Example of your own function to execute terminal directly
+;; BEGIN EXAMPLE
+;; (defun my-rspec-command ()
+;;   (interactive)
+;;   (+vterm--create-term-with-command (concat "bundle exec rspec " (buffer-file-name) "; read; exit") "Rspec on file"))
+
+;; (map! :after rspec-mode :mode rspec-mode :leader "t v" #'my-rspec-command)
+;; END EXAMPLE
+
+;; Creating complex terminal layouts. SPC T
+;; It will create a new workspace with all terminals listed
+;;                         | Layout Name    | Commands to execute                |
+(+add-layout-to-term-list '("Rails" . '("rails console" "rails server" nil)))
+(+add-layout-to-term-list '("React" . '("yarn start" nil)))
+(+add-layout-to-term-list '("Next JS" . '("yarn dev" "cowsay 'Have an nice work'" nil)))
 
 ;; To test a new font, press M-x (alt + x) and search for reload-user-settings
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)

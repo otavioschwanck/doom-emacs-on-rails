@@ -289,8 +289,6 @@ C-l to clear v-term
 (map! :after vterm :mode vterm-mode :n "C-n" #'vterm-send-M-n)
 (map! :after vterm :mode vterm-mode :n "C-c" #'better-vterm-clean)
 
-(map! :mode shell-mode-map :leader "l" 'comint-clear-buffer)
-
 (map! :leader "v" #'+vterm/toggle)
 
 (defun +vterm-toggle--create-terms ()
@@ -303,31 +301,73 @@ C-l to clear v-term
   (evil-insert 1)
   (message "Terminals created.  Go back to your code with SPC TAB [ or M-1 to M-9. Switch between terminals with M-h and M-l"))
 
-(defun +vterm-splitted ()
+(defvar +vterm-layouts '() "Command to be executed on terminal 1")
+(defvar +vterm-commands '() "Command to execute with SPC o t")
+
+(defun +add-layout-to-term-list (command)
+  "Add a layout to vterm"
+  (push command +vterm-layouts))
+
+(defun +add-command-to-term-list (command)
+  "Execute the command with +vterm."
+  (push command +vterm-commands))
+
+(defun +vterm-execute-command-term ()
   (interactive)
-  (when (if (projectile-project-name)
-            (+workspace-new (concat (projectile-project-name) " - Terms"))
-          (+workspace-new "Terminals"))
-    (+workspace/switch-to-final)
-    (+vterm-toggle--create-terms)))
+  (let ((item (completing-read "Select command: " (mapcar (lambda (x) (concat (eval (car x)) "     -     " (cdr x))) +vterm-commands))))
+    (when (not (string= item ""))
+      (let* ((splitted-item (split-string item "     -     "))
+             (command (nth 0 splitted-item))
+             (buffer (nth 1 splitted-item)))
+        (if (member buffer (mapcar (lambda (x) (format "%s" x)) (buffer-list)))
+            (switch-to-buffer buffer)
+          (+vterm--create-term-with-command command buffer))))))
 
-(defvar +vterm-command-terms (list "docker-compose up" nil) "Command to be executed on terminal 1")
+(defun +vterm--create-term-with-command (command buffer)
+  "Create a vterm with specified command"
+  (interactive)
+  (+vterm/here nil)
+  (+workspaces-add-current-buffer-h)
+  (rename-buffer buffer)
+  (+vterm-send-string command t))
 
-(defun +vterm-with-command-splitted ()
+(defun +vterm-switch-to-terminal ()
+  "Go to vterm terminals."
+  (interactive)
+  (let* ((terminals
+          (remove nil (mapcar
+                       (lambda (buf)
+                         (with-current-buffer buf (when (eq major-mode 'vterm-mode) buf)))
+                       (buffer-list (current-buffer)))))
+         (terminal-to-go (completing-read "Select the terminal: " (mapcar (lambda (x) (format "%s" x)) terminals))))
+    (when (not (string= terminal-to-go ""))
+      (switch-to-buffer terminal-to-go))))
+
+(map! :leader "o t" #'+vterm-execute-command-term)
+(map! :leader "<escape>" #'+vterm-switch-to-terminal)
+
+(defun +vterm-with-command-splitted (command-name commands)
   (interactive)
   (if (projectile-project-name)
-      (+workspace-new (concat (projectile-project-name) " - C Terms"))
+      (+workspace-new (concat (projectile-project-name)" - " command-name " - C Terms"))
     (+workspace-new "Custom Terminals"))
   (+workspace/switch-to-final)
   (mapc (lambda (command)
           (+vterm/here nil)
           (+workspaces-add-current-buffer-h)
+          (rename-buffer (concat command-name " - term") t)
           (when command
             (+vterm-send-string command t))
           (evil-insert 1)
-          (unless (-contains? (last +vterm-command-terms) command)
+          (unless (-contains? (last commands) command)
             (evil-window-vsplit))
-          ) +vterm-command-terms))
+          ) commands))
+
+(defun +vterm-create-layout ()
+  (interactive)
+  (let* ((item (completing-read "Select a layout: " +vterm-layouts)))
+    (when (not (string= item ""))
+      (+vterm-with-command-splitted item (car (cdr (cdr (assoc item +vterm-layouts))))))))
 
 (defun +vterm-send-string (string send-return)
   (mapc (lambda (c)
@@ -337,14 +377,17 @@ C-l to clear v-term
         (s-split "" string t))
   (when send-return (vterm-send-return)))
 
-(map! :leader "V" '+vterm-splitted)
-(map! :leader "T" '+vterm-with-command-splitted)
+(map! :leader "T" '+vterm-create-layout)
 
 (after! vterm
   (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil :size 0.4))
 
 (setq vterm-always-compile-module t)
 #+end_src
+
+#+RESULTS:
+: t
+
 *** Better Paste
 #+begin_src emacs-lisp
 (defun better-paste-after ()
