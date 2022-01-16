@@ -200,7 +200,7 @@
   (interactive)
   (+vterm/here nil)
   (+workspaces-add-current-buffer-h)
-  (rename-buffer buffer)
+  (rename-buffer buffer t)
   (+vterm-send-string command t))
 
 (defun +vterm-switch-to-terminal ()
