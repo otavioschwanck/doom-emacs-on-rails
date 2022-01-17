@@ -28,8 +28,8 @@
 (+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: ") "; read; exit")))
 
 ;; Example of dynamic command (using buffer name as example)
-(+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit"))) ;
-
+(+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit")))
+(+add-command-to-term-list '("Rspec on line" . (concat "bundle exec rspec " (buffer-file-name) ":" (format "%s" (line-number-at-pos)) "; read; exit")))
 
 ;; Example of your own function to execute terminal directly
 ;; BEGIN EXAMPLE

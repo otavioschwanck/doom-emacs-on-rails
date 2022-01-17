@@ -741,7 +741,7 @@
 (map! :i "<C-return>" 'better-dabbrev-expand)
 (map! :i "C-k" 'better-dabbrev-expand)
 (map! :i "M-RET" 'call-real-ret)
-(map! :i "TAB" 'better-yas-expand)
+(map! :i "C-o" 'yas-expand)
 
 (defun better-yas-expand ()
   (interactive)
@@ -749,8 +749,7 @@
 
 (map! :after company
       :map company-active-map
-      "TAB" 'better-yas-expand
-      "<tab>" #'better-yas-expand
+      "C-o" 'yas-expand
       "M-e" #'emmet-expand-line
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
@@ -784,8 +783,8 @@
     (add-to-list 'yas-snippet-dirs (concat doom-private-dir "user-snippets/")))
 
   (map! :map yas-keymap
-        "TAB" #'select-and-yas-next
-        "S-TAB" #'select-and-yas-previous
+        "C-o" #'select-and-yas-next
+        "C-S-o" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
         "M-e" #'emmet-expand-line))
 
