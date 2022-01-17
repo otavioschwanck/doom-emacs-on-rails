@@ -25,7 +25,7 @@
 (+add-command-to-term-list '("Rails Server" . "rails server; read; exit"))
 
 ;; Example asking something
-(+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: "))))
+(+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: ") "; read; exit")))
 
 ;; Example of dynamic command (using buffer name as example)
 (+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit"))) ;
