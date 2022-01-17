@@ -223,7 +223,7 @@
                        (lambda (buf)
                          (with-current-buffer buf (when (eq major-mode 'vterm-mode) buf)))
                        (buffer-list (current-buffer)))))
-         (terminal-to-go (completing-read "Select the terminal: " (mapcar (lambda (x) (format "%s" x)) terminals))))
+         (terminal-to-go (completing-read "Select the terminal to send region: " (mapcar (lambda (x) (format "%s" x)) terminals))))
 
     (when (not (string= terminal-to-go ""))
       (switch-to-buffer terminal-to-go)
@@ -1009,8 +1009,8 @@
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! ruby-mode
-  (map! :mode ruby-mode "SPC a" 'goto-test)
-  (map! :mode ruby-mode "SPC A" 'goto-test-and-vsplit))
+  (map! :leader "a" 'goto-test)
+  (map! :leader "A" 'goto-test-and-vsplit))
 
 (after! ruby-mode
   (defun file-path-to-test (filename)
