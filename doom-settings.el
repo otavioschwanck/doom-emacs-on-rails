@@ -1009,8 +1009,8 @@
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! ruby-mode
-  (map! :leader "a" 'goto-test)
-  (map! :leader "A" 'goto-test-and-vsplit))
+  (map! :mode ruby-mode :leader "a" 'goto-test)
+  (map! :mode ruby-mode :leader "A" 'goto-test-and-vsplit)
 
 (after! ruby-mode
   (defun file-path-to-test (filename)

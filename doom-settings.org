@@ -1218,9 +1218,9 @@ C-l to clear v-term
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! ruby-mode
-  (map! :leader "a" 'goto-test)
-  (map! :leader "A" 'goto-test-and-vsplit))
-#+end_src
+  (map! :mode ruby-mode :leader "a" 'goto-test)
+  (map! :mode ruby-mode :leader "A" 'goto-test-and-vsplit)
+  #+end_src
 *** Super Goto test
 #+begin_src emacs-lisp
 (after! ruby-mode
