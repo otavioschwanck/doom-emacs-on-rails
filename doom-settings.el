@@ -229,10 +229,10 @@
       (better-vterm-paste)
       (evil-insert 1))))
 
-(map! :leader :v "l" #'+vterm-send-selected-text-to-terminal)
+(map! :desc "Switch to Terminal" :n "SPC l" #'+vterm-switch-to-terminal)
+(map! :desc "Send Text to Terminal" :v "SPC l" #'+vterm-send-selected-text-to-terminal)
 
 (map! :leader "o t" #'+vterm-execute-command-term)
-(map! :leader "l" #'+vterm-switch-to-terminal)
 
 (defun +vterm-with-command-splitted (command-name commands)
   (interactive)
@@ -259,9 +259,10 @@
 
 (defun +vterm-send-string (string send-return)
   (mapc (lambda (c)
-          (pcase c
-            (" " (vterm-send-space))
-            (_ (vterm-send c))))
+          (if (string= c "\n") (vterm-send-return)
+            (pcase c
+              (" " (vterm-send-space))
+              (_ (vterm-send c)))))
         (s-split "" string t))
   (when send-return (vterm-send-return)))
 
@@ -737,6 +738,7 @@
   (funcall (key-binding (kbd "RET"))))
 
 (map! :i "<C-return>" 'better-dabbrev-expand)
+(map! :i "C-k" 'better-dabbrev-expand)
 (map! :i "M-RET" 'call-real-ret)
 (map! :i "TAB" 'yas-expand)
 
@@ -751,6 +753,7 @@
       "M-e" #'emmet-expand-line
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
+      "C-k" 'better-dabbrev-expand
       "<C-return>" 'better-dabbrev-expand)
 
 (after! company
@@ -1005,8 +1008,8 @@
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! ruby-mode
-  (map! :mode ruby-mode-map :leader "a" 'goto-test)
-  (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit))
+  (map! :mode ruby-mode "SPC a" 'goto-test)
+  (map! :mode ruby-mode "SPC A" 'goto-test-and-vsplit))
 
 (after! ruby-mode
   (defun file-path-to-test (filename)
