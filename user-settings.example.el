@@ -18,13 +18,16 @@
 
 ;; TERMINAL MANAGEMENT STUFF ;;
 ;; Predefined commands
-;; You can switch to any terminal with SPC ESC
-;; You can execute the command with SPC T
+;; You can switch to any terminal with SPC l
+;; You can execute the command with SPC ot
 ;;                         | Name              | command                      |
 (+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit"))
 (+add-command-to-term-list '("Rails Server" . "rails server; read; exit"))
 
-;; Example of dynamic command (Change )
+;; Example asking something
+(+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: "))))
+
+;; Example of dynamic command (using buffer name as example)
 (+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit"))) ;
 
 
@@ -50,7 +53,7 @@
 ;; (map! :after projectile-rails :leader "r r" #'rails-console-improved)
 ;; (map! :after projectile-rails :leader "r R" #'rails-server-improved)
 
-;; Creating complex terminal layouts. SPC T
+;; Creating terminal layouts: SPC T
 ;; It will create a new workspace with all terminals listed
 ;;                         | Layout Name    | Commands to execute                |
 (+add-layout-to-term-list '("Rails" . '("rails console" "rails server" nil)))
