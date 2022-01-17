@@ -215,7 +215,7 @@
       (switch-to-buffer terminal-to-go))))
 
 (map! :leader "o t" #'+vterm-execute-command-term)
-(map! :leader "<escape>" #'+vterm-switch-to-terminal)
+(map! :leader "V" #'+vterm-switch-to-terminal)
 
 (defun +vterm-with-command-splitted (command-name commands)
   (interactive)
