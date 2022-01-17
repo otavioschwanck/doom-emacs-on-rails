@@ -208,14 +208,14 @@
   (let* ((terminals
           (remove nil (mapcar
                        (lambda (buf)
-                         (with-current-buffer buf (when (eq major-mode 'vterm-mode) buf)))
+                         (with-current-buffer buf (and (not (string-match-p ".*vterm-popup.*" (format "%s" buf))) (when (eq major-mode 'vterm-mode) buf))))
                        (buffer-list (current-buffer)))))
          (terminal-to-go (completing-read "Select the terminal: " (mapcar (lambda (x) (format "%s" x)) terminals))))
     (when (not (string= terminal-to-go ""))
       (switch-to-buffer terminal-to-go))))
 
 (map! :leader "o t" #'+vterm-execute-command-term)
-(map! :leader "V" #'+vterm-switch-to-terminal)
+(map! :leader "l" #'+vterm-switch-to-terminal)
 
 (defun +vterm-with-command-splitted (command-name commands)
   (interactive)
@@ -1500,7 +1500,7 @@
   (map! :mode ruby-mode :localleader "v" 'ruby-refactor-extract-local-variable)
   (map! :mode ruby-mode :localleader "V" 'ruby-refactor-extract-constant)
 
-  (defun ruby-refactor-extract-local-variable(  )
+  (defun ruby-refactor-extract-local-variable ()
     "Extracts selected text to local variable"
     (interactive)
     (save-restriction
