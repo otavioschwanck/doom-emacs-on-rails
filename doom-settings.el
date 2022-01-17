@@ -214,6 +214,23 @@
     (when (not (string= terminal-to-go ""))
       (switch-to-buffer terminal-to-go))))
 
+(defun +vterm-send-selected-text-to-terminal ()
+  (interactive)
+  (call-interactively 'evil-yank)
+  (let* ((terminals
+          (remove nil (mapcar
+                       (lambda (buf)
+                         (with-current-buffer buf (when (eq major-mode 'vterm-mode) buf)))
+                       (buffer-list (current-buffer)))))
+         (terminal-to-go (completing-read "Select the terminal: " (mapcar (lambda (x) (format "%s" x)) terminals))))
+
+    (when (not (string= terminal-to-go ""))
+      (switch-to-buffer terminal-to-go)
+      (better-vterm-paste)
+      (evil-insert 1))))
+
+(map! :leader :v "l" #'+vterm-send-selected-text-to-terminal)
+
 (map! :leader "o t" #'+vterm-execute-command-term)
 (map! :leader "l" #'+vterm-switch-to-terminal)
 
