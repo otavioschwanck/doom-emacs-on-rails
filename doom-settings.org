@@ -1239,10 +1239,7 @@ C-l to clear v-term
 
   (defun goto-test ()
     (interactive)
-    (find-file (file-path-to-test buffer-file-name)))
-
-  (map! :mode ruby-mode-map :leader "a" 'goto-test)
-  (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit))
+    (find-file (file-path-to-test buffer-file-name))))
 #+end_src
 ** Checkers
 #+begin_src emacs-lisp

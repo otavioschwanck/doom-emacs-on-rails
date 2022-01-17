@@ -988,8 +988,8 @@
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! ruby-mode
-  (map! :mode ruby-mode-map :leader "a" 'goto-test)
-  (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit))
+  (map! :map ruby-mode-map "SPC a" 'goto-test)
+  (map! :map ruby-mode-map "SPC A" 'goto-test-and-vsplit))
 
 (after! ruby-mode
   (defun file-path-to-test (filename)
@@ -1025,10 +1025,7 @@
 
   (defun goto-test ()
     (interactive)
-    (find-file (file-path-to-test buffer-file-name)))
-
-  (map! :mode ruby-mode-map :leader "a" 'goto-test)
-  (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit))
+    (find-file (file-path-to-test buffer-file-name))))
 
 ;; make flycheck use bundle instead of rubocop latest version
 (defun project-has-rubocop ()
@@ -1096,8 +1093,8 @@
   (indent-according-to-mode)
   (save-buffer))
 
-(map! :after ruby-mode :mode ruby-mode :leader "d" 'otavio/insert-debugger)
-(map! :after ruby-mode :mode ruby-mode :leader "D" 'otavio/remove-all-debuggers)
+(map! :after ruby-mode :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
+(map! :after ruby-mode :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
 (map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
 
