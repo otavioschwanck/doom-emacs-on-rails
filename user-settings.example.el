@@ -21,11 +21,11 @@
 ;; You can switch to any terminal with SPC ESC
 ;; You can execute the command with SPC T
 ;;                         | command                           | buffer name |
-(+add-command-to-term-list '("docker-compose up; read; exit" . "Docker Compose"))
-(+add-command-to-term-list '("rails server; read; exit" . "Rails Server"))
+(+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit"))
+(+add-command-to-term-list '("Rails Server" . "rails server; read; exit"))
 
 ;; Example of dynamic command (Change )
-(+add-command-to-term-list '((concat "bundle exec rspec " (buffer-file-name) "; read; exit"). "*Rspec on file*")) ;
+(+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit"))) ;
 
 
 ;; Example of your own function to execute terminal directly

@@ -186,14 +186,13 @@
 
 (defun +vterm-execute-command-term ()
   (interactive)
-  (let ((item (completing-read "Select command: " (mapcar (lambda (x) (concat (eval (car x)) "     -     " (cdr x))) +vterm-commands))))
+  (let ((item (completing-read "Select command: " +vterm-commands)))
     (when (not (string= item ""))
-      (let* ((splitted-item (split-string item "     -     "))
-             (command (nth 0 splitted-item))
-             (buffer (nth 1 splitted-item)))
-        (if (member buffer (mapcar (lambda (x) (format "%s" x)) (buffer-list)))
-            (switch-to-buffer buffer)
-          (+vterm--create-term-with-command command buffer))))))
+      (let* ((item-to-run (assoc item +vterm-commands))
+             (command (eval (cdr item-to-run))))
+        (if (member item (mapcar (lambda (x) (format "%s" x)) (buffer-list)))
+            (switch-to-buffer item)
+          (+vterm--create-term-with-command command item))))))
 
 (defun +vterm--create-term-with-command (command buffer)
   "Create a vterm with specified command"
