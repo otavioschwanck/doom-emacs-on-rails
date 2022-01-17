@@ -20,7 +20,7 @@
 ;; Predefined commands
 ;; You can switch to any terminal with SPC ESC
 ;; You can execute the command with SPC T
-;;                         | command                           | buffer name |
+;;                         | Name              | command                      |
 (+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit"))
 (+add-command-to-term-list '("Rails Server" . "rails server; read; exit"))
 
