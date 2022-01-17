@@ -69,7 +69,7 @@ gem install solargraph
 #+END_SRC
 
 * After Install
-Open your personal configuration with =SPC f m= and read the file.
+Open your personal configuration with =SPC f m= and read the file.  I really recommend to read all comments on file, this file contains a lot of tips for improve your workflow.
 
 * Upgrading
 To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
