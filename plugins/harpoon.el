@@ -1,10 +1,10 @@
-;;; harpoon.el --- Bookmarks with steroids    -*- lexical-binding: t; -*-
+;;; harpoon.el --- Bookmarks on steroids    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2022  Otávio Schwanck
 
 ;; Author: Otávio Schwanck <otavioschwanck@gmail.com>
 ;; Keywords: tools languages
-;; Homepage: https://github.com/otavioschwanck/rails-routes
+;; Homepage: https://github.com/otavioschwanck/harpoon.el
 ;; Version: 0.3
 ;; Package-Requires: ((emacs "27.2") (projectile "2.5.0") (magit "3.3.0") (f "0.20.0"))
 
@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; This is a plugin base on harpoon from vim (by ThePrimeagen).  Is like a bookmark manager with steroids.
+;; This is a plugin base on harpoon from vim (by ThePrimeagen).  Is like a bookmark manager on steroids.
 ;; You can easily add, reorder and delete bookmarks.  Hhe bookmarks are separated by project and branch.
 
 ;;; Code:
@@ -42,22 +42,19 @@
 
 (defcustom harpoon-separate-by-branch t
   "Harpoon separated by branch."
-  :type 'string)
+  :type 'boolean)
 
 (defvar harpoon-cache '()
   "Cache for harpoon.")
 
-(defcustom harpoon--current-project-path nil
-  "Current project name on harpoon.  Its only transactional."
-  :type 'string)
+(defvar harpoon--current-project-path nil
+  "Current project path on harpoon.  Its only transactional.")
 
-(defcustom harpoon--project-path nil
-  "Current project name on harpoon.  Its only transactional."
-  :type 'string)
+(defvar harpoon--project-path nil
+  "Current project name on harpoon.  Its only transactional.")
 
-(defcustom harpoon-cache-loaded nil
-  "Cache for harpoon."
-  :type 'boolean)
+(defvar harpoon-cache-loaded nil
+  "Cache for harpoon.")
 
 (defun harpoon--cache-key ()
   "Key to save current file on cache."
@@ -71,6 +68,7 @@
   "Create harpoon cache dir if dont exists."
   (unless (f-directory? harpoon-cache-file)
     (shell-command (concat "mkdir " harpoon-cache-file))))
+
 
 (defun harpoon--file-name ()
   "File name for harpoon on current project."
