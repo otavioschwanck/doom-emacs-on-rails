@@ -923,11 +923,11 @@ C-l to clear v-term
 (map! :i "<C-return>" 'better-dabbrev-expand)
 (map! :i "C-k" 'better-dabbrev-expand)
 (map! :i "M-RET" 'call-real-ret)
-(map! :i "TAB" 'yas-expand)
+(map! :i "TAB" 'better-yas-expand)
 
 (defun better-yas-expand ()
   (interactive)
-  (if yas--active-snippets (select-and-yas-next) (yas-expand)))
+  (if yas--active-snippets (select-and-yas-next) (if (yas--maybe-expand-key-filter t) (yas-expand) (call-interactively 'indent-for-tab-command))))
 
 (map! :after company
       :map company-active-map
