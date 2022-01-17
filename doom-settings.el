@@ -988,8 +988,8 @@
   (map! :leader "tG" #'rspec-run-git-diff-from-master))
 
 (after! ruby-mode
-  (map! :map ruby-mode-map "SPC a" 'goto-test)
-  (map! :map ruby-mode-map "SPC A" 'goto-test-and-vsplit))
+  (map! :mode ruby-mode-map :leader "a" 'goto-test)
+  (map! :mode ruby-mode-map :leader "A" 'goto-test-and-vsplit))
 
 (after! ruby-mode
   (defun file-path-to-test (filename)
@@ -1093,8 +1093,8 @@
   (indent-according-to-mode)
   (save-buffer))
 
-(map! :after ruby-mode :map ruby-mode-map :leader "d" 'otavio/insert-debugger)
-(map! :after ruby-mode :map ruby-mode-map :leader "D" 'otavio/remove-all-debuggers)
+(map! :after ruby-mode :mode ruby-mode :leader "d" 'otavio/insert-debugger)
+(map! :after ruby-mode :mode ruby-mode :leader "D" 'otavio/remove-all-debuggers)
 (map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
 (map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
 
