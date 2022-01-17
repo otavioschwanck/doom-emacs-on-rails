@@ -47,8 +47,8 @@
 ;;   (interactive)
 ;;   (+vterm--create-term-with-command "rails server; exit" (concat "Rails Server - " (projectile-project-name))))
 
-;; (map! :after ruby-mode :leader "rr" #'rails-console-improved)
-;; (map! :after ruby-mode :leader "rR" #'rails-server-improved)
+;; (map! :after projectile-rails :leader "r r" #'rails-console-improved)
+;; (map! :after projectile-rails :leader "r R" #'rails-server-improved)
 
 ;; Creating complex terminal layouts. SPC T
 ;; It will create a new workspace with all terminals listed
