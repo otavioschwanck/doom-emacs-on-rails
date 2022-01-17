@@ -37,6 +37,19 @@
 ;; (map! :after rspec-mode :mode rspec-mode :leader "t v" #'my-rspec-command)
 ;; END EXAMPLE
 
+;; Other examples:  VTerm rails console and server
+
+;; (defun rails-console-improved ()
+;;   (interactive)
+;;   (+vterm--create-term-with-command "rails console; exit" (concat "Rails Console - " (projectile-project-name))))
+
+;; (defun rails-server-improved ()
+;;   (interactive)
+;;   (+vterm--create-term-with-command "rails server; exit" (concat "Rails Server - " (projectile-project-name))))
+
+;; (map! :after ruby-mode :leader "rr" #'rails-console-improved)
+;; (map! :after ruby-mode :leader "rR" #'rails-server-improved)
+
 ;; Creating complex terminal layouts. SPC T
 ;; It will create a new workspace with all terminals listed
 ;;                         | Layout Name    | Commands to execute                |

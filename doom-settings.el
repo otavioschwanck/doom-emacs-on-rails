@@ -190,17 +190,18 @@
     (when (not (string= item ""))
       (let* ((item-to-run (assoc item +vterm-commands))
              (command (eval (cdr item-to-run))))
-        (if (member item (mapcar (lambda (x) (format "%s" x)) (buffer-list)))
-            (switch-to-buffer item)
-          (+vterm--create-term-with-command command item))))))
+        (+vterm--create-term-with-command command item)))))
 
 (defun +vterm--create-term-with-command (command buffer)
   "Create a vterm with specified command"
   (interactive)
-  (+vterm/here nil)
-  (+workspaces-add-current-buffer-h)
-  (rename-buffer buffer t)
-  (+vterm-send-string command t))
+  (if (member buffer (mapcar (lambda (x) (format "%s" x)) (buffer-list)))
+      (switch-to-buffer buffer)
+    (progn
+      (+vterm/here nil)
+      (+workspaces-add-current-buffer-h)
+      (rename-buffer buffer t)
+      (+vterm-send-string command t))))
 
 (defun +vterm-switch-to-terminal ()
   "Go to vterm terminals."
