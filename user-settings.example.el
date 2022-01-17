@@ -37,7 +37,7 @@
 ;; (map! :after rspec-mode :mode rspec-mode :leader "t v" #'my-rspec-command)
 ;; END EXAMPLE
 
-;; Other examples:  VTerm rails console and server
+;; Other examples:  VTerm rails console and server (I personally like, i recommend uncomment lines below)
 
 ;; (defun rails-console-improved ()
 ;;   (interactive)
