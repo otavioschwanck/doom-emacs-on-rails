@@ -221,8 +221,8 @@ Loading plugins like rails routes, rails http status, etc.
 **** Previous And Next buffer
 #+begin_src emacs-lisp
 ;; Previous and next buffer
-(map! :n "C-," #'previous-buffer)
-(map! :n "C-;" #'next-buffer)
+(map! :ni "C-," #'previous-buffer)
+(map! :ni "C-;" #'next-buffer)
 
 #+end_src
 **** Drag Stuff

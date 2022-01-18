@@ -117,8 +117,8 @@
 (map! :n "\\" #'save-all-buffers)
 
 ;; Previous and next buffer
-(map! :n "C-," #'previous-buffer)
-(map! :n "C-;" #'next-buffer)
+(map! :ni "C-," #'previous-buffer)
+(map! :ni "C-;" #'next-buffer)
 
 (map! :v "K" #'drag-stuff-up)
 (map! :v "J" #'drag-stuff-down)
