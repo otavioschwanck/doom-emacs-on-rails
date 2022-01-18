@@ -27,10 +27,7 @@
 ;; You can easily add, reorder and delete bookmarks.  Hhe bookmarks are separated by project and branch.
 
 ;;; Code:
-(require 'projectile)
-(require 'magit)
 (require 'f)
-(require 'magit)
 
 (defgroup harpoon nil
   "Harpoon for emacs."
