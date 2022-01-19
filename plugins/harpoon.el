@@ -28,6 +28,7 @@
 
 ;;; Code:
 (require 'f)
+(require 'magit)
 
 (defgroup harpoon nil
   "Harpoon for emacs."
