@@ -1,7 +1,6 @@
 ;; Load only after ruby mode
 (load (expand-file-name "plugins/miyagi.el" doom-private-dir))
-(after! projectile
-  (load (concat doom-private-dir "plugins/harpoon.el")))
+(load (concat doom-private-dir "plugins/harpoon.el"))
 
 (after! ruby-mode
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
