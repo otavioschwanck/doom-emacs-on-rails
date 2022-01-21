@@ -59,6 +59,7 @@
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
 - [[#improve-magit-performacne][Improve magit performacne]]
+- [[#handbook-stuff][Handbook stuff]]
 - [[#load-userel][Load user.el]]
 
 * Load External Plugins
@@ -2042,6 +2043,19 @@ Version 2015-06-08"
   (setq magit-diff-highlight-hunk-body nil)
   (setq magit-diff-refine-hunk nil))
 
+#+end_src
+
+* Handbook stuff
+#+begin_src emacs-lisp
+(defun open-doom-emacs-on-rails-handbook ()
+  (interactive)
+  (browse-url "https://github.com/otavioschwanck/doom-emacs-on-rails/blob/master/Emacs%20Handbook.pdf"))
+
+(map! :leader "h R" #'open-doom-emacs-on-rails-handbook)
+
+(add-to-list '+doom-dashboard-menu-sections '("Open Doom Emacs on Rails Handbook"
+                                             :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
+                                             :action open-doom-emacs-on-rails-handbook) t)
 #+end_src
 
 * Load user.el

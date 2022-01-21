@@ -1780,6 +1780,16 @@ Version 2015-06-08"
   (setq magit-diff-highlight-hunk-body nil)
   (setq magit-diff-refine-hunk nil))
 
+(defun open-doom-emacs-on-rails-handbook ()
+  (interactive)
+  (browse-url "https://github.com/otavioschwanck/doom-emacs-on-rails/blob/master/Emacs%20Handbook.pdf"))
+
+(map! :leader "h R" #'open-doom-emacs-on-rails-handbook)
+
+(add-to-list '+doom-dashboard-menu-sections '("Open Doom Emacs on Rails Handbook"
+                                             :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
+                                             :action open-doom-emacs-on-rails-handbook) t)
+
 (if (file-exists-p (expand-file-name "user-settings.el" doom-private-dir))
     (load (expand-file-name "user-settings.el" doom-private-dir))
   (progn
