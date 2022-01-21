@@ -741,7 +741,7 @@
 
 (defun better-yas-expand-with-message ()
   (interactive)
-  (if yas--active-snippets (select-and-yas-next) (if (yas--maybe-expand-key-filter t) (yas-expand) (call-interactively 'company-yasnippet))))
+  (if yas--active-snippets (select-and-yas-next) (when (yas--maybe-expand-key-filter t) (yas-expand))))
 
 (map! :after company
       :map company-active-map
