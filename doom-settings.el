@@ -1,6 +1,7 @@
 ;; Load only after ruby mode
 (load (expand-file-name "plugins/miyagi.el" doom-private-dir))
-(load (concat doom-private-dir "plugins/harpoon.el"))
+(after! projectile
+  (load (concat doom-private-dir "plugins/harpoon.el")))
 
 (after! ruby-mode
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
@@ -157,8 +158,6 @@
 (map! :after vterm :map vterm-mode-map :n "p" #'better-vterm-paste)
 (map! :after vterm :map vterm-mode-map :i "C-v" #'better-vterm-paste)
 (map! :after vterm :map vterm-mode-map :i "M-v" #'better-vterm-paste)
-(map! :after vterm :map vterm-mode-map :n "C-p" #'vterm-send-M-p)
-(map! :after vterm :mode vterm-mode :n "C-n" #'vterm-send-M-n)
 (map! :after vterm :mode vterm-mode :n "C-c" #'better-vterm-clean)
 
 (map! :leader "v" #'+vterm/toggle)
@@ -278,7 +277,8 @@
   (interactive)
   (yank))
 
-(map! :i "C-v" #'better-paste-after)
+(map! :ig "C-v" #'better-paste-after)
+(map! :ig "M-v" #'better-paste-after)
 
 (map! :leader "e" #'+treemacs/toggle)
 (map! :leader "E" #'treemacs-find-file)
@@ -343,7 +343,6 @@
 (map! :ni "M-l" #'evil-window-right)
 
 (map! "M-o" #'evil-window-next)
-(map! :map vterm-mode-map :n "C-<SPC>" #'ace-window)
 
 (setq evil-split-window-below t evil-vsplit-window-right t)
 
@@ -382,13 +381,6 @@
 
 (after! vertico
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot))
-
-;; Show path of file on SPC ,
-(after! vertico
-  (setq uniquify-buffer-name-style 'reverse)
-  (setq uniquify-separator "/")
-  (setq uniquify-after-kill-buffer-p t) ; rename after killing uniquified
-  (setq uniquify-ignore-buffers-re "^\\*"))
 
 (setq iedit-toggle-key-default nil)
 
@@ -739,21 +731,27 @@
   (funcall (key-binding (kbd "RET"))))
 
 (map! :i "<C-return>" 'better-dabbrev-expand)
-(map! :i "C-k" 'better-dabbrev-expand)
+(map! :ig "C-o" 'better-dabbrev-expand)
+
 (map! :i "M-RET" 'call-real-ret)
-(map! :i "C-o" 'yas-expand)
+(map! :i "TAB" 'better-yas-expand)
 
 (defun better-yas-expand ()
   (interactive)
   (if yas--active-snippets (select-and-yas-next) (if (yas--maybe-expand-key-filter t) (yas-expand) (call-interactively 'indent-for-tab-command))))
 
+(defun better-yas-expand-with-message ()
+  (interactive)
+  (if yas--active-snippets (select-and-yas-next) (if (yas--maybe-expand-key-filter t) (yas-expand) (call-interactively 'company-yasnippet))))
+
 (map! :after company
       :map company-active-map
-      "C-o" 'yas-expand
+      "TAB" 'better-yas-expand-with-message
+      "<tab>" #'better-yas-expand-with-message
       "M-e" #'emmet-expand-line
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
-      "C-k" 'better-dabbrev-expand
+      "C-o" 'better-dabbrev-expand
       "<C-return>" 'better-dabbrev-expand)
 
 (after! company
@@ -783,8 +781,8 @@
     (add-to-list 'yas-snippet-dirs (concat doom-private-dir "user-snippets/")))
 
   (map! :map yas-keymap
-        "C-o" #'select-and-yas-next
-        "C-S-o" #'select-and-yas-previous
+        "TAB" #'select-and-yas-next
+        "S-TAB" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
         "M-e" #'emmet-expand-line))
 
@@ -1773,6 +1771,14 @@ Version 2015-06-08"
   (after! flycheck (use-ruby-docker--set-rubocop))
 
   (message "Ruby Docker Mode Activated."))
+
+(after! magit
+  (remove-hook 'server-switch-hook 'magit-commit-diff)
+  (setq magit-diff-highlight-indentation nil)
+  (setq magit-diff-highlight-trailing nil)
+  (setq magit-diff-paint-whitespace nil)
+  (setq magit-diff-highlight-hunk-body nil)
+  (setq magit-diff-refine-hunk nil))
 
 (if (file-exists-p (expand-file-name "user-settings.el" doom-private-dir))
     (load (expand-file-name "user-settings.el" doom-private-dir))

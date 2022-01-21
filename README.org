@@ -8,7 +8,6 @@
 - [[#keybindings][Keybindings]]
 - [[#announcement][Announcement]]
   - [[#terminal-feature][Terminal Feature]]
-  - [[#new-keybinding-for-snippet][New keybinding for snippet]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
 - [[#autocomplete--snippets--3][Autocomplete + Snippets = <3]]
@@ -88,10 +87,6 @@ In ~2022-01-16~ i made a big change that requires to setup again the project.  I
 #+begin_src shell
 cd ~/.doom.d; rm user-settings.el; git fetch; git reset --hard origin/master; ~/.emacs.d/bin/doom sync
 #+end_src
-
-** New keybinding for snippet
-Instead of tab, now, to toggle and go forward on snippet, press C-o.  Tab is now for autocomplete only.
-
 
 * Video Showcase + Guide
 I made a video showcase with the principal commands (See description all the video highlights)
