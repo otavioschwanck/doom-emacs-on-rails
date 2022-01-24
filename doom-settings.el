@@ -1781,10 +1781,15 @@ Version 2015-06-08"
   (browse-url "https://github.com/otavioschwanck/doom-emacs-on-rails/blob/master/Emacs%20Handbook.pdf"))
 
 (map! :leader "h R" #'open-doom-emacs-on-rails-handbook)
+(map! :leader "h U" #'upgrade-doom-emacs-on-rails)
 
 (add-to-list '+doom-dashboard-menu-sections '("Open Doom Emacs on Rails Handbook"
                                              :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
                                              :action open-doom-emacs-on-rails-handbook) t)
+
+(add-to-list '+doom-dashboard-menu-sections '("Upgrade Doom Emacs On Rails"
+                                             :icon (all-the-icons-octicon "cloud-upload" :face 'doom-dashboard-menu-title)
+                                             :action upgrade-doom-emacs-on-rails) t)
 
 (if (file-exists-p (expand-file-name "user-settings.el" doom-private-dir))
     (load (expand-file-name "user-settings.el" doom-private-dir))
