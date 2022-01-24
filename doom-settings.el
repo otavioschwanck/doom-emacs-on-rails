@@ -1,11 +1,13 @@
 ;; Load only after ruby mode
 (load (expand-file-name "plugins/miyagi.el" doom-private-dir))
-(load (concat doom-private-dir "plugins/harpoon.el"))
 
-(after! ruby-mode
+(defun load-libraries ()
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir))
-  (load (expand-file-name "plugins/library-fixes.el" doom-private-dir)))
+  (load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
+  (load (concat doom-private-dir "plugins/harpoon.el")))
+
+(add-hook! 'doom-first-buffer-hook 'load-libraries)
 
 (when (eq doom-theme 'doom-one)
   (custom-set-faces

@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
-# key: tdeq
+# name: <td><%= %></td>
+# key: td=
 # --
 <td><%= ${code} %></td>

@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
-# name: eq
+# name: <%= ... %>
+# key: =
 # --
 <%= ${code} %>

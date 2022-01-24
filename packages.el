@@ -58,7 +58,6 @@
 (package! google-translate)
 (package! ruby-hash-syntax)
 (package! f)
-(package! import-js)
 (package! lsp-tailwindcss)
 (package! crdt)
 (package! rails-routes)
