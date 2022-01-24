@@ -73,8 +73,7 @@ Loading plugins like rails routes, rails http status, etc.
 (defun load-libraries ()
   (load (expand-file-name "plugins/rubocop.el" doom-private-dir))
   (load (expand-file-name "plugins/rails-http-status.el" doom-private-dir))
-  (load (expand-file-name "plugins/library-fixes.el" doom-private-dir))
-  (load (concat doom-private-dir "plugins/harpoon.el")))
+  (load (expand-file-name "plugins/library-fixes.el" doom-private-dir)))
 
 (add-hook! 'doom-first-buffer-hook 'load-libraries)
 #+end_src

@@ -62,5 +62,6 @@
 (package! crdt)
 (package! rails-routes)
 (package! rails-i18n)
+(package! harpoon)
 (package! ruby-json-to-hash)
 (unpin! smartparens)
