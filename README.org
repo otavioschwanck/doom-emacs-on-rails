@@ -107,16 +107,16 @@ Please ignore the wrong comment at line 8 =D.
 [[autocomplete.gif]]
 
 ** USING SNIPPETS AND AUTOCOMPLETE TOGETHER <3
+Resume:  Tab is ONLY for snippets and ENTER, C-n / C-p are only for autocomplete.
+
 - To toggle an snippet, press tab.
 - On Snippet, Tab also goes forward on snippet
 - To go backward on snippets, press Shift + Tab
 - To delete selected text on snippet, press C-d
 - To go forward on autocomplete list, press C-n OR C-j.
-- Use C-enter to complete any text in editor (SUPER USEFUL)
+- Use C-o to complete any text in editor (SUPER USEFUL)
 - To use enter ignoring the autocomplete (create a new line, send on rails console), press Alt + Enter.
 - To confirm the selection on autocomplete, press Enter
-
-  Resume:  Tab is ONLY for snippets and ENTER and C-n / C-p is only for autocomplete.
 
 * Tips
 ** Configuring Forge for Creating / Reviewing pull requests
