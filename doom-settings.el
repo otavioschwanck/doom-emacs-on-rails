@@ -1776,6 +1776,9 @@ Version 2015-06-08"
   (setq magit-diff-highlight-hunk-body nil)
   (setq magit-diff-refine-hunk nil))
 
+(after! lsp-mode
+  (setq lsp-ui-sideline-show-code-actions t))
+
 (defun open-doom-emacs-on-rails-handbook ()
   (interactive)
   (browse-url "https://github.com/otavioschwanck/doom-emacs-on-rails/blob/master/Emacs%20Handbook.pdf"))

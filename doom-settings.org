@@ -59,6 +59,7 @@
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
 - [[#improve-magit-performacne][Improve magit performacne]]
+- [[#lsp][LSP]]
 - [[#handbook-stuff][Handbook stuff]]
 - [[#load-userel][Load user.el]]
 
@@ -2039,6 +2040,11 @@ Version 2015-06-08"
   (setq magit-diff-highlight-hunk-body nil)
   (setq magit-diff-refine-hunk nil))
 
+#+end_src
+* LSP
+#+begin_src emacs-lisp
+(after! lsp-mode
+  (setq lsp-ui-sideline-show-code-actions t))
 #+end_src
 
 * Handbook stuff
