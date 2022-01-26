@@ -1768,6 +1768,14 @@ Version 2015-06-08"
 
   (message "Ruby Docker Mode Activated."))
 
+(map! :n "M-s" #'dogears-go)
+(map! :leader "o q" #'dogears-list)
+(map! :n "]q" #'dogears-forward)
+(map! :n "]q" #'dogears-back)
+
+(after! dogears
+  (dogears-mode))
+
 (after! magit
   (remove-hook 'server-switch-hook 'magit-commit-diff)
   (setq magit-diff-highlight-indentation nil)

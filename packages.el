@@ -65,3 +65,4 @@
 (package! harpoon)
 (package! ruby-json-to-hash)
 (unpin! smartparens)
+(package! dogears)

@@ -58,6 +58,7 @@
 - [[#solidity][Solidity]]
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
+- [[#dogears][Dogears]]
 - [[#improve-magit-performacne][Improve magit performacne]]
 - [[#lsp][LSP]]
 - [[#handbook-stuff][Handbook stuff]]
@@ -2028,6 +2029,16 @@ Version 2015-06-08"
   (after! flycheck (use-ruby-docker--set-rubocop))
 
   (message "Ruby Docker Mode Activated."))
+#+end_src
+* Dogears
+#+begin_src emacs-lisp
+(map! :n "M-s" #'dogears-go)
+(map! :leader "o q" #'dogears-list)
+(map! :n "]q" #'dogears-forward)
+(map! :n "]q" #'dogears-back)
+
+(after! dogears
+  (dogears-mode))
 #+end_src
 * Improve magit performacne
 #+begin_src emacs-lisp
