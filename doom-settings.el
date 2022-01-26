@@ -135,7 +135,8 @@
 (map! :nv "]g" #'git-gutter:next-hunk)
 (map! :nv "[g" #'git-gutter:previous-hunk)
 
-(map! :nv "M-s" #'evil-avy-goto-char-2)
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
+(map! :nv "s" #'evil-avy-goto-char-2)
 
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
 (global-set-key (kbd "C-k") (kbd "C-M-p"))
@@ -868,7 +869,6 @@
 
 (after! lsp-mode
   (setq lsp-auto-guess-root t)
-  (setq lsp-solargraph-formatting nil)
   (setq lsp-solargraph-symbols nil)
   (setq lsp-solargraph-folding nil))
 
