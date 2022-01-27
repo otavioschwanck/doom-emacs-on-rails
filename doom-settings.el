@@ -1771,7 +1771,7 @@ Version 2015-06-08"
 (map! :n "M-s" #'dogears-go)
 (map! :leader "o q" #'dogears-list)
 (map! :n "]q" #'dogears-forward)
-(map! :n "]q" #'dogears-back)
+(map! :n "[q" #'dogears-back)
 
 (after! dogears
   (dogears-mode))
