@@ -137,7 +137,7 @@
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 (map! :nv "s" #'evil-avy-goto-word-1)
-(map! :nv "S" #'evil-avy-goto-char-2)
+(map! :n "S" #'evil-avy-goto-char-2)
 
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
 (global-set-key (kbd "C-k") (kbd "C-M-p"))
