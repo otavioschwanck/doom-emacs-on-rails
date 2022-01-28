@@ -42,6 +42,18 @@
   (find-file (concat doom-private-dir "user-settings.el"))
   (message "Welcome to your settings file!"))
 
+(defun visit-user-packages ()
+  "Visit the user-settings.el."
+  (interactive)
+  (find-file (concat doom-private-dir "user-packages.el"))
+  (message "Welcome to your packages file!"))
+
+(defun visit-user-init ()
+  "Visit the user-settings.el."
+  (interactive)
+  (find-file (concat doom-private-dir "user-init.el"))
+  (message "Welcome to your init file!"))
+
 (defun visit-handbook ()
   "Visit the user-settings.el."
   (interactive)
@@ -49,6 +61,8 @@
   (message "Welcome to Doom Emacs Handbook!"))
 
 (map! :leader "fm" 'visit-config-utils)
+(map! :leader "fi" 'visit-user-init)
+(map! :leader "fI" 'visit-user-packages)
 
 (when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.doom.d/.pry-example ~/.pryrc"))
 (if (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.doom.d/.irbrc-example ~/.irbrc"))
@@ -1814,3 +1828,7 @@ Version 2015-06-08"
   (progn
     (shell-command "cp ~/.doom.d/user-settings.example.el ~/.doom.d/user-settings.el")
     (load (expand-file-name "user-settings.el" doom-private-dir))))
+
+(unless (file-exists-p (expand-file-name "user-packages.el" doom-private-dir))
+  (progn
+    (shell-command "cp ~/.doom.d/user-packages.example.el ~/.doom.d/user-packages.el")))

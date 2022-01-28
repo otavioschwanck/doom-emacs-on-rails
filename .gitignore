@@ -9,6 +9,8 @@ user.org
 settings.el
 settings.org
 user.org
+user-init.el
+user-packages.el
 user.example.org
 user-settings.el
 user-snippets/*

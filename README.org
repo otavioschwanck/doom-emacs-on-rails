@@ -4,6 +4,7 @@
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
+- [[#customizing][Customizing]]
 - [[#upgrading][Upgrading]]
 - [[#how-to-use-this-config--keybindings][How to Use this config + Keybindings]]
 - [[#announcement][Announcement]]
@@ -71,6 +72,13 @@ gem install solargraph
 
 * After Install
 Open your personal configuration with =SPC f m= and read the file.  I really recommend to read all comments on file, this file contains a lot of tips for improve your workflow.
+
+* Customizing
+~SPC f m~ - Your personal settings
+~SPC f i~ - Where you can add your own modules
+~SPC f I~ - Where you can add your own packages
+
+See more on the handbook (~SPC f h~)
 
 * Upgrading
 To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
