@@ -1,3 +1,5 @@
+;; Please dont modify this file.  Edit ~/.doom.d/user-packages.el instead.
+
 (package! string-inflection)
 (package! kubernetes)
 (package! kubernetes-evil)

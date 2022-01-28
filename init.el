@@ -1,3 +1,5 @@
+;; Please dont modify this file.  Edit ~/.doom.d/user-init.el instead.
+
 (doom! :completion
        company             ; the ultimate code completion backend
        (vertico +icons)           ; the search engine of the future

@@ -157,7 +157,7 @@ f and t can be used to go backwards using uppercase
 
 Cool stuff to do with SPC s p and SPC s d:
 
-If you add # at end you can do two search at once.  Exemple:
+If you add # at end you can do two searches at once.  Exemple:
 
 ~SPC s p my_word#.yml~ will search word and also search on files that contains .yml
 
