@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: className={}
-# key: cnn
-# --
-className={${1:}}
