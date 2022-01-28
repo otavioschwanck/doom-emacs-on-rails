@@ -13,7 +13,7 @@ The PDF version is available [[https://github.com/otavioschwanck/doom-emacs-on-r
 To do some exercises, visit [[elisp:(mr-miyagi)][mr-miyagi]]
 
 * Customizing your emacs
-To add some elisp code of your ownm, visit [[file:user-settings.el][user-settings.el]] (SPC f m).  It is the same as config.el for normal doom.
+To add some elisp code of your own, visit [[file:user-settings.el][user-settings.el]] (SPC f m).  It is the same as config.el for normal doom.
 [[file:user-settings.el][user-settings.el]] has a lot of cool stuff and examples of stuff like disabling rubocop, adding commands to terminal (SPC o t), etc.
 
 To add some module (like another programming language),
