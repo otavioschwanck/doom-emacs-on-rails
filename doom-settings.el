@@ -16,6 +16,7 @@
   "Pull, Sync and upgrade el file"
   (interactive)
   (message "Upgrading... Please wait...")
+  (package-refresh-contents)
   (shell-command (concat "cd " doom-private-dir "; git pull; " doom-emacs-dir "bin/doom sync"))
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
