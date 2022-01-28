@@ -276,6 +276,7 @@ To confirm, press C-c C-c, to cancel, press C-c C-k.
 | C-w =   | Balance window                            |
 | C-w T   | Detach window (Create a new emacs window) |
 | C-w q   | Close window                              |
+| SPC k   | kill buffer                               |
 
 ** Window Moviment
 | M-o             | Go to next window          |
