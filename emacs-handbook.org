@@ -396,7 +396,7 @@ and select a folder instead of a file.  You can also show the current file on di
 | C  | Copy the file (on files if has marks)      |
 | R  | Rename / Move file (or files if has marks) |
 | -  | Go to parent directory                     |
-| =  | Diff this file with anoter file            |
+| =  | Diff this file with another file           |
 | g? | See all commands above                     |
 
 ** Super cool tip

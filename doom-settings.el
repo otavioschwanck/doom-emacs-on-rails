@@ -165,6 +165,8 @@
 
 (map! :after vterm :map vterm-mode-map :n "P" #'better-vterm-paste-before)
 (map! :after vterm :map vterm-mode-map :n "p" #'better-vterm-paste)
+(map! :after vterm :map vterm-mode-map :ni "M-p" #'vterm-send-up)
+(map! :after vterm :map vterm-mode-map :ni "M-n" #'vterm-send-down)
 (map! :after vterm :map vterm-mode-map :i "C-v" #'better-vterm-paste)
 (map! :after vterm :map vterm-mode-map :i "M-v" #'better-vterm-paste)
 (map! :after vterm :mode vterm-mode :n "C-c" #'better-vterm-clean)
