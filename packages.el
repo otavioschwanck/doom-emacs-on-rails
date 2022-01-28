@@ -66,3 +66,4 @@
 (package! ruby-json-to-hash)
 (unpin! smartparens)
 (package! dogears)
+(package! evil-tutor)

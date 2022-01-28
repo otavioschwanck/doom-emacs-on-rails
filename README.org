@@ -5,7 +5,7 @@
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
 - [[#upgrading][Upgrading]]
-- [[#keybindings][Keybindings]]
+- [[#how-to-use-this-config--keybindings][How to Use this config + Keybindings]]
 - [[#announcement][Announcement]]
   - [[#terminal-feature][Terminal Feature]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
@@ -74,12 +74,14 @@ Open your personal configuration with =SPC f m= and read the file.  I really rec
 
 * Upgrading
 To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
-* Keybindings
-I've write an emacs handbook to use this config.  You can access using emacs with SPC f p, than searching for handbook.  (Require M-x pdf-tools-install).
 
+* How to Use this config + Keybindings
+I've write an emacs handbook to use this config.  You can access the text version using ~SPC f h~ inside emacs.
+
+The text version is here: [[file:emacs-handbook.org][emacs-handbook.org]]
 The PDF is on this project root: [[Emacs Handbook.pdf]]
 
-This PDF is perfect to be printed out or be used on second monitor.
+This PDF is perfect to be printed if you like.
 * Announcement
 ** Terminal Feature
 In ~2022-01-16~ i made a big change that requires to setup again the project.  I Created new terminal stuff to improve the workflow with this config.  Check the last page of the [[Emacs Handbook.pdf]] .  To upgrade, just run:

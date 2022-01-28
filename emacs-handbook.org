@@ -1,0 +1,502 @@
+* Quick Tips
+- ~SPC s i~ = Quick Search Headers (also works on programming languages).  Use C-n and C-p to go forward / backward on the search buffer.
+- ~]h~ and ~[h~ = Navigation by header
+- ~tab~ = expand / fold headers
+
+* Before you start
+Learn the basics of vim keybindings using [[elisp:(evil-tutor-start)][evil-tutor]]. (Click on evil-tutor to open on emacs)
+
+* PDF
+The PDF version is available [[https://github.com/otavioschwanck/doom-emacs-on-rails/blob/master/Emacs%20Handbook.pdf][here]].
+
+* Mr Miyagi
+To do some exercises, visit [[elisp:(mr-miyagi)][mr-miyagi]]
+
+* Index :TOC:
+- [[#quick-tips][Quick Tips]]
+- [[#before-you-start][Before you start]]
+- [[#pdf][PDF]]
+- [[#mr-miyagi][Mr Miyagi]]
+- [[#file-navigation][File Navigation]]
+  - [[#generic-buffer-file-change][Generic Buffer (file) change]]
+  - [[#rails-file-navigation][Rails File Navigation]]
+  - [[#go-to][Go to]]
+- [[#search--jump-on-file][Search / Jump on file]]
+  - [[#on-current-line-just-vim-stuff][On Current Line (Just Vim Stuff)]]
+  - [[#on-current-file][On Current File]]
+- [[#entering-on-insert-mode][Entering on Insert Mode]]
+  - [[#on-current-line][On Current Line]]
+- [[#search-globally][Search Globally]]
+  - [[#on-project][On Project]]
+  - [[#other][Other]]
+  - [[#file-editing][File Editing]]
+- [[#copy-delete-and-paste][Copy Delete and Paste]]
+  - [[#the-operators][The Operators]]
+  - [[#selecting][Selecting]]
+- [[#cool-stuff-with-operators-delete-yank-change][Cool stuff with operators (delete, yank, change)]]
+  - [[#text-object-stuff-and-hidden-goodies][Text Object Stuff and hidden goodies]]
+- [[#running-stuff][Running stuff]]
+  - [[#basic-stuff][Basic Stuff]]
+  - [[#tests-rspec-or-minitest][Tests (Rspec or Minitest)]]
+- [[#awesome-tips][Awesome Tips]]
+  - [[#multiple-cursors][Multiple Cursors]]
+  - [[#search-and-replace-in-entire-project][Search and Replace in entire project]]
+  - [[#rename-multiple-files-in-project---adicionar-dired][Rename multiple files in project - Adicionar dired]]
+- [[#window-management][Window Management]]
+  - [[#window-actions][Window Actions]]
+  - [[#window-moviment][Window Moviment]]
+- [[#ruby-refactoring][Ruby Refactoring]]
+  - [[#refactoring-like-a-pro][Refactoring like a pro]]
+- [[#snippets--autocomplete-together][Snippets + Autocomplete (TOGETHER)]]
+- [[#emmet-generate-tags-and-methods][Emmet (Generate tags and methods)]]
+  - [[#on-html][On HTML]]
+  - [[#on-ruby][On Ruby]]
+- [[#ruby-plugins][Ruby Plugins]]
+  - [[#rails-routes][Rails routes]]
+  - [[#rails-i18n][Rails i18n]]
+  - [[#ruby-json-to-hash][Ruby JSON to Hash]]
+- [[#git-stuff][Git Stuff]]
+  - [[#on-a-file][On a file]]
+  - [[#on-magit-status][On Magit Status]]
+- [[#file-manager-dired][File Manager (Dired)]]
+  - [[#operations-on-dired][Operations on dired]]
+  - [[#super-cool-tip][Super cool tip]]
+- [[#workspaces][Workspaces]]
+- [[#creating-your-own-snippets][Creating your own snippets]]
+- [[#harpoon-per-project--branch-bookmarks][Harpoon (per project / branch bookmarks)]]
+- [[#epic-terminal-management][Epic Terminal Management]]
+  - [[#single-commands][Single Commands]]
+  - [[#terminal-template-layouts][Terminal Template (layouts)]]
+  - [[#other-terminal-stuff][Other Terminal stuff]]
+
+* File Navigation
+** Generic Buffer (file) change
+| SPC ,   | Change Buffer                              |                                                                                                              |
+| C-,     | Previous Buffer                            |                                                                                                              |
+| C-;     | Next Buffer                                |                                                                                                              |
+| SPC SPC | Find Files in Project                      |                                                                                                              |
+| SPC .   | Find Files (starting on current directory) | This can be used instead the file tree, is faster when you master it.  Use TAB instead ENTER to open folders |
+
+** Rails File Navigation
+| SPC r m | Find model                           |
+| SPC r a | Find Locales                         |
+| SPC r z | Find Serializer                      |
+| SPC r v | Find View                            |
+| SPC r V | Find Views of current resource       |
+| SPC r c | Find Controller                      |
+| SPC r s | Find Service                         |
+| SPC a   | Toggle between test / file           |
+| SPC A   | Toggle between test \ file in vsplit |
+
+Every SPC r * has a uppercase version that applies only for current resource.
+
+** Go to
+| gd | Go to definition         | This is my most used command       |
+| gD | Go to usages (reference) |                                    |
+| gf | Go to file               | Used when a path is under cursor   |
+| ga | Go to route              | Ex: foo_path => FooController#show |
+
+* Search / Jump on file
+** On Current Line (Just Vim Stuff)
+| f       | go to character (1)                                                          |
+| t       | go to before character (1)                                                   |
+| 0       | go to first character on the line                                            |
+| -       | go to end of line                                                            |
+| tab     | Go to next open / close brackets / curly brackets / etc                      |
+| w and W | jump 1 word forward, put cursor on start, W ignores everything except spaces |
+| e and E | jump 1 word forward, put corsor at end, E ignores everything except spaces   |
+| b and B | jump 1 word backwards, B ignores everything except spaces                    |
+
+You can keep pressing f or t to repeat the search
+
+f and t can be used to go backwards using uppercase
+
+** On Current File
+| /           | Search Forward                              |                                                                                                                    |
+| ?           | Search Backward                             |                                                                                                                    |
+| n and N     | Repeat search forward / backwards           |                                                                                                                    |
+| SPC s s     | Advanced Search on current file             |                                                                                                                    |
+| SPC s i     | Search Symbols / Function on current file   |                                                                                                                    |
+| #           | Search word at cursor in current file       |                                                                                                                    |
+| s           | Search by first character of a word         | Super Useful, use a lot.  Press s + first letter of a word.  Then, press the letter is showing on top of the word. |
+| S           | Same as s, but searchs using two characters |                                                                                                                    |
+| gg          | First line of the file                      |                                                                                                                    |
+| G           | Go to end of file                           |                                                                                                                    |
+| ]g and [g   | Next / Previous git change                  |                                                                                                                    |
+| ]] and [[   | Next / Previous method definition           |                                                                                                                    |
+| ]) and [(   | Next / Previous parentheses                 |                                                                                                                    |
+| ]} and [{   | Next / Previous Brackets                    |                                                                                                                    |
+| C-j and C-k | Next / Previous stuff                       |                                                                                                                    |
+
+* Entering on Insert Mode
+** On Current Line
+
+| i        | Insert Mode before cursor             |
+| a        | Insert Mode after cursor              |
+| I        | Intert mode at beg of line            |
+| A        | Insert mode at end of line            |
+| V then A | Add text at end of all selected lines |
+| V then I | Add text at beg of all selected lines |
+* Search Globally
+** On Project
+| SPC s p        | Search text on Project       |
+| SPC s d        | Search on current directory  |
+| SPC s D        | Search on some directory     |
+| SPC *          | Search text at cursor        |
+| M-x find-dired | Grep search files on project |
+
+Cool stuff to do with SPC s p and SPC s d:
+
+If you add # at end you can do two search at once.  Exemple:
+
+~SPC s p my_word#.yml~ will search word and also search on files that contains .yml
+
+** Other
+| SPC f P | Private doom emacs files |
+| C-o     | Return to last jump      |
+| C-i     | Go forward on jump       |
+| SPC f r | Find Recent Files        |
+
+** File Editing
+| SPC f D      | Delete current file        |
+| SPC f Y      | Copy current file path     |
+| SPC f R      | Rename / Move current file |
+| \ or SPC f s | Save file                  |
+
+* Copy Delete and Paste
+To use one of the operators, call the ~operator~ + the ~motion~.  Example: Delete a word = dw
+
+** The Operators
+| d   | Delete (cut)                                              |
+| c   | Delete (cut) and enter on insert mode                     |
+| y   | Copy                                                      |
+| p   | Paste after                                               |
+| P   | Paste before                                              |
+| C-p | *After pasting* navigate on copy (yank) history           |
+| C-n | *After pasting* navigate on copy (yank) history backwards |
+| M-y | Search on copy (yank) history.                            |
+
+** Selecting
+To start selecting something, press v.  To line select, press V.  To block select, press C-v.
+
+After selecting what you want, you can:
+
+| d or y or c | Execute the operator action   |
+| S           | Add delimitator to selection. |
+
+Exemplo of S:
+- S) = (selection) S( = ( selection )
+- S] = [selection] S[ = [ selection ]
+- S" = "selection"
+- St<emacs> = <emacs>selection</emacs>
+* Cool stuff with operators (delete, yank, change)
+Lets call operator (d or y or c) = OP
+
+** Text Object Stuff and hidden goodies
+
+Quick Explanation:
+
+You can use the operator on a text object with OPERATOR + i or a + text object.
+
+- i = Inside / inner
+  ex: "your_text" => di" => ""
+- a = around
+  ex: var = ["hi"] => da] => var =
+
+Some examples:
+
+| OP OP          | Do the operator on current file | dd = delete current line, 3dd = delete 3 lines |
+| ds             | Delete delimiter                | "your_text" => ds" => your_text                |
+| OP io          | Operator on symbol at point     |                                                |
+| OP ij          | Operator on current indentation | I use this a lot                               |
+| OP i)          | Operator inside )               |                                                |
+| OP a)          | Operator around )               |                                                |
+| OP i" or OP iq | Operator inside "               |                                                |
+| OP a" or OP aq | Operator around "               |                                                |
+| OP it          | Operator inside tag             |                                                |
+| UPPERCASE OP   | Operator until end of line      |                                                |
+| OP ia          | Operator inside argument        |                                                |
+| OP aa          | Operator around argument        |                                                |
+| M-c            | Toggle case                     | doom_emacs => doomEmacs => DoomEmacs           |
+* Running stuff
+** Basic Stuff
+| SPC v     | Toggle quick terminal       |                |
+| SPC o T   | Open new terminal           |                |
+| SPC e     | Open tree                   | I prefer SPC . |
+| SPC m k k | Run a rake task             |                |
+| SPC m b i | Run bundle install          |                |
+| SPC =     | Run rubocop on current file |                |
+| SPC -     | Indent current file         |                |
+| SPC m P   | Run rubocop on project      |                |
+| SPC r r   | Rails console               |                |
+| SPC r R   | Rails server                |                |
+| C-c t     | Google translator           |                |
+
+** Tests (Rspec or Minitest)
+| SPC t v | Run tests of current file         |
+| SPC t a | Run all tests                     |
+| SPC t r | Rerun last command                |
+| SPC t l | Run only failures of the last run |
+| SPC t s | Run tests on cursor               |
+
+* Awesome Tips
+** Multiple Cursors
+| M-d   | Start multiple cursors                               |
+| M-S-d | Start multiple cursor and find item on top of cursor |
+| C     | Edit all occurrence of the multiple cursors          |
+
+** Search and Replace in entire project
+| SPC s p | Search text on entire project |
+| C-c C-e | Edit search result as file    |
+
+After this, you can edit all search results like a single file.
+To confirm, press C-c C-c.  To cancel, press C-c C-k
+
+To edit all occurrences of text you can use:
+:%s/old_text/new_text/gr
+
+or use the [[Multiple Cursors][Multiple Cursors]]
+
+** Rename multiple files in project - Adicionar dired
+press ~M-x~ and search for ~find-dired~.  You can search with grep the files you want.  Example:
+
+If you want to rename everything that contains foo.*.rb, run with ~-name "foo*.rb"~
+
+After you get the [[File Manager (Dired)][dired]] with all the files, press C-c C-e to edit the results.
+
+To confirm, press C-c C-c, to cancel, press C-c C-k.
+
+* Window Management
+** Window Actions
+| C-w v   | Divide vertically                         |
+| C-w s   | Divide horizontally                       |
+| C-w C-o | Maximize Window                           |
+| C-w C-u | Undo windows change                       |
+| C-w C-r | Redo windows change                       |
+| C-w =   | Balance window                            |
+| C-w T   | Detach window (Create a new emacs window) |
+| C-w q   | Close window                              |
+
+** Window Moviment
+| M-o             | Go to next window          |
+| M-h M-j M-k M-l | Navigate in hjkl direction |
+
+* Ruby Refactoring
+** Refactoring like a pro
+| SPC m i | Toggle if unless (single / multiline) |
+| SPC m m | Move selected text to a new method    |
+| SPC m n | Create a method from text in cursor   |
+| SPC m [ | Toggle do end => {  } and vice-versa  |
+| SPC m v | Move selected text to a new variable  |
+| SPC m V | Move selected text to a constant      |
+| C-c s   | Add http code at point (humanized)    |
+
+* Snippets + Autocomplete (TOGETHER)
+| C-n   | Next item on autocomplete                              |
+| C-p   | Previous item on autocomplete                          |
+| RET   | Select item on autocomplete                            |
+| M-RET | Newline while autocomplete open (ignores autocomplete) |
+| TAB   | Start snippet / go forward on snippet                  |
+| S-TAB | Go back on snippet                                     |
+| C-d   | Delete highlighted text on snippet                     |
+| C-o   | Complete text from all buffers.                        |
+
+About the C-o, it works everywhere, on search, on find-file, etc.
+
+* Emmet (Generate tags and methods)
+| M-e | Toggle emmet |
+
+** On HTML
+Emmet on html / jsx / etc:
+
+ul.my-ul-class[valid=123]>li#my-id*3
+
+ul = element
+.my-ul-class = class
+[valid=123] = extra attribute
+> = inner current element
+li = element
+#my-id = id for element
+*3 = create 3 elements instead 1
+
+Result:
+
+#+begin_src html
+<ul class="my-ul-class" valid="123">
+  <li id="my-id"></li>
+  <li id="my-id"></li>
+  <li id="my-id"></li>
+</ul>
+#+end_src
+
+** On Ruby
+
+init@name;call@values
+
+init = initializer
+@name = parameters for initialize
+; = separator to new method
+call = new method
+@values = parameters for new method
+
+result:
+
+#+begin_src ruby
+def initialize(name)
+  @name = name
+end
+
+def call(values)
+
+end
+#+end_src
+
+* Ruby Plugins
+** Rails routes
+| C-c o   | Add routes at point                   |
+| C-c C-o | Add route at point (refreshing cache) |
+| ga      | Find route at point                   |
+** Rails i18n
+| C-c i   | Add i18n at point                    |
+| C-c C-i | Add i18n at point (refreshing cache) |
+** Ruby JSON to Hash
+| SPC m J | Convert JSON at point into hash                                               |
+| SPC m j | Send key of the converted hash to a new let (and bring back if on top of let) |
+
+* Git Stuff
+** On a file
+| SPC g r | Revert modification at point (Can be used to see the diff) |                              |
+| SPC g t | Time machine mode (Use C-n and C-p to navigate)            | Super cool, i use this a lot |
+| ]g      | Go to next git hunk                                        |                              |
+| [g      | Go to previous git hunk                                    |                              |
+| SPC g R | Revert all modification on file                            |                              |
+
+** On Magit Status
+| SPC g g | Open Magit Status                       |
+| f       | Fetch                                   |
+| F       | pull                                    |
+| P       | Push                                    |
+| cc      | New commit                              |
+| ca      | Ammend                                  |
+| Z       | Stash                                   |
+| ?       | Magit help (see all shortcuts of magit) |
+| m       | Merge                                   |
+| r       | Rebase                                  |
+
+* File Manager (Dired)
+Dired is an awesome file manager integrated on Emacs.  To open in some folder, just press ~SPC .~
+and select a folder instead of a file.  You can also show the current file on dired using ~SPC o -~
+
+** Operations on dired
+| d  | Mark a file to delete                      |
+| x  | Delete marked files                        |
+| m  | Mark a file to do some action              |
+| u  | Unmark file                                |
+| U  | Unmark all files                           |
+| C  | Copy the file (on files if has marks)      |
+| R  | Rename / Move file (or files if has marks) |
+| -  | Go to parent directory                     |
+| =  | Diff this file with anoter file            |
+| g? | See all commands above                     |
+
+** Super cool tip
+While renaming \ Copying you can press ~M-n~ to put the current file name on text box.  It works on every text box on emacs, not just renaming / Copying.
+
+More tips (While the input text box is open):
+
+| M-b | Go to previous word  |
+| M-f | Go to next word      |
+| M-d | Delete next word     |
+| C-w | Delete previous word |
+
+* Workspaces
+Everytime you open a project with ~SPC p p~ you create a workspace.  To change between workspaces press
+M-1 to M-9.  The prefix for workspace management is ~SPC TAB~.
+
+| SPC TAB n  | New workspace              |
+| SPC TAB N  | New named workspace        |
+| SPC TAB r  | Rename Workspace           |
+| SPC TAB d  | Delete workspace           |
+| SPC TAB .  | Change workspace           |
+| SPC TAB s  | Save workspace             |
+| SPC TAB l  | Load Workspace             |
+| M-1 to M-9 | Change workspace by number |
+
+* Creating your own snippets
+To create your own snippets, just press ~M-x~ and search for ~yas-new-snippet~ on the file type you want.
+
+name = Name that will be show on autocomplete.
+key = key pressed to toggle snippet.
+
+fter the comments, just put the commands that you want to create a snippet.
+
+Snippet example:
+
+#+begin_src ruby
+# -*- mode: snippet -*-
+# name: def my_method(args) ... end
+# key: def
+# --
+def ${1:my_method_name}(${2:my_method_args})
+  ${0:}
+end
+#+end_src
+
+What will happen:
+
+After pressing the snippet, you 1:  Can change
+the method name, 2: change the args, and after
+that, it will put the cursor inside the method.
+To persist your snippet, press C-c C-c.  You can
+edit your snippet by searching for it with
+SPC f P
+IMPORTANT:  The file name need to be the same as
+the key you put. (in this example, def)
+
+* Harpoon (per project / branch bookmarks)
+Harpoon is a plugin to create bookmarks per project / branch.  It is awesome to navigate
+between only the files that you are really working.
+
+| SPC 1 to SPC 9 | Navigate between files by order |
+| C-s            | Save current file on harpoon    |
+| C-SPC          | Select one file from harpoon    |
+| SPC j f        | Edit harpoon file               |
+| SPC j c        | Clean harpoon file              |
+
+* Epic Terminal Management
+This config has a lot of cool helpers to work with terminals.
+You can configure single commands and multiple terminal layouts in your [[file:user-settings.el][personal configuration]] (SPC f m)
+
+** Single Commands
+
+To configure your single time commands, go to your [[file:user-settings.el][personal configuration]] search for ~+add-command-to-term~ and add many as you want.
+
+Example:
+
+#+begin_src emacs-lisp
+;; | adding to list          | Command Name    |  Command to be run           |
+(+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit"))
+#+end_src
+
+| SPC o t | Execute single time commands                                          |
+| SPC l   | List all terminals (and go to)                                        |
+| SPC l   | While on visual mode, copy the selected text and send to the terminal |
+| SPC v   | Open quick terminal                                                   |
+| SPC o T | Open a blank terminal                                                 |
+
+** Terminal Template (layouts)
+This feature is awesome for projects that you need to open a lot of terminals to setup project, like rails server, console, sidekiq and something else.
+
+Search for ~+add-layout-to-term-list~ in your [[file:user-settings.el][personal configuration]].
+
+#+begin_src emacs-lisp
+;; | adding to layout list | Template name |  Creating the terminals                       |
+(+add-layout-to-term-list '("Rails" . '("rails console" "rails server" "bundle exec sidekiq")))
+#+end_src
+
+| SPC T      | Create terminals from layout                                            |
+| M-1 to M-9 | Switch between workspaces, the template create a new workspace for you. |
+
+** Other Terminal stuff
+| C-c         | On normal mode, send C-c C-c and enter on insert mode |
+| M-n and M-p | Navigate in command history                           |

@@ -15,6 +15,7 @@
 (defun upgrade-doom-emacs-on-rails ()
   "Pull, Sync and upgrade el file"
   (interactive)
+  (message "Upgrading... Please wait...")
   (shell-command (concat "cd " doom-private-dir "; git pull; " doom-emacs-dir "bin/doom sync"))
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
@@ -39,6 +40,12 @@
   (interactive)
   (find-file (concat doom-private-dir "user-settings.el"))
   (message "Welcome to your settings file!"))
+
+(defun visit-handbook ()
+  "Visit the user-settings.el."
+  (interactive)
+  (find-file (concat doom-private-dir "emacs-handbook.org"))
+  (message "Welcome to Doom Emacs Handbook!"))
 
 (map! :leader "fm" 'visit-config-utils)
 
@@ -1788,16 +1795,12 @@ Version 2015-06-08"
 (after! lsp-mode
   (setq lsp-ui-sideline-show-code-actions t))
 
-(defun open-doom-emacs-on-rails-handbook ()
-  (interactive)
-  (browse-url "https://github.com/otavioschwanck/doom-emacs-on-rails/blob/master/Emacs%20Handbook.pdf"))
-
-(map! :leader "h R" #'open-doom-emacs-on-rails-handbook)
 (map! :leader "h U" #'upgrade-doom-emacs-on-rails)
+(map! :leader "f h" #'visit-handbook)
 
 (add-to-list '+doom-dashboard-menu-sections '("Open Doom Emacs on Rails Handbook"
                                              :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
-                                             :action open-doom-emacs-on-rails-handbook) t)
+                                             :action visit-handbook) t)
 
 (add-to-list '+doom-dashboard-menu-sections '("Upgrade Doom Emacs On Rails"
                                              :icon (all-the-icons-octicon "cloud-upload" :face 'doom-dashboard-menu-title)
