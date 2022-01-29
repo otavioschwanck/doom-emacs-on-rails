@@ -361,7 +361,6 @@
 (setq avy-single-candidate-jump t)
 
 (setq evil-want-visual-char-semi-exclusive t)
-(add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
 
 (map! :ni "M-k" #'evil-window-up)
 (map! :ni "M-j" #'evil-window-down)
