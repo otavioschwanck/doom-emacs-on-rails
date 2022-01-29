@@ -122,14 +122,14 @@ You can keep pressing f or t to repeat the search
 f and t can be used to go backwards using uppercase
 
 ** On Current File
+| s           | Search by first character of a word         | Super Useful, use a lot.  Press s + first letter of a word.  Then, press the letter is showing on top of the word. |
+| S           | Same as s, but searchs using two characters |                                                                                                                    |
 | /           | Search Forward                              |                                                                                                                    |
 | ?           | Search Backward                             |                                                                                                                    |
 | n and N     | Repeat search forward / backwards           |                                                                                                                    |
 | SPC s s     | Advanced Search on current file             |                                                                                                                    |
 | SPC s i     | Search Symbols / Function on current file   |                                                                                                                    |
 | #           | Search word at cursor in current file       |                                                                                                                    |
-| s           | Search by first character of a word         | Super Useful, use a lot.  Press s + first letter of a word.  Then, press the letter is showing on top of the word. |
-| S           | Same as s, but searchs using two characters |                                                                                                                    |
 | gg          | First line of the file                      |                                                                                                                    |
 | G           | Go to end of file                           |                                                                                                                    |
 | ]g and [g   | Next / Previous git change                  |                                                                                                                    |
