@@ -519,7 +519,6 @@ C-l to clear v-term
 ** Evil changes
 #+begin_src emacs-lisp
 (setq evil-want-visual-char-semi-exclusive t)
-(add-hook! 'evil-insert-state-exit-hook #'better-jumper-set-jump)
 #+end_src
 
 ** Window Control
