@@ -769,7 +769,7 @@
       :map company-active-map
       "TAB" 'better-yas-expand-with-message
       "<tab>" #'better-yas-expand-with-message
-      "M-e" #'emmet-expand-line
+      "M-e" #'better-emmet-expand
       "M-RET" #'call-real-ret
       "S-TAB" 'company-complete-selection
       "C-o" 'better-dabbrev-expand
@@ -792,7 +792,7 @@
         (yas-prev-field)
       (progn (company-abort) (yas-prev-field))))
 
-  (defun emmet-expand-line ()
+  (defun better-emmet-expand ()
     (interactive)
     (if (eq major-mode 'ruby-mode)
         (otavio/grb)
@@ -805,7 +805,7 @@
         "TAB" #'select-and-yas-next
         "S-TAB" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
-        "M-e" #'emmet-expand-line))
+        "M-e" #'better-emmet-expand))
 
 (after! inf-ruby
   (defun inf-ruby-goto-insert ()
