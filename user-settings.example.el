@@ -6,15 +6,18 @@
 ;; MOST IMPORTANT CONFIG - Set your project folders
 (setq projectile-project-search-path '("~/Projetos" "~/Study"))
 
-
-;; Set your username
-(setq user-full-name "Otávio Schwanck dos Santos"
-      user-mail-address "otavioschwanck@gmail.com")
-
+;; To test a new font, press M-x (alt + x) and search for reload-user-settings
+;; My recommendation is Victor Mono font
+;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
+;;       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 
 ;; Theme
 ;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
 (setq doom-theme 'doom-one)
+
+;; Set your username
+(setq user-full-name "Otávio Schwanck dos Santos"
+      user-mail-address "otavioschwanck@gmail.com")
 
 ;; TERMINAL MANAGEMENT STUFF ;;
 ;; Predefined commands
@@ -59,10 +62,6 @@
 (+add-layout-to-term-list '("Rails" . '("rails console" "rails server" nil)))
 (+add-layout-to-term-list '("React" . '("yarn start" nil)))
 (+add-layout-to-term-list '("Next JS" . '("yarn dev" "cowsay 'Have an nice work'" nil)))
-
-;; To test a new font, press M-x (alt + x) and search for reload-user-settings
-;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
-;;       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
 
 
 ;; By default, the value of debugger is require 'pry'; binding.pry.  To change, uncomment and modify the variable below:
