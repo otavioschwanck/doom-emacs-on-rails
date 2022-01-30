@@ -14,7 +14,7 @@ To do some exercises, visit [[elisp:(mr-miyagi)][mr-miyagi]]
 
 * Customizing your emacs
 To add some elisp code of your own, visit [[file:user-settings.el][user-settings.el]] (SPC f m).  It is the same as config.el for normal doom.
-[[file:user-settings.el][user-settings.el]] has a lot of cool stuff and examples of stuff like disabling rubocop, adding commands to terminal (SPC o t), etc.
+[[file:user-settings.el][user-settings.el]] has a lot of cool stuff and examples of stuff like disabling rubocop, adding commands to [[Single Commands][terminal]] (SPC o t), etc.
 
 To add some module (like another programming language),
 visit [[file:user-init.el][user-init.el]] (SPC f i) and uncomment the module that you want (and then, run doom sync or M-x [[elisp:(upgrade-doom-emacs-on-rails)][upgrade-doom-emacs-on-rails]])
