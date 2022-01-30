@@ -70,15 +70,15 @@
 (after! google-translate
   (defun google-translate--search-tkk ()
     "Search TKK."
-    (list 430675 2721866130))
+    (list 430675 2721866130)))
 
-  (map! :nvi "C-c ! t" 'google-translate-query-translate)
-  (map! :nvi "C-c ! T" 'google-translate-query-translate-reverse)
-  (map! :nvi "C-c t" 'google-translate-at-point)
-  (map! :nvi "C-c T" 'google-translate-at-point-reverse)
+(setq google-translate-default-source-language "en")
+(setq google-translate-default-target-language "pt")
 
-  (setq google-translate-default-source-language "en")
-  (setq google-translate-default-target-language "pt"))
+(map! :nv "C-c ! t" 'google-translate-query-translate)
+(map! :nv "C-c ! T" 'google-translate-query-translate-reverse)
+(map! :nv "C-c t" 'google-translate-at-point)
+(map! :nv "C-c T" 'google-translate-at-point-reverse)
 
 (after! google-translate-default-ui
   (defun google-translate--search-tkk ()
@@ -1815,12 +1815,12 @@ Version 2015-06-08"
 (map! :leader "f h" #'visit-handbook)
 
 (add-to-list '+doom-dashboard-menu-sections '("Open Doom Emacs on Rails Handbook"
-                                             :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
-                                             :action visit-handbook) t)
+                                              :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
+                                              :action visit-handbook) t)
 
 (add-to-list '+doom-dashboard-menu-sections '("Upgrade Doom Emacs On Rails"
-                                             :icon (all-the-icons-octicon "cloud-upload" :face 'doom-dashboard-menu-title)
-                                             :action upgrade-doom-emacs-on-rails) t)
+                                              :icon (all-the-icons-octicon "cloud-upload" :face 'doom-dashboard-menu-title)
+                                              :action upgrade-doom-emacs-on-rails) t)
 
 (if (file-exists-p (expand-file-name "user-settings.el" doom-private-dir))
     (load (expand-file-name "user-settings.el" doom-private-dir))

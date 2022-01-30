@@ -72,10 +72,8 @@
 
 
 ;; Google Tradutor, source and target languages
-(after! google-translate
-  (setq google-translate-default-source-language "en")
-  (setq google-translate-default-target-language "pt"))
-
+(setq google-translate-default-source-language "en")
+(setq google-translate-default-target-language "pt")
 
 ;; Where is your fixtures?
 (after! projectile-rails
