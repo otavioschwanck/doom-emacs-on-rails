@@ -439,7 +439,7 @@ To create your own snippets, just press ~M-x~ and search for ~yas-new-snippet~ o
 name = Name that will be show on autocomplete.
 key = key pressed to toggle snippet.
 
-fter the comments, just put the commands that you want to create a snippet.
+after the comments, just put the commands that you want to create a snippet.
 
 Snippet example:
 

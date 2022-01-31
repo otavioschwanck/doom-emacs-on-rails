@@ -55,6 +55,7 @@
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
+       tty
 
        :lang
        (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
