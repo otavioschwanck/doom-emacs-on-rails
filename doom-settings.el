@@ -367,13 +367,13 @@
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
 
-(map! :map evil-org-mode-map :niv "M-k" #'evil-window-up)
-(map! :map evil-org-mode-map :niv "M-j" #'evil-window-down)
-(map! :map evil-org-mode-map :niv "M-h" #'evil-window-left)
-(map! :map evil-org-mode-map :niv "M-l" #'evil-window-right)
-
-(map! :map evil-org-mode-map :niv "C-S-k" #'org-metaup)
-(map! :map evil-org-mode-map :niv "C-S-j" #'org-metadown)
+(after! evil-org
+  (map! :map evil-org-mode-map :niv "M-k" #'evil-window-up)
+  (map! :map evil-org-mode-map :niv "M-j" #'evil-window-down)
+  (map! :map evil-org-mode-map :niv "M-h" #'evil-window-left)
+  (map! :map evil-org-mode-map :niv "M-l" #'evil-window-right)
+  (map! :map evil-org-mode-map :niv "C-M-k" #'org-metaup)
+  (map! :map evil-org-mode-map :niv "C-M-j" #'org-metadown))
 
 (map! "M-o" #'evil-window-next)
 
