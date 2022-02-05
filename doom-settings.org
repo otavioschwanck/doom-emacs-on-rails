@@ -58,7 +58,6 @@
 - [[#solidity][Solidity]]
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
-- [[#dogears][Dogears]]
 - [[#improve-magit-performacne][Improve magit performacne]]
 - [[#lsp][LSP]]
 - [[#handbook-stuff][Handbook stuff]]
@@ -527,6 +526,14 @@ C-l to clear v-term
 (map! :ni "M-j" #'evil-window-down)
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
+
+(map! :map evil-org-mode-map :niv "M-k" #'evil-window-up)
+(map! :map evil-org-mode-map :niv "M-j" #'evil-window-down)
+(map! :map evil-org-mode-map :niv "M-h" #'evil-window-left)
+(map! :map evil-org-mode-map :niv "M-l" #'evil-window-right)
+
+(map! :map evil-org-mode-map :niv "C-S-k" #'org-metaup)
+(map! :map evil-org-mode-map :niv "C-S-j" #'org-metadown)
 
 (map! "M-o" #'evil-window-next)
 
@@ -2057,16 +2064,6 @@ Version 2015-06-08"
   (after! flycheck (use-ruby-docker--set-rubocop))
 
   (message "Ruby Docker Mode Activated."))
-#+end_src
-* Dogears
-#+begin_src emacs-lisp
-(map! :n "M-s" #'dogears-go)
-(map! :leader "o q" #'dogears-list)
-(map! :n "]q" #'dogears-forward)
-(map! :n "[q" #'dogears-back)
-
-(after! dogears
-  (dogears-mode))
 #+end_src
 * Improve magit performacne
 #+begin_src emacs-lisp

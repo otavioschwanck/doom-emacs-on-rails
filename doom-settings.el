@@ -367,6 +367,14 @@
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
 
+(map! :map evil-org-mode-map :niv "M-k" #'evil-window-up)
+(map! :map evil-org-mode-map :niv "M-j" #'evil-window-down)
+(map! :map evil-org-mode-map :niv "M-h" #'evil-window-left)
+(map! :map evil-org-mode-map :niv "M-l" #'evil-window-right)
+
+(map! :map evil-org-mode-map :niv "C-S-k" #'org-metaup)
+(map! :map evil-org-mode-map :niv "C-S-j" #'org-metadown)
+
 (map! "M-o" #'evil-window-next)
 
 (setq evil-split-window-below t evil-vsplit-window-right t)
@@ -1791,14 +1799,6 @@ Version 2015-06-08"
   (after! flycheck (use-ruby-docker--set-rubocop))
 
   (message "Ruby Docker Mode Activated."))
-
-(map! :n "M-s" #'dogears-go)
-(map! :leader "o q" #'dogears-list)
-(map! :n "]q" #'dogears-forward)
-(map! :n "[q" #'dogears-back)
-
-(after! dogears
-  (dogears-mode))
 
 (after! magit
   (remove-hook 'server-switch-hook 'magit-commit-diff)
