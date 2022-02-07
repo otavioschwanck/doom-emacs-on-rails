@@ -807,7 +807,8 @@
       (emmet-expand-yas)))
 
   (after! yasnippet
-    (add-to-list 'yas-snippet-dirs (concat doom-private-dir "user-snippets/")))
+    (add-to-list 'yas-snippet-dirs (concat doom-private-dir "user-snippets/"))
+    (yas-load-directory (concat doom-private-dir "user-snippets/")))
 
   (map! :map yas-keymap
         "TAB" #'select-and-yas-next
