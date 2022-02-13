@@ -7,9 +7,9 @@
 (setq projectile-project-search-path '("~/Projetos" "~/Study"))
 
 ;; To test a new font, press M-x (alt + x) and search for reload-user-settings
-;; My recommendation is Victor Mono font
-;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'regular)
-;;       doom-variable-pitch-font (font-spec :family "Fira Code" :size 15))
+;; My recommendation is JetBrains Mono
+;; (setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'bold) ;; You can change to regular if you prefer
+;;       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15))
 
 ;; Theme
 ;; You can see all the themes here: https://github.com/hlissner/emacs-doom-themes/tree/screenshots
@@ -29,6 +29,7 @@
 
 ;; Example asking something
 (+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: ") "; read; exit")))
+(+add-command-to-term-list '("Bundle add" . (concat "bundle add " (read-string "Gem name: ") "; read; exit")))
 
 ;; Example of dynamic command (using buffer name as example)
 (+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit")))
