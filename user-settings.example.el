@@ -65,10 +65,8 @@
 
 
 ;; By default, the value of debugger is require 'pry'; binding.pry.  To change, uncomment and modify the variable below:
-;; (after! inf-ruby-mode
-;;   (setq debugger-command "byebug")
-;;   (setq pry-show-helper nil))
-;;   To insert debugger, just press SPC d
+;; (setq debugger-command "byebug")
+;; (setq pry-show-helper nil))
 
 
 ;; Google Tradutor, source and target languages
