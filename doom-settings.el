@@ -1812,6 +1812,8 @@ Version 2015-06-08"
 (after! lsp-mode
   (setq lsp-ui-sideline-show-code-actions t))
 
+(map! :map org-mode-map :ni "C-<enter>" #'org-insert-heading)
+
 (map! :leader "h U" #'upgrade-doom-emacs-on-rails)
 (map! :leader "f h" #'visit-handbook)
 

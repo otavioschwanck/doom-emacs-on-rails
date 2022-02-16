@@ -60,6 +60,7 @@
 - [[#docker-on-rails][Docker on rails]]
 - [[#improve-magit-performacne][Improve magit performacne]]
 - [[#lsp][LSP]]
+- [[#org-mode][Org Mode]]
 - [[#handbook-stuff][Handbook stuff]]
 - [[#load-userel][Load user.el]]
 
@@ -2083,7 +2084,10 @@ Version 2015-06-08"
 (after! lsp-mode
   (setq lsp-ui-sideline-show-code-actions t))
 #+end_src
-
+* Org Mode
+#+begin_src emacs-lisp
+(map! :map org-mode-map :ni "C-<enter>" #'org-insert-heading)
+#+end_src
 * Handbook stuff
 #+begin_src emacs-lisp
 (map! :leader "h U" #'upgrade-doom-emacs-on-rails)
