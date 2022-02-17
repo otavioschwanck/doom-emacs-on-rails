@@ -8,7 +8,7 @@
 
 ;; To test a new font, press M-x (alt + x) and search for reload-user-settings
 ;; My recommendation is JetBrains Mono
-;; (setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'bold) ;; You can change to regular if you prefer
+;; (setq doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'regular) ;; You can change to regular if you prefer
 ;;       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15))
 
 ;; Theme
