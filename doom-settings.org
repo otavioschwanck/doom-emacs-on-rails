@@ -134,7 +134,8 @@ Loading plugins like rails routes, rails http status, etc.
   "Visit the user-settings.el."
   (interactive)
   (find-file (concat doom-private-dir "emacs-handbook.org"))
-  (message "Welcome to Doom Emacs Handbook!"))
+  (message "Welcome to Doom Emacs Handbook!")
+  (read-only-mode))
 
 (map! :leader "fm" 'visit-config-utils)
 (map! :leader "fi" 'visit-user-init)
