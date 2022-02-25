@@ -447,8 +447,22 @@ C-l to clear v-term
 #+end_src
 *** Treemacs (please, use SPC .)
 #+begin_src emacs-lisp
-(map! :leader "e" #'+treemacs/toggle)
-(map! :leader "E" #'treemacs-find-file)
+(defun +treemacs/toggle-and-find ()
+  "Initialize or toggle treemacs.
+
+Ensures that only the current project is present and all other projects have
+been removed.
+
+Use `treemacs' command for old functionality."
+  (interactive)
+  (require 'treemacs)
+  (pcase (treemacs-current-visibility)
+    (`visible (delete-window (treemacs-get-local-window)))
+    (_ (if (doom-project-p)
+           (progn (treemacs-find-file) (treemacs-select-window))
+         (treemacs)))))
+
+(map! :leader "e" #'+treemacs/toggle-and-find)
 (map! :map treemacs-mode-map "M-k" #'evil-window-up)
 (map! :map treemacs-mode-map "M-j" #'evil-window-down)
 (map! :map treemacs-mode-map "M-h" #'evil-window-left)

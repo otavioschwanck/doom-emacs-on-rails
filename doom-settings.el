@@ -58,7 +58,8 @@
   "Visit the user-settings.el."
   (interactive)
   (find-file (concat doom-private-dir "emacs-handbook.org"))
-  (message "Welcome to Doom Emacs Handbook!"))
+  (message "Welcome to Doom Emacs Handbook!")
+  (read-only-mode))
 
 (map! :leader "fm" 'visit-config-utils)
 (map! :leader "fi" 'visit-user-init)
@@ -306,8 +307,22 @@
 (map! :ig "C-v" #'better-paste-after)
 (map! :ig "M-v" #'better-paste-after)
 
-(map! :leader "e" #'+treemacs/toggle)
-(map! :leader "E" #'treemacs-find-file)
+(defun +treemacs/toggle-and-find ()
+  "Initialize or toggle treemacs.
+
+Ensures that only the current project is present and all other projects have
+been removed.
+
+Use `treemacs' command for old functionality."
+  (interactive)
+  (require 'treemacs)
+  (pcase (treemacs-current-visibility)
+    (`visible (delete-window (treemacs-get-local-window)))
+    (_ (if (doom-project-p)
+           (progn (treemacs-find-file) (treemacs-select-window))
+         (treemacs)))))
+
+(map! :leader "e" #'+treemacs/toggle-and-find)
 (map! :map treemacs-mode-map "M-k" #'evil-window-up)
 (map! :map treemacs-mode-map "M-j" #'evil-window-down)
 (map! :map treemacs-mode-map "M-h" #'evil-window-left)
