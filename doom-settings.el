@@ -1708,11 +1708,6 @@ Version 2015-06-08"
         (:prefix "o"
          :desc "Kubernetes" "K" 'kubernetes-overview)))
 
-(after! solidity-mode
-  (require 'solidity-flycheck)
-  (setq solidity-flycheck-solc-checker-active t)
-  (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code)))
-
 (use-package! lsp-tailwindcss
   :after lsp-mode
   :init

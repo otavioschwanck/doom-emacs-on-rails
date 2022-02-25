@@ -55,7 +55,6 @@
   - [[#remove-accents][Remove Accents]]
   - [[#current-file-name-for-yas][Current File Name For yas]]
 - [[#kubernetes][Kubernetes]]
-- [[#solidity][Solidity]]
 - [[#tailwind][Tailwind]]
 - [[#docker-on-rails][Docker on rails]]
 - [[#improve-magit-performacne][Improve magit performacne]]
@@ -1967,13 +1966,6 @@ Version 2015-06-08"
   (map! :leader
         (:prefix "o"
          :desc "Kubernetes" "K" 'kubernetes-overview)))
-#+end_src
-* Solidity
-#+begin_src emacs-lisp
-(after! solidity-mode
-  (require 'solidity-flycheck)
-  (setq solidity-flycheck-solc-checker-active t)
-  (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code)))
 #+end_src
 * Tailwind
 #+begin_src emacs-lisp
