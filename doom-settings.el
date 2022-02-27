@@ -428,6 +428,8 @@ Use `treemacs' command for old functionality."
 (map! :n "C-h" #'otavio/swap-arg-backward)
 
 (after! vertico
+  (vertico-posframe-mode 1)
+
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot))
 
 (setq iedit-toggle-key-default nil)
@@ -777,7 +779,7 @@ Use `treemacs' command for old functionality."
 (map! :i "<C-return>" 'better-dabbrev-expand)
 (map! :ig "C-o" 'better-dabbrev-expand)
 
-(map! :i "M-RET" 'call-real-ret)
+(map! :i "S-<return>" 'call-real-ret)
 (map! :i "TAB" 'better-yas-expand)
 
 (defun better-yas-expand ()

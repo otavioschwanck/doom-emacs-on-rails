@@ -306,7 +306,7 @@ To confirm, press C-c C-c, to cancel, press C-c C-k.
 | C-n   | Next item on autocomplete                              |
 | C-p   | Previous item on autocomplete                          |
 | RET   | Select item on autocomplete                            |
-| M-RET | Newline while autocomplete open (ignores autocomplete) |
+| S-RET | Newline while autocomplete open (ignores autocomplete) |
 | TAB   | Start snippet / go forward on snippet                  |
 | S-TAB | Go back on snippet                                     |
 | C-d   | Delete highlighted text on snippet                     |
