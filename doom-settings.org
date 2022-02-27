@@ -600,7 +600,6 @@ Use `treemacs' command for old functionality."
 ** Vertico
 #+begin_src emacs-lisp
 (after! vertico
-  (vertico-posframe-mode 1)
   (map! :map vertico-map "C-c C-o" 'embark-collect-snapshot))
 #+end_src
 ** Fix iedit
