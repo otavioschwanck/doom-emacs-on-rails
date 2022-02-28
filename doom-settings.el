@@ -17,7 +17,7 @@
   (interactive)
   (message "Upgrading... Please wait...")
   (package-refresh-contents)
-  (shell-command (concat "cd " doom-private-dir "; git pull; " doom-emacs-dir "bin/doom sync"))
+  (shell-command (concat "cd " doom-private-dir "; git pull; " doom-emacs-dir "bin/doom sync -u"))
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
 

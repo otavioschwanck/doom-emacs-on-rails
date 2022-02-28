@@ -13,7 +13,7 @@
 (package! crdt :pin "1b8af8112944cb79c66a35b4404f61ac2abfef1d")
 (package! rails-routes :pin "eab995a9297ca5bd9bd4f4c2737f2fecfc36def0")
 (package! rails-i18n :pin "8e87e4e48e31902b8259ded28a208c2e7efea6e9")
-(package! harpoon :pin "e179ca76d5a82e7ab9c6aaa618b163a54fa694c7")
+(package! harpoon :pin "b897380708b02e112e997269fbeba9b7352f332d")
 (package! ruby-json-to-hash :pin "383b22bb2e007289ac0dba146787d02ff99d4415")
 (package! evil-tutor :pin "4e124cd3911dc0d1b6817ad2c9e59b4753638f28")
 
