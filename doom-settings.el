@@ -91,7 +91,7 @@
 (map! :leader "j c" 'harpoon-clear)
 (map! :leader "j f" 'harpoon-toggle-file)
 (map! :n "C-s" 'harpoon-add-file)
-(map! :n "C-SPC" 'harpoon-toggle-quick-menu)
+(map! :n "C-SPC" 'harpoon-quick-menu-hydra)
 (map! :leader "1" 'harpoon-go-to-1)
 (map! :leader "2" 'harpoon-go-to-2)
 (map! :leader "3" 'harpoon-go-to-3)
