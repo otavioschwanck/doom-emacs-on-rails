@@ -35,6 +35,18 @@
 (+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit")))
 (+add-command-to-term-list '("Rspec on line" . (concat "bundle exec rspec " (buffer-file-name) ":" (format "%s" (line-number-at-pos)) "; read; exit")))
 
+;; Example of running something at poiont
+;; (defun pytest-get-current-test-name ()
+;;   (save-excursion
+;;     (search-backward "def test_")
+;;     (forward-word 2)
+;;     (thing-at-point 'symbol t)))
+
+;; (+add-command-to-term-list '("Brownie Test At Point" . (concat "brownie test -k " (pytest-get-current-test-name) "; read; exit")))
+
+;; Running scripts of a specific folder
+;; (+add-command-to-term-list '("Brownie Run Script" . (concat "brownie run " (read-file-name "scripts/") " " (read-string "Extra parameters: " nil "commands") "; read; exit")))
+
 ;; Example of your own function to execute terminal directly
 ;; BEGIN EXAMPLE
 ;; (defun my-rspec-command ()
