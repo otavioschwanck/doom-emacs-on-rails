@@ -2,4 +2,4 @@
 # name: className={}
 # key: cnn
 # --
-className={${1:}}
+className="${}"
