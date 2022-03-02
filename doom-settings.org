@@ -59,6 +59,7 @@
 - [[#docker-on-rails][Docker on rails]]
 - [[#improve-magit-performacne][Improve magit performacne]]
 - [[#lsp][LSP]]
+- [[#solidity][Solidity]]
 - [[#org-mode][Org Mode]]
 - [[#handbook-stuff][Handbook stuff]]
 - [[#load-userel][Load user.el]]
@@ -2090,6 +2091,11 @@ Version 2015-06-08"
 #+begin_src emacs-lisp
 (after! lsp-mode
   (setq lsp-ui-sideline-show-code-actions t))
+#+end_src
+* Solidity
+#+begin_src emacs-lisp
+(after! solidity-mode
+  (set-company-backend! 'solidity-mode '(:separate company-solidity company-dabbrev-code)))
 #+end_src
 * Org Mode
 #+begin_src emacs-lisp
