@@ -613,15 +613,24 @@ Use `treemacs' command for old functionality."
 (after! emmet-mode
   (setq emmet-expand-jsx-className? nil))
 
+(add-hook 'typescript-tsx-mode-hook
+          (lambda ()
+            (setq-local +lsp-company-backends '(company-capf))))
+
+(add-hook 'rjsx-mode-hook
+          (lambda ()
+            (setq-local +lsp-company-backends '(company-capf))))
+
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (setq-local +lsp-company-backends '(company-capf))))
+
 (defun update-yas-indentation ()
   (setq-local yas-indent-line 'fixed))
 
 (defun set-emmet-class-name ()
   (setq-local emmet-expand-jsx-htmlFor? t)
   (setq-local emmet-expand-jsx-className? t))
-
-(after! lsp-mode
-  (setq lsp-clients-typescript-server-args '("--stdio" "--tsserver-log-file" "/dev/stderr")))
 
 (add-hook! 'rjsx-mode-hook 'set-emmet-class-name)
 (add-hook! 'yaml-mode-hook 'update-yas-indentation)
