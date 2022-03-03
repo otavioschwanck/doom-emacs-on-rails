@@ -439,6 +439,34 @@ Use `treemacs' command for old functionality."
           (lambda ()
             (setq-local +lsp-company-backends '(company-capf))))
 
+(after! web-mode
+  (setq erb-common-words '("if" "else" "unless" "link_to" "root_path" "paginate" "form_with" "label" "text_field" "submit"
+                           "check_box" "label" "radio_button" "text_area" "hidden_field" "password_field" "number_field" "range_field"
+                           "date_field" "time_field" "datetime_local_field" "month_field" "week_field" "search_field" "email_field"
+                           "telephone_field" "url_field" "color_field" "render" "json" "plain" "formats" "variants" "stylesheet_link_tag"
+                           "javascript_include_tag" "image_tag" "video_tag" "audio_tag" "partial: " "input" "simple_form_for" "label_html: "
+                           "hint_html: " "maxlength: " "value" "wrapper_html: " "required: " "as: " "hint" "error" "collection: " "as: :select"
+                           "as: :radio_buttons" "as: :check_boxes" "priority" "boolean" "string" "citext" "email" "url" "tel" "password" "search" "uuid" "color" "text" "hstore" "json" "jsonb" "file" "hidden" "integer" "float" "decimal" "range" "datetime" "date" "time" "select" "radio_buttons" "check_boxes" "country" "time_zone" "current_user" "can?" "input_html: " "html: " "render partial: "))
+
+  (defun company-web-mode-backend (command &optional arg &rest ignored)
+    (interactive (list 'interactive))
+
+    (cl-case command
+      (interactive (company-begin-backend 'company-ruby-backend))
+      (prefix (or (eq major-mode 'web-mode))
+              (company-grab-symbol))
+
+      (candidates
+       (all-completions arg erb-common-words)))))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (if (string= web-mode-engine "erb")
+                (progn
+                  (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-web-mode-backend))
+                  (setq-local company-transformers '(remove-company-duplicates)))
+              (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code)))))
+
 (add-hook 'rjsx-mode-hook
           (lambda ()
             (setq-local +lsp-company-backends '(company-capf))))
