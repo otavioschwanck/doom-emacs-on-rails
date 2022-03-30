@@ -1898,3 +1898,5 @@ Version 2015-06-08"
 (unless (file-exists-p (expand-file-name "user-packages.el" doom-private-dir))
   (progn
     (shell-command "cp ~/.doom.d/user-packages.example.el ~/.doom.d/user-packages.el")))
+
+(setq confirm-kill-emacs nil)

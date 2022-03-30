@@ -63,6 +63,7 @@
 - [[#org-mode][Org Mode]]
 - [[#handbook-stuff][Handbook stuff]]
 - [[#load-userel][Load user.el]]
+- [[#kill-emacs-without-asking][Kill emacs without asking]]
 
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
@@ -2177,4 +2178,8 @@ Version 2015-06-08"
 (unless (file-exists-p (expand-file-name "user-packages.el" doom-private-dir))
   (progn
     (shell-command "cp ~/.doom.d/user-packages.example.el ~/.doom.d/user-packages.el")))
+#+end_src
+* Kill emacs without asking
+#+begin_src emacs-lisp
+(setq confirm-kill-emacs nil)
 #+end_src
