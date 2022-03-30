@@ -26,28 +26,29 @@
 ;; You can send any text to any terminal by selecting and pressing SPC l
 ;; You can quickly execute a define command with SPC j + the keybinding you defined.
 ;;
-;;                         | Name              | command                      | Keybinding |
-(+add-command-to-term-list '("Docker Compose" . "docker-compose up") "u") ;; SPC j u
+(after! which-key
+  ;;                         | Name              | command                      | Keybinding |
+  (+add-command-to-term-list '("Docker Compose" . "docker-compose up") "u") ;; SPC j u
 
-;; Example asking something
-(+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: "))) "ya") ;; SPC j y a
+  ;; Example asking something
+  (+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: "))) "ya") ;; SPC j y a
 
-;; Example of dynamic command (using buffer name as example)
-(+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name))) "sv") ;; SPC j s v
-(+add-command-to-term-list '("Rspec on line" . (concat "bundle exec rspec " (buffer-file-name) ":" (format "%s" (line-number-at-pos)))) "ss") ;; SPC j s s
+  ;; Example of dynamic command (using buffer name as example)
+  (+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name))) "sv") ;; SPC j s v
+  (+add-command-to-term-list '("Rspec on line" . (concat "bundle exec rspec " (buffer-file-name) ":" (format "%s" (line-number-at-pos)))) "ss") ;; SPC j s s
 
-;; Getting text and executing a command
-(+add-command-to-term-list '("Brownie Test" . (concat "brownie test -k " (save-excursion (search-backward "def test_") (forward-word 2) (thing-at-point 'symbol t)))) "bt") ;; SPC j b t
+  ;; Getting text and executing a command
+  (+add-command-to-term-list '("Brownie Test" . (concat "brownie test -k " (save-excursion (search-backward "def test_") (forward-word 2) (thing-at-point 'symbol t)))) "bt") ;; SPC j b t
 
-;; Running scripts of a specific folder
-(+add-command-to-term-list '("Brownie Run Script" . (concat "brownie run " (read-file-name "scripts/") " " (read-string "Extra parameters: " nil "commands"))) "br") ;; SPC j b r
+  ;; Running scripts of a specific folder
+  (+add-command-to-term-list '("Brownie Run Script" . (concat "brownie run " (read-file-name "scripts/") " " (read-string "Extra parameters: " nil "commands"))) "br") ;; SPC j b r
 
-;; Creating terminal layouts: SPC T
-;; It will create a new workspace with all terminals listed
-;;                         | Layout Name    | Commands to execute                |
-(+add-layout-to-term-list '("Rails" . '("rails console" "rails server" nil)))
-(+add-layout-to-term-list '("React" . '("yarn start" nil)))
-(+add-layout-to-term-list '("Next JS" . '("yarn dev" "cowsay 'Have an nice work'" nil)))
+  ;; Creating terminal layouts: SPC T
+  ;; It will create a new workspace with all terminals listed
+  ;;                         | Layout Name    | Commands to execute                |
+  (+add-layout-to-term-list '("Rails" . '("rails console" "rails server" nil)))
+  (+add-layout-to-term-list '("React" . '("yarn start" nil)))
+  (+add-layout-to-term-list '("Next JS" . '("yarn dev" "cowsay 'Have an nice work'" nil))))
 
 
 ;; By default, the value of debugger is require 'pry'; binding.pry.  To change, uncomment and modify the variable below:

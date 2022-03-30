@@ -21,6 +21,16 @@
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
 
+(defun clean-doom-emacs-on-rails-user-configuration ()
+  "Clean user configuration"
+  (interactive)
+  (let ((result (yes-or-no-p "You really want to clean the user configurations?  Its irreversible.")))
+    (when result
+      (shell-command (concat "cd " doom-private-dir "; rm user-settings.el"))
+      (shell-command (concat "cd " doom-private-dir "; rm user-init.el"))
+      (shell-command (concat "cd " doom-private-dir "; rm user-packages.el"))
+      (message "User config cleaned... Please restart Emacs."))))
+
 (defun recompile-doom-emacs ()
   "Pull, Sync and upgrade el file"
   (interactive)

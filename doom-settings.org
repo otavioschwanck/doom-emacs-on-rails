@@ -97,6 +97,16 @@ Loading plugins like rails routes, rails http status, etc.
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
 
+(defun clean-doom-emacs-on-rails-user-configuration ()
+  "Clean user configuration"
+  (interactive)
+  (let ((result (yes-or-no-p "You really want to clean the user configurations?  Its irreversible.")))
+    (when result
+      (shell-command (concat "cd " doom-private-dir "; rm user-settings.el"))
+      (shell-command (concat "cd " doom-private-dir "; rm user-init.el"))
+      (shell-command (concat "cd " doom-private-dir "; rm user-packages.el"))
+      (message "User config cleaned... Please restart Emacs."))))
+
 (defun recompile-doom-emacs ()
   "Pull, Sync and upgrade el file"
   (interactive)
@@ -344,9 +354,7 @@ C-l to clear v-term
           (command-to-run (cdr command))
           (description (car command)))
       (fset (intern (concat "call-term-" key)) (eval `(lambda () (interactive) (+vterm--create-term-with-command (concat (eval ,command-to-run) "; read; exit") ,description))))
-        ;; (map! :leader :desc description mapping (intern (concat "call-term-" key)))
-        (map! :leader mapping (intern (concat "call-term-" key)))
-        ))
+        (map! :leader :desc description mapping (intern (concat "call-term-" key)))))
   (push command +vterm-commands))
 
 (defun +vterm-execute-command-term ()

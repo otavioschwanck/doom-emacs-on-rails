@@ -485,15 +485,16 @@ To configure your single time commands, go to your [[file:user-settings.el][pers
 Example:
 
 #+begin_src emacs-lisp
-;; | adding to list          | Command Name    |  Command to be run           |
-(+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit"))
+;; | adding to list          | Command Name    |  Command to be run           | Keybinding to use with SPC j
+(+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit") "u")
 #+end_src
 
-| SPC o t | Execute single time commands                                          |
-| SPC l   | List all terminals (and go to)                                        |
-| SPC l   | While on visual mode, copy the selected text and send to the terminal |
-| SPC v   | Open quick terminal                                                   |
-| SPC o T | Open a blank terminal                                                 |
+| SPC o t            | Execute single time commands                                          |
+| SPC j + keybinding | Execute the command defined before                                    |
+| SPC l              | List all terminals (and go to)                                        |
+| SPC l              | While on visual mode, copy the selected text and send to the terminal |
+| SPC v              | Open quick terminal                                                   |
+| SPC o T            | Open a blank terminal                                                 |
 
 ** Terminal Template (layouts)
 This feature is awesome for projects that you need to open a lot of terminals to setup project, like rails server, console, sidekiq and something else.
