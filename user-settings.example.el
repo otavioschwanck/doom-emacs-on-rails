@@ -22,52 +22,25 @@
 ;; TERMINAL MANAGEMENT STUFF ;;
 ;; Predefined commands
 ;; You can switch to any terminal with SPC l
-;; You can execute the command with SPC ot
-;;                         | Name              | command                      |
-(+add-command-to-term-list '("Docker Compose" . "docker-compose up; read; exit"))
-(+add-command-to-term-list '("Rails Server" . "rails server; read; exit"))
+;; You can search the commands with SPC o t
+;; You can send any text to any terminal by selecting and pressing SPC l
+;; You can quickly execute a define command with SPC j + the keybinding you defined.
+;;
+;;                         | Name              | command                      | Keybinding |
+(+add-command-to-term-list '("Docker Compose" . "docker-compose up") "u") ;; SPC j u
 
 ;; Example asking something
-(+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: ") "; read; exit")))
-(+add-command-to-term-list '("Bundle add" . (concat "bundle add " (read-string "Gem name: ") "; read; exit")))
+(+add-command-to-term-list '("Add Yarn Package" . (concat "yarn add " (read-string "Package name: "))) "ya") ;; SPC j y a
 
 ;; Example of dynamic command (using buffer name as example)
-(+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name) "; read; exit")))
-(+add-command-to-term-list '("Rspec on line" . (concat "bundle exec rspec " (buffer-file-name) ":" (format "%s" (line-number-at-pos)) "; read; exit")))
+(+add-command-to-term-list '("Rspec on file" . (concat "bundle exec rspec " (buffer-file-name))) "sv") ;; SPC j s v
+(+add-command-to-term-list '("Rspec on line" . (concat "bundle exec rspec " (buffer-file-name) ":" (format "%s" (line-number-at-pos)))) "ss") ;; SPC j s s
 
-;; Example of running something at poiont
-;; (defun pytest-get-current-test-name ()
-;;   (save-excursion
-;;     (search-backward "def test_")
-;;     (forward-word 2)
-;;     (thing-at-point 'symbol t)))
-
-;; (+add-command-to-term-list '("Brownie Test At Point" . (concat "brownie test -k " (pytest-get-current-test-name) "; read; exit")))
+;; Getting text and executing a command
+(+add-command-to-term-list '("Brownie Test" . (concat "brownie test -k " (save-excursion (search-backward "def test_") (forward-word 2) (thing-at-point 'symbol t)))) "bt") ;; SPC j b t
 
 ;; Running scripts of a specific folder
-;; (+add-command-to-term-list '("Brownie Run Script" . (concat "brownie run " (read-file-name "scripts/") " " (read-string "Extra parameters: " nil "commands") "; read; exit")))
-
-;; Example of your own function to execute terminal directly
-;; BEGIN EXAMPLE
-;; (defun my-rspec-command ()
-;;   (interactive)
-;;   (+vterm--create-term-with-command (concat "bundle exec rspec " (buffer-file-name) "; read; exit") "Rspec on file"))
-
-;; (map! :after rspec-mode :mode rspec-mode :leader "t v" #'my-rspec-command)
-;; END EXAMPLE
-
-;; Other examples:  VTerm rails console and server (I personally like, i recommend uncomment lines below)
-
-;; (defun rails-console-improved ()
-;;   (interactive)
-;;   (+vterm--create-term-with-command "rails console; exit" (concat "Rails Console - " (projectile-project-name))))
-
-;; (defun rails-server-improved ()
-;;   (interactive)
-;;   (+vterm--create-term-with-command "rails server; exit" (concat "Rails Server - " (projectile-project-name))))
-
-;; (map! :after projectile-rails :leader "r r" #'rails-console-improved)
-;; (map! :after projectile-rails :leader "r R" #'rails-server-improved)
+(+add-command-to-term-list '("Brownie Run Script" . (concat "brownie run " (read-file-name "scripts/") " " (read-string "Extra parameters: " nil "commands"))) "br") ;; SPC j b r
 
 ;; Creating terminal layouts: SPC T
 ;; It will create a new workspace with all terminals listed
@@ -80,7 +53,6 @@
 ;; By default, the value of debugger is require 'pry'; binding.pry.  To change, uncomment and modify the variable below:
 ;; (setq debugger-command "byebug")
 ;; (setq pry-show-helper nil))
-
 
 ;; Google Tradutor, source and target languages
 (setq google-translate-default-source-language "en")
@@ -129,6 +101,8 @@
 ;;  (lambda ()
 ;;    (setq-local flychech-checker nil)
 ;;    (setq-local flycheck-disabled-checkers '(ruby-reek lsp ruby-rubylint ruby-rubocop))) 1000)
+
+
 ;; If you use macos with rbenv on homebrew, add it, uncomment it
 ;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
 
@@ -147,14 +121,13 @@
 (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'control)
 
-
 ;; Use sorbet instead solargraph?
 ;; (after! lsp-mode
 ;;   (setq lsp-disabled-clients '(ruby-ls solargraph))
 ;;   (setq lsp-sorbet-use-bundler t))
 
 
-;; Use Minitest? Uncomment the code below:
+;; Use Minitest? Uncomment the code below: (V to select, gc to uncomment)
 ;; (after! ruby-mode ;; Beggining of minitest-code
 ;;   (defun goto-test ()
 ;;     (interactive)
@@ -207,7 +180,6 @@
 ;; sudo apt install aspell-pt-br or brew install aspell-pt-br
 (setq ispell-dictionary "brasileiro")
 
-
 ;; Start projectile with magit, uncomment below:
 ;; (after! projectile
 ;;   (defun open-projectile-with-magit (&optional DIRECTORY CACHE)
@@ -228,12 +200,10 @@
 ;;       (find-file (replace-regexp-in-string "service" "contract" (replace-regexp-in-string "_services" "_contracts" (buffer-file-name))))))
 ;;   (map! :leader "rq" #'projectile-rails-find-contract)) ;; Uncomment to bind to SPC r q
 
-
 ;; Snippet describe
 ;; use descc snippet (with C-RET) on rspec to create describe '#call' ..
 ;; You can change the function uncommenting the code below and changing to your most used function
 ;; (setq ruby-rspec-describe-class "call")
-
 
 ;; Stop some boring warnings
 (setq warning-minimum-level :emergency)

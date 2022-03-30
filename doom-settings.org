@@ -179,8 +179,6 @@ Loading plugins like rails routes, rails http status, etc.
 #+end_src
 *** Harpoon
 #+begin_src emacs-lisp
-(map! :leader "j c" 'harpoon-clear)
-(map! :leader "j f" 'harpoon-toggle-file)
 (map! :n "C-s" 'harpoon-add-file)
 (map! :n "C-SPC" 'harpoon-quick-menu-hydra)
 (map! :leader "1" 'harpoon-go-to-1)
@@ -281,8 +279,9 @@ Loading plugins like rails routes, rails http status, etc.
 **** Avy for the Window
 #+begin_src emacs-lisp
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-(map! :nv "s" #'evil-avy-goto-word-1)
-(map! :n "S" #'evil-avy-goto-char-2)
+(map! :nv "s" #'evil-avy-goto-word-1-below)
+(map! :n "S" #'evil-avy-goto-word-1-above)
+(map! :n "M" #'+default/search-buffer)
 
 #+end_src
 **** C-j and C-k for the Win
@@ -338,8 +337,16 @@ C-l to clear v-term
   "Add a layout to vterm"
   (push command +vterm-layouts))
 
-(defun +add-command-to-term-list (command)
+(defun +add-command-to-term-list (command &optional key)
   "Execute the command with +vterm."
+  (when key
+    (let ((mapping (concat "j" key))
+          (command-to-run (cdr command))
+          (description (car command)))
+      (fset (intern (concat "call-term-" key)) (eval `(lambda () (interactive) (+vterm--create-term-with-command (concat (eval ,command-to-run) "; read; exit") ,description))))
+        ;; (map! :leader :desc description mapping (intern (concat "call-term-" key)))
+        (map! :leader mapping (intern (concat "call-term-" key)))
+        ))
   (push command +vterm-commands))
 
 (defun +vterm-execute-command-term ()
@@ -347,7 +354,7 @@ C-l to clear v-term
   (let ((item (completing-read "Select command: " +vterm-commands)))
     (when (not (string= item ""))
       (let* ((item-to-run (assoc item +vterm-commands))
-             (command (eval (cdr item-to-run))))
+             (command (concat (eval (cdr item-to-run)) "; read; exit")))
         (+vterm--create-term-with-command command item)))))
 
 (defun +vterm--create-term-with-command (command buffer)

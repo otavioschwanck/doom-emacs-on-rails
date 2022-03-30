@@ -88,8 +88,6 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(map! :leader "j c" 'harpoon-clear)
-(map! :leader "j f" 'harpoon-toggle-file)
 (map! :n "C-s" 'harpoon-add-file)
 (map! :n "C-SPC" 'harpoon-quick-menu-hydra)
 (map! :leader "1" 'harpoon-go-to-1)
@@ -159,8 +157,9 @@
 (map! :nv "[g" #'git-gutter:previous-hunk)
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-(map! :nv "s" #'evil-avy-goto-word-1)
-(map! :n "S" #'evil-avy-goto-char-2)
+(map! :nv "s" #'evil-avy-goto-word-1-below)
+(map! :n "S" #'evil-avy-goto-word-1-above)
+(map! :n "M" #'+default/search-buffer)
 
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
 (global-set-key (kbd "C-k") (kbd "C-M-p"))
@@ -206,8 +205,14 @@
   "Add a layout to vterm"
   (push command +vterm-layouts))
 
-(defun +add-command-to-term-list (command)
+(defun +add-command-to-term-list (command &optional key)
   "Execute the command with +vterm."
+  (when key
+    (let ((mapping (concat "j" key))
+          (command-to-run (cdr command))
+          (description (car command)))
+      (fset (intern (concat "call-term-" key)) (eval `(lambda () (interactive) (+vterm--create-term-with-command (concat (eval ,command-to-run) "; read; exit") ,description))))
+        (map! :leader :desc description mapping (intern (concat "call-term-" key)))))
   (push command +vterm-commands))
 
 (defun +vterm-execute-command-term ()
@@ -215,7 +220,7 @@
   (let ((item (completing-read "Select command: " +vterm-commands)))
     (when (not (string= item ""))
       (let* ((item-to-run (assoc item +vterm-commands))
-             (command (eval (cdr item-to-run))))
+             (command (concat (eval (cdr item-to-run)) "; read; exit")))
         (+vterm--create-term-with-command command item)))))
 
 (defun +vterm--create-term-with-command (command buffer)

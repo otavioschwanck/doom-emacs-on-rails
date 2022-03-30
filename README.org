@@ -1,5 +1,4 @@
 * Index :toc:
-- [[#i-dont-use-this-configuration-anymore][I dont use this configuration anymore.]]
 - [[#this-project-goal][This project goal]]
 - [[#features][Features]]
 - [[#prerequisites][Prerequisites]]
@@ -23,13 +22,6 @@
 - [[#installing-emacs-on-mac][Installing Emacs on Mac]]
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#buy-me-a-coffee][Buy me a coffee]]
-
-* I dont use this configuration anymore.
-Recently i migrated to Neovim and created a configuration very similar in feature / keybindings.
-
-Check out before use that configuration: https://github.com/otavioschwanck/mood-nvim
-
-If you prefer emacs, thats fine.  This configuration is complete and works perfectly fine.
 
 * This project goal
 
