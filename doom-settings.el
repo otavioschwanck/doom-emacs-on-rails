@@ -71,9 +71,9 @@
   (message "Welcome to Doom Emacs Handbook!")
   (read-only-mode))
 
-(map! :leader "fm" 'visit-config-utils)
-(map! :leader "fi" 'visit-user-init)
-(map! :leader "fI" 'visit-user-packages)
+(map! :leader :desc "Visit User Config" "fm" 'visit-config-utils)
+(map! :leader :desc "Visit User Init" "fi" 'visit-user-init)
+(map! :leader :desc "Visit User Packages" "fI" 'visit-user-packages)
 
 (when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.doom.d/.pry-example ~/.pryrc"))
 (if (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.doom.d/.irbrc-example ~/.irbrc"))
@@ -86,10 +86,10 @@
 (setq google-translate-default-source-language "en")
 (setq google-translate-default-target-language "pt")
 
-(map! :nv "C-c ! t" 'google-translate-query-translate)
-(map! :nv "C-c ! T" 'google-translate-query-translate-reverse)
-(map! :nv "C-c t" 'google-translate-at-point)
-(map! :nv "C-c T" 'google-translate-at-point-reverse)
+(map! :desc "Google Translate" :nv "C-c ! t" 'google-translate-query-translate)
+(map! :desc "Google Translate Reverse" :nv "C-c ! T" 'google-translate-query-translate-reverse)
+(map! :desc "Google Translate At Point" :nv "C-c t" 'google-translate-at-point)
+(map! :desc "Google Translate At Point reverse" :nv "C-c T" 'google-translate-at-point-reverse)
 
 (after! google-translate-default-ui
   (defun google-translate--search-tkk ()
@@ -100,15 +100,15 @@
 
 (map! :n "C-s" 'harpoon-add-file)
 (map! :n "C-SPC" 'harpoon-quick-menu-hydra)
-(map! :leader "1" 'harpoon-go-to-1)
-(map! :leader "2" 'harpoon-go-to-2)
-(map! :leader "3" 'harpoon-go-to-3)
-(map! :leader "4" 'harpoon-go-to-4)
-(map! :leader "5" 'harpoon-go-to-5)
-(map! :leader "6" 'harpoon-go-to-6)
-(map! :leader "7" 'harpoon-go-to-7)
-(map! :leader "8" 'harpoon-go-to-8)
-(map! :leader "9" 'harpoon-go-to-9)
+(map! :desc "Harpoon 1" :leader "1" 'harpoon-go-to-1)
+(map! :desc "Harpoon 2" :leader "2" 'harpoon-go-to-2)
+(map! :desc "Harpoon 3" :leader "3" 'harpoon-go-to-3)
+(map! :desc "Harpoon 4" :leader "4" 'harpoon-go-to-4)
+(map! :desc "Harpoon 5" :leader "5" 'harpoon-go-to-5)
+(map! :desc "Harpoon 6" :leader "6" 'harpoon-go-to-6)
+(map! :desc "Harpoon 7" :leader "7" 'harpoon-go-to-7)
+(map! :desc "Harpoon 8" :leader "8" 'harpoon-go-to-8)
+(map! :desc "Harpoon 9" :leader "9" 'harpoon-go-to-9)
 
 (add-hook! 'ruby-mode-hook (sp-local-pair 'ruby-mode "{" "}" :actions '(wrap insert autoskip navigate) :unless '(sp-point-before-word-p sp-point-before-same-p) :post-handlers '(("||
 [i]" "RET") ("| " "SPC"))))
@@ -138,7 +138,7 @@
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
-(map! :leader "-" #'indent-whole-buffer)
+(map! :desc "Indent File" :leader "-" #'indent-whole-buffer)
 
 ;; Save all
 (defun save-all-buffers ()
@@ -161,10 +161,10 @@
 (map! :nv "0" #'doom/backward-to-bol-or-indent)
 (map! :nv "-" #'end-of-line)
 
-(map! :leader "k" #'kill-current-buffer)
+(map! :desc "Kill Buffer" :leader "k" #'kill-current-buffer)
 
-(map! :nv "]g" #'git-gutter:next-hunk)
-(map! :nv "[g" #'git-gutter:previous-hunk)
+(map! :desc "Next Git Hunk" :nv "]g" #'git-gutter:next-hunk)
+(map! :desc "Previous Git Hunk" :nv "[g" #'git-gutter:previous-hunk)
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 (map! :nv "s" #'evil-avy-goto-word-1-below)
@@ -196,7 +196,7 @@
 (map! :after vterm :map vterm-mode-map :i "M-v" #'better-vterm-paste)
 (map! :after vterm :mode vterm-mode :n "C-c" #'better-vterm-clean)
 
-(map! :leader "v" #'+vterm/toggle)
+(map! :leader :desc "Terminal" "v" #'+vterm/toggle)
 
 (defun +vterm-toggle--create-terms ()
   (+vterm/here nil)
@@ -274,7 +274,7 @@
 (map! :desc "Switch to Terminal" :n "SPC l" #'+vterm-switch-to-terminal)
 (map! :desc "Send Text to Terminal" :v "SPC l" #'+vterm-send-selected-text-to-terminal)
 
-(map! :leader "o t" #'+vterm-execute-command-term)
+(map! :leader :desc "Execute Terminal Command" "o t" #'+vterm-execute-command-term)
 
 (defun +vterm-with-command-splitted (command-name commands)
   (interactive)
@@ -308,7 +308,7 @@
         (s-split "" string t))
   (when send-return (vterm-send-return)))
 
-(map! :leader "T" '+vterm-create-layout)
+(map! :leader :desc "Open Terminal Layout" "T" '+vterm-create-layout)
 
 (after! vterm
   (set-popup-rule! "^\\*\\(vterm\\)?" :ttl nil :size 0.4))
@@ -337,7 +337,7 @@ Use `treemacs' command for old functionality."
            (progn (treemacs-find-file) (treemacs-select-window))
          (treemacs)))))
 
-(map! :leader "e" #'+treemacs/toggle-and-find)
+(map! :leader :desc "Open Tree" "e" #'+treemacs/toggle-and-find)
 (map! :map treemacs-mode-map "M-k" #'evil-window-up)
 (map! :map treemacs-mode-map "M-j" #'evil-window-down)
 (map! :map treemacs-mode-map "M-h" #'evil-window-left)
@@ -346,10 +346,10 @@ Use `treemacs' command for old functionality."
 (after! treemacs
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
-(map! :mode smerge-mode-map :leader "gdo" #'smerge-keep-other)
-(map! :mode smerge-mode-map :leader "gdm" #'smerge-keep-mine)
-(map! :mode smerge-mode-map :leader "gda" #'smerge-keep-all)
-(map! :mode smerge-mode-map :leader "gdc" #'smerge-keep-current)
+(map! :mode smerge-mode-map :leader :desc "Git Select Other" "gdo" #'smerge-keep-other)
+(map! :mode smerge-mode-map :leader :desc "Git Keep Mine" "gdm"  #'smerge-keep-mine)
+(map! :mode smerge-mode-map :leader :desc "Git Keep All" "gda" #'smerge-keep-all)
+(map! :mode smerge-mode-map :leader :desc "Git Keep at cursor" "gdc" #'smerge-keep-current)
 
 (after! rotate-text
   (add-to-list 'rotate-text-words '("valid" "invalid"))
@@ -385,8 +385,6 @@ Use `treemacs' command for old functionality."
         (with-current-buffer buffer-name
           (goto-char (point-min))
           (forward-line (1- line-number)))))))
-
-(map! :leader "]" '+popup/raise)
 
 (setq avy-single-candidate-jump t)
 
@@ -786,8 +784,6 @@ Use `treemacs' command for old functionality."
 (after! company
   (setq company-dabbrev-downcase nil)
   (setq company-show-numbers t)
-  (setq company-dabbrev-code-everywhere nil)
-  (setq company-dabbrev-code-other-buffers t)
   (setq company-idle-delay 0)
 
   (defun remove-company-duplicates (candidates)
@@ -981,11 +977,12 @@ Use `treemacs' command for old functionality."
     (otavio/kill-ruby-instances)
     (otavio/reset-rails-database))
 
-  (map! :after ruby-mode :mode ruby-mode :localleader "ww" #'otavio/rails-reset-all)
-  (map! :after ruby-mode :mode ruby-mode :localleader "wk" #'otavio/kill-ruby-instances))
+  (map! :after ruby-mode :mode ruby-mode :localleader :desc "Ruby Reset" "w")
+  (map! :after ruby-mode :mode ruby-mode :localleader :desc "Reset Database" "ww" #'otavio/rails-reset-all)
+  (map! :after ruby-mode :mode ruby-mode :localleader :desc "Kill All Ruby Instances" "wk" #'otavio/kill-ruby-instances))
 
 (after! projectile
-  (map! :leader "r" #'projectile-rails-command-map)
+  (map! :leader :desc "Rails" "r" #'projectile-rails-command-map)
 
   (defun load-projectile-rails ()
     (require 'projectile-rails))
@@ -1072,25 +1069,23 @@ Use `treemacs' command for old functionality."
      '(("app/graphql/" "\\(.+\\)\\.rb$"))
      "app/graphql/${filename}.rb"))
 
-  (map! :leader "rd" #'otavio/go-to-latest-migration)
-  (map! :leader "rt" #'projectile-rails-find-admin)
-  (map! :leader "rT" #'projectile-rails-find-current-admin)
-  (map! :leader "rs" #'projectile-rails-find-business-or-service)
-  (map! :leader "rS" #'projectile-rails-find-service)
-  (map! :leader "rq" #'projectile-rails-find-graphql-all))
+  (map! :leader :desc "Go to last migration" "rd" #'otavio/go-to-latest-migration)
+  (map! :leader :desc "Find Admin" "rt" #'projectile-rails-find-admin)
+  (map! :leader :desc "Find Admin Current Resource" "rT" #'projectile-rails-find-current-admin)
+  (map! :leader :desc "Find Service Or Business" "rs" #'projectile-rails-find-business-or-service)
+  (map! :leader :desc "Find Service" "rS" #'projectile-rails-find-service)
+  (map! :leader :desc "Find Graphql" "rq" #'projectile-rails-find-graphql-all))
 
 (after! rspec-mode
   (set-popup-rule! "^\\*\\(rspec-\\)?compilation" :size 0.5 :ttl nil :select t))
 
 (after! rspec-mode
-  (map! :leader "t" #'rspec-mode-keymap)
-  (map! :leader "tl" #'rspec-run-last-failed)
-  (map! :leader "tg" #'rspec-run-git-diff-from-head)
-  (map! :leader "tG" #'rspec-run-git-diff-from-master))
+  (map! :leader :desc "Rspec" "t" #'rspec-mode-keymap)
+  (map! :leader :desc "Run Last Failed" "tl" #'rspec-run-last-failed))
 
 (after! ruby-mode
-  (map! :mode ruby-mode :leader "a" 'goto-test)
-  (map! :mode ruby-mode :leader "A" 'goto-test-and-vsplit))
+  (map! :mode ruby-mode :leader :desc "Go to Test" "a" 'goto-test)
+  (map! :mode ruby-mode :leader :desc "Go to Test and split" "A" 'goto-test-and-vsplit))
 
 (after! ruby-mode
   (defun file-path-to-test (filename)
@@ -1194,10 +1189,10 @@ Use `treemacs' command for old functionality."
   (indent-according-to-mode)
   (save-buffer))
 
-(map! :after ruby-mode :mode ruby-mode :leader "d" 'otavio/insert-debugger)
-(map! :after ruby-mode :mode ruby-mode :leader "D" 'otavio/remove-all-debuggers)
-(map! :after web-mode :mode web-mode-map :leader "d" 'otavio/insert-debugger)
-(map! :after web-mode :mode web-mode-map :leader "D" 'otavio/remove-all-debuggers)
+(map! :after ruby-mode :mode ruby-mode :desc "Insert debugger" :leader "d" 'otavio/insert-debugger)
+(map! :after ruby-mode :mode ruby-mode :desc "Remove All Debuggers" :leader "D" 'otavio/remove-all-debuggers)
+(map! :after web-mode :mode web-mode-map :desc "Insert Debugger" :leader "d" 'otavio/insert-debugger)
+(map! :after web-mode :mode web-mode-map :desc "Remove All Debuggers" :leader "D" 'otavio/remove-all-debuggers)
 
 (after! ruby-mode
   ;; SPC m C to copy class name, super useful to test things on console.
@@ -1227,8 +1222,7 @@ Use `treemacs' command for old functionality."
         (message "Copied %s" name))))
 
   ;; binding it to SPC m c
-  (map! :map ruby-mode-map :localleader "C" #'endless/ruby-copy-class-name)
-  (map! :map ruby-mode-map :localleader "c" #'endless/ruby-copy-class-name))
+  (map! :map ruby-mode-map :desc "Copy Class Name" :localleader "c" #'endless/ruby-copy-class-name))
 
 (after! web-mode
   (define-key web-mode-map (kbd "C-c o") #'rails-routes-insert)
@@ -1275,8 +1269,8 @@ Use `treemacs' command for old functionality."
                            (shell-quote-argument (buffer-file-name)))))
     (msc/revert-buffer-noconfirm))
 
-  (map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point)
-  (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file))
+  (map! :map ruby-mode-map :desc "Add rubocop:disable at point" :localleader "d" 'rubocop-toggle-at-point)
+  (map! :mode ruby-mode :desc "Run Rubocop at current file" :leader "=" #'rubocop-on-current-file))
 
 (after! ruby-mode
   (defun otavio/chomp (str)
@@ -1410,7 +1404,7 @@ Use `treemacs' command for old functionality."
     (if (not CHANGED)
         (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless"))))
 
-  (map! :map ruby-mode-map :localleader "i" #'otavio/swap-if-unless-ruby))
+  (map! :map ruby-mode-map :desc "if/unless multiline => singleline" :localleader "i" #'otavio/swap-if-unless-ruby))
 
 (defvar split-ruby-giant-string-default 125)
 
@@ -1443,7 +1437,7 @@ Use `treemacs' command for old functionality."
               )
           )))
 
-  (map! :map ruby-mode-map :localleader "S" #'otavio/split-ruby-giant-string))
+  (map! :map ruby-mode-map :localleader :desc "Split giant string" "S" #'otavio/split-ruby-giant-string))
 
 (after! ruby-mode
   (defun ruby-add-parameter--with-existing-parameters (args)
@@ -1468,7 +1462,7 @@ Use `treemacs' command for old functionality."
               (ruby-add-parameter--with-existing-parameters args)
             (ruby-add-parameter--without-existing-parameters args))))))
 
-  (map! :mode ruby-mode :localleader "a" #'ruby-add-parameter))
+  (map! :mode ruby-mode :localleader :desc "Add parameter to def" "a" #'ruby-add-parameter))
 
 (after! ruby-mode
   (defun ruby-extract-function ()
@@ -1517,7 +1511,7 @@ Use `treemacs' command for old functionality."
       (+evil/reselect-paste)
       (call-interactively 'evil-indent)))
 
-  (map! :mode ruby-mode :localleader "m" #'ruby-extract-function))
+  (map! :mode ruby-mode :localleader :desc "Extract Function" "m" #'ruby-extract-function))
 
 (after! ruby-mode
   (defun ruby-new-method-from-symbol-at-point ()
@@ -1591,15 +1585,15 @@ Use `treemacs' command for old functionality."
                 (read-string (concat "name for " argument " boolean:  ")) argument)
           (read-string (concat "name for " argument " expression:  "))))))
 
-  (map! :mode ruby-mode :localleader "n" #'ruby-new-method-from-symbol-at-point))
+  (map! :mode ruby-mode :localleader :desc "New method from text at point" "n" #'ruby-new-method-from-symbol-at-point))
 
 (after! ruby-mode
   (require 'ruby-refactor)
   (add-hook! 'ruby-mode-hook 'ruby-refactor-mode-launch))
 
 (after! ruby-refactor
-  (map! :mode ruby-mode :localleader "v" 'ruby-refactor-extract-local-variable)
-  (map! :mode ruby-mode :localleader "V" 'ruby-refactor-extract-constant)
+  (map! :mode ruby-mode :localleader :desc "Extract Local Variable" "v" 'ruby-refactor-extract-local-variable)
+  (map! :mode ruby-mode :localleader "V" :desc "Extract Constant" 'ruby-refactor-extract-constant)
 
   (defun ruby-refactor-extract-local-variable ()
     "Extracts selected text to local variable"
@@ -1866,8 +1860,8 @@ Version 2015-06-08"
 
 (map! :map org-mode-map :ni "C-<enter>" #'org-insert-heading)
 
-(map! :leader "h U" #'upgrade-doom-emacs-on-rails)
-(map! :leader "f h" #'visit-handbook)
+(map! :leader :desc "Upgrade Doom Emacs on Rails" "h U" #'upgrade-doom-emacs-on-rails)
+(map! :leader :desc "Visit handbook" "f h" #'visit-handbook)
 
 (add-to-list '+doom-dashboard-menu-sections '("Open Doom Emacs on Rails Handbook"
                                               :icon (all-the-icons-octicon "ruby" :face 'doom-dashboard-menu-title)
