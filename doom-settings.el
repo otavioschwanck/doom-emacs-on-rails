@@ -450,10 +450,6 @@ Use `treemacs' command for old functionality."
 (after! emmet-mode
   (setq emmet-expand-jsx-className? nil))
 
-(add-hook 'typescript-tsx-mode-hook
-          (lambda ()
-            (setq-local +lsp-company-backends '(company-capf))))
-
 (after! web-mode
   (setq erb-common-words '("if" "else" "unless" "link_to" "root_path" "paginate" "form_with" "label" "text_field" "submit"
                            "check_box" "label" "radio_button" "text_area" "hidden_field" "password_field" "number_field" "range_field"
@@ -481,14 +477,6 @@ Use `treemacs' command for old functionality."
                   (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code company-web-mode-backend))
                   (setq-local company-transformers '(remove-company-duplicates)))
               (setq-local +lsp-company-backends '(:separate company-capf company-dabbrev-code)))))
-
-(add-hook 'rjsx-mode-hook
-          (lambda ()
-            (setq-local +lsp-company-backends '(company-capf))))
-
-(add-hook 'js2-mode-hook
-          (lambda ()
-            (setq-local +lsp-company-backends '(company-capf))))
 
 (defun update-yas-indentation ()
   (setq-local yas-indent-line 'fixed))
