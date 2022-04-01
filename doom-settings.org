@@ -63,6 +63,7 @@
 - [[#handbook-stuff][Handbook stuff]]
 - [[#load-userel][Load user.el]]
 - [[#kill-emacs-without-asking][Kill emacs without asking]]
+- [[#logo][Logo]]
 
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
@@ -298,13 +299,14 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (defvar javascript-moviments "\{$\\|[\ ]*}$\|if .*")
 
-(defvar moviment-sections
+(setq moviment-sections
   `((solidity-mode . "function \\|modifier \\|constructor \\|\}\\|if.*(\\|for.*(")
     (ruby-mode . "def\\|do$\\|do \|.*\|\\|end$\\|^ *if\\|^ *unless")
     (rjsx-mode . ,javascript-moviments)
     (js2-mode . ,javascript-moviments)
     (typescript-mode . ,javascript-moviments)
     (typescript-tsx-mode . ,javascript-moviments)
+    (python-mode . ":$")
     (org-mode . "\*")
     (markdown-mode . "\#")
     (vterm-mode . "^E\\|^>")
@@ -2188,4 +2190,10 @@ Version 2015-06-08"
 * Kill emacs without asking
 #+begin_src emacs-lisp
 (setq confirm-kill-emacs nil)
+#+end_src
+* Logo
+#+begin_src emacs-lisp
+(let ((logo (concat doom-private-dir "logo.png")))
+  (when (file-exists-p logo)
+  (setq fancy-splash-image logo)))
 #+end_src

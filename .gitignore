@@ -16,3 +16,4 @@ user-settings.el
 user-snippets/*
 user-snippets/**/*
 !user-snippets/.keep
+logo.png

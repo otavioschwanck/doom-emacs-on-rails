@@ -173,13 +173,14 @@
 
 (defvar javascript-moviments "\{$\\|[\ ]*}$\|if .*")
 
-(defvar moviment-sections
+(setq moviment-sections
   `((solidity-mode . "function \\|modifier \\|constructor \\|\}\\|if.*(\\|for.*(")
     (ruby-mode . "def\\|do$\\|do \|.*\|\\|end$\\|^ *if\\|^ *unless")
     (rjsx-mode . ,javascript-moviments)
     (js2-mode . ,javascript-moviments)
     (typescript-mode . ,javascript-moviments)
     (typescript-tsx-mode . ,javascript-moviments)
+    (python-mode . ":$")
     (org-mode . "\*")
     (markdown-mode . "\#")
     (vterm-mode . "^E\\|^>")
@@ -1909,3 +1910,7 @@ Version 2015-06-08"
     (shell-command "cp ~/.doom.d/user-packages.example.el ~/.doom.d/user-packages.el")))
 
 (setq confirm-kill-emacs nil)
+
+(let ((logo (concat doom-private-dir "logo.png")))
+  (when (file-exists-p logo)
+  (setq fancy-splash-image logo)))

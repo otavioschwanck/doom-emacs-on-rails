@@ -50,6 +50,7 @@ The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video d
  - OPTIONAL fd 7.3.0+ (improves file indexing performance for some commands) =(sudo apt install find-fd)= (good for large projects)
  - typescript-language-server
  - solargraph
+ - rbenv
 
 * Installation
 #+BEGIN_SRC shell
