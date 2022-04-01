@@ -171,8 +171,42 @@
 (map! :n "S" #'consult-imenu)
 (map! :n "M" #'+default/search-buffer)
 
-(global-set-key (kbd "C-j") (kbd "C-M-n"))
-(global-set-key (kbd "C-k") (kbd "C-M-p"))
+(defvar javascript-moviments "\{$\\|[\ ]*}$\|if .*")
+
+(defvar moviment-sections
+  `((solidity-mode . "function \\|modifier \\|constructor \\|\}\\|if.*(\\|for.*(")
+    (ruby-mode . "def\\|do$\\|do \|.*\|\\|end$\\|^ *if\\|^ *unless")
+    (rjsx-mode . ,javascript-moviments)
+    (js2-mode . ,javascript-moviments)
+    (typescript-mode . ,javascript-moviments)
+    (typescript-tsx-mode . ,javascript-moviments)
+    (org-mode . "\*")
+    (markdown-mode . "\#")
+    (vterm-mode . "^E\\|^>")
+    (default . "\{\\|}")))
+
+(defun keymap-symbol (keymap)
+  "Return the symbol to which KEYMAP is bound, or nil if no such symbol exists."
+  (catch 'gotit
+    (mapatoms (lambda (sym)
+                (and (boundp sym)
+                     (eq (symbol-value sym) keymap)
+                     (not (eq sym 'keymap))
+                     (throw 'gotit sym))))))
+
+(defun move-forward-section ()
+  (interactive)
+  (let ((moviment (or (cdr (assoc major-mode moviment-sections)) (cdr (assoc 'default moviment-sections)))))
+    (forward-line 1)
+    (if (search-forward-regexp moviment nil t) (back-to-indentation) (forward-line -1))))
+
+(defun move-backward-section ()
+  (interactive)
+  (let ((moviment (or (cdr (assoc major-mode moviment-sections)) (cdr (assoc 'default moviment-sections)))))
+    (when (search-backward-regexp moviment nil t) (back-to-indentation))))
+
+(map! :nv "C-j" #'move-forward-section)
+(map! :nv "C-k" #'move-backward-section)
 
 (setq-default evil-escape-key-sequence "jj")
 (setq-default evil-escape-delay 0.5)
@@ -415,8 +449,6 @@ Use `treemacs' command for old functionality."
 
 (map! :after web-mode :map web-mode-map :i "M-e" #'emmet-expand-yas)
 (map! :after js2-mode :map rjsx-mode-map :i "M-e" #'emmet-expand-yas)
-(map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
-(map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
@@ -1152,11 +1184,6 @@ Use `treemacs' command for old functionality."
 (defvar ruby-disabled-checkers '(ruby-reek lsp ruby-rubylint) "Checkers to automatically disable on ruby files.")
 
 (add-hook! 'ruby-mode-hook (setq-local flycheck-disabled-checkers ruby-disabled-checkers))
-
-(after! ruby-mode
-  (map! :map ruby-mode-map
-        "C-k" #'ruby-beginning-of-block
-        "C-j" #'ruby-end-of-block))
 
 (after! evil
   (define-key evil-normal-state-map (kbd "g S") #'multi-line)

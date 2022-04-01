@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: function(...)
+# key: fu
+# --
+function ${1:functionName}(${2:address} ${3:variableName}) ${4:$$(yas-choose-value '("public" "internal"))} ${5:returns(${6:uint256}) }{
+         $0
+}
