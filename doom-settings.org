@@ -289,8 +289,8 @@ Loading plugins like rails routes, rails http status, etc.
 **** Avy for the Window
 #+begin_src emacs-lisp
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-(map! :nv "s" #'evil-avy-goto-word-1-below)
-(map! :n "S" #'evil-avy-goto-word-1-above)
+(map! :nv "s" #'evil-avy-goto-word-1)
+(map! :n "S" #'consult-imenu)
 (map! :n "M" #'+default/search-buffer)
 
 #+end_src

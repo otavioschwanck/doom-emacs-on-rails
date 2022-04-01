@@ -167,8 +167,8 @@
 (map! :desc "Previous Git Hunk" :nv "[g" #'git-gutter:previous-hunk)
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-(map! :nv "s" #'evil-avy-goto-word-1-below)
-(map! :n "S" #'evil-avy-goto-word-1-above)
+(map! :nv "s" #'evil-avy-goto-word-1)
+(map! :n "S" #'consult-imenu)
 (map! :n "M" #'+default/search-buffer)
 
 (global-set-key (kbd "C-j") (kbd "C-M-n"))
@@ -1404,7 +1404,7 @@ Use `treemacs' command for old functionality."
     (if (not CHANGED)
         (setq CHANGED (otavio/-swap-search-forward-swap-to-singleline "unless"))))
 
-  (map! :map ruby-mode-map :desc "if/unless multiline => singleline" :localleader "i" #'otavio/swap-if-unless-ruby))
+  (map! :map ruby-mode-map :desc "split or join if/unless" :localleader "i" #'otavio/swap-if-unless-ruby))
 
 (defvar split-ruby-giant-string-default 125)
 
