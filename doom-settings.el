@@ -174,7 +174,7 @@
 (defvar javascript-moviments "\{$\\|[\ ]*}$\|if .*")
 
 (setq moviment-sections
-  `((solidity-mode . "function \\|modifier \\|constructor \\|\}\\|if.*(\\|for.*(")
+  `((solidity-mode . "function \\|modifier \\|constructor\\|\}\\|if.*(\\|for.*(")
     (ruby-mode . "def\\|do$\\|do \|.*\|\\|end$\\|^ *if\\|^ *unless")
     (rjsx-mode . ,javascript-moviments)
     (js2-mode . ,javascript-moviments)
@@ -245,19 +245,20 @@
 
 (defvar +vterm-layouts '() "Command to be executed on terminal 1")
 (defvar +vterm-commands '() "Command to execute with SPC o t")
+(defvar +vterm-last-command nil "Last command executed by vterm")
 
 (defun +add-layout-to-term-list (command)
   "Add a layout to vterm"
   (push command +vterm-layouts))
 
 (defun +add-command-to-term-list (command &optional key)
-  "Execute the command with +vterm."
+  "Execute the command with +vterm. COMMAND = command to execute. key = Key to use with SPC j."
   (when key
     (let ((mapping (concat "j" key))
           (command-to-run (cdr command))
           (description (car command)))
       (fset (intern (concat "call-term-" key)) (eval `(lambda () (interactive) (+vterm--create-term-with-command (concat (eval ,command-to-run) "; read; exit") ,description))))
-        (map! :leader :desc description mapping (intern (concat "call-term-" key)))))
+      (map! :leader :desc description mapping (intern (concat "call-term-" key)))))
   (push command +vterm-commands))
 
 (defun +vterm-execute-command-term ()
@@ -268,9 +269,16 @@
              (command (concat (eval (cdr item-to-run)) "; read; exit")))
         (+vterm--create-term-with-command command item)))))
 
+(defun +vterm-execute-last-comamnd ()
+  "Execute last terminal command."
+  (interactive)
+  (when +vterm-last-command
+    (+vterm--create-term-with-command (car +vterm-last-command) (cdr +vterm-last-command))))
+
 (defun +vterm--create-term-with-command (command buffer)
   "Create a vterm with specified command"
   (interactive)
+  (setq +vterm-last-command `(,command . ,buffer))
   (if (member buffer (mapcar (lambda (x) (format "%s" x)) (buffer-list)))
       (switch-to-buffer buffer)
     (progn
@@ -307,6 +315,7 @@
       (evil-insert 1))))
 
 (map! :desc "Switch to Terminal" :n "SPC l" #'+vterm-switch-to-terminal)
+(map! :desc "Execute last terminal command" :n "SPC jj" #'+vterm-execute-last-comamnd)
 (map! :desc "Send Text to Terminal" :v "SPC l" #'+vterm-send-selected-text-to-terminal)
 
 (map! :leader :desc "Execute Terminal Command" "o t" #'+vterm-execute-command-term)
