@@ -17,7 +17,7 @@
   (interactive)
   (message "Upgrading... Please wait...")
   (package-refresh-contents)
-  (shell-command (concat "cd " doom-private-dir "; git pull -f; " doom-emacs-dir "bin/doom sync -u"))
+  (+vterm--create-term-with-command (concat "cd " doom-private-dir "; git pull -f; " doom-emacs-dir "bin/doom sync -u; echo 'pdate complete.  Press enter to close.'; read; exit") "Doom On Emacs On Rails - Upgrade")
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
 
