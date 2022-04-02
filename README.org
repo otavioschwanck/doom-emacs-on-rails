@@ -146,10 +146,29 @@ Resume:  Tab is ONLY for snippets and ENTER, C-n / C-p are only for autocomplete
 
 *** For other git server
 See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
+
 ** Improve emacs speed (a lot)
 Use Emacs Server: https://wikemacs.org/wiki/Emacs_server
+If you use emacsformac: https://emacsformacosx.com/tips
 
-Resume:  run =emacs --daemon= on system start.  To open an emacs window, use emacsclient -c instead emacs.
+I recommend to put those commands on your =.zshrc= or =.bashrc=
+
+Mine:
+
+#+begin_src sh
+# Open An file in Emacs (in new frame):
+alias ec='emacsclient -c "$@"'
+
+# Focus emacs:
+alias ef='emacsclient -a "" -t -e \(kill-buffer\)'
+
+# Kill daemon:
+alias ek='emacsclient  -e "(kill-emacs)"'
+
+# Start daemon (run it on startup too)
+alias es='emacs --daemon'
+#+end_src
+
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
