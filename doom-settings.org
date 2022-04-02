@@ -485,9 +485,6 @@ C-l to clear v-term
 (setq vterm-always-compile-module t)
 #+end_src
 
-#+RESULTS:
-: t
-
 *** Better Paste
 #+begin_src emacs-lisp
 (defun better-paste-after ()
