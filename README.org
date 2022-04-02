@@ -157,10 +157,10 @@ Mine:
 
 #+begin_src sh
 # Open An file in Emacs: Example: ec .zshrc or just ec to open.
-alias ec='emacsclient -c "$@"'
+alias ec='emacsclient -c"'
 
 # Open emacs on terminal (cool for quick edits)
-alias et='emacsclient -t "$@"'
+alias et='emacsclient -nw -c"'
 
 # Kill daemon:
 alias ek='emacsclient  -e "(kill-emacs)"'

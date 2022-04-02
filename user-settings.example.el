@@ -105,7 +105,8 @@
 
 
 ;; If you use macos with rbenv on homebrew, add it, uncomment it
-;; (setq rbenv-executable "/opt/homebrew/bin/rbenv")
+;; (setq rbenv-executable "/usr/local/opt/rbenv/bin/rbenv") ;; Rosetta (intel emulation)
+;; (setq rbenv-executable "/opt/homebrew/bin/rbenv") ;; Arm (normal installation)
 
 ;; Use different commands to rails server and console?
 ;; (setq projectile-rails-custom-server-command "your custom command")
