@@ -301,7 +301,7 @@ Loading plugins like rails routes, rails http status, etc.
 (defvar javascript-moviments "\{$\\|[\ ]*}$\|if .*")
 
 (setq moviment-sections
-  `((solidity-mode . "function \\|modifier \\|constructor \\|\}\\|if.*(\\|for.*(")
+  `((solidity-mode . "function \\|modifier \\|constructor\\|\}\\|if.*(\\|for.*(")
     (ruby-mode . "def\\|do$\\|do \|.*\|\\|end$\\|^ *if\\|^ *unless")
     (rjsx-mode . ,javascript-moviments)
     (js2-mode . ,javascript-moviments)
