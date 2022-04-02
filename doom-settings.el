@@ -17,7 +17,7 @@
   (interactive)
   (message "Upgrading... Please wait...")
   (package-refresh-contents)
-  (shell-command (concat "cd " doom-private-dir "; git pull; " doom-emacs-dir "bin/doom sync -u"))
+  (shell-command (concat "cd " doom-private-dir "; git pull -f; " doom-emacs-dir "bin/doom sync -u"))
   (recompile-doom-emacs)
   (message "Upgrade done!  Please restart your config"))
 
@@ -1914,3 +1914,5 @@ Version 2015-06-08"
 (let ((logo (concat doom-private-dir "logo.png")))
   (when (file-exists-p logo)
   (setq fancy-splash-image logo)))
+
+(add-hook 'server-switch-hook (lambda () (select-frame-set-input-focus (selected-frame))))

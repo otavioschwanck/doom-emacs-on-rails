@@ -156,11 +156,11 @@ I recommend to put those commands on your =.zshrc= or =.bashrc=
 Mine:
 
 #+begin_src sh
-# Open An file in Emacs (in new frame):
+# Open An file in Emacs: Example: ec .zshrc or just ec to open.
 alias ec='emacsclient -c "$@"'
 
-# Focus emacs:
-alias ef='emacsclient -a "" -t -e \(kill-buffer\)'
+# Open emacs on terminal (cool for quick edits)
+alias et='emacsclient -t "$@"'
 
 # Kill daemon:
 alias ek='emacsclient  -e "(kill-emacs)"'

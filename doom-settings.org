@@ -64,6 +64,7 @@
 - [[#load-userel][Load user.el]]
 - [[#kill-emacs-without-asking][Kill emacs without asking]]
 - [[#logo][Logo]]
+- [[#server][Server]]
 
 * Load External Plugins
 Loading plugins like rails routes, rails http status, etc.
@@ -2196,4 +2197,8 @@ Version 2015-06-08"
 (let ((logo (concat doom-private-dir "logo.png")))
   (when (file-exists-p logo)
   (setq fancy-splash-image logo)))
+#+end_src
+* Server
+#+begin_src emacs-lisp
+(add-hook 'server-switch-hook (lambda () (select-frame-set-input-focus (selected-frame))))
 #+end_src
