@@ -468,11 +468,9 @@ the key you put. (in this example, def)
 Harpoon is a plugin to create bookmarks per project / branch.  It is awesome to navigate
 between only the files that you are really working.
 
-| M-1 to M-9 | Navigate between harpoon files by order |
-| C-s        | Save current file on harpoon            |
-| C-SPC      | Select one file from harpoon            |
-| SPC j f    | Edit harpoon file                       |
-| SPC j c    | Clean harpoon file                      |
+| SPC 1 to SPC 9 | Navigate between files by order |
+| C-s            | Save current file on harpoon    |
+| C-SPC          | Select one file from harpoon    |
 
 * Epic Terminal Management
 This config has a lot of cool helpers to work with terminals.
@@ -495,6 +493,7 @@ Example:
 | SPC l              | While on visual mode, copy the selected text and send to the terminal |
 | SPC v              | Open quick terminal                                                   |
 | SPC o T            | Open a blank terminal                                                 |
+| SPC j j            | Execute last terminal command                                         |
 
 ** Terminal Template (layouts)
 This feature is awesome for projects that you need to open a lot of terminals to setup project, like rails server, console, sidekiq and something else.
@@ -506,8 +505,8 @@ Search for ~+add-layout-to-term-list~ in your [[file:user-settings.el][personal 
 (+add-layout-to-term-list '("Rails" . '("rails console" "rails server" "bundle exec sidekiq")))
 #+end_src
 
-| SPC T                          | Create terminals from layout                                            |
-| C-1 to C-9 (or SPC 1 to SPC 9) | Switch between workspaces, the template create a new workspace for you. |
+| SPC T      | Create terminals from layout                                            |
+| M-1 to M-9 | Switch between workspaces, the template create a new workspace for you. |
 
 ** Other Terminal stuff
 | C-c         | On normal mode, send C-c C-c and enter on insert mode |
