@@ -867,6 +867,7 @@ Use `treemacs' command for old functionality."
 
 (map! :i "S-<return>" 'call-real-ret)
 (map! :i "C-l" 'yas-expand)
+(map! :i "M-e" 'better-emmet-expand)
 
 (after! company
   (add-hook 'global-company-mode-hook #'company-tng-mode)
@@ -878,6 +879,7 @@ Use `treemacs' command for old functionality."
           (define-key keymap (kbd "RET") 'company-complete-if-selected)
           (define-key keymap (kbd "S-RET") 'call-real-ret)
           (define-key keymap (kbd "M-RET") 'call-real-ret)
+          (define-key keymap (kbd "M-e") 'better-emmet-expand)
           (define-key keymap (kbd "C-o") 'better-dabbrev-expand)
           (define-key keymap (kbd "C-l") 'yas-expand)
           (define-key keymap [tab] 'company-select-next)

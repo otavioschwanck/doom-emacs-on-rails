@@ -17,6 +17,7 @@
 (package! ruby-json-to-hash :pin "383b22bb2e007289ac0dba146787d02ff99d4415")
 (package! evil-tutor :pin "4e124cd3911dc0d1b6817ad2c9e59b4753638f28")
 (package! robe :disable t)
+(package! emmet-mode)
 
 (if (file-exists-p (expand-file-name "user-packages.el" doom-private-dir))
     (load (expand-file-name "user-packages.el" doom-private-dir))
