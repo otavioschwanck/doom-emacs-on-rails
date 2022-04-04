@@ -1,5 +1,6 @@
 * Index :toc:
 - [[#this-project-goal][This project goal]]
+- [[#disclaimer][Disclaimer]]
 - [[#features][Features]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
@@ -28,6 +29,12 @@ This project goal is bring emacs and its powerful features to people that don't 
 To access your personal settings, just press SPC f m.
 
 The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video demonstration with some cool commands below.
+
+* Disclaimer
+
+Im working now in a neovim configuration: https://github.com/otavioschwanck/mood-nvim
+
+This configuration works perfectly and is finished, if you prefer emacs, just use it!
 
 * Features
 + Made for Ruby on rails
