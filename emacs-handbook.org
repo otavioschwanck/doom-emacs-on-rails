@@ -122,21 +122,21 @@ You can keep pressing f or t to repeat the search
 f and t can be used to go backwards using uppercase
 
 ** On Current File
-| s           | Search by first character of a word         | Super Useful, use a lot.  Press s + first letter of a word.  Then, press the letter is showing on top of the word. |
-| S           | Same as s, but searchs using two characters |                                                                                                                    |
-| /           | Search Forward                              |                                                                                                                    |
-| ?           | Search Backward                             |                                                                                                                    |
-| n and N     | Repeat search forward / backwards           |                                                                                                                    |
-| SPC s s     | Advanced Search on current file             |                                                                                                                    |
-| SPC s i     | Search Symbols / Function on current file   |                                                                                                                    |
-| #           | Search word at cursor in current file       |                                                                                                                    |
-| gg          | First line of the file                      |                                                                                                                    |
-| G           | Go to end of file                           |                                                                                                                    |
-| ]g and [g   | Next / Previous git change                  |                                                                                                                    |
-| ]] and [[   | Next / Previous method definition           |                                                                                                                    |
-| ]) and [(   | Next / Previous parentheses                 |                                                                                                                    |
-| ]} and [{   | Next / Previous Brackets                    |                                                                                                                    |
-| C-j and C-k | Next / Previous stuff                       |                                                                                                                    |
+| s            | Search by first character of a word       | Super Useful, use a lot.  Press s + first letter of a word.  Then, press the letter is showing on top of the word. |
+| S            | Fuzzy finder current directory            |                                                                                                                    |
+| /            | Search Forward                            |                                                                                                                    |
+| ?            | Search Backward                           |                                                                                                                    |
+| n and N      | Repeat search forward / backwards         |                                                                                                                    |
+| SPC s s      | Advanced Search on current file           |                                                                                                                    |
+| SPC s i OR M | Search Symbols / Function on current file |                                                                                                                    |
+| #            | Search word at cursor in current file     |                                                                                                                    |
+| gg           | First line of the file                    |                                                                                                                    |
+| G            | Go to end of file                         |                                                                                                                    |
+| ]g and [g    | Next / Previous git change                |                                                                                                                    |
+| ]] and [[    | Next / Previous method definition         |                                                                                                                    |
+| ]) and [(    | Next / Previous parentheses               |                                                                                                                    |
+| ]} and [{    | Next / Previous Brackets                  |                                                                                                                    |
+| C-j and C-k  | Next / Previous stuff                     |                                                                                                                    |
 
 * Entering on Insert Mode
 ** On Current Line
@@ -303,14 +303,14 @@ To confirm, press C-c C-c, to cancel, press C-c C-k.
 | C-c s   | Add http code at point (humanized)    |
 
 * Snippets + Autocomplete (TOGETHER)
-| C-n   | Next item on autocomplete                              |
-| C-p   | Previous item on autocomplete                          |
-| RET   | Select item on autocomplete                            |
-| S-RET | Newline while autocomplete open (ignores autocomplete) |
-| TAB   | Start snippet / go forward on snippet                  |
-| S-TAB | Go back on snippet                                     |
-| C-d   | Delete highlighted text on snippet                     |
-| C-o   | Complete text from all buffers.                        |
+| TAB   | Next item on autocomplete             |
+| S_TAB | Previous item on autocomplete         |
+| RET   | Select item on autocomplete           |
+| S-RET | Close autocomplete and newline        |
+| C-l   | Start snippet / go forward on snippet |
+| C-S-l | Go back on snippet                    |
+| C-d   | Delete highlighted text on snippet    |
+| C-o   | Complete text from all buffers.       |
 
 About the C-o, it works everywhere, on search, on find-file, etc.
 

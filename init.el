@@ -68,8 +68,7 @@
        rest              ; Emacs as a REST client
        (ruby +rails +rbenv +lsp)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        sh                ; she sells {ba,z,fi}sh shells on the C xor
-       solidity          ; do you need a blockchain? No.
-       (web +lsp)  ; the tubes
+       solidity          ; do you need a blockchain? No. (web +lsp)  ; the tubes
        (yaml +lsp)              ; JSON, but readable
 
        :app

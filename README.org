@@ -11,8 +11,7 @@
   - [[#terminal-feature][Terminal Feature]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#my-configuration-features][My Configuration features]]
-- [[#autocomplete--snippets--3][Autocomplete + Snippets = <3]]
-  - [[#using-snippets-and-autocomplete-together-3][USING SNIPPETS AND AUTOCOMPLETE TOGETHER <3]]
+- [[#autocomplete--snippets][Autocomplete + Snippets]]
 - [[#tips][Tips]]
   - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
 - [[#getting-help][Getting help]]
@@ -112,21 +111,9 @@ Here is an example of some features that i made for Ruby:
 [[method at point.gif]]
 Please ignore the wrong comment at line 8 =D.
 
-* Autocomplete + Snippets = <3
+* Autocomplete + Snippets
 #+caption: Snippets with autocomplete
 [[autocomplete.gif]]
-
-** USING SNIPPETS AND AUTOCOMPLETE TOGETHER <3
-Resume:  Tab is ONLY for snippets and ENTER, C-n / C-p are only for autocomplete.
-
-- To toggle an snippet, press tab.
-- On Snippet, Tab also goes forward on snippet
-- To go backward on snippets, press Shift + Tab
-- To delete selected text on snippet, press C-d
-- To go forward on autocomplete list, press C-n OR C-j.
-- Use C-o to complete any text in editor (SUPER USEFUL)
-- To use enter ignoring the autocomplete (create a new line, send on rails console), press Alt + Enter.
-- To confirm the selection on autocomplete, press Enter
 
 * Tips
 ** Configuring Forge for Creating / Reviewing pull requests

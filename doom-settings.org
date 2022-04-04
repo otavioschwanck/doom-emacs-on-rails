@@ -23,6 +23,7 @@
 - [[#autocomplete-and-snippets][Autocomplete And Snippets]]
   - [[#functions][Functions]]
   - [[#autocomplete][Autocomplete]]
+  - [[#better-company-tng][Better company tng]]
   - [[#improve-autocomplete][Improve Autocomplete]]
   - [[#snippets][Snippets]]
 - [[#ruby][Ruby]]
@@ -303,8 +304,8 @@ Loading plugins like rails routes, rails http status, etc.
 #+begin_src emacs-lisp
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 (map! :nv "s" #'evil-avy-goto-word-1)
-(map! :n "S" #'consult-imenu)
-(map! :n "M" #'+default/search-buffer)
+(map! :n "S" #'+default/search-buffer)
+(map! :n "M" #'consult-imenu)
 
 #+end_src
 **** C-j and C-k for the Win
@@ -1048,26 +1049,28 @@ Use `treemacs' command for old functionality."
 (map! :ig "C-o" 'better-dabbrev-expand)
 
 (map! :i "S-<return>" 'call-real-ret)
-(map! :i "TAB" 'better-yas-expand)
+(map! :i "C-l" 'yas-expand)
+#+end_src
 
-(defun better-yas-expand ()
-  (interactive)
-  (if yas--active-snippets (select-and-yas-next) (if (yas--maybe-expand-key-filter t) (yas-expand) (call-interactively 'indent-for-tab-command))))
+** Better company tng
+#+begin_src emacs-lisp
+(after! company
+  (add-hook 'global-company-mode-hook #'company-tng-mode)
 
-(defun better-yas-expand-with-message ()
-  (interactive)
-  (if yas--active-snippets (select-and-yas-next) (when (yas--maybe-expand-key-filter t) (yas-expand))))
-
-(map! :after company
-      :map company-active-map
-      "TAB" 'better-yas-expand-with-message
-      "<tab>" #'better-yas-expand-with-message
-      "M-e" #'better-emmet-expand
-      "M-RET" #'call-real-ret
-      "S-TAB" 'company-complete-selection
-      "C-o" 'better-dabbrev-expand
-      "<C-return>" 'better-dabbrev-expand)
-
+  (setq company-tng-map
+        (let ((keymap (make-sparse-keymap)))
+          (set-keymap-parent keymap company-active-map)
+          (define-key keymap [return] 'company-complete-if-selected)
+          (define-key keymap (kbd "RET") 'company-complete-if-selected)
+          (define-key keymap (kbd "S-RET") 'call-real-ret)
+          (define-key keymap (kbd "M-RET") 'call-real-ret)
+          (define-key keymap (kbd "C-o") 'better-dabbrev-expand)
+          (define-key keymap (kbd "C-l") 'yas-expand)
+          (define-key keymap [tab] 'company-select-next)
+          (define-key keymap (kbd "TAB") 'company-select-next)
+          (define-key keymap [backtab] 'company-select-previous)
+          (define-key keymap (kbd "S-TAB") 'company-select-previous)
+          keymap)))
 #+end_src
 
 ** Improve Autocomplete
@@ -1084,13 +1087,13 @@ Use `treemacs' command for old functionality."
     (interactive)
     (if (eq company-selection nil)
         (yas-next-field)
-      (progn (company-abort) (yas-next-field))))
+      (progn (company-complete-if-selected) (yas-next-field))))
 
   (defun select-and-yas-previous ()
     (interactive)
     (if (eq company-selection nil)
         (yas-prev-field)
-      (progn (company-abort) (yas-prev-field))))
+      (progn (company-complete-if-selected) (yas-prev-field))))
 
   (defun better-emmet-expand ()
     (interactive)
@@ -1103,8 +1106,8 @@ Use `treemacs' command for old functionality."
     (yas-load-directory (concat doom-private-dir "user-snippets/")))
 
   (map! :map yas-keymap
-        "TAB" #'select-and-yas-next
-        "S-TAB" #'select-and-yas-previous
+        "C-l" #'select-and-yas-next
+        "C-S-l" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
         "M-e" #'better-emmet-expand))
 #+end_src

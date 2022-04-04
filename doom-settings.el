@@ -111,35 +111,15 @@
 (map! :desc "Harpoon 8" :leader "8" 'harpoon-go-to-8)
 (map! :desc "Harpoon 9" :leader "9" 'harpoon-go-to-9)
 
-(map! :desc "Harpoon 1" "M-1" 'harpoon-go-to-1)
-(map! :desc "Harpoon 2" "M-2" 'harpoon-go-to-2)
-(map! :desc "Harpoon 3" "M-3" 'harpoon-go-to-3)
-(map! :desc "Harpoon 4" "M-4" 'harpoon-go-to-4)
-(map! :desc "Harpoon 5" "M-5" 'harpoon-go-to-5)
-(map! :desc "Harpoon 6" "M-6" 'harpoon-go-to-6)
-(map! :desc "Harpoon 7" "M-7" 'harpoon-go-to-7)
-(map! :desc "Harpoon 8" "M-8" 'harpoon-go-to-8)
-(map! :desc "Harpoon 9" "M-9" 'harpoon-go-to-9)
-
-(map! :desc "Harpoon 1" "C-1" '+workspace/switch-to-0)
-(map! :desc "Harpoon 2" "C-2" '+workspace/switch-to-1)
-(map! :desc "Harpoon 3" "C-3" '+workspace/switch-to-2)
-(map! :desc "Harpoon 4" "C-4" '+workspace/switch-to-3)
-(map! :desc "Harpoon 5" "C-5" '+workspace/switch-to-4)
-(map! :desc "Harpoon 6" "C-6" '+workspace/switch-to-5)
-(map! :desc "Harpoon 7" "C-7" '+workspace/switch-to-6)
-(map! :desc "Harpoon 8" "C-8" '+workspace/switch-to-7)
-(map! :desc "Harpoon 9" "C-9" '+workspace/switch-to-8)
-
-(map! :desc "Workspace 1" :leader "0" '+workspace/switch-to-0)
-(map! :desc "Workspace 2" :leader "1" '+workspace/switch-to-1)
-(map! :desc "Workspace 3" :leader "2" '+workspace/switch-to-2)
-(map! :desc "Workspace 4" :leader "3" '+workspace/switch-to-3)
-(map! :desc "Workspace 5" :leader "4" '+workspace/switch-to-4)
-(map! :desc "Workspace 6" :leader "5" '+workspace/switch-to-5)
-(map! :desc "Workspace 7" :leader "6" '+workspace/switch-to-6)
-(map! :desc "Workspace 8" :leader "7" '+workspace/switch-to-7)
-(map! :desc "Workspace 9" :leader "8" '+workspace/switch-to-7)
+(map! :desc "Harpoon 1" :leader "1" 'harpoon-go-to-1)
+(map! :desc "Harpoon 2" :leader "2" 'harpoon-go-to-2)
+(map! :desc "Harpoon 3" :leader "3" 'harpoon-go-to-3)
+(map! :desc "Harpoon 4" :leader "4" 'harpoon-go-to-4)
+(map! :desc "Harpoon 5" :leader "5" 'harpoon-go-to-5)
+(map! :desc "Harpoon 6" :leader "6" 'harpoon-go-to-6)
+(map! :desc "Harpoon 7" :leader "7" 'harpoon-go-to-7)
+(map! :desc "Harpoon 8" :leader "8" 'harpoon-go-to-8)
+(map! :desc "Harpoon 9" :leader "9" 'harpoon-go-to-9)
 
 (add-hook! 'ruby-mode-hook (sp-local-pair 'ruby-mode "{" "}" :actions '(wrap insert autoskip navigate) :unless '(sp-point-before-word-p sp-point-before-same-p) :post-handlers '(("||
 [i]" "RET") ("| " "SPC"))))
@@ -199,8 +179,8 @@
 
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 (map! :nv "s" #'evil-avy-goto-word-1)
-(map! :n "S" #'consult-imenu)
-(map! :n "M" #'+default/search-buffer)
+(map! :n "S" #'+default/search-buffer)
+(map! :n "M" #'consult-imenu)
 
 (defvar javascript-moviments "\{$\\|[\ ]*}$\|if .*")
 
@@ -886,25 +866,25 @@ Use `treemacs' command for old functionality."
 (map! :ig "C-o" 'better-dabbrev-expand)
 
 (map! :i "S-<return>" 'call-real-ret)
-(map! :i "TAB" 'better-yas-expand)
+(map! :i "C-l" 'yas-expand)
 
-(defun better-yas-expand ()
-  (interactive)
-  (if yas--active-snippets (select-and-yas-next) (if (yas--maybe-expand-key-filter t) (yas-expand) (call-interactively 'indent-for-tab-command))))
+(after! company
+  (add-hook 'global-company-mode-hook #'company-tng-mode)
 
-(defun better-yas-expand-with-message ()
-  (interactive)
-  (if yas--active-snippets (select-and-yas-next) (when (yas--maybe-expand-key-filter t) (yas-expand))))
-
-(map! :after company
-      :map company-active-map
-      "TAB" 'better-yas-expand-with-message
-      "<tab>" #'better-yas-expand-with-message
-      "M-e" #'better-emmet-expand
-      "M-RET" #'call-real-ret
-      "S-TAB" 'company-complete-selection
-      "C-o" 'better-dabbrev-expand
-      "<C-return>" 'better-dabbrev-expand)
+  (setq company-tng-map
+        (let ((keymap (make-sparse-keymap)))
+          (set-keymap-parent keymap company-active-map)
+          (define-key keymap [return] 'company-complete-if-selected)
+          (define-key keymap (kbd "RET") 'company-complete-if-selected)
+          (define-key keymap (kbd "S-RET") 'call-real-ret)
+          (define-key keymap (kbd "M-RET") 'call-real-ret)
+          (define-key keymap (kbd "C-o") 'better-dabbrev-expand)
+          (define-key keymap (kbd "C-l") 'yas-expand)
+          (define-key keymap [tab] 'company-select-next)
+          (define-key keymap (kbd "TAB") 'company-select-next)
+          (define-key keymap [backtab] 'company-select-previous)
+          (define-key keymap (kbd "S-TAB") 'company-select-previous)
+          keymap)))
 
 (after! company
   (setq company-dabbrev-code-everywhere t)
@@ -915,13 +895,13 @@ Use `treemacs' command for old functionality."
     (interactive)
     (if (eq company-selection nil)
         (yas-next-field)
-      (progn (company-abort) (yas-next-field))))
+      (progn (company-complete-if-selected) (yas-next-field))))
 
   (defun select-and-yas-previous ()
     (interactive)
     (if (eq company-selection nil)
         (yas-prev-field)
-      (progn (company-abort) (yas-prev-field))))
+      (progn (company-complete-if-selected) (yas-prev-field))))
 
   (defun better-emmet-expand ()
     (interactive)
@@ -934,8 +914,8 @@ Use `treemacs' command for old functionality."
     (yas-load-directory (concat doom-private-dir "user-snippets/")))
 
   (map! :map yas-keymap
-        "TAB" #'select-and-yas-next
-        "S-TAB" #'select-and-yas-previous
+        "C-l" #'select-and-yas-next
+        "C-S-l" #'select-and-yas-previous
         "C-d" #'yas-skip-and-clear-field
         "M-e" #'better-emmet-expand))
 
