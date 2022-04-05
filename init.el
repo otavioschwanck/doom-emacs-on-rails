@@ -70,6 +70,7 @@
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        solidity          ; do you need a blockchain? No. (web +lsp)  ; the tubes
        (yaml +lsp)              ; JSON, but readable
+       (web +lsp)
 
        :app
        everywhere        ; *leave* Emacs!? You must be joking
