@@ -527,11 +527,9 @@ the key you put. (in this example, def)
 Harpoon is a plugin to create bookmarks per project / branch.  It is awesome to navigate
 between only the files that you are really working.
 
-|----------------+---------------------------------|
-| SPC 1 to SPC 9 | Navigate between files by order |
-| C-s            | Save current file on harpoon    |
-| C-SPC          | Select one file from harpoon    |
-|----------------+---------------------------------|
+|-------+------------------------------|
+| ;     | Toggle Harpoon               |
+|-------+------------------------------|
 
 * Epic Terminal Management
 This config has a lot of cool helpers to work with terminals.
