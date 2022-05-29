@@ -7,6 +7,10 @@
 ;; Set your theme
 (setq doom-theme 'doom-one)
 
+;; My recommendation is JetBrains Mono.  Use M-x reload-user-settings to see the font change.
+;; (setq doom-font (font-spec :family "JetBrains Mono" :size 13 :weight 'bold) ;; You can change to regular if you prefer
+;;       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 13))
+
 ;; How do you want to display lien numbers?
 (setq display-line-numbers-type t)
 
