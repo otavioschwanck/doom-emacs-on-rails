@@ -57,7 +57,7 @@
 ;; Add your custom searches (in rails folders)
 (after! projectile-rails
   (doom-emacs-on-rails-add-custom-projectile-finder "admin" "app/admin/"  "\\(.+\\)\\.rb$" "app/admin/${filename}.rb" "rt")
-  (doom-emacs-on-rails-add-custom-projectile-finder "admin" "app/contracts/"  "\\(.+\\)\\.rb$" "app/contracts/${filename}.rb" "rq"))
+  (doom-emacs-on-rails-add-custom-projectile-finder "contracts" "app/contracts/"  "\\(.+\\)\\.rb$" "app/contracts/${filename}.rb" "rq"))
 
 ;; fix your identation level for stuff?
 (setq js-indent-level 2)
