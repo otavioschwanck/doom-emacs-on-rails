@@ -10,7 +10,6 @@
 - [[#upgrading][Upgrading]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
 - [[#some-features][Some Features]]
-- [[#autocomplete--snippets][Autocomplete + Snippets]]
 - [[#getting-help][Getting help]]
 - [[#want-to-learn-how-to-use-advanced-commands-from-this-config-inside-emacs][Want to learn how to use advanced commands from this config inside emacs?]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
@@ -100,10 +99,6 @@ https://www.youtube.com/watch?v=5H1-Qc9uD5A
 
 #+caption: Method Creating at point
 [[method at point.gif]]
-
-* Autocomplete + Snippets
-#+caption: Snippets with autocomplete
-[[autocomplete.gif]]
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
