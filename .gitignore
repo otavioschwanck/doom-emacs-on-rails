@@ -17,3 +17,11 @@ user-snippets/*
 user-snippets/**/*
 !user-snippets/.keep
 logo.png
+
+user/init.el
+user/config.el
+user/packages.el
+
+user/snippets/*
+user/snippets/**/*
+!user/snippets/.keep

@@ -78,11 +78,11 @@
   (let ((route (completing-read "Select the status: " rails-http-statuses)))
     (insert (concat (when (eq val 1) ":") (nth val (split-string route " - "))))))
 
-(defun rails-http-statues-insert-code ()
+(defun rails-http-statuses-insert-code ()
   (interactive)
   (rails-http-status--insert-by 0))
 
-(defun rails-http-statues-insert-symbol ()
+(defun rails-http-statuses-insert-symbol ()
   (interactive)
   (rails-http-status--insert-by 1))
 

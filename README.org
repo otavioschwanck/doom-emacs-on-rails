@@ -1,20 +1,16 @@
 * Index :toc:
 - [[#this-project-goal][This project goal]]
-- [[#disclaimer][Disclaimer]]
+- [[#breaking-changes-only-for-who-installed-before-may-29---2022][Breaking Changes (Only for who installed before may 29 - 2022)]]
 - [[#features][Features]]
 - [[#prerequisites][Prerequisites]]
 - [[#installation][Installation]]
 - [[#after-install][After Install]]
+- [[#how-to-use-this-config--keybindings][How to Use this config + Keybindings]]
 - [[#customizing][Customizing]]
 - [[#upgrading][Upgrading]]
-- [[#how-to-use-this-config--keybindings][How to Use this config + Keybindings]]
-- [[#announcement][Announcement]]
-  - [[#terminal-feature][Terminal Feature]]
 - [[#video-showcase--guide][Video Showcase + Guide]]
-- [[#my-configuration-features][My Configuration features]]
+- [[#some-features][Some Features]]
 - [[#autocomplete--snippets][Autocomplete + Snippets]]
-- [[#tips][Tips]]
-  - [[#configuring-forge-for-creating--reviewing-pull-requests][Configuring Forge for Creating / Reviewing pull requests]]
 - [[#getting-help][Getting help]]
 - [[#want-to-learn-how-to-use-advanced-commands-from-this-config-inside-emacs][Want to learn how to use advanced commands from this config inside emacs?]]
 - [[#installing-emacs-on-ubuntu][Installing Emacs on Ubuntu]]
@@ -30,11 +26,10 @@ To access your personal settings, just press SPC f m.
 
 The user can print a manual accessing [[Emacs Handbook.pdf]], also has a video demonstration with some cool commands below.
 
-* Disclaimer
+* Breaking Changes (Only for who installed before may 29 - 2022)
+Some refactoring was done and the user settings files has changed.  Please use migrate your config to =user-settings.el= to =user/config.el= .
 
-Im working now in a neovim configuration: https://github.com/otavioschwanck/mood-nvim
-
-This configuration works perfectly and is finished, if you prefer emacs, just use it!
+The reason of this refact is to improve (a lot) the performance and stability.
 
 * Features
 + Made for Ruby on rails
@@ -79,6 +74,11 @@ gem install solargraph
 * After Install
 Open your personal configuration with =SPC f m= and read the file.  I really recommend to read all comments on file, this file contains a lot of tips for improve your workflow.
 
+* How to Use this config + Keybindings
+I've write an emacs handbook to use this config.  You can access the text version using ~SPC f h~ inside emacs.
+
+The text version is here: [[file:docs/handbook.org][emacs-handbook.org]]
+
 * Customizing
 ~SPC f m~ - Your personal settings
 ~SPC f i~ - Where you can add your own modules
@@ -89,56 +89,21 @@ See more on the handbook (~SPC f h~)
 * Upgrading
 To upgrade, just press M-x and search for =upgrade-doom-emacs-on-rails=
 
-* How to Use this config + Keybindings
-I've write an emacs handbook to use this config.  You can access the text version using ~SPC f h~ inside emacs.
-
-The text version is here: [[file:emacs-handbook.org][emacs-handbook.org]]
-The PDF is on this project root: [[Emacs Handbook.pdf]]
-
-This PDF is perfect to be printed if you like.
-* Announcement
-** Terminal Feature
-In ~2022-01-16~ i made a big change that requires to setup again the project.  I Created new terminal stuff to improve the workflow with this config.  Check the last page of the [[Emacs Handbook.pdf]] .  To upgrade, just run:
-
-#+begin_src shell
-cd ~/.doom.d; rm user-settings.el; git fetch; git reset --hard origin/master; ~/.emacs.d/bin/doom sync
-#+end_src
-
 * Video Showcase + Guide
 I made a video showcase with the principal commands (See description all the video highlights)
 
 https://www.youtube.com/watch?v=5H1-Qc9uD5A
 
-* My Configuration features
-Here is an example of some features that i made for Ruby:
+* Some Features
 #+caption: Refactoring
 [[refactoring in emacs.gif]]
 
 #+caption: Method Creating at point
 [[method at point.gif]]
-Please ignore the wrong comment at line 8 =D.
 
 * Autocomplete + Snippets
 #+caption: Snippets with autocomplete
 [[autocomplete.gif]]
-
-* Tips
-** Configuring Forge for Creating / Reviewing pull requests
-*** For github
-1 - Go to https://github.com/settings/tokens and create a personal token with =repo (all)=, =read:org= and =user=
-
-2 - Don't forget to configure your user in github with git config --global github.user youruser
-
-3 - Create a file called =~/.authinfo=
-
-4 - add =machine api.github.com login youruser^forge password yourtokenhere= and =machine api.github.com login otavioschwanck^github-review password yourtokenhere= to this file
-
-5 - M-x =epa-encrypt-file= and select =~/.authinfo= to encrypt with gpg.
-
-6 - delete the =~/.authinfo=
-
-*** For other git server
-See: https://practicalli.github.io/spacemacs/source-control/forge-configuration.html and https://magit.vc/manual/ghub/Getting-Started.html
 
 * Getting help
 For getting help, access doom official github page: https://github.com/hlissner/doom-emacs
