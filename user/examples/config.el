@@ -109,7 +109,8 @@
 ;;     (interactive)
 ;;     (if (string-match-p "app/contracts" (buffer-file-name)) (find-file (replace-regexp-in-string "contract" "service" (replace-regexp-in-string "_contracts" "_services" (buffer-file-name))))
 ;;       (find-file (replace-regexp-in-string "service" "contract" (replace-regexp-in-string "_services" "_contracts" (buffer-file-name))))))
-;;   (map! :leader "rQ" #'projectile-rails-find-contract)) ;; Uncomment to bind to SPC r q
+;;   (map! :leader "rQ" #'projectile-rails-find-contract) ;; Uncomment to bind to SPC r q
+;;   )
 
 
 ;; Want to use DOCKER?
