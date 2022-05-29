@@ -436,6 +436,7 @@ end
 ** On Magit Status
 |---------+-----------------------------------------|
 | SPC g g | Open Magit Status                       |
+| ;       | Create Pull Request                     |
 | f       | Fetch                                   |
 | F       | pull                                    |
 | P       | Push                                    |
