@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: context 'when something' do .. end
-# key: contw
+# key: descw
 # --
 describe '#${1:something}' do
   ${0:}
