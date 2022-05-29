@@ -1,5 +1,5 @@
 * Quick Tips
-- ~SPC s i~ = Quick Search Headers (also works on programming languages).  Use C-n and C-p to go forward / backward on the search buffer.
+- ~SPC s i~ or ~;~ = Quick Search Headers (also works on programming languages).  Use C-n and C-p to go forward / backward on the search buffer.
 - ~]h~ and ~[h~ = Navigation by header
 - ~tab~ = expand / fold headers
 
@@ -134,7 +134,7 @@ f and t can be used to go backwards using uppercase
 | ?            | Search Backward                           |                                                                                                                    |
 | n and N      | Repeat search forward / backwards         |                                                                                                                    |
 | SPC s s      | Advanced Search on current file           |                                                                                                                    |
-| SPC s i OR M | Search Symbols / Function on current file |                                                                                                                    |
+| SPC s i OR ; | Search Symbols / Function on current file |                                                                                                                    |
 | #            | Search word at cursor in current file     |                                                                                                                    |
 | gg           | First line of the file                    |                                                                                                                    |
 | G            | Go to end of file                         |                                                                                                                    |
@@ -436,7 +436,7 @@ end
 ** On Magit Status
 |---------+-----------------------------------------|
 | SPC g g | Open Magit Status                       |
-| ;       | Create Pull Request                     |
+| C-q     | Create Pull Request                     |
 | f       | Fetch                                   |
 | F       | pull                                    |
 | P       | Push                                    |

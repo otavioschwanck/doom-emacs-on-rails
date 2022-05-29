@@ -78,4 +78,4 @@
             (when (and .link (not body-param))
               (kill-new .link))
             (concat endless/pr-additional-params title-param body-param)))))))
-  (map! :map magit-status-mode-map ";" #'endless/visit-pull-request-url))
+  (map! :map magit-status-mode-map "C-q" #'endless/visit-pull-request-url))
