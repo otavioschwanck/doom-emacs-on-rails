@@ -129,3 +129,8 @@
 ;; (setq ruby-docker-disable-solargraph nil) ;; If you want to disable solargraph, change to t.  PS:  You can use solargraph by removing .ruby-version of your project and using from rbenv.
 ;; (use-ruby-docker)
 ;; End Docker
+
+
+;; Remove format on save for some modes
+;; (setq-hook! 'rjsx-mode +format-with-lsp nil)
+;; (setq-hook! 'typescript-tsx-mode +format-with-lsp nil)

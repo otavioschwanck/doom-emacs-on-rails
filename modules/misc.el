@@ -140,3 +140,10 @@ Version 2015-06-08"
 
 (when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.doom.d/user/examples/.pry-example ~/.pryrc"))
 (when (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.doom.d/user/examples/.irbrc-example ~/.irbrc"))
+
+(defun reload-user-settings ()
+  "Pull, Sync and upgrade el file"
+  (interactive)
+  (load (expand-file-name "user/config.el" doom-private-dir))
+  (doom/reload-font)
+  (doom/reload-theme))
