@@ -44,6 +44,10 @@
   (map! :after company
         :map company-active-map
         "M-e" #'better-emmet-expand
+        "TAB" #'company-select-next
+        "<tab>" #'company-select-next
+        "S-TAB" #'company-select-previous
+        "<backtab>" #'company-select-previous
         "M-RET" #'call-real-ret
         "C-j" 'yas-expand
         "C-p" 'better-dabbrev-expand
@@ -61,6 +65,11 @@
         "C-k" #'yas-prev-field
         "C-d" #'yas-skip-and-clear-field
         "M-e" #'better-emmet-expand))
+
+(after! company
+  (setq company-dabbrev-downcase nil)
+  (setq company-show-quick-access t)
+  (setq company-idle-delay 0))
 
 (after! yasnippet
     (add-to-list 'yas-snippet-dirs (concat doom-private-dir "user/snippets/"))
