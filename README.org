@@ -51,7 +51,14 @@ The reason of this refact is to improve (a lot) the performance and stability.
  - solargraph
  - rbenv
 
-* Installation
+* Automatic Installation
+We created a bash script to make your life easier and install Doom Emacs automatically.
+Just run the below command in the terminal on either mac or linux, choose what you want to install and have fun!
+
+```sh
+bash <(curl -Ls https://raw.githubusercontent.com/otavioschwanck/doom-emacs-on-rails/master/auto-installer.sh)
+```
+* Manual Instalation
 #+BEGIN_SRC shell
 # Install my config
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
