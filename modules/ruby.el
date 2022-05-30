@@ -262,9 +262,9 @@
   (defun inf-ruby-add-keybindings ()
     (if (cl-search "*rails" (buffer-name))
         (progn
-          (message "Ruby Console Tips: Press C-l to send exit, C-M-l to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
+          (message "Ruby Console Tips: Press C-d to send exit, C-M-l to reload, press A to move from normal to insert mode at end, Press C-M-o to disable SQL log."))
       (progn
-        (message "Debugging Tips: Press C-l to send continue, press A to move from normal to insert mode at end, C-f to next and C-M-f to step.")))
+        (message "Debugging Tips: Press C-d to send continue, press A to move from normal to insert mode at end, C-f to next and C-M-f to step.")))
 
     (evil-local-set-key 'normal (kbd "A") #'inf-ruby-goto-insert)
 
