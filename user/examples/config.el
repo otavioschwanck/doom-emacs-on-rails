@@ -139,3 +139,7 @@
 ;; Remove format on save for some modes
 ;; (setq-hook! 'rjsx-mode +format-with-lsp nil)
 ;; (setq-hook! 'typescript-tsx-mode +format-with-lsp nil)
+
+;; Change Javascript autoformat
+;; (setq-hook! 'rjsx-mode-hook +format-with 'prettier)
+;; (setq-hook! 'typescript-tsx-mode +format-with 'prettier)
