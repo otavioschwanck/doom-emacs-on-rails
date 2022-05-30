@@ -136,6 +136,10 @@
 (map! :map vterm-mode-map "M-h" #'evil-window-left)
 (map! :map vterm-mode-map "M-l" #'evil-window-right)
 
+(after! tide
+  (map! :map tide-mode-map :localleader "f" #'tide-fix)
+  (map! :map tide-mode-map :localleader "R" #'tide-rename-symbol)
+  (map! :map tide-mode-map :localleader "F" #'tide-rename-file))
 
 (after! evil-org
   (map! :map evil-org-mode-map :niv "M-k" #'evil-window-up)
