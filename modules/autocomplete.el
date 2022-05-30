@@ -31,7 +31,7 @@
   (when company-selection (company-abort))
   (funcall (key-binding (kbd "RET"))))
 
-(map! :ig "C-p" 'better-dabbrev-expand)
+(map! :ig "C-o" 'better-dabbrev-expand)
 
 (map! :i "S-<return>" 'call-real-ret)
 (map! :i "C-j" 'yas-expand)
@@ -50,7 +50,7 @@
         "<backtab>" #'company-select-previous
         "M-RET" #'call-real-ret
         "C-j" 'yas-expand
-        "C-p" 'better-dabbrev-expand
+        "C-o" 'better-dabbrev-expand
         "<C-return>" 'better-dabbrev-expand))
 
 (after! yasnippet

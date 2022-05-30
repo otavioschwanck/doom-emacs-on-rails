@@ -1,5 +1,5 @@
 * Quick Tips
-- ~SPC s i~ or ~;~ = Quick Search Headers (also works on programming languages).  Use C-n and C-p to go forward / backward on the search buffer.
+- ~SPC s i~ or ~;~ = Quick Search Headers (also works on programming languages).  Use C-j and C-k to go forward / backward on the search buffer.
 - ~]h~ and ~[h~ = Navigation by header
 - ~tab~ = expand / fold headers
 
@@ -349,10 +349,10 @@ To confirm, press C-c C-c, to cancel, press C-c C-k.
 | C-j   | Start snippet / go forward on snippet              |
 | C-k   | Go back on snippet                                 |
 | C-d   | Delete highlighted text on snippet                 |
-| C-p   | Complete text from all buffers (works everywhere). |
+| C-o   | Complete text from all buffers (works everywhere). |
 |-------+----------------------------------------------------|
 
-About the C-p, it works everywhere, on search, on find-file, etc.
+About the C-o, it works everywhere, on search, :%s/../../gr, on find-file, etc.
 
 * Emmet (Generate tags and methods)
 |-----+--------------|
