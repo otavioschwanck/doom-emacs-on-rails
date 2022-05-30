@@ -58,6 +58,10 @@
 ;; Buffer previous and next
 (map! :ni "C-h" #'previous-buffer)
 (map! :ni "C-l" #'next-buffer)
+;;
+;; Buffer previous and next
+(map! :ni "C-," #'previous-buffer)
+(map! :ni "C-;" #'next-buffer)
 
 ;; Drag Stuff
 (map! :v "K" #'drag-stuff-up)
