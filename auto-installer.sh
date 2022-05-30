@@ -45,7 +45,7 @@ install_packages_linux () {
 
 install_packages_mac () {
   echo "================= INSTALLING PACKAGES ================="
-  brew install ${BREW_PACKAGES[*]} -y
+  brew install ${BREW_PACKAGES[*]}
   brew link libpq --force
 }
 
