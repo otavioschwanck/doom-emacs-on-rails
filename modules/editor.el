@@ -130,6 +130,13 @@
 (map! :ni "M-h" #'evil-window-left)
 (map! :ni "M-l" #'evil-window-right)
 
+;; VTerm Window
+(map! :map vterm-mode-map "M-k" #'evil-window-up)
+(map! :map vterm-mode-map "M-j" #'evil-window-down)
+(map! :map vterm-mode-map "M-h" #'evil-window-left)
+(map! :map vterm-mode-map "M-l" #'evil-window-right)
+
+
 (after! evil-org
   (map! :map evil-org-mode-map :niv "M-k" #'evil-window-up)
   (map! :map evil-org-mode-map :niv "M-j" #'evil-window-down)

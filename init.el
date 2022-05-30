@@ -43,7 +43,7 @@
        :emacs
        dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
-       undo              ; persistent, smarter undo for your inevitable mistakes
+       (undo + tree)              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -64,7 +64,7 @@
 
        :lang
        emacs-lisp        ; drown in parentheses
-       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
        markdown          ; writing docs for people to ignore
        org               ; organize your plain life in plain text
        sh                ; she sells {ba,z,fi}sh shells on the C xor
