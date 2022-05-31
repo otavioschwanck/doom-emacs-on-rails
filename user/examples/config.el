@@ -6,7 +6,7 @@
 
 ;; If you use macos with rbenv on homebrew, add it, uncomment it
 ;; (setq rbenv-executable "/usr/local/opt/rbenv/bin/rbenv") ;; Rosetta (intel emulation)
-(setq rbenv-executable "/opt/homebrew/bin/rbenv") ;; Arm (normal brew)
+;; (setq rbenv-executable "/opt/homebrew/bin/rbenv") ;; Arm (normal brew)
 
 ;; Set your theme
 (setq doom-theme 'doom-one)
