@@ -79,8 +79,6 @@
 (map! :nv "s" #'evil-avy-goto-word-1)
 (map! :n "S" #'+default/search-buffer)
 
-(map! :n ";" #'consult-imenu)
-
 ;; Better paste after
 (defun better-paste-after ()
   (interactive)
