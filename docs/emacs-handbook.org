@@ -1,5 +1,5 @@
 * Quick Tips
-- ~SPC s i~ or ~;~ = Quick Search Headers (also works on programming languages).  Use C-j and C-k to go forward / backward on the search buffer.
+- ~SPC s i~ = Quick Search Headers (also works on programming languages).  Use C-j and C-k to go forward / backward on the search buffer.
 - ~]h~ and ~[h~ = Navigation by header
 - ~tab~ = expand / fold headers
 
@@ -134,7 +134,7 @@ f and t can be used to go backwards using uppercase
 | ?            | Search Backward                           |                                                                                                                    |
 | n and N      | Repeat search forward / backwards         |                                                                                                                    |
 | SPC s s      | Advanced Search on current file           |                                                                                                                    |
-| SPC s i OR ; | Search Symbols / Function on current file |                                                                                                                    |
+| SPC s i | Search Symbols / Function on current file |                                                                                                                    |
 | #            | Search word at cursor in current file     |                                                                                                                    |
 | gg           | First line of the file                    |                                                                                                                    |
 | G            | Go to end of file                         |                                                                                                                    |
@@ -324,7 +324,7 @@ To confirm, press C-c C-c, to cancel, press C-c C-k.
 
 ** Window Moviment
 |-----------------+----------------------------|
-| M-o             | Go to next window          |
+| M-o or ;        | Go to next window          |
 | M-h M-j M-k M-l | Navigate in hjkl direction |
 |-----------------+----------------------------|
 
