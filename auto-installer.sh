@@ -119,7 +119,7 @@ install_emacs_doom () {
   echo "================= INSTALLING DOOM ================="
   git clone --quiet --depth 1 $DOOM_GIT ~/.emacs.d
   git clone --quiet $DOTFILES_GIT ~/.doom.d
-  ~/.emacs.d/bin/doom sync
+  ~/.emacs.d/bin/doom install
 }
 
 linux_workflow () {
