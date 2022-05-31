@@ -7,7 +7,7 @@
 Learn the basics of vim keybindings using [[elisp:(evil-tutor-start)][evil-tutor]]. (Click on evil-tutor to open on emacs)
 
 * Mr Miyagi
-To do some exercises, visit [[elisp:(mr-miyagi)][mr-miyagi]]
+To do some exercises, visit [[elisp:(open-mr-miyagi)][mr-miyagi]]
 
 * Customizing your emacs
 To add some elisp code of your own, visit [[file:~/.doom.d/user/config.el][config.el]] (SPC f m).  It is the same as config.el for normal doom.

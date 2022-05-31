@@ -660,3 +660,101 @@
           (read-string (concat "name for " argument " expression:  "))))))
 
   (map! :mode ruby-mode :localleader :desc "New method from text at point" "n" #'ruby-new-method-from-symbol-at-point))
+
+(after! ruby-mode
+  (require 'ruby-refactor)
+  (add-hook! 'ruby-mode-hook 'ruby-refactor-mode-launch))
+
+(after! ruby-refactor
+  (map! :mode ruby-mode :localleader :desc "Extract Local Variable" "v" 'ruby-refactor-extract-local-variable)
+  (map! :mode ruby-mode :localleader "V" :desc "Extract Constant" 'ruby-refactor-extract-constant)
+
+  (defun ruby-refactor-extract-local-variable ()
+    "Extracts selected text to local variable"
+    (interactive)
+    (save-restriction
+      (save-match-data
+        (widen)
+        (let* ((text-begin (region-beginning))
+               (text-end (region-end))
+               (text (ruby-refactor-trim-newline-endings (buffer-substring-no-properties text-begin text-end)))
+               (variable-name (read-from-minibuffer "Variable name? ")))
+          (delete-region text-begin text-end)
+          (insert variable-name)
+          (beginning-of-line)
+          (open-line 1)
+          (ruby-indent-line)
+          (insert variable-name " = " text "\n")
+          (search-forward variable-name)
+          (backward-sexp)))))
+
+  (defun ruby-refactor-extract-constant ()
+    "Extracts selected text to a constant at the top of the current class or module"
+    (interactive)
+    (save-restriction
+      (save-match-data
+        (widen)
+        (let* ((text-begin (region-beginning))
+               (text-end (region-end))
+               (text (ruby-refactor-trim-newline-endings (buffer-substring-no-properties text-begin text-end)))
+               (constant-name (read-from-minibuffer "Constant name? ")))
+          (delete-region text-begin text-end)
+          (insert constant-name)
+          (forward-line -1)
+          (beginning-of-line)
+          (evil-forward-word-begin)
+          (let ((class-at-root (looking-at "class")) (first-character (substring text 0 1)))
+            (ruby-refactor-goto-constant-insertion-point)
+            (beginning-of-line)
+            (if class-at-root
+                (progn
+                  (open-line 2)
+                  (forward-line 1)))
+            (ruby-indent-line)
+            (if (or (string= "(" first-character)
+                    (string= "[" first-character)
+                    (string= "{" first-character)
+                    (string= "\"" first-character)
+                    (string= ":" first-character)
+                    (string-match "^[a-zA-Z0-9_]+[_]*[a-zA-Z\w_]*$" text)
+                    (string= "'" first-character))
+                (insert constant-name " = " text ".freeze" "\n")
+              (if (or (string-match "\\.\\." text)
+                      (string-match "\\.\\.\\." text)
+                      (string-match "\\+" text)
+                      (string-match "\\-" text)
+                      (not (string-match "^[a-zA-Z0-9_]+[_]*[a-zA-Z\w_]*$" text))
+                      (string-match "\\*" text)
+                      (string-match "\\*\\*" text))
+                  (insert constant-name " = (" text ")" ".freeze" "\n") (insert constant-name " = " text ".freeze" "\n"))
+              )
+
+            (evil-indent-line (point-at-bol) (point-at-eol))
+            (forward-line 1)
+            (search-forward constant-name)
+            (backward-sexp)))))))
+
+(after! ruby-mode
+  (defun ruby-add-parameter--with-existing-parameters (args)
+    (interactive)
+    (forward-char -1)
+    (insert ", " args))
+
+  (defun ruby-add-parameter--without-existing-parameters (args)
+    (interactive)
+    (call-interactively 'end-of-line)
+    (insert "(" args ")"))
+
+  (defun ruby-add-parameter ()
+    (interactive)
+    (let (
+          (args (read-string "Please enter the parameters that you want to add (separated by commma): "))
+          )
+      (when (not (string= args ""))
+        (save-excursion
+          (+evil/previous-beginning-of-method 1)
+          (if (search-forward ")" (point-at-eol) t)
+              (ruby-add-parameter--with-existing-parameters args)
+            (ruby-add-parameter--without-existing-parameters args))))))
+
+  (map! :mode ruby-mode :localleader :desc "Add parameter to def" "a" #'ruby-add-parameter))
