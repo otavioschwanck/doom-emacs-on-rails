@@ -65,6 +65,7 @@
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :lang
+       (python +lsp +pyright +pyenv) ; beautiful is better than ugly
        (ruby +rails +lsp +rbenv)     ; Change from rbenv to something else if you use another thing
        ;;agda              ; types of types of types of types...
        ;;beancount         ; mind the GAAP
@@ -105,7 +106,6 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ;;python            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
