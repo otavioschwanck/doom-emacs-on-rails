@@ -135,3 +135,8 @@
 ;; (use-ruby-docker)
 ;;
 ;; End Docker
+
+;; Change Javascript autoformat (Format with SPC c f)
+(setq-hook! 'rjsx-mode-hook +format-with 'prettier)
+(setq-hook! 'typescript-tsx-mode +format-with 'prettier)
+(setq-hook! 'typescript-mode +format-with 'prettier)
