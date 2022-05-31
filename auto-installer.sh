@@ -1,6 +1,6 @@
 #!/bin/bash
 APT_PACKAGES=(fd-find ripgrep libtool-bin cmake tidy)
-BREW_PACKAGES=(fd ripgrep readline openssl zlib postgresql sqlite ruby-build rbenv libffi)
+BREW_PACKAGES=(fd ripgrep readline openssl zlib postgresql sqlite ruby-build rbenv libffi libgccjit gcc)
 NPM_PACKAGES=(vscode-css-languageserver-bin vscode-html-languageserver-bin typescript-language-server @tailwindcss/language-server@0.0.4 stylelint js-beautify import-js)
 GEMS=(solargraph bundler)
 DOOM_GIT=(https://github.com/hlissner/doom-emacs)
