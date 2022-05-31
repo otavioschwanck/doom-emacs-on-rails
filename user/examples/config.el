@@ -140,7 +140,7 @@
 ;;
 ;; End Docker
 
-;; Change Javascript autoformat (Format with SPC c f)
+;; Change Javascript autoformat
 (setq-hook! 'rjsx-mode-hook +format-with 'prettier)
-(setq-hook! 'typescript-tsx-mode +format-with 'prettier)
-(setq-hook! 'typescript-mode +format-with 'prettier)
+(setq-hook! 'typescript-tsx-mode-hook +format-with 'prettier)
+(setq-hook! 'typescript-mode-hook +format-with 'prettier)
