@@ -3,7 +3,8 @@
 - [[#breaking-changes-only-for-who-installed-before-may-29---2022][Breaking Changes (Only for who installed before may 29 - 2022)]]
 - [[#features][Features]]
 - [[#prerequisites][Prerequisites]]
-- [[#installation][Installation]]
+- [[#automatic-installation][Automatic Installation]]
+- [[#manual-instalation][Manual Instalation]]
 - [[#after-install][After Install]]
 - [[#how-to-use-this-config--keybindings][How to Use this config + Keybindings]]
 - [[#customizing][Customizing]]
@@ -55,8 +56,9 @@ The reason of this refact is to improve (a lot) the performance and stability.
 We created a bash script to make your life easier and install Doom Emacs automatically.
 Just run the below command in the terminal on either mac or linux, choose what you want to install and have fun!
 
-```sh
+#+begin_src sh
 bash <(curl -Ls https://raw.githubusercontent.com/otavioschwanck/doom-emacs-on-rails/master/auto-installer.sh)
+#+end_src
 ```
 * Manual Instalation
 #+BEGIN_SRC shell
