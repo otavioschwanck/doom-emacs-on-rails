@@ -148,7 +148,7 @@
   (map! :map evil-org-mode-map :niv "C-M-j" #'org-metadown))
 
 (map! "M-o" #'evil-window-next)
-(map! ";" #'evil-window-next)
+(map! :n ";" #'evil-window-next)
 
 (setq evil-split-window-below t evil-vsplit-window-right t)
 
