@@ -18,6 +18,14 @@
 - [[#what-i-need-to-know-to-start-using-][What i need to know to start using ?]]
 - [[#buy-me-a-coffee][Buy me a coffee]]
 
+# Disclaimer
+
+I'm being work on a neovim configuration, you can check here: https://github.com/otavioschwanck/mood-nvim
+
+This neovim configuration is based on Doom Emacs On Rails.
+
+If you still want to use this emacs configuration, feel free, it's working perfectly.
+
 * This project goal
 
 This project goal is bring emacs and its powerful features to people that don't want to lose time searching and configuring stuff.  The doom-emacs-on-rails config is ready to use and easy to customize.  The user can change the user-settings.el the way he wants, receiving a lot of tips.  Doom Emacs + this dotfiles is the fusion of power and simplicity.
