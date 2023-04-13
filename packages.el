@@ -11,8 +11,8 @@
 
 (package! string-inflection :pin "fd7926ac17293e9124b31f706a4e8f38f6a9b855")
 
-(if (file-exists-p (expand-file-name "user/packages.el" doom-private-dir))
-    (load (expand-file-name "user/packages.el" doom-private-dir))
+(if (file-exists-p (expand-file-name "user/packages.el" doom-user-dir))
+    (load (expand-file-name "user/packages.el" doom-user-dir))
   (progn
     (shell-command "cp ~/.doom.d/user/examples/packages.el ~/.doom.d/user/packages.el")
-    (load (expand-file-name "user/packages.el" doom-private-dir))))
+    (load (expand-file-name "user/packages.el" doom-user-dir))))
