@@ -72,7 +72,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/otavioschwanck/doom-emacs-on-r
 #+BEGIN_SRC shell
 # Install my config
 git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
-git clone https://github.com/otavioschwanck/doom_emacs_dotfiles.git ~/.doom.d
+git clone https://github.com/0tt049/doom-emacs-on-rails ~/.doom.d
 ~/.emacs.d/bin/doom install
 
 # if you use Ubuntu
