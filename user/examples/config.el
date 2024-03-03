@@ -30,6 +30,7 @@
 ;; You can send any text to any terminal by selecting and pressing SPC l
 ;; You can quickly execute a define command with SPC j + the keybinding you defined.
 
+(require 'which-key) ;; Needed for which-key to work
 (after! which-key
   ;;                         | Name              | command                      | Keybinding |
   (+add-command-to-term-list '("Docker Compose" . "docker-compose up") "u") ;; SPC j u

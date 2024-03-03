@@ -76,8 +76,8 @@
        :config
        (default +bindings +smartparens))
 
-(if (file-exists-p (expand-file-name "user/init.el" doom-private-dir))
-    (load (expand-file-name "user/init.el" doom-private-dir))
+(if (file-exists-p (expand-file-name "user/init.el" doom-user-dir))
+    (load (expand-file-name "user/init.el" doom-user-dir))
   (progn
     (shell-command "cp ~/.doom.d/user/examples/init.el ~/.doom.d/user/init.el")
-    (load (expand-file-name "user/init.el" doom-private-dir))))
+    (load (expand-file-name "user/init.el" doom-user-dir))))
