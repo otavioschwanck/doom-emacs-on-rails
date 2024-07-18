@@ -14,5 +14,5 @@
 (if (file-exists-p (expand-file-name "user/packages.el" doom-user-dir))
     (load (expand-file-name "user/packages.el" doom-user-dir))
   (progn
-    (shell-command "cp ~/.doom.d/user/examples/packages.el ~/.doom.d/user/packages.el")
+    (shell-command "cp ~/.config/doom/user/examples/packages.el ~/.config/doom/user/packages.el")
     (load (expand-file-name "user/packages.el" doom-user-dir))))

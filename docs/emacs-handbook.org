@@ -10,13 +10,13 @@ Learn the basics of vim keybindings using [[elisp:(evil-tutor-start)][evil-tutor
 To do some exercises, visit [[elisp:(open-mr-miyagi)][mr-miyagi]]
 
 * Customizing your emacs
-To add some elisp code of your own, visit [[file:~/.doom.d/user/config.el][config.el]] (SPC f m).  It is the same as config.el for normal doom.
-[[file:~/.doom.d/user/config.el][config.el]] has a lot of cool stuff and examples of stuff like disabling rubocop, adding commands to [[Single Commands][terminal]] (SPC o t), etc.
+To add some elisp code of your own, visit [[file:~/.config/doom/user/config.el][config.el]] (SPC f m).  It is the same as config.el for normal doom.
+[[file:~/.config/doom/user/config.el][config.el]] has a lot of cool stuff and examples of stuff like disabling rubocop, adding commands to [[Single Commands][terminal]] (SPC o t), etc.
 
 To add some module (like another programming language),
-visit [[file:~/.doom.d/init.el][init.el]] (SPC f i) and uncomment the module that you want (and then, run doom sync or M-x [[elisp:(upgrade-doom-emacs-on-rails)][upgrade-doom-emacs-on-rails]])
+visit [[file:~/.config/doom/init.el][init.el]] (SPC f i) and uncomment the module that you want (and then, run doom sync or M-x [[elisp:(upgrade-doom-emacs-on-rails)][upgrade-doom-emacs-on-rails]])
 
-To add some external package, visit [[file:~/.doom.d/packages.el][packages.el]] (SPC f I)
+To add some external package, visit [[file:~/.config/doom/packages.el][packages.el]] (SPC f I)
 
 * Index :TOC:
 - [[#quick-tips][Quick Tips]]
