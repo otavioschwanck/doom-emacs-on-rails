@@ -138,8 +138,8 @@ Version 2015-06-08"
 (map! :leader :desc "Visit User Init" "fi" 'visit-user-init)
 (map! :leader :desc "Visit User Packages" "fI" 'visit-user-packages)
 
-(when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.doom.d/user/examples/.pry-example ~/.pryrc"))
-(when (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.doom.d/user/examples/.irbrc-example ~/.irbrc"))
+(when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.config/doom/user/examples/.pry-example ~/.pryrc"))
+(when (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.config/doom/user/examples/.irbrc-example ~/.irbrc"))
 
 (defun open-mr-miyagi ()
   (interactive)

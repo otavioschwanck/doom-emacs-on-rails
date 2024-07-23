@@ -10,8 +10,8 @@
 (load (expand-file-name "modules/org.el" doom-user-dir))
 (load (expand-file-name "modules/autocomplete.el" doom-user-dir))
 
-(if (not (file-exists-p "~/.doom.d/user/config.el"))
+(if (not (file-exists-p "~/.config/doom/user/config.el"))
     (progn
-      (shell-command "cp ~/.doom.d/user/examples/config.el ~/.doom.d/user/config.el")
+      (shell-command "cp ~/.config/doom/user/examples/config.el ~/.config/doom/user/config.el")
       (load (expand-file-name "user/config.el" doom-user-dir)))
   (load (expand-file-name "user/config.el" doom-user-dir)))
